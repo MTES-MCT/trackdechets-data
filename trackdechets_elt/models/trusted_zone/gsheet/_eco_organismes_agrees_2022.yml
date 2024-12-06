@@ -1,0 +1,31 @@
+version: 2
+models:
+  - name: eco_organismes_agrees_2022
+    columns:
+      - name: siret
+        description: 'Code SIRET de l''établissement.
+
+          '
+        data_type: text
+      - name: raison_sociale
+        description: ''
+        data_type: text
+      - name: nom_eco_organisme
+        description: ''
+        data_type: text
+      - name: filiere_dsrep
+        description: ''
+        data_type: text
+      - name: produits_relevant_filiere_responsabilite_elargie
+        description: ''
+        data_type: text
+      - name: adresse
+        description: ''
+        data_type: text
+      - name: code_postal
+        description: ''
+        data_type: text
+      - name: ville
+        description: ''
+        data_type: text
+sources: []

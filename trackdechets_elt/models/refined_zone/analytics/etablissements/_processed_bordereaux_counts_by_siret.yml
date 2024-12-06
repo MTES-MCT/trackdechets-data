@@ -1,0 +1,100 @@
+version: 2
+models:
+  - name: processed_bordereaux_counts_by_siret
+    columns:
+      - name: siret
+        description: 'Code région'
+        data_type: text
+      - name: num_bsdd_as_emitter
+        description: ''
+        data_type: bigint
+      - name: num_bsda_as_emitter
+        description: ''
+        data_type: bigint
+      - name: num_bsff_as_emitter
+        description: ''
+        data_type: bigint
+      - name: num_bsdasri_as_emitter
+        description: ''
+        data_type: bigint
+      - name: num_bsvhu_as_emitter
+        description: ''
+        data_type: bigint
+      - name: quantity_bsdd_as_emitter
+        description: ''
+        data_type: numeric
+      - name: quantity_bsda_as_emitter
+        description: ''
+        data_type: numeric
+      - name: quantity_bsff_as_emitter
+        description: ''
+        data_type: numeric
+      - name: quantity_bsdasri_as_emitter
+        description: ''
+        data_type: numeric
+      - name: quantity_bsvhu_as_emitter
+        description: ''
+        data_type: numeric
+      - name: num_bsdd_as_transporter
+        description: ''
+        data_type: bigint
+      - name: num_bsda_as_transporter
+        description: ''
+        data_type: bigint
+      - name: num_bsff_as_transporter
+        description: ''
+        data_type: bigint
+      - name: num_bsdasri_as_transporter
+        description: ''
+        data_type: bigint
+      - name: num_bsvhu_as_transporter
+        description: ''
+        data_type: bigint
+      - name: quantity_bsdd_as_transporter
+        description: ''
+        data_type: numeric
+      - name: quantity_bsda_as_transporter
+        description: ''
+        data_type: numeric
+      - name: quantity_bsff_as_transporter
+        description: ''
+        data_type: numeric
+      - name: quantity_bsdasri_as_transporter
+        description: ''
+        data_type: numeric
+      - name: quantity_bsvhu_as_transporter
+        description: ''
+        data_type: numeric
+      - name: num_bsdd_as_destination
+        description: ''
+        data_type: bigint
+      - name: num_bsda_as_destination
+        description: ''
+        data_type: bigint
+      - name: num_bsff_as_destination
+        description: ''
+        data_type: bigint
+      - name: num_bsdasri_as_destination
+        description: ''
+        data_type: bigint
+      - name: num_bsvhu_as_destination
+        description: ''
+        data_type: bigint
+      - name: quantity_bsdd_as_destination
+        description: ''
+        data_type: numeric
+      - name: quantity_bsda_as_destination
+        description: ''
+        data_type: numeric
+      - name: quantity_bsff_as_destination
+        description: ''
+        data_type: numeric
+      - name: quantity_bsdasri_as_destination
+        description: ''
+        data_type: numeric
+      - name: quantity_bsvhu_as_destination
+        description: ''
+        data_type: numeric
+      - name: total_mentions_bordereaux
+        description: ''
+        data_type: bigint

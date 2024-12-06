@@ -1,0 +1,43 @@
+version: 2
+models:
+  - name: etablissement
+    columns:
+      - name: id
+        description: ''
+        data_type: bigint
+      - name: numero_identification
+        description: ''
+        data_type: character varying
+      - name: raison_sociale
+        description: ''
+        data_type: text
+      - name: created_date
+        description: ''
+        data_type: timestamp with time zone
+      - name: last_modified_date
+        description: ''
+        data_type: timestamp with time zone
+      - name: type_code
+        description: ''
+        data_type: character varying
+      - name: timezone_code
+        description: ''
+        data_type: text
+      - name: public_id
+        description: ''
+        data_type: uuid
+      - name: created_by_id
+        description: ''
+        data_type: bigint
+      - name: last_modified_by_id
+        description: ''
+        data_type: bigint
+      - name: disabled_date
+        description: ''
+        data_type: timestamp with time zone
+      - name: disabled_reason_code
+        description: ''
+        data_type: character varying
+      - name: etablissement_validateur_id
+        description: ''
+        data_type: bigint

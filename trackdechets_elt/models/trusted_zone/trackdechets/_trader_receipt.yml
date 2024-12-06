@@ -1,0 +1,23 @@
+version: 2
+models:
+  - name: trader_receipt
+    columns:
+      - name: id
+        description: "Clé primaire"
+        data_type: text
+      - name: receipt_number
+        description: ""
+        tests:
+          - elementary.column_anomalies
+        data_type: text
+      - name: validity_limit
+        description: ""
+        tests:
+          - elementary.column_anomalies
+        data_type: timestamp with time zone
+      - name: department
+        description: ""
+        tests:
+          - elementary.column_anomalies
+        data_type: text
+sources: []

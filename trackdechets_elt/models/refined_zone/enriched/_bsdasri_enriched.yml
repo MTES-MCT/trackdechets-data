@@ -1,0 +1,302 @@
+version: 2
+models:
+  - name: bsdasri_enriched
+    columns:
+      - name: id
+        description: 'Clé primaire'
+        data_type: text
+      - name: status
+        description: ''
+        data_type: text
+      - name: created_at
+        description: ''
+        data_type: timestamp without time zone
+      - name: updated_at
+        description: ''
+        data_type: timestamp without time zone
+      - name: is_deleted
+        description: ''
+        data_type: boolean
+      - name: is_draft
+        description: ''
+        data_type: boolean
+      - name: emitter_company_name
+        description: ''
+        data_type: text
+      - name: emitter_company_siret
+        description: ''
+        data_type: text
+      - name: emitter_company_address
+        description: ''
+        data_type: text
+      - name: emitter_company_contact
+        description: ''
+        data_type: text
+      - name: emitter_company_phone
+        description: ''
+        data_type: text
+      - name: emitter_company_mail
+        description: ''
+        data_type: text
+      - name: emitter_pickup_site_name
+        description: ''
+        data_type: text
+      - name: emitter_pickup_site_address
+        description: ''
+        data_type: text
+      - name: emitter_pickup_site_city
+        description: ''
+        data_type: text
+      - name: emitter_pickup_site_postal_code
+        description: ''
+        data_type: text
+      - name: emitter_pickup_site_infos
+        description: ''
+        data_type: text
+      - name: waste_code
+        description: ''
+        data_type: text
+      - name: waste_adr
+        description: ''
+        data_type: text
+      - name: emitter_waste_weight_value
+        description: ''
+        data_type: numeric
+      - name: emitter_waste_volume
+        description: ''
+        data_type: numeric
+      - name: emitter_waste_packagings
+        description: ''
+        data_type: ARRAY
+      - name: emitter_custom_info
+        description: ''
+        data_type: text
+      - name: emitter_emission_signature_author
+        description: ''
+        data_type: text
+      - name: emitter_emission_signature_date
+        description: ''
+        data_type: timestamp without time zone
+      - name: is_emission_direct_taken_over
+        description: ''
+        data_type: boolean
+      - name: is_emission_taken_over_with_secret_code
+        description: ''
+        data_type: boolean
+      - name: transporter_company_name
+        description: ''
+        data_type: text
+      - name: transporter_company_siret
+        description: ''
+        data_type: text
+      - name: transporter_company_address
+        description: ''
+        data_type: text
+      - name: transporter_company_phone
+        description: ''
+        data_type: text
+      - name: transporter_company_contact
+        description: ''
+        data_type: text
+      - name: transporter_company_mail
+        description: ''
+        data_type: text
+      - name: transporter_recepisse_number
+        description: ''
+        data_type: text
+      - name: transporter_recepisse_department
+        description: ''
+        data_type: text
+      - name: transporter_recepisse_validity_limit
+        description: ''
+        data_type: text
+      - name: transporter_acceptation_status
+        description: ''
+        data_type: text
+      - name: transporter_waste_refusal_reason
+        description: ''
+        data_type: text
+      - name: transporter_waste_refused_weight_value
+        description: ''
+        data_type: numeric
+      - name: transporter_taken_over_at
+        description: ''
+        data_type: timestamp without time zone
+      - name: transporter_waste_packagings
+        description: ''
+        data_type: ARRAY
+      - name: transporter_waste_weight_value
+        description: ''
+        data_type: numeric
+      - name: transporter_waste_volume
+        description: ''
+        data_type: numeric
+      - name: transporter_custom_info
+        description: ''
+        data_type: text
+      - name: handed_over_to_recipient_at
+        description: ''
+        data_type: timestamp without time zone
+      - name: transporter_transport_signature_author
+        description: ''
+        data_type: text
+      - name: transporter_transport_signature_date
+        description: ''
+        data_type: timestamp without time zone
+      - name: destination_company_name
+        description: ''
+        data_type: text
+      - name: destination_company_siret
+        description: ''
+        data_type: text
+      - name: destination_company_address
+        description: ''
+        data_type: text
+      - name: destination_company_contact
+        description: ''
+        data_type: text
+      - name: destination_company_phone
+        description: ''
+        data_type: text
+      - name: destination_company_mail
+        description: ''
+        data_type: text
+      - name: destination_waste_packagings
+        description: ''
+        data_type: ARRAY
+      - name: destination_reception_acceptation_status
+        description: ''
+        data_type: text
+      - name: destination_reception_waste_refusal_reason
+        description: ''
+        data_type: text
+      - name: destination_reception_waste_refused_weight_value
+        description: ''
+        data_type: numeric
+      - name: destination_reception_waste_weight_value
+        description: ''
+        data_type: numeric
+      - name: destination_reception_waste_volume
+        description: ''
+        data_type: numeric
+      - name: destination_custom_info
+        description: ''
+        data_type: text
+      - name: destination_reception_date
+        description: ''
+        data_type: timestamp without time zone
+      - name: destination_operation_code
+        description: ''
+        data_type: text
+      - name: destination_operation_date
+        description: ''
+        data_type: timestamp without time zone
+      - name: destination_reception_signature_author
+        description: ''
+        data_type: text
+      - name: destination_reception_signature_date
+        description: ''
+        data_type: timestamp without time zone
+      - name: destination_operation_signature_date
+        description: ''
+        data_type: timestamp without time zone
+      - name: destination_operation_signature_author
+        description: ''
+        data_type: text
+      - name: emission_signatory_id
+        description: ''
+        data_type: text
+      - name: transport_signatory_id
+        description: ''
+        data_type: text
+      - name: reception_signatory_id
+        description: ''
+        data_type: text
+      - name: operation_signatory_id
+        description: ''
+        data_type: text
+      - name: grouped_in_id
+        description: ''
+        data_type: text
+      - name: transporter_transport_mode
+        description: ''
+        data_type: text
+      - name: type
+        description: ''
+        data_type: text
+      - name: emitter_waste_weight_is_estimate
+        description: ''
+        data_type: boolean
+      - name: transporter_waste_weight_is_estimate
+        description: ''
+        data_type: boolean
+      - name: eco_organisme_name
+        description: ''
+        data_type: text
+      - name: eco_organisme_siret
+        description: ''
+        data_type: text
+      - name: transporter_transport_plates
+        description: ''
+        data_type: ARRAY
+      - name: identification_numbers
+        description: ''
+        data_type: ARRAY
+      - name: transporter_company_vat_number
+        description: ''
+        data_type: text
+      - name: synthesized_in_id
+        description: ''
+        data_type: text
+      - name: emitted_by_eco_organisme
+        description: ''
+        data_type: boolean
+      - name: synthesis_emitter_sirets
+        description: ''
+        data_type: ARRAY
+      - name: transporter_recepisse_is_exempted
+        description: ''
+        data_type: boolean
+      - name: grouping_emitter_sirets
+        description: ''
+        data_type: ARRAY
+      - name: destination_operation_mode
+        description: ''
+        data_type: text
+      - name: emitter_commune
+        description: ''
+        data_type: character varying
+      - name: emitter_departement
+        description: ''
+        data_type: character varying
+      - name: emitter_region
+        description: ''
+        data_type: integer
+      - name: emitter_latitude
+        description: ''
+        data_type: double precision
+      - name: emitter_longitude
+        description: ''
+        data_type: double precision
+      - name: emitter_naf
+        description: ''
+        data_type: character varying
+      - name: destination_commune
+        description: ''
+        data_type: character varying
+      - name: destination_departement
+        description: ''
+        data_type: character varying
+      - name: destination_region
+        description: ''
+        data_type: integer
+      - name: destination_latitude
+        description: ''
+        data_type: double precision
+      - name: destination_longitude
+        description: ''
+        data_type: double precision
+      - name: destination_naf
+        description: ''
+        data_type: character varying
+sources: []

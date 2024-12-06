@@ -1,0 +1,34 @@
+version: 2
+models:
+  - name: dnd_sortant_transporteur
+    columns:
+      - name: dnd_sortant_id
+        description: ''
+        data_type: bigint
+      - name: dnd_sortant_created_year_utc
+        description: ''
+        data_type: character varying
+      - name: transporteur_type
+        description: ''
+        data_type: character varying
+      - name: transporteur_numero_identification
+        description: ''
+        data_type: character varying
+      - name: transporteur_raison_sociale
+        description: ''
+        data_type: character varying
+      - name: transporteur_numero_recepisse
+        description: ''
+        data_type: character varying
+      - name: transporteur_adresse_libelle
+        description: ''
+        data_type: character varying
+      - name: transporteur_adresse_commune
+        description: ''
+        data_type: character varying
+      - name: transporteur_adresse_code_postal
+        description: ''
+        data_type: character varying
+      - name: transporteur_adresse_pays
+        description: ''
+        data_type: character varying

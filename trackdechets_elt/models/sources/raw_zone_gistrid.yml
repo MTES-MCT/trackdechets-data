@@ -1,0 +1,235 @@
+version: 2
+models: []
+sources:
+  - name: raw_zone_gistrid
+    description: Données extraites de de GISTRID, relative au PNTTTD.
+    loader: custom
+    tables:
+      - name: notifications
+        description: >
+          Données sur les notifications. Une notification peut apparaitre plusieurs fois.
+        columns:
+          - name: numéro de notification
+            description: ''
+            data_type: text
+          - name: type de dossier
+            description: ''
+            data_type: text
+          - name: état du dossier
+            description: ''
+            data_type: text
+          - name: département du dossier
+            description: ''
+            data_type: text
+          - name: nom du notifiant
+            description: ''
+            data_type: text
+          - name: numéro GISTRID du notifiant
+            description: ''
+            data_type: text
+          - name: commune du notifiant
+            description: ''
+            data_type: text
+          - name: pays du notifiant
+            description: ''
+            data_type: text
+          - name: nom du producteur
+            description: ''
+            data_type: text
+          - name: commune du producteur
+            description: ''
+            data_type: text
+          - name: pays du producteur
+            description: ''
+            data_type: text
+          - name: numéro SIRET de l'installation de traitement
+            description: ''
+            data_type: text
+          - name: nom de l'installation de traitement
+            description: ''
+            data_type: text
+          - name: numéro GISTRID de l'installation de traitement
+            description: ''
+            data_type: text
+          - name: commune de l'installation de traitement
+            description: ''
+            data_type: text
+          - name: pays de l'installation de traitement
+            description: ''
+            data_type: text
+          - name: date du consentement français
+            description: ''
+            data_type: text
+          - name: date autorisée du début des transferts
+            description: ''
+            data_type: text
+          - name: date autorisée de la fin des transferts
+            description: ''
+            data_type: text
+          - name: code D/R
+            description: ''
+            data_type: text
+          - name: code CB
+            description: ''
+            data_type: text
+          - name: code CED
+            description: ''
+            data_type: text
+          - name: code OCDE
+            description: ''
+            data_type: text
+          - name: code Y
+            description: ''
+            data_type: text
+          - name: code H
+            description: ''
+            data_type: text
+          - name: Caractéristiques physiques
+            description: ''
+            data_type: text
+          - name: quantité autorisée
+            description: ''
+            data_type: text
+          - name: unité
+            description: ''
+            data_type: text
+          - name: Nombre total de transferts autorisés
+            description: ''
+            data_type: text
+          - name: somme des quantités reçues
+            description: ''
+            data_type: text
+          - name: Nombre des transferts réceptionnés
+            description: ''
+            data_type: text
+          - name: annee
+            description: ''
+            data_type: bigint
+          - name: pays de transit
+            description: ''
+            data_type: text
+          - name: inserted_at
+            description: ''
+            data_type: timestamp without time zone
+      - name: installations
+        description: >
+          Données sur les installations GISTRID.
+        columns:
+          - name: Type d'opérateur
+            description: ''
+            data_type: text
+          - name: Numéro GISTRID
+            description: ''
+            data_type: text
+          - name: Nom de la société
+            description: ''
+            data_type: text
+          - name: N° d'enregistrement
+            description: ''
+            data_type: text
+          - name: Adresse
+            description: ''
+            data_type: text
+          - name: Pays
+            description: ''
+            data_type: text
+          - name: Code postal
+            description: ''
+            data_type: text
+          - name: Commune
+            description: ''
+            data_type: text
+          - name: Ville d'implantation de l'établissement
+            description: ''
+            data_type: text
+          - name: Pays de l'établissement
+            description: ''
+            data_type: text
+          - name: Installation de valorisation bénéficiant du consentement pré
+            description: ''
+            data_type: text
+          - name: Statut de l'opérateur
+            description: ''
+            data_type: text
+          - name: Date du statut
+            description: ''
+            data_type: text
+          - name: Département de l'établissement
+            description: ''
+            data_type: text
+          - name: SIRET
+            description: ''
+            data_type: text
+          - name: S3IC
+            description: ''
+            data_type: text
+          - name: Raison de refus
+            description: ''
+            data_type: text
+          - name: Nombre de notifications réservées
+            description: ''
+            data_type: text
+          - name: Indicateur d'activité
+            description: ''
+            data_type: text
+      - name: notifiants
+        description: >
+          Données sur les notifiants GISTRID.
+        columns:
+          - name: Type d'opérateur
+            description: ''
+            data_type: text
+          - name: Numéro GISTRID
+            description: ''
+            data_type: text
+          - name: Nom de la société
+            description: ''
+            data_type: text
+          - name: N° d'enregistrement
+            description: ''
+            data_type: text
+          - name: Adresse
+            description: ''
+            data_type: text
+          - name: Pays
+            description: ''
+            data_type: text
+          - name: Code postal
+            description: ''
+            data_type: text
+          - name: Commune
+            description: ''
+            data_type: text
+          - name: Ville d'implantation de l'établissement
+            description: ''
+            data_type: text
+          - name: Pays de l'établissement
+            description: ''
+            data_type: text
+          - name: Installation de valorisation bénéficiant du consentement pré
+            description: ''
+            data_type: text
+          - name: Statut de l'opérateur
+            description: ''
+            data_type: text
+          - name: Date du statut
+            description: ''
+            data_type: text
+          - name: Département de l'établissement
+            description: ''
+            data_type: text
+          - name: SIRET
+            description: ''
+            data_type: text
+          - name: S3IC
+            description: ''
+            data_type: text
+          - name: Raison de refus
+            description: ''
+            data_type: text
+          - name: Nombre de notifications réservées
+            description: ''
+            data_type: text
+          - name: Indicateur d'activité
+            description: ''
+            data_type: text

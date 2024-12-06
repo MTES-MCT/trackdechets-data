@@ -1,0 +1,49 @@
+version: 2
+models:
+  - name: icpe_list
+    columns:
+      - name: code_commune_insee
+        description: 'Code commune correspondant à celui dans la base géographique des communes de l''INSEE.'
+        data_type: character varying
+      - name: latitude
+        description: ''
+        data_type: double precision
+      - name: longitude
+        description: ''
+        data_type: double precision
+      - name: siret
+        description: 'Code région'
+        data_type: character varying
+      - name: codes_aiot
+        description: ''
+        data_type: ARRAY
+      - name: rubriques_json
+        description: ''
+        data_type: jsonb
+      - name: raison_sociale
+        description: ''
+        data_type: text
+      - name: adresse1
+        description: ''
+        data_type: text
+      - name: adresse2
+        description: ''
+        data_type: text
+      - name: code_postal
+        description: 'Code postal de la commune'
+        data_type: text
+      - name: commune
+        description: ''
+        data_type: text
+      - name: stats_2760
+        description: ''
+        data_type: jsonb
+      - name: quantite_autorisee_2760
+        description: ''
+        data_type: double precision
+      - name: stats_2770
+        description: ''
+        data_type: jsonb
+      - name: quantite_autorisee_2770
+        description: ''
+        data_type: double precision

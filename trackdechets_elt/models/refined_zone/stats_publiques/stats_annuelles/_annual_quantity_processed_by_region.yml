@@ -1,0 +1,22 @@
+version: 2
+models:
+  - name: annual_quantity_processed_by_region
+    columns:
+      - name: annee
+        description: ''
+        data_type: double precision
+      - name: code_region_insee
+        description: ''
+        data_type: integer
+      - name: type_bordereau
+        description: ''
+        data_type: text
+      - name: code_operation
+        description: ''
+        data_type: text
+      - name: type_operation
+        description: ''
+        data_type: text
+      - name: quantite_traitee
+        description: ''
+        data_type: numeric

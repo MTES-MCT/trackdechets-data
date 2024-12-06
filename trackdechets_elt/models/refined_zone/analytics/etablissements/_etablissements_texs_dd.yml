@@ -1,0 +1,25 @@
+version: 2
+models:
+  - name: etablissements_texs_dd
+    columns:
+      - name: siret
+        description: 'Code région'
+        data_type: text
+      - name: num_texs_dd_as_emitter
+        description: ''
+        data_type: bigint
+      - name: quantity_texs_dd_as_emitter
+        description: ''
+        data_type: numeric
+      - name: num_texs_dd_as_transporter
+        description: ''
+        data_type: bigint
+      - name: quantity_texs_dd_as_transporter
+        description: ''
+        data_type: numeric
+      - name: num_texs_dd_as_destination
+        description: ''
+        data_type: bigint
+      - name: quantity_texs_dd_as_destination
+        description: ''
+        data_type: numeric

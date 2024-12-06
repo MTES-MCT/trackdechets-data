@@ -1,0 +1,155 @@
+version: 2
+models:
+  - name: companies_admins
+    columns:
+      - name: association_id
+        description: ''
+        data_type: text
+      - name: user_role
+        description: ''
+        data_type: text
+      - name: user_id
+        description: ''
+        data_type: text
+      - name: user_email
+        description: ''
+        data_type: text
+      - name: user_name
+        description: ''
+        data_type: text
+      - name: user_phone
+        description: ''
+        data_type: text
+      - name: user_created_at
+        description: ''
+        data_type: timestamp without time zone
+      - name: user_updated_at
+        description: ''
+        data_type: timestamp without time zone
+      - name: user_is_active
+        description: ''
+        data_type: boolean
+      - name: user_activated_at
+        description: ''
+        data_type: timestamp without time zone
+      - name: user_first_association_date
+        description: ''
+        data_type: timestamp without time zone
+      - name: user_is_admin
+        description: ''
+        data_type: boolean
+      - name: user_is_registre_national
+        description: ''
+        data_type: boolean
+      - name: company_id
+        description: ''
+        data_type: text
+      - name: company_siret
+        description: ''
+        data_type: text
+      - name: company_created_at
+        description: ''
+        data_type: timestamp without time zone
+      - name: company_updated_at
+        description: ''
+        data_type: timestamp without time zone
+      - name: company_name
+        description: ''
+        data_type: text
+      - name: company_code_naf
+        description: ''
+        data_type: text
+      - name: company_given_name
+        description: ''
+        data_type: text
+      - name: company_contact_email
+        description: ''
+        data_type: text
+      - name: company_contact_phone
+        description: ''
+        data_type: text
+      - name: company_website
+        description: ''
+        data_type: text
+      - name: company_company_types
+        description: ''
+        data_type: ARRAY
+      - name: company_address
+        description: ''
+        data_type: text
+      - name: company_latitude
+        description: ''
+        data_type: numeric
+      - name: company_longitude
+        description: ''
+        data_type: numeric
+      - name: company_broker_receipt_id
+        description: ''
+        data_type: text
+      - name: company_verification_code
+        description: ''
+        data_type: text
+      - name: company_verification_status
+        description: ''
+        data_type: text
+      - name: company_verification_mode
+        description: ''
+        data_type: text
+      - name: company_verification_comment
+        description: ''
+        data_type: text
+      - name: company_verified_at
+        description: ''
+        data_type: timestamp without time zone
+      - name: company_allow_bsdasri_take_over_without_signature
+        description: ''
+        data_type: boolean
+      - name: company_vat_number
+        description: ''
+        data_type: text
+      - name: company_code_departement
+        description: ''
+        data_type: text
+      - name: company_code_section
+        description: ''
+        data_type: character varying
+      - name: company_libelle_section
+        description: ''
+        data_type: character varying
+      - name: company_code_division
+        description: ''
+        data_type: character varying
+      - name: company_libelle_division
+        description: ''
+        data_type: character varying
+      - name: company_code_groupe
+        description: ''
+        data_type: character varying
+      - name: company_libelle_groupe
+        description: ''
+        data_type: character varying
+      - name: company_code_classe
+        description: ''
+        data_type: character varying
+      - name: company_libelle_classe
+        description: ''
+        data_type: character varying
+      - name: company_code_sous_classe
+        description: ''
+        data_type: character varying
+      - name: company_libelle_sous_classe
+        description: ''
+        data_type: character varying
+      - name: company_etat_administratif_etablissement
+        description: ''
+        data_type: character varying
+      - name: company_code_commune_insee
+        description: ''
+        data_type: character varying
+      - name: company_code_departement_insee
+        description: ''
+        data_type: text
+      - name: company_code_region_insee
+        description: ''
+        data_type: integer
+sources: []

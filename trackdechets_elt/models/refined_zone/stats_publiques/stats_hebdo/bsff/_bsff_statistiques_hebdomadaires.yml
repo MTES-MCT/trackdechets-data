@@ -1,0 +1,79 @@
+version: 2
+models:
+  - name: bsff_statistiques_hebdomadaires
+    tests:
+      - elementary.all_columns_anomalies:
+          exclude_prefix: semaine
+          timestamp_column: semaine
+          training_period:
+            period: week
+            count: 12
+          time_bucket:
+            period: week
+            count: 1
+          detection_period:
+            period: week
+            count: 1
+          tags: ["elementary"]
+    columns:
+      - name: semaine
+        description: ""
+        data_type: timestamp without time zone
+      - name: creations_bordereaux
+        description: ""
+        data_type: bigint
+      - name: creations_contenants
+        description: ""
+        data_type: bigint
+      - name: quantite_tracee
+        description: ""
+        data_type: numeric
+      - name: emissions_bordereaux
+        description: ""
+        data_type: bigint
+      - name: emissions_contenants
+        description: ""
+        data_type: bigint
+      - name: quantite_emise
+        description: ""
+        data_type: numeric
+      - name: envois_bordereaux
+        description: ""
+        data_type: bigint
+      - name: envois_contenants
+        description: ""
+        data_type: bigint
+      - name: quantite_envoyee
+        description: ""
+        data_type: numeric
+      - name: receptions_bordereaux
+        description: ""
+        data_type: bigint
+      - name: receptions_contenants
+        description: ""
+        data_type: bigint
+      - name: quantite_recue
+        description: ""
+        data_type: numeric
+      - name: traitements_bordereaux
+        data_type: bigint
+        description: ""
+      - name: traitements_contenants
+        description: ""
+        data_type: bigint
+      - name: quantite_traitee
+        description: ""
+        data_type: numeric
+      - name: traitements_contenants_operations_non_finales
+        description: ""
+        data_type: bigint
+      - name: quantite_traitee_operations_non_finales
+        description: ""
+        data_type: numeric
+      - name: traitements_contenants_operations_finales
+        description: ""
+        data_type: bigint
+      - name: quantite_traitee_operations_finales
+        description: ""
+        data_type: numeric
+sources: []

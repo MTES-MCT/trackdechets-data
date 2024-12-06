@@ -1,0 +1,19 @@
+version: 2
+models:
+  - name: weekly_waste_processed_stats_departementales
+    columns:
+      - name: departement
+        description: ''
+        data_type: character varying
+      - name: code_operation
+        description: ''
+        data_type: text
+      - name: semaine
+        description: ''
+        data_type: timestamp with time zone
+      - name: type_operation
+        description: ''
+        data_type: text
+      - name: quantite_traitee
+        description: ''
+        data_type: numeric

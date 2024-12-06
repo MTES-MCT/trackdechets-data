@@ -1,0 +1,120 @@
+version: 2
+models:
+  - name: company
+    config:
+      elementary:
+        timestamp_column: created_at
+        seasonality: day_of_week
+    tests:
+      - elementary.volume_anomalies
+      - elementary.dimension_anomalies:
+          dimensions:
+            - code_naf
+            - code_departement
+    columns:
+      - name: id
+        description: "Clé primaire"
+        data_type: text
+      - name: siret
+        description: ""
+        data_type: text
+      - name: updated_at
+        description: ""
+        data_type: timestamp without time zone
+      - name: created_at
+        description: ""
+        data_type: timestamp without time zone
+      - name: security_code
+        description: ""
+        data_type: bigint
+      - name: name
+        description: ""
+        data_type: text
+      - name: gerep_id
+        description: ""
+        data_type: text
+      - name: code_naf
+        description: ""
+        data_type: text
+      - name: given_name
+        description: ""
+        data_type: text
+      - name: contact_email
+        description: ""
+        data_type: text
+      - name: contact_phone
+        description: ""
+        data_type: text
+      - name: website
+        description: ""
+        data_type: text
+      - name: transporter_receipt_id
+        description: ""
+        data_type: text
+      - name: trader_receipt_id
+        description: ""
+        data_type: text
+      - name: eco_organisme_agreements
+        description: ""
+        data_type: ARRAY
+      - name: company_types
+        description: ""
+        data_type: ARRAY
+      - name: address
+        description: ""
+        data_type: text
+      - name: latitude
+        description: ""
+        data_type: numeric
+      - name: longitude
+        description: ""
+        data_type: numeric
+      - name: broker_receipt_id
+        description: ""
+        data_type: text
+      - name: verification_code
+        description: ""
+        data_type: text
+      - name: verification_status
+        description: ""
+        data_type: text
+      - name: verification_mode
+        description: ""
+        data_type: text
+      - name: verification_comment
+        description: ""
+        data_type: text
+      - name: verified_at
+        description: ""
+        data_type: timestamp without time zone
+      - name: vhu_agrement_demolisseur_id
+        description: ""
+        data_type: text
+      - name: vhu_agrement_broyeur_id
+        description: ""
+        data_type: text
+      - name: allow_bsdasri_take_over_without_signature
+        description: ""
+        data_type: boolean
+      - name: vat_number
+        description: ""
+        data_type: text
+      - name: contact
+        description: ""
+        data_type: text
+      - name: code_departement
+        description: ""
+        data_type: text
+      - name: worker_certification_id
+        description: ""
+        data_type: text
+      - name: org_id
+        description: ''
+        data_type: text
+      - name: collector_types
+        description: ''
+        data_type: ARRAY
+      - name: waste_processor_types
+        description: ''
+        data_type: ARRAY
+sources: []

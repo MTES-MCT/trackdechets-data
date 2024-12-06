@@ -1,0 +1,400 @@
+version: 2
+models: []
+sources:
+  - name: raw_zone_gsheet
+    description: Tables qui proviennent de Google Sheet.
+    tables:
+      - name: collectivites_compentence_dechets
+        description: >
+          Une ligne par collectivite a competence dechet.
+        columns:
+          - name: dep_epci
+            description: "Code département INSEE"
+          - name: siren_epci
+            description: >
+              Code SIREN de la collectivite.
+            tests:
+              - not_null
+              - unique
+          - name: nom_complet
+            description: "Nom de la collcectivité"
+          - name: nj_epci2023
+            description: "Nature juridique de l'EPCI"
+          - name: fisc_epci2023
+            description: "Fiscalité de l'EPCI "
+          - name: nb_com_2023
+            description: "Nombre de commune de l'EPCI"
+          - name: ptot_epci_2023
+            description: "Population totale de l'EPCI"
+          - name: pmun_epci_2023
+            description: "Population municipale de l'EPCI"
+      - name: collectivites
+        identifier: coordonnees-epci-fp-2022-last
+        description: >
+          Une ligne par collectivite.
+        columns:
+          - name: Région siège
+            description: ''
+            data_type: character varying
+          - name: Département siège
+            description: ''
+            data_type: character varying
+          - name: Arrondissement siège
+            description: ''
+            data_type: character varying
+          - name: Commune siège
+            description: ''
+            data_type: character varying
+          - name: SIREN
+            quote: true
+            description: >
+              Code SIREN de la collectivite.
+            tests:
+              - not_null
+              - unique
+            data_type: character varying
+          - name: Nom du groupement
+            description: ''
+            data_type: character varying
+          - name: Nature juridique
+            description: ''
+            data_type: character varying
+          - name: Syndicat à la carte
+            description: ''
+            data_type: integer
+          - name: Groupement interdépartemental
+            description: ''
+            data_type: integer
+          - name: Date de création
+            description: ''
+            data_type: character varying
+          - name: Date d'effet
+            description: ''
+            data_type: character varying
+          - name: Mode de répartition des sièges
+            description: ''
+            data_type: character varying
+          - name: Autre mode de répartition des sièges
+            description: ''
+            data_type: character varying
+          - name: Nombre de membres
+            description: ''
+            data_type: integer
+          - name: population
+            description: ''
+            data_type: integer
+          - name: Nombre de compétences exercées
+            description: ''
+            data_type: integer
+          - name: Mode de financement
+            description: ''
+            data_type: character varying
+          - name: DGF Bonifiée
+            description: ''
+            data_type: integer
+          - name: dsc
+            description: ''
+            data_type: integer
+          - name: reom
+            description: ''
+            data_type: integer
+          - name: Autre redevance
+            description: ''
+            data_type: character varying
+          - name: teom
+            description: ''
+            data_type: integer
+          - name: Autre taxe
+            description: ''
+            data_type: character varying
+          - name: Civilité Président
+            description: ''
+            data_type: character varying
+          - name: Prénom Président
+            description: ''
+            data_type: character varying
+          - name: Nom Président
+            description: ''
+            data_type: character varying
+          - name: Adresse du siège_1
+            description: ''
+            data_type: character varying
+          - name: Adresse du siège_2
+            description: ''
+            data_type: character varying
+          - name: Adresse du siège_3
+            description: ''
+            data_type: character varying
+          - name: Code postal du siège - Ville du siège
+            description: ''
+            data_type: character varying
+          - name: Téléphone du siège
+            description: ''
+            data_type: character varying
+          - name: Fax du siège
+            description: ''
+            data_type: character varying
+          - name: Courriel du siège
+            description: ''
+            data_type: character varying
+          - name: Site internet
+            description: ''
+            data_type: character varying
+          - name: Adresse annexe_1
+            description: ''
+            data_type: character varying
+          - name: Adresse annexe_2
+            description: ''
+            data_type: character varying
+          - name: Adresse annexe_3
+            description: ''
+            data_type: character varying
+          - name: Code postal annexe - Ville annexe
+            description: ''
+            data_type: character varying
+          - name: Téléphone annexe
+            description: ''
+            data_type: character varying
+          - name: Fax annexe
+            description: ''
+            data_type: character varying
+      - name: gerep_traiteurs
+        identifier: gerep_2016_2017_traiteurs
+        description: >
+          Une ligne par annee, code dechet et etablissement traiteur.
+        columns:
+          - name: annee
+            description: ''
+            data_type: character varying
+          - name: code_etablissement
+            description: ''
+            data_type: character varying
+          - name: nom_etablissement
+            description: ''
+            data_type: character varying
+          - name: adresse_site_exploitation
+            description: ''
+            data_type: character varying
+          - name: code_postal_etablissement
+            description: ''
+            data_type: character varying
+          - name: commune
+            description: ''
+            data_type: character varying
+          - name: code_insee
+            description: ''
+            data_type: character varying
+          - name: numero_siret
+            description: ''
+            data_type: character varying
+          - name: code_ape
+            description: ''
+            data_type: character varying
+          - name: nom_contact
+            description: ''
+            data_type: character varying
+          - name: tel_contact
+            description: ''
+            data_type: character varying
+          - name: fonction_contact
+            description: ''
+            data_type: character varying
+          - name: mail_contact
+            description: ''
+            data_type: character varying
+          - name: code_dechet_traite
+            description: ''
+            data_type: character varying
+          - name: dechet_traite
+            description: ''
+            data_type: character varying
+      - name: gerep_producteurs
+        identifier: gerep_2016_2017_producteurs
+        description: >
+          Une ligne par annee, code dechet et etablissement producteurs.
+
+        columns:
+          - name: annee
+            description: ''
+            data_type: character varying
+          - name: code_etablissement
+            description: ''
+            data_type: character varying
+          - name: nom_etablissement
+            description: ''
+            data_type: character varying
+          - name: adresse_site_exploitation
+            description: ''
+            data_type: character varying
+          - name: code_postal_etablissement
+            description: ''
+            data_type: character varying
+          - name: commune
+            description: ''
+            data_type: character varying
+          - name: code_insee
+            description: ''
+            data_type: character varying
+          - name: code_ape
+            description: ''
+            data_type: character varying
+          - name: numero_siret
+            description: ''
+            data_type: character varying
+          - name: nom_contact
+            description: ''
+            data_type: character varying
+          - name: fonction_contact
+            description: ''
+            data_type: character varying
+          - name: tel_contact
+            description: ''
+            data_type: character varying
+          - name: mail_contact
+            description: ''
+            data_type: character varying
+          - name: code_dechet_produit
+            description: ''
+            data_type: character varying
+          - name: dechet_produit
+            description: ''
+            data_type: character varying
+      - name: eco_organismes_agrees_2022
+        description: >
+          Une ligne par eco-organisme agréé et par filière.
+        columns:
+          - name: siret
+            description: >
+              Code SIRET de l'établissement.
+            tests:
+              - not_null
+
+            data_type: text
+          - name: raison_sociale
+            description: ""
+            data_type: text
+          - name: nom_eco_organisme
+            description: ""
+            data_type: text
+          - name: filiere_dsrep
+            description: ""
+            data_type: text
+          - name: produits_relevant_filiere_responsabilite_elargie
+            description: ""
+            data_type: text
+          - name: adresse
+            description: ""
+            data_type: text
+          - name: code_postal
+            description: ""
+            data_type: text
+          - name: ville
+            description: ""
+
+            data_type: text
+      - name: matching_td_georisques
+        columns:
+          - name: _sdc_batched_at
+            description: ""
+            data_type: timestamp without time zone
+          - name: _sdc_deleted_at
+            description: ""
+            data_type: character varying
+          - name: _sdc_extracted_at
+            description: ""
+            data_type: timestamp without time zone
+          - name: code_aiot
+            description: ""
+            data_type: character varying
+          - name: code_postal
+            description: ""
+            data_type: character varying
+          - name: nom_etablissement_icpe
+            description: ""
+            data_type: character varying
+          - name: siret_gerep
+            description: ""
+            data_type: character varying
+          - name: siret_icpe
+            description: ""
+            data_type: character varying
+          - name: siret_td
+            description: ""
+            data_type: character varying
+          - name: traite
+            description: ""
+            data_type: character varying
+          - name: _sdc_received_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: _sdc_sequence
+            description: ''
+            data_type: bigint
+          - name: _sdc_table_version
+            description: ''
+            data_type: bigint
+          - name: _sdc_sync_started_at
+            description: ''
+            data_type: bigint
+      - name: referentiel_codes_operation_rubriques
+        columns:
+          - name: _sdc_batched_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: _sdc_deleted_at
+            description: ''
+            data_type: character varying
+          - name: _sdc_extracted_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: code_operation
+            description: ''
+            data_type: character varying
+          - name: criteres
+            description: ''
+            data_type: character varying
+          - name: rubrique
+            description: ''
+            data_type: character varying
+          - name: unite
+            description: ''
+            data_type: character varying
+          - name: dd
+            description: ''
+            data_type: character varying
+          - name: dnd
+            description: ''
+            data_type: character varying
+          - name: d_inertes
+            description: ''
+            data_type: character varying
+          - name: rubriques
+            description: ''
+            data_type: character varying
+          - name: code_opération
+            description: ''
+            data_type: character varying
+          - name: Rubriques
+            description: ''
+            data_type: text
+          - name: DD
+            description: ''
+            data_type: text
+          - name: DND
+            description: ''
+            data_type: text
+          - name: D_inertes
+            description: ''
+            data_type: text
+          - name: _sdc_received_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: _sdc_sequence
+            description: ''
+            data_type: bigint
+          - name: _sdc_table_version
+            description: ''
+            data_type: bigint
+          - name: _sdc_sync_started_at
+            description: ''
+            data_type: bigint

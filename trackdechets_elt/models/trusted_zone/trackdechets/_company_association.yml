@@ -1,0 +1,23 @@
+version: 2
+models:
+  - name: company_association
+    columns:
+      - name: id
+        description: 'Clé primaire'
+        data_type: text
+      - name: role
+        description: ''
+        data_type: text
+      - name: company_id
+        description: ''
+        data_type: text
+      - name: user_id
+        description: ''
+        data_type: text
+      - name: created_at
+        description: ''
+        data_type: timestamp without time zone
+      - name: automatically_accepted
+        description: ''
+        data_type: boolean
+sources: []

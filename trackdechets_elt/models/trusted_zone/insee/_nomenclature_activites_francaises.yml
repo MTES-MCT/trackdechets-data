@@ -1,0 +1,35 @@
+version: 2
+models:
+  - name: nomenclature_activites_francaises
+    columns:
+      - name: code_section
+        description: ''
+        data_type: character varying
+      - name: libelle_section
+        description: ''
+        data_type: character varying
+      - name: code_division
+        description: ''
+        data_type: character varying
+      - name: libelle_division
+        description: ''
+        data_type: character varying
+      - name: code_groupe
+        description: ''
+        data_type: character varying
+      - name: libelle_groupe
+        description: ''
+        data_type: character varying
+      - name: code_classe
+        description: ''
+        data_type: character varying
+      - name: libelle_classe
+        description: ''
+        data_type: character varying
+      - name: code_sous_classe
+        description: 'Clé unique'
+        data_type: character varying
+      - name: libelle_sous_classe
+        description: ''
+        data_type: character varying
+sources: []

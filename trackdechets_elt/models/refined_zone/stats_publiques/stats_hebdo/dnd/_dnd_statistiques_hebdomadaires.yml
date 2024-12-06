@@ -1,0 +1,25 @@
+version: 2
+models:
+  - name: dnd_statistiques_hebdomadaires
+    columns:
+      - name: semaine
+        description: ''
+        data_type: timestamp with time zone
+      - name: nombre_declarations_dnd_entrant
+        description: ''
+        data_type: bigint
+      - name: nombre_declarations_dnd_sortant
+        description: ''
+        data_type: bigint
+      - name: quantite_dnd_entrant
+        description: ''
+        data_type: numeric
+      - name: volume_dnd_entrant
+        description: ''
+        data_type: numeric
+      - name: quantite_dnd_sortant
+        description: ''
+        data_type: numeric
+      - name: volume_dnd_sortant
+        description: ''
+        data_type: numeric

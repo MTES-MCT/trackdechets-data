@@ -1,0 +1,25 @@
+version: 2
+models:
+  - name: etablisements_avec_bordereaux_valeurs_aberrantes
+    columns:
+      - name: siret
+        description: 'Code région'
+        data_type: text
+      - name: company_types
+        description: ''
+        data_type: ARRAY
+      - name: bordereaux
+        description: ''
+        data_type: jsonb
+      - name: company_name
+        description: ''
+        data_type: text
+      - name: user_emails
+        description: ''
+        data_type: ARRAY
+      - name: ids_bordereaux
+        description: ''
+        data_type: jsonb
+      - name: num_bordereaux
+        description: ''
+        data_type: integer

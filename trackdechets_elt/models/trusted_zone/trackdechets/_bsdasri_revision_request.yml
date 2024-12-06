@@ -1,0 +1,58 @@
+version: 2
+models:
+  - name: bsdasri_revision_request
+    columns:
+      - name: id
+        description: ''
+        data_type: text
+      - name: created_at
+        description: ''
+        data_type: timestamp without time zone
+      - name: updated_at
+        description: ''
+        data_type: timestamp without time zone
+      - name: status
+        description: ''
+        data_type: text
+      - name: comment
+        description: ''
+        data_type: text
+      - name: is_canceled
+        description: ''
+        data_type: boolean
+      - name: bsdasri_id
+        description: ''
+        data_type: text
+      - name: authoring_company_id
+        description: ''
+        data_type: text
+      - name: wasteCode
+        description: ''
+        data_type: text
+      - name: destination_waste_packagings
+        description: ''
+        data_type: ARRAY
+      - name: destination_reception_waste_weight_value
+        description: ''
+        data_type: numeric
+      - name: destination_operation_code
+        description: ''
+        data_type: text
+      - name: destination_operation_mode
+        description: ''
+        data_type: text
+      - name: emitter_pickup_site_name
+        description: ''
+        data_type: text
+      - name: emitter_pickup_site_address
+        description: ''
+        data_type: text
+      - name: emitter_pickup_site_city
+        description: ''
+        data_type: text
+      - name: emitter_pickup_site_postal_code
+        description: ''
+        data_type: text
+      - name: emitter_pickup_site_infos
+        description: ''
+        data_type: text

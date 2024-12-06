@@ -1,0 +1,16 @@
+version: 2
+models:
+  - name: bsda_sent_by_week
+    config:
+      materialized: table
+    columns:
+      - name: semaine
+        description: ''
+        data_type: date
+      - name: envois
+        description: ''
+        data_type: bigint
+      - name: quantite_envoyee
+        description: ''
+        data_type: numeric
+sources: []

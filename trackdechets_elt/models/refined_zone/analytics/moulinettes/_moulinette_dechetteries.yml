@@ -1,0 +1,55 @@
+version: 2
+models:
+  - name: moulinette_dechetteries
+    config:
+      materialized: table
+    columns:
+      - name: siret
+        description: 'Code région'
+        data_type: text
+      - name: Nom de l'établissement
+        description: ''
+        data_type: text
+      - name: Profils de l'établissement
+        description: ''
+        data_type: text
+      - name: E-mail de contact de l'établissement
+        description: ''
+        data_type: text
+      - name: E-mail de l'admin de l'établissement
+        description: ''
+        data_type: text
+      - name: num_bsdd_destinataire
+        description: ''
+        data_type: bigint
+      - name: num_bsda_destinataire
+        description: ''
+        data_type: bigint
+      - name: num_bsff_destinataire
+        description: ''
+        data_type: bigint
+      - name: num_bsdasri_destinataire
+        description: ''
+        data_type: bigint
+      - name: num_bsvhu_destinataire
+        description: ''
+        data_type: bigint
+      - name: num_bsdd_emetteur
+        description: ''
+        data_type: bigint
+      - name: num_bsda_emetteur
+        description: ''
+        data_type: bigint
+      - name: num_bsff_emetteur
+        description: ''
+        data_type: bigint
+      - name: num_bsdasri_emetteur
+        description: ''
+        data_type: bigint
+      - name: num_bsvhu_emetteur
+        description: ''
+        data_type: bigint
+      - name: total_bordereaux
+        description: ''
+        data_type: bigint
+sources: []

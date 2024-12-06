@@ -1,0 +1,281 @@
+version: 2
+models:
+  - name: bsdasri
+    config:
+      elementary:
+        timestamp_column: created_at
+        seasonality: day_of_week
+    tests:
+      - elementary.volume_anomalies
+      - elementary.dimension_anomalies:
+          dimensions:
+            - status
+            - waste_code
+            - is_deleted
+          timestamp_column: updated_at
+    columns:
+      - name: id
+        data_type: text
+
+        description: Clé primaire
+      - name: status
+        data_type: text
+
+      - name: created_at
+        data_type: timestamp without time zone
+
+      - name: updated_at
+        data_type: timestamp without time zone
+
+      - name: is_deleted
+        data_type: boolean
+
+      - name: is_draft
+        data_type: boolean
+
+      - name: emitter_company_name
+        data_type: text
+
+      - name: emitter_company_siret
+        data_type: text
+
+      - name: emitter_company_address
+        data_type: text
+
+      - name: emitter_company_contact
+        data_type: text
+
+      - name: emitter_company_phone
+        data_type: text
+
+      - name: emitter_company_mail
+        data_type: text
+
+      - name: emitter_pickup_site_name
+        description: ''
+        data_type: text
+      - name: emitter_pickup_site_address
+        data_type: text
+
+      - name: emitter_pickup_site_city
+        data_type: text
+
+      - name: emitter_pickup_site_postal_code
+        data_type: text
+
+      - name: emitter_pickup_site_infos
+        data_type: text
+
+      - name: waste_code
+        data_type: text
+
+      - name: waste_adr
+        data_type: text
+
+      - name: emitter_waste_weight_value
+        data_type: numeric
+
+      - name: emitter_waste_volume
+        data_type: numeric
+
+      - name: emitter_waste_packagings
+        data_type: ARRAY
+
+      - name: emitter_custom_info
+        data_type: text
+
+      - name: emitter_emission_signature_author
+        data_type: text
+
+      - name: emitter_emission_signature_date
+        data_type: timestamp without time zone
+
+      - name: is_emission_direct_taken_over
+        data_type: boolean
+
+      - name: is_emission_taken_over_with_secret_code
+        data_type: boolean
+
+      - name: transporter_company_name
+        data_type: text
+
+      - name: transporter_company_siret
+        data_type: text
+
+      - name: transporter_company_address
+        data_type: text
+
+      - name: transporter_company_phone
+        data_type: text
+
+      - name: transporter_company_contact
+        data_type: text
+
+      - name: transporter_company_mail
+        data_type: text
+
+      - name: transporter_recepisse_number
+        data_type: text
+
+      - name: transporter_recepisse_department
+        data_type: text
+
+      - name: transporter_recepisse_validity_limit
+        data_type: text
+
+      - name: transporter_acceptation_status
+        data_type: text
+
+      - name: transporter_waste_refusal_reason
+        data_type: text
+
+      - name: transporter_waste_refused_weight_value
+        data_type: numeric
+
+      - name: transporter_taken_over_at
+        data_type: timestamp without time zone
+
+      - name: transporter_waste_packagings
+        data_type: ARRAY
+
+      - name: transporter_waste_weight_value
+        data_type: numeric
+
+      - name: transporter_waste_volume
+        data_type: numeric
+
+      - name: transporter_custom_info
+        data_type: text
+
+      - name: handed_over_to_recipient_at
+        data_type: timestamp without time zone
+
+      - name: transporter_transport_signature_author
+        data_type: text
+
+      - name: transporter_transport_signature_date
+        data_type: timestamp without time zone
+
+      - name: destination_company_name
+        data_type: text
+
+      - name: destination_company_siret
+        data_type: text
+
+      - name: destination_company_address
+        data_type: text
+
+      - name: destination_company_contact
+        data_type: text
+
+      - name: destination_company_phone
+        data_type: text
+
+      - name: destination_company_mail
+        data_type: text
+
+      - name: destination_waste_packagings
+        data_type: ARRAY
+
+      - name: destination_reception_acceptation_status
+        data_type: text
+
+      - name: destination_reception_waste_refusal_reason
+        data_type: text
+
+      - name: destination_reception_waste_refused_weight_value
+        data_type: numeric
+      - name: destination_reception_waste_weight_value
+        data_type: numeric
+        tests:
+          - elementary.column_anomalies:
+              timestamp_column: updated_at
+
+      - name: destination_reception_waste_volume
+        data_type: numeric
+
+      - name: destination_custom_info
+        data_type: text
+
+      - name: destination_reception_date
+        data_type: timestamp without time zone
+
+      - name: destination_operation_code
+        data_type: text
+
+      - name: destination_operation_date
+        data_type: timestamp without time zone
+
+      - name: destination_reception_signature_author
+        data_type: text
+
+      - name: destination_reception_signature_date
+        data_type: timestamp without time zone
+
+      - name: destination_operation_signature_date
+        data_type: timestamp without time zone
+
+      - name: destination_operation_signature_author
+        data_type: text
+
+      - name: emission_signatory_id
+        data_type: text
+
+      - name: transport_signatory_id
+        data_type: text
+
+      - name: reception_signatory_id
+        data_type: text
+
+      - name: operation_signatory_id
+        data_type: text
+
+      - name: grouped_in_id
+        data_type: text
+
+      - name: transporter_transport_mode
+        data_type: text
+
+      - name: type
+        data_type: text
+
+      - name: emitter_waste_weight_is_estimate
+        data_type: boolean
+
+      - name: transporter_waste_weight_is_estimate
+        data_type: boolean
+
+      - name: eco_organisme_name
+        data_type: text
+
+      - name: eco_organisme_siret
+        data_type: text
+
+      - name: transporter_transport_plates
+        data_type: ARRAY
+
+      - name: identification_numbers
+        data_type: ARRAY
+
+      - name: transporter_company_vat_number
+        data_type: text
+
+      - name: synthesized_in_id
+        data_type: text
+
+      - name: emitted_by_eco_organisme
+        data_type: boolean
+
+      - name: synthesis_emitter_sirets
+        description: ''
+        data_type: ARRAY
+      - name: transporter_recepisse_is_exempted
+        description: ''
+        data_type: boolean
+      - name: grouping_emitter_sirets
+        description: ''
+        data_type: ARRAY
+      - name: destination_operation_mode
+        description: ''
+        data_type: text
+sources: []

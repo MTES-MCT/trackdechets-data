@@ -1,0 +1,47 @@
+version: 2
+models:
+  - name: user
+    config:
+      elementary:
+        timestamp_column: created_at
+        seasonality: day_of_week
+    tests:
+      - elementary.volume_anomalies
+    columns:
+      - name: id
+        description: "Clé primaire"
+        data_type: text
+      - name: email
+        description: ""
+        data_type: text
+      - name: name
+        description: ""
+        data_type: text
+      - name: phone
+        description: ""
+        data_type: text
+      - name: created_at
+        description: ""
+        data_type: timestamp without time zone
+      - name: updated_at
+        description: ""
+        data_type: timestamp without time zone
+      - name: is_active
+        description: ""
+        data_type: boolean
+      - name: activated_at
+        description: ""
+        data_type: timestamp without time zone
+      - name: first_association_date
+        description: ""
+        data_type: timestamp without time zone
+      - name: is_admin
+        description: ""
+        data_type: boolean
+      - name: is_registre_national
+        description: ""
+        data_type: boolean
+      - name: government_account_id
+        description: ''
+        data_type: text
+sources: []

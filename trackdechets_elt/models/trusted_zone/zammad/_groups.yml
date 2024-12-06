@@ -1,0 +1,53 @@
+version: 2
+models:
+  - name: groups
+    columns:
+      - name: id
+        description: 'identifiant unique du groupe'
+        data_type: bigint
+      - name: name
+        description: ''
+        data_type: text
+      - name: created_at
+        description: ''
+        data_type: timestamp without time zone
+      - name: created_by_id
+        description: ''
+        data_type: bigint
+      - name: updated_at
+        description: ''
+        data_type: timestamp without time zone
+      - name: updated_by_id
+        description: ''
+        data_type: bigint
+      - name: active
+        description: ''
+        data_type: boolean
+      - name: assignment_timeout
+        description: ''
+        data_type: bigint
+      - name: email_address_id
+        description: ''
+        data_type: bigint
+      - name: follow_up_assignment
+        description: ''
+        data_type: boolean
+      - name: follow_up_possible
+        description: ''
+        data_type: text
+      - name: note
+        description: ''
+        data_type: text
+      - name: reopen_time_in_days
+        description: ''
+        data_type: bigint
+      - name: shared_drafts
+        description: ''
+        data_type: boolean
+      - name: signature_id
+        description: ''
+        data_type: bigint
+      - name: user_ids
+        description: ''
+        data_type: ARRAY
+sources: []

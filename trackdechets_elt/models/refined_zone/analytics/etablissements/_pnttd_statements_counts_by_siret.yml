@@ -1,0 +1,19 @@
+version: 2
+models:
+  - name: pnttd_statements_counts_by_siret
+    columns:
+      - name: siret
+        description: ''
+        data_type: text
+      - name: num_statements_as_emitter
+        description: ''
+        data_type: bigint
+      - name: quantity_as_emitter
+        description: ''
+        data_type: double precision
+      - name: num_statements_as_destination
+        description: ''
+        data_type: bigint
+      - name: quantity_as_destination
+        description: ''
+        data_type: double precision

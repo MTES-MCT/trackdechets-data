@@ -1,0 +1,19 @@
+# Postgres config reference:
+trackdechets_elt:
+  target: "{{ env_var('DBT_ENVIRONMENT', 'dev') }}"
+  outputs:
+    dev:
+      type: clickhouse
+      host: "{{ env_var('DBT_HOST','localhost') }}"
+      user: "{{ env_var('DBT_USER') }}"
+      password: "{{ env_var('DBT_PASSWORD') }}"
+      port: "{{ env_var('DBT_PORT','8123') | int }}"
+      threads: 2
+    prod:
+      type: clickhouse
+      host: "{{ env_var('DBT_HOST') }}"
+      user: "{{ env_var('DBT_USER') }}"
+      password: "{{ env_var('DBT_PASSWORD') }}"
+      port: "{{ env_var('DBT_PORT') | int }}"
+      threads: 6
+      use_colors: false

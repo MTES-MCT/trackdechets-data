@@ -1,0 +1,118 @@
+version: 2
+models:
+  - name: bsff_packaging
+    config:
+      elementary:
+        seasonality: day_of_week
+    tests:
+      - elementary.volume_anomalies:
+          timestamp_column: acceptation_date
+      - elementary.dimension_anomalies:
+          dimensions:
+            - acceptation_status
+          timestamp_column: acceptation_date
+      - elementary.dimension_anomalies:
+          dimensions:
+            - operation_code
+          timestamp_column: operation_date
+    columns:
+      - name: id
+        description: "Clé primaire"
+        data_type: text
+      - name: volume
+        description: ""
+        data_type: numeric
+      - name: weight
+        description: ""
+        data_type: numeric
+      - name: numero
+        description: ""
+        data_type: text
+      - name: bsff_id
+        description: ""
+        data_type: text
+      - name: acceptation_date
+        description: ""
+        data_type: timestamp without time zone
+      - name: acceptation_refusal_reason
+        description: ""
+        data_type: text
+      - name: acceptation_signature_author
+        description: ""
+        data_type: text
+      - name: acceptation_signature_date
+        description: ""
+        data_type: timestamp without time zone
+      - name: acceptation_status
+        description: ""
+        data_type: text
+      - name: acceptation_weight
+        description: ""
+        data_type: numeric
+      - name: acceptation_waste_code
+        description: ""
+        data_type: text
+      - name: acceptation_waste_description
+        description: ""
+        data_type: text
+      - name: operation_date
+        description: ""
+        data_type: timestamp without time zone
+      - name: operation_code
+        description: ""
+        data_type: text
+      - name: operation_description
+        description: ""
+        data_type: text
+      - name: operation_no_traceability
+        description: ""
+        data_type: boolean
+      - name: operation_signature_author
+        description: ""
+        data_type: text
+      - name: operation_signature_date
+        description: ""
+        data_type: timestamp without time zone
+      - name: operation_next_destination_planned_operation_code
+        description: ""
+        data_type: text
+      - name: operation_next_destination_cap
+        description: ""
+        data_type: text
+      - name: operation_next_destination_company_address
+        description: ""
+        data_type: text
+      - name: operation_next_destination_company_contact
+        description: ""
+        data_type: text
+      - name: operation_next_destination_company_mail
+        description: ""
+        data_type: text
+      - name: operation_next_destination_company_name
+        description: ""
+        data_type: text
+      - name: operation_next_destination_company_phone
+        description: ""
+        data_type: text
+      - name: operation_next_destination_company_siret
+        description: ""
+        data_type: text
+      - name: operation_next_destination_company_vat_number
+        description: ""
+        data_type: text
+      - name: next_packaging_id
+        description: ""
+        data_type: text
+      - name: other
+        description: ""
+        data_type: text
+      - name: type
+        description: ""
+        data_type: text
+      - name: emission_numero
+        description: ""
+        data_type: text
+      - name: operation_mode
+        description: ""
+        data_type: text
+sources: []

@@ -1,0 +1,10 @@
+version: 2
+models:
+  - name: tra_15268
+    columns:
+      - name: waste_code
+        description: ''
+        data_type: text
+      - name: quantite_traitee
+        description: ''
+        data_type: numeric

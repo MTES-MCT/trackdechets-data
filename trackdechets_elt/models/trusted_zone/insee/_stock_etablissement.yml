@@ -1,0 +1,149 @@
+version: 2
+models:
+  - name: stock_etablissement
+    columns:
+      - name: siren
+        description: ''
+        data_type: character varying
+      - name: nic
+        description: ''
+        data_type: character varying
+      - name: siret
+        description: 'Code région'
+        data_type: character varying
+      - name: statut_diffusion_etablissement
+        description: ''
+        data_type: character varying
+      - name: date_creation_etablissement
+        description: ''
+        data_type: date
+      - name: tranche_effectifs_etablissement
+        description: ''
+        data_type: character varying
+      - name: annee_effectifs_etablissement
+        description: ''
+        data_type: integer
+      - name: activite_principale_registre_metiers_etablissement
+        description: ''
+        data_type: character varying
+      - name: date_dernier_traitement_etablissement
+        description: ''
+        data_type: timestamp without time zone
+      - name: etablissement_siege
+        description: ''
+        data_type: boolean
+      - name: nombre_periodes_etablissement
+        description: ''
+        data_type: integer
+      - name: complement_adresse_etablissement
+        description: ''
+        data_type: character varying
+      - name: numero_voie_etablissement
+        description: ''
+        data_type: character varying
+      - name: indice_repetition_etablissement
+        description: ''
+        data_type: character varying
+      - name: type_voie_etablissement
+        description: ''
+        data_type: character varying
+      - name: libelle_voie_etablissement
+        description: ''
+        data_type: character varying
+      - name: code_postal_etablissement
+        description: ''
+        data_type: character varying
+      - name: libelle_commune_etablissement
+        description: ''
+        data_type: character varying
+      - name: libelle_commune_etranger_etablissement
+        description: ''
+        data_type: character varying
+      - name: distribution_speciale_etablissement
+        description: ''
+        data_type: character varying
+      - name: code_commune_etablissement
+        description: ''
+        data_type: character varying
+      - name: code_cedex_etablissement
+        description: ''
+        data_type: character varying
+      - name: libelle_cedex_etablissement
+        description: ''
+        data_type: character varying
+      - name: code_pays_etranger_etablissement
+        description: ''
+        data_type: integer
+      - name: libelle_pays_etranger_etablissement
+        description: ''
+        data_type: character varying
+      - name: complement_adresse_2_etablissement
+        description: ''
+        data_type: character varying
+      - name: numero_voie_2_etablissement
+        description: ''
+        data_type: character varying
+      - name: indice_repetition_2_etablissement
+        description: ''
+        data_type: character varying
+      - name: type_voie_2_etablissement
+        description: ''
+        data_type: character varying
+      - name: libelle_voie_2_etablissement
+        description: ''
+        data_type: character varying
+      - name: code_postal_2_etablissement
+        description: ''
+        data_type: character varying
+      - name: libelle_commune_2_etablissement
+        description: ''
+        data_type: character varying
+      - name: libelle_commune_etranger_2_etablissement
+        description: ''
+        data_type: character varying
+      - name: distribution_speciale_2_etablissement
+        description: ''
+        data_type: character varying
+      - name: code_commune_2_etablissement
+        description: ''
+        data_type: character varying
+      - name: code_cedex_2_etablissement
+        description: ''
+        data_type: character varying
+      - name: libelle_cedex_2_etablissement
+        description: ''
+        data_type: character varying
+      - name: code_pays_etranger_2_etablissement
+        description: ''
+        data_type: integer
+      - name: libelle_pays_etranger_2_etablissement
+        description: ''
+        data_type: character varying
+      - name: date_debut
+        description: ''
+        data_type: date
+      - name: etat_administratif_etablissement
+        description: ''
+        data_type: character varying
+      - name: enseigne_1_etablissement
+        description: ''
+        data_type: character varying
+      - name: enseigne_2_etablissement
+        description: ''
+        data_type: character varying
+      - name: enseigne_3_etablissement
+        description: ''
+        data_type: character varying
+      - name: denomination_usuelle_etablissement
+        description: ''
+        data_type: character varying
+      - name: activite_principale_etablissement
+        description: ''
+        data_type: character varying
+      - name: nomenclature_activite_principale_etablissement
+        description: ''
+        data_type: character varying
+      - name: caractere_employeur_etablissement
+        description: ''
+        data_type: character varying
+sources: []

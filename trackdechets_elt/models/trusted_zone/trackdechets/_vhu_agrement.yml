@@ -1,0 +1,18 @@
+version: 2
+models:
+  - name: vhu_agrement
+    columns:
+      - name: id
+        description: "Clé primaire"
+        data_type: text
+      - name: agrement_number
+        description: ""
+        tests:
+          - elementary.column_anomalies
+        data_type: text
+      - name: department
+        description: ""
+        tests:
+          - elementary.column_anomalies
+        data_type: text
+sources: []

@@ -1,0 +1,132 @@
+version: 2
+models:
+  - name: bsdd_revision_request
+    config:
+      elementary:
+        timestamp_column: created_at
+        seasonality: day_of_week
+    tests:
+      - elementary.volume_anomalies
+      - elementary.dimension_anomalies:
+          dimensions:
+            - status
+            - is_canceled
+          timestamp_column: updated_at
+    columns:
+      - name: id
+        description: "Clé primaire"
+        data_type: text
+      - name: created_at
+        description: ""
+        data_type: timestamp without time zone
+      - name: updated_at
+        description: ""
+        data_type: timestamp without time zone
+      - name: bsdd_id
+        description: ""
+        data_type: text
+      - name: authoring_company_id
+        description: ""
+        data_type: text
+      - name: comment
+        description: ""
+        data_type: text
+      - name: status
+        description: ""
+        data_type: text
+      - name: recipient_cap
+        description: ""
+        data_type: text
+      - name: waste_details_code
+        description: ""
+        data_type: text
+      - name: waste_details_pop
+        description: ""
+        data_type: boolean
+      - name: quantity_received
+        description: ""
+        tests:
+          - elementary.column_anomalies
+        data_type: numeric
+      - name: processing_operation_done
+        description: ""
+        data_type: text
+      - name: broker_company_name
+        description: ""
+        data_type: text
+      - name: broker_company_siret
+        description: ""
+        data_type: text
+      - name: broker_company_address
+        description: ""
+        data_type: text
+      - name: broker_company_contact
+        description: ""
+        data_type: text
+      - name: broker_company_phone
+        description: ""
+        data_type: text
+      - name: broker_company_mail
+        description: ""
+        data_type: text
+      - name: broker_receipt
+        description: ""
+        data_type: text
+      - name: broker_department
+        description: ""
+        data_type: text
+      - name: broker_validity_limit
+        description: ""
+        data_type: timestamp without time zone
+      - name: trader_company_address
+        description: ""
+        data_type: text
+      - name: trader_company_contact
+        description: ""
+        data_type: text
+      - name: trader_company_phone
+        description: ""
+        data_type: text
+      - name: trader_company_mail
+        description: ""
+        data_type: text
+      - name: trader_receipt
+        description: ""
+        data_type: text
+      - name: trader_department
+        description: ""
+        data_type: text
+      - name: trader_validity_limit
+        description: ""
+        data_type: timestamp without time zone
+      - name: temporary_storage_destination_cap
+        description: ""
+        data_type: text
+      - name: temporary_storage_destination_processing_operation
+        description: ""
+        data_type: text
+      - name: trader_company_siret
+        description: ""
+        data_type: text
+      - name: trader_company_name
+        description: ""
+        data_type: text
+      - name: waste_details_name
+        description: ""
+        data_type: text
+      - name: waste_details_packaging_infos
+        description: ""
+        data_type: ARRAY
+      - name: processing_operation_description
+        description: ""
+        data_type: text
+      - name: temporary_storage_temporary_storer_quantity_received
+        description: ""
+        data_type: numeric
+      - name: is_canceled
+        description: ""
+        data_type: boolean
+      - name: destination_operation_mode
+        description: ''
+        data_type: text
+sources: []

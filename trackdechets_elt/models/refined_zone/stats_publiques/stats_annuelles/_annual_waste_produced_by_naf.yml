@@ -1,0 +1,41 @@
+version: 2
+models:
+  - name: annual_waste_produced_by_naf
+    columns:
+      - name: code_section
+        description: ''
+        data_type: character varying
+      - name: libelle_section
+        description: ''
+        data_type: character varying
+      - name: code_division
+        description: ''
+        data_type: character varying
+      - name: libelle_division
+        description: ''
+        data_type: character varying
+      - name: code_groupe
+        description: ''
+        data_type: character varying
+      - name: libelle_groupe
+        description: ''
+        data_type: character varying
+      - name: code_classe
+        description: ''
+        data_type: character varying
+      - name: libelle_classe
+        description: ''
+        data_type: character varying
+      - name: code_sous_classe
+        description: ''
+        data_type: character varying
+      - name: libelle_sous_classe
+        description: ''
+        data_type: character varying
+      - name: annee
+        description: ''
+        data_type: integer
+      - name: quantite_produite
+        description: ''
+        data_type: numeric
+sources: []

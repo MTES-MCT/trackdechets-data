@@ -1,0 +1,16 @@
+version: 2
+models:
+  - name: daily_processed_waste_by_rubrique_non_dangerous_waste
+    columns:
+      - name: siret
+        description: ''
+        data_type: character varying
+      - name: date_reception
+        description: ''
+        data_type: date
+      - name: rubrique
+        description: ''
+        data_type: character varying
+      - name: quantite
+        description: ''
+        data_type: numeric

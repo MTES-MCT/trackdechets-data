@@ -1,0 +1,82 @@
+version: 2
+models:
+  - name: tra_14189
+    columns:
+      - name: siret
+        description: 'Code région'
+        data_type: text
+      - name: nom_etablissement
+        description: ''
+        data_type: text
+      - name: adresse_etablissement
+        description: ''
+        data_type: text
+      - name: numero_gerep
+        description: ''
+        data_type: text
+      - name: inscrit_td
+        description: ''
+        data_type: boolean
+      - name: inscrit_gun
+        description: ''
+        data_type: boolean
+      - name: codes_installations
+        description: ''
+        data_type: text
+      - name: codes_rubriques
+        description: ''
+        data_type: text
+      - name: num_bsdd_traites
+        description: ''
+        data_type: bigint
+      - name: quantite_traitee_bsdd
+        description: ''
+        data_type: numeric
+      - name: num_bsda_traites
+        description: ''
+        data_type: bigint
+      - name: quantite_traitee_bsda
+        description: ''
+        data_type: numeric
+      - name: num_bsff_traites
+        description: ''
+        data_type: bigint
+      - name: quantite_traitee_bsff
+        description: ''
+        data_type: numeric
+      - name: num_bsdasri_traites
+        description: ''
+        data_type: bigint
+      - name: quantite_traitee_bsdasri
+        description: ''
+        data_type: numeric
+      - name: num_bsdd_envoyes
+        description: ''
+        data_type: bigint
+      - name: quantite_envoyee_bsdd
+        description: ''
+        data_type: numeric
+      - name: num_bsda_envoyes
+        description: ''
+        data_type: bigint
+      - name: quantite_envoyee_bsda
+        description: ''
+        data_type: numeric
+      - name: num_bsff_envoyes
+        description: ''
+        data_type: bigint
+      - name: quantite_envoyee_bsff
+        description: ''
+        data_type: numeric
+      - name: num_bsdasri_envoyes
+        description: ''
+        data_type: bigint
+      - name: quantite_envoyee_bsdasri
+        description: ''
+        data_type: numeric
+      - name: num_bsvhu_envoyes
+        description: ''
+        data_type: bigint
+      - name: quantite_envoyee_bsvhu
+        description: ''
+        data_type: numeric

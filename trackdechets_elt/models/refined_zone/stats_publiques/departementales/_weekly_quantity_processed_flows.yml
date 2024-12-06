@@ -1,0 +1,16 @@
+version: 2
+models:
+  - name: weekly_quantity_processed_flows
+    columns:
+      - name: departement_origine
+        description: ''
+        data_type: character varying
+      - name: departement_destination
+        description: ''
+        data_type: character varying
+      - name: semaine
+        description: ''
+        data_type: timestamp with time zone
+      - name: quantite_traitee
+        description: ''
+        data_type: numeric

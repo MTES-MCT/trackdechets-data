@@ -1,0 +1,53 @@
+version: 2
+models:
+  - name: gerep_traiteurs_2021
+    columns:
+      - name: siret
+        description: ''
+        data_type: text
+      - name: code_etablissement
+        description: ''
+        data_type: text
+      - name: annee
+        description: ''
+        data_type: text
+      - name: nom_etablissement
+        description: ''
+        data_type: text
+      - name: adresse_site_exploitation
+        description: ''
+        data_type: text
+      - name: code_postal_etablissement
+        description: ''
+        data_type: text
+      - name: commune
+        description: ''
+        data_type: text
+      - name: code_commune_insee
+        description: ''
+        data_type: text
+      - name: code_ape
+        description: ''
+        data_type: text
+      - name: nom_contact
+        description: ''
+        data_type: text
+      - name: fonction_contact
+        description: ''
+        data_type: text
+      - name: tel_contact
+        description: ''
+        data_type: text
+      - name: email_contact
+        description: ''
+        data_type: text
+      - name: code_dechet_traite
+        description: ''
+        data_type: text
+      - name: dechet_traite
+        description: ''
+        data_type: text
+      - name: quantite_traitee
+        description: ''
+        data_type: text
+sources: []

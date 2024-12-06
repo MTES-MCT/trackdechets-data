@@ -1,0 +1,15 @@
+version: 2
+models:
+  - name: companies_created_by_week
+    description: >
+      Nombre d'établissements créés par semaine.
+    config:
+      materialized: table
+    columns:
+      - name: semaine
+        description: ''
+        data_type: timestamp without time zone
+      - name: creations
+        description: ''
+        data_type: bigint
+sources: []

@@ -1,0 +1,9 @@
+version: 2
+
+macros:
+  - name: create_indexes_for_source
+    description: Allows to create indexes on source table of the model.
+    arguments:
+      - name: columns
+        type: list of columns name
+        description: "The list of columns names that will be used to create the index (one column per index)"

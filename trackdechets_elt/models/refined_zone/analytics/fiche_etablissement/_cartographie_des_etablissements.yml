@@ -1,0 +1,112 @@
+version: 2
+models:
+  - name: cartographie_des_etablissements
+    config:
+        contract:
+          enforced: true
+    columns:
+      - name: siret
+        constraints:
+          - type: not_null
+          - type: primary_key
+        description: "SIRET de l'etablissement"
+        data_type: text
+      - name: nom_etablissement
+        description: ''
+        data_type: text
+      - name: profils
+        description: ''
+        data_type: text[]
+      - name: profils_collecteur
+        description: ''
+        data_type: text[]
+      - name: profils_installation
+        description: ''
+        data_type: text[]
+      - name: bsdd
+        description: ''
+        data_type: boolean
+      - name: bsdnd
+        description: ''
+        data_type: boolean
+      - name: bsda
+        description: ''
+        data_type: boolean
+      - name: bsff
+        description: ''
+        data_type: boolean
+      - name: bsdasri
+        description: ''
+        data_type: boolean
+      - name: bsvhu
+        description: ''
+        data_type: boolean
+      - name: texs_dd
+        description: ''
+        data_type: boolean
+      - name: dnd
+        description: ''
+        data_type: boolean
+      - name: texs
+        description: ''
+        data_type: boolean
+      - name: ssd
+        description: ''
+        data_type: boolean
+      - name: pnttd
+        description: ''
+        data_type: boolean
+      - name: processing_operations_bsdd
+        description: ''
+        data_type: text[]
+      - name: processing_operations_bsdnd
+        description: ''
+        data_type: text[]
+      - name: processing_operations_bsda
+        description: ''
+        data_type: text[]
+      - name: processing_operations_bsff
+        description: ''
+        data_type: text[]
+      - name: processing_operations_bsdasri
+        description: ''
+        data_type: text[]
+      - name: processing_operations_bsvhu
+        description: ''
+        data_type: text[]
+      - name: processing_operation_dnd
+        description: ''
+        data_type: text[]
+      - name: processing_operation_texs
+        description: ''
+        data_type: text[]
+      - name: code_commune_insee
+        description: 'Code commune correspondant à celui dans la base géographique des communes de l''INSEE.'
+        data_type: character varying
+      - name: code_departement_insee
+        description: ''
+        data_type: character varying
+      - name: code_region_insee
+        description: ''
+        data_type: integer
+      - name: adresse_td
+        description: ''
+        data_type: text
+      - name: adresse_insee
+        description: ''
+        data_type: text
+      - name: latitude_td
+        description: ''
+        data_type: numeric
+      - name: longitude_td
+        description: ''
+        data_type: numeric
+      - name: latitude_ban
+        description: ''
+        data_type: double precision
+      - name: longitude_ban
+        description: ''
+        data_type: double precision
+      - name: coords
+        description: ''
+        data_type: geometry

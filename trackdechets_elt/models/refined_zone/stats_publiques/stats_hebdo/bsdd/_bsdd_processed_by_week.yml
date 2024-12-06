@@ -1,0 +1,28 @@
+version: 2
+models:
+  - name: bsdd_processed_by_week
+    config:
+      materialized: table
+    columns:
+      - name: semaine
+        description: ''
+        data_type: date
+      - name: traitements
+        description: ''
+        data_type: bigint
+      - name: quantite_traitee
+        description: ''
+        data_type: numeric
+      - name: traitements_operations_non_finales
+        description: ''
+        data_type: bigint
+      - name: quantite_traitee_operations_non_finales
+        description: ''
+        data_type: numeric
+      - name: traitements_operations_finales
+        description: ''
+        data_type: bigint
+      - name: quantite_traitee_operations_finales
+        description: ''
+        data_type: numeric
+sources: []

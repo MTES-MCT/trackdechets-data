@@ -1,0 +1,76 @@
+version: 2
+models:
+  - name: statements_counts_by_siret
+    columns:
+      - name: siret
+        description: ''
+        data_type: character varying
+      - name: num_dnd_statements_as_destination
+        description: ''
+        data_type: bigint
+      - name: quantity_dnd_statements_as_destination
+        description: ''
+        data_type: numeric
+      - name: volume_dnd_statements_as_destination
+        description: ''
+        data_type: numeric
+      - name: num_dnd_statements_as_emitter
+        description: ''
+        data_type: bigint
+      - name: quantity_dnd_statements_as_emitter
+        description: ''
+        data_type: numeric
+      - name: volume_dnd_statements_as_emitter
+        description: ''
+        data_type: numeric
+      - name: num_dnd_statements_as_transporteur
+        description: ''
+        data_type: bigint
+      - name: quantity_dnd_statements_as_transporteur
+        description: ''
+        data_type: numeric
+      - name: volume_dnd_statements_as_transporteur
+        description: ''
+        data_type: numeric
+      - name: num_texs_statements_as_destination
+        description: ''
+        data_type: bigint
+      - name: quantity_texs_statements_as_destination
+        description: ''
+        data_type: numeric
+      - name: volume_texs_statements_as_destination
+        description: ''
+        data_type: numeric
+      - name: num_texs_statements_as_emitter
+        description: ''
+        data_type: bigint
+      - name: quantity_texs_statements_as_emitter
+        description: ''
+        data_type: numeric
+      - name: volume_texs_statements_as_emitter
+        description: ''
+        data_type: numeric
+      - name: num_texs_statements_as_transporteur
+        description: ''
+        data_type: bigint
+      - name: quantity_texs_statements_as_transporteur
+        description: ''
+        data_type: numeric
+      - name: volume_texs_statements_as_transporteur
+        description: ''
+        data_type: numeric
+      - name: num_ssd_statements_as_destination
+        description: ''
+        data_type: bigint
+      - name: quantity_ssd_statements_as_destination
+        description: ''
+        data_type: numeric
+      - name: volume_ssd_statements_as_destination
+        description: ''
+        data_type: numeric
+      - name: dnd_processing_operations_as_destination
+        description: ''
+        data_type: ARRAY
+      - name: texs_processing_operations_as_destination
+        description: ''
+        data_type: ARRAY

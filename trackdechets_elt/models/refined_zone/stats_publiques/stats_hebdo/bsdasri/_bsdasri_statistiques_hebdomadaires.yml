@@ -1,0 +1,63 @@
+version: 2
+models:
+  - name: bsdasri_statistiques_hebdomadaires
+    tests:
+      - elementary.all_columns_anomalies:
+          exclude_prefix: semaine
+          timestamp_column: semaine
+          training_period:
+            period: week
+            count: 12
+          time_bucket:
+            period: week
+            count: 1
+          detection_period:
+            period: week
+            count: 1
+    columns:
+      - name: semaine
+        description: ""
+        data_type: date
+      - name: creations
+        description: ""
+        data_type: bigint
+      - name: quantite_tracee
+        description: ""
+        data_type: numeric
+      - name: emissions
+        description: ""
+        data_type: bigint
+      - name: quantite_emise
+        description: ""
+        data_type: numeric
+      - name: envois
+        description: ""
+        data_type: bigint
+      - name: quantite_envoyee
+        description: ""
+        data_type: numeric
+      - name: receptions
+        description: ""
+        data_type: bigint
+      - name: quantite_recue
+        description: ""
+        data_type: numeric
+      - name: traitements
+        description: ""
+        data_type: bigint
+      - name: quantite_traitee
+        description: ""
+        data_type: numeric
+      - name: traitements_operations_non_finales
+        description: ""
+        data_type: bigint
+      - name: quantite_traitee_operations_non_finales
+        description: ""
+        data_type: numeric
+      - name: traitements_operations_finales
+        description: ""
+        data_type: bigint
+      - name: quantite_traitee_operations_finales
+        description: ""
+        data_type: numeric
+sources: []

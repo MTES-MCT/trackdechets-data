@@ -1,0 +1,15 @@
+version: 2
+models:
+  - name: bsd_non_dangereux_created_by_week
+    config:
+      materialized: table
+    columns:
+      - name: semaine
+        description: ''
+        data_type: date
+      - name: creations
+        description: ''
+        data_type: bigint
+      - name: quantite_tracee
+        description: ''
+        data_type: numeric

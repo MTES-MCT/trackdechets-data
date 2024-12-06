@@ -1,0 +1,40 @@
+version: 2
+models:
+  - name: fiches_etablissements
+    columns:
+      - name: id
+        description: ''
+        data_type: text
+      - name: org_id
+        description: ''
+        data_type: text
+      - name: created
+        description: ''
+        data_type: timestamp without time zone
+      - name: state
+        description: ''
+        data_type: text
+      - name: created_by
+        description: ''
+        data_type: text
+      - name: data_end_date
+        description: ''
+        data_type: timestamp without time zone
+      - name: data_start_date
+        description: ''
+        data_type: timestamp without time zone
+      - name: creation_mode
+        description: ''
+        data_type: text
+      - name: pdf_rendering_end
+        description: ''
+        data_type: timestamp without time zone
+      - name: pdf_rendering_start
+        description: ''
+        data_type: timestamp without time zone
+      - name: processing_end
+        description: ''
+        data_type: timestamp without time zone
+      - name: processing_start
+        description: ''
+        data_type: timestamp without time zone

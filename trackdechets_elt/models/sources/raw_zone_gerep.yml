@@ -1,0 +1,150 @@
+version: 2
+
+sources:
+  - name: raw_zone_gerep
+    description: Données brutes fournies par GEREP.
+    tables:
+      - name: gerep_producteurs_2021
+        description: >
+          Tables qui contient les données GEREP des producteurs jusqu'en 2021. Une ligne par année et établissement.
+        columns:
+          - name: Annee
+            description: ""
+            quote: true
+            data_type: text
+          - name: Code établissement
+            description: >
+              Code S3ic pour joindre les données avec les données ICPE
+            quote: true
+            tests:
+              - not_null
+            data_type: text
+          - name: Nom Etablissement
+            quote: true
+            description: ""
+            data_type: text
+          - name: Adresse Site Exploitation
+            quote: true
+            description: ""
+            data_type: text
+          - name: Code Postal Etablissement
+            quote: true
+            description: ""
+            data_type: text
+          - name: Commune
+            quote: true
+            description: ""
+            data_type: text
+          - name: Code Insee
+            quote: true
+            description: ""
+            data_type: text
+          - name: Code APE
+            quote: true
+            description: ""
+            data_type: text
+          - name: Numero Siret
+            quote: true
+            description: >
+              Numéro SIRET
+            data_type: text
+          - name: Nom Contact
+            quote: true
+            description: ""
+            data_type: text
+          - name: Fonction Contact
+            quote: true
+            description: ""
+            data_type: text
+          - name: Tel Contact
+            quote: true
+            description: ""
+            data_type: text
+          - name: Mail Contact
+            quote: true
+            description: ""
+            data_type: text
+          - name: Code déchet produit
+            description: ""
+            quote: true
+            data_type: text
+          - name: Déchet produit
+            description: ""
+            quote: true
+            data_type: text
+          - name: Quntité produite (t/an)
+            description: ""
+            quote: true
+            data_type: text
+      - name: gerep_traiteurs_2021
+        description: >
+          Tables qui contient les données GEREP des traiteurs jusqu'en 2021. Une ligne par année et établissement.
+        columns:
+          - name: Annee
+            description: ""
+            quote: true
+            data_type: text
+          - name: Code établissement
+            description: >
+              Code S3ic pour joindre les données avec les données ICPE
+            quote: true
+            tests:
+              - not_null
+            data_type: text
+          - name: Nom Etablissement
+            quote: true
+            description: ""
+            data_type: text
+          - name: Adresse Site Exploitation
+            quote: true
+            description: ""
+            data_type: text
+          - name: Code Postal Etablissement
+            quote: true
+            description: ""
+            data_type: text
+          - name: Commune
+            quote: true
+            description: ""
+            data_type: text
+          - name: Code Insee
+            quote: true
+            description: ""
+            data_type: text
+          - name: Code APE
+            quote: true
+            description: ""
+            data_type: text
+          - name: Numero Siret
+            quote: true
+            description: >
+              Numéro SIRET
+            data_type: text
+          - name: Nom Contact
+            quote: true
+            description: ""
+            data_type: text
+          - name: Tel Contact
+            quote: true
+            description: ""
+            data_type: text
+          - name: Fonction Contact
+            quote: true
+            description: ""
+            data_type: text
+          - name: Mail Contact
+            quote: true
+            description: ""
+            data_type: text
+          - name: Code déchet traité
+            quote: true
+            description: ""
+            data_type: text
+          - name: Déchet traité
+            quote: true
+            description: ""
+            data_type: text
+          - name: Quantité traitée (t/an)
+            quote: true
+            description: ""
+            data_type: text

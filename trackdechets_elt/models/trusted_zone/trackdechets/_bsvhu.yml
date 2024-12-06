@@ -1,0 +1,224 @@
+version: 2
+models:
+  - name: bsvhu
+    config:
+      elementary:
+        timestamp_column: created_at
+        seasonality: day_of_week
+    tests:
+      - elementary.volume_anomalies
+      - elementary.dimension_anomalies:
+          dimensions:
+            - status
+            - waste_code
+            - is_deleted
+          timestamp_column: updated_at
+    columns:
+      - name: id
+        description: "Clé primaire"
+        data_type: text
+      - name: created_at
+        description: ""
+        data_type: timestamp without time zone
+      - name: updated_at
+        description: ""
+        data_type: timestamp without time zone
+      - name: is_draft
+        description: ""
+        data_type: boolean
+      - name: is_deleted
+        description: ""
+        data_type: boolean
+      - name: status
+        description: ""
+        data_type: text
+      - name: emitter_agrement_number
+        description: ""
+        data_type: text
+      - name: emitter_company_name
+        description: ""
+        data_type: text
+      - name: emitter_company_siret
+        description: ""
+        data_type: text
+      - name: emitter_company_address
+        description: ""
+        data_type: text
+      - name: emitter_company_contact
+        description: ""
+        data_type: text
+      - name: emitter_company_phone
+        description: ""
+        data_type: text
+      - name: emitter_company_mail
+        description: ""
+        data_type: text
+      - name: destination_type
+        description: ""
+        data_type: text
+      - name: destination_planned_operation_code
+        description: ""
+        data_type: text
+      - name: destination_agrement_number
+        description: ""
+        data_type: text
+      - name: destination_company_name
+        description: ""
+        data_type: text
+      - name: destination_company_siret
+        description: ""
+        data_type: text
+      - name: destination_company_address
+        description: ""
+        data_type: text
+      - name: destination_company_contact
+        description: ""
+        data_type: text
+      - name: destination_company_phone
+        description: ""
+        data_type: text
+      - name: destination_company_mail
+        description: ""
+        data_type: text
+      - name: waste_code
+        description: ""
+        data_type: text
+      - name: packaging
+        description: ""
+        data_type: text
+      - name: identification_numbers
+        description: ""
+        data_type: ARRAY
+      - name: identification_type
+        description: ""
+        data_type: text
+      - name: quantity
+        description: ""
+        data_type: bigint
+      - name: weight_value
+        description: ""
+        data_type: numeric
+      - name: emitter_emission_signature_author
+        description: ""
+        data_type: text
+      - name: emitter_emission_signature_date
+        description: ""
+        data_type: timestamp without time zone
+      - name: transporter_company_name
+        description: ""
+        data_type: text
+      - name: transporter_company_siret
+        description: ""
+        data_type: text
+      - name: transporter_company_address
+        description: ""
+        data_type: text
+      - name: transporter_company_contact
+        description: ""
+        data_type: text
+      - name: transporter_company_phone
+        description: ""
+        data_type: text
+      - name: transporter_company_mail
+        description: ""
+        data_type: text
+      - name: transporter_recepisse_number
+        description: ""
+        data_type: text
+      - name: transporter_recepisse_department
+        description: ""
+        data_type: text
+      - name: transporter_recepisse_validity_limit
+        description: ""
+        data_type: timestamp with time zone
+      - name: transporter_company_vat_number
+        description: ""
+        data_type: text
+      - name: transporter_transport_signature_author
+        description: ""
+        data_type: text
+      - name: transporter_transport_signature_date
+        description: ""
+        data_type: timestamp without time zone
+      - name: destination_reception_acceptation_status
+        description: ""
+        data_type: text
+      - name: destination_reception_refusal_reason
+        description: ""
+        data_type: text
+      - name: destination_reception_identification_numbers
+        description: ""
+        data_type: ARRAY
+      - name: destination_reception_identification_type
+        description: ""
+        data_type: text
+      - name: destination_operation_code
+        description: ""
+        data_type: text
+      - name: destination_operation_next_destination_company_name
+        description: ""
+        data_type: text
+      - name: destination_operation_next_destination_company_siret
+        description: ""
+        data_type: text
+      - name: destination_operation_next_destination_company_address
+        description: ""
+        data_type: text
+      - name: destination_operation_next_destination_company_contact
+        description: ""
+        data_type: text
+      - name: destination_operation_next_destination_company_phone
+        description: ""
+        data_type: text
+      - name: destination_operation_next_destination_company_mail
+        description: ""
+        data_type: text
+      - name: destination_operation_signature_author
+        description: ""
+        data_type: text
+      - name: destination_operation_signature_date
+        description: ""
+        data_type: timestamp without time zone
+      - name: transporter_transport_taken_over_at
+        description: ""
+        data_type: timestamp without time zone
+      - name: destination_operation_date
+        description: ""
+        data_type: timestamp with time zone
+      - name: destination_reception_quantity
+        description: ""
+        data_type: bigint
+      - name: destination_reception_weight
+        description: ""
+        tests:
+          - elementary.column_anomalies:
+              timestamp_column: updated_at
+        data_type: numeric
+      - name: destination_reception_date
+        description: ""
+        data_type: timestamp without time zone
+      - name: weight_is_estimate
+        description: ""
+        data_type: boolean
+      - name: destination_operation_next_destination_company_vat_number
+        description: ""
+        data_type: text
+      - name: emitter_custom_info
+        description: ""
+        data_type: text
+      - name: destination_custom_info
+        description: ""
+        data_type: text
+      - name: transporter_custom_info
+        description: ""
+        data_type: text
+      - name: transporter_transport_plates
+        description: ""
+        data_type: ARRAY
+      - name: transporter_recepisse_is_exempted
+        description: ''
+        data_type: boolean
+      - name: destination_operation_mode
+        description: ''
+        data_type: text
+sources: []

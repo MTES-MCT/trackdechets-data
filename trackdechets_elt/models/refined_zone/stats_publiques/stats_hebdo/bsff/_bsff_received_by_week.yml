@@ -1,0 +1,19 @@
+version: 2
+models:
+  - name: bsff_received_by_week
+    config:
+      materialized: table
+    columns:
+      - name: semaine
+        description: ''
+        data_type: timestamp without time zone
+      - name: receptions_bordereaux
+        description: ''
+        data_type: bigint
+      - name: receptions_contenants
+        description: ''
+        data_type: bigint
+      - name: quantite_recue
+        description: ''
+        data_type: numeric
+sources: []

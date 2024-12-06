@@ -1,0 +1,26 @@
+version: 2
+models:
+  - name: rubriques
+    columns:
+      - name: code_aiot
+        description: 'Identifiant de l''installation classée'
+        data_type: text
+      - name: rubrique
+        description: ''
+        data_type: text
+      - name: alinea
+        description: ''
+        data_type: text
+      - name: quantite_totale
+        description: ''
+        data_type: double precision
+      - name: unite
+        description: ''
+        data_type: text
+      - name: nature
+        description: ''
+        data_type: text
+      - name: regime
+        description: ''
+        data_type: text
+sources: []

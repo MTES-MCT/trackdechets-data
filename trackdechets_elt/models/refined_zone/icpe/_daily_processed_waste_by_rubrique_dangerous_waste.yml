@@ -1,0 +1,16 @@
+version: 2
+models:
+  - name: daily_processed_waste_by_rubrique_dangerous_waste
+    columns:
+      - name: siret
+        description: 'Code région'
+        data_type: text
+      - name: day_of_processing
+        description: ''
+        data_type: timestamp with time zone
+      - name: rubrique
+        description: ''
+        data_type: character varying
+      - name: quantite_traitee
+        description: ''
+        data_type: numeric

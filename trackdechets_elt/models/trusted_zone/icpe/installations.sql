@@ -1,0 +1,28 @@
+select
+    code_aiot,
+    num_siret,
+    x::int,
+    y::int,
+    adresse1,
+    adresse2,
+    adresse3,
+    code_postal,
+    code_insee,
+    commune,
+    raison_sociale,
+    etat_activite,
+    seveso,
+    regime,
+    priorite_nationale::bool,
+    ied::bool,
+    type_service_aiot,
+    bovins::bool,
+    porcs::bool,
+    volailles::bool,
+    carriere::bool,
+    eolienne::bool,
+    industrie::bool,
+    replace(longitude, '', null)::float as longitude,
+    replace(latitude, '', null)::float  as latitude
+from
+    {{ source('raw_zone_icpe', 'installations') }}

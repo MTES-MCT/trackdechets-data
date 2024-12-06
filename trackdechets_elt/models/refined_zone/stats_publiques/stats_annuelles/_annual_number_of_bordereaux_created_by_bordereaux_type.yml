@@ -1,0 +1,14 @@
+version: 2
+models:
+  - name: annual_number_of_bordereaux_created_by_bordereaux_type
+    columns:
+      - name: annee
+        description: ''
+        data_type: integer
+      - name: type_bordereau
+        description: ''
+        data_type: text
+      - name: creations
+        description: ''
+        data_type: bigint
+sources: []

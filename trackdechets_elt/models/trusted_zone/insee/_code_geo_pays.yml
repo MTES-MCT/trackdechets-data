@@ -1,0 +1,38 @@
+version: 2
+models:
+  - name: code_geo_pays
+    columns:
+      - name: code_pays
+        description: ''
+        data_type: character varying
+      - name: coe_actualité
+        description: ''
+        data_type: integer
+      - name: code_ancien_pays_rattachement
+        description: ''
+        data_type: character varying
+      - name: code_actuel_pays_rattachement
+        description: ''
+        data_type: character varying
+      - name: annee_independance
+        description: ''
+        data_type: integer
+      - name: libelle
+        description: ''
+        data_type: character varying
+      - name: nom_officiel
+        description: ''
+        data_type: character varying
+      - name: ancien_nom
+        description: ''
+        data_type: character varying
+      - name: code_iso_2
+        description: ''
+        data_type: character varying
+      - name: code_iso_3
+        description: ''
+        data_type: character varying
+      - name: code_iso_num
+        description: ''
+        data_type: integer
+sources: []

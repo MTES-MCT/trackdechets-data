@@ -1,0 +1,16 @@
+version: 2
+models:
+  - name: bsdd_emis_et_recus_par_siret_et_semaine
+    columns:
+      - name: siret
+        description: ''
+        data_type: text
+      - name: flux
+        description: ''
+        data_type: text
+      - name: semaine
+        description: ''
+        data_type: timestamp with time zone
+      - name: nombre_bordereaux
+        description: ''
+        data_type: bigint

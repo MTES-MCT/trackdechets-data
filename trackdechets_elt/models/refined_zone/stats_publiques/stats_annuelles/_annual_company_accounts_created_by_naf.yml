@@ -1,0 +1,41 @@
+version: 2
+models:
+  - name: annual_company_accounts_created_by_naf
+    columns:
+      - name: annee
+        description: ''
+        data_type: integer
+      - name: code_sous_classe
+        description: 'Clé unique'
+        data_type: character varying
+      - name: code_section
+        description: ''
+        data_type: text
+      - name: libelle_section
+        description: ''
+        data_type: text
+      - name: code_division
+        description: ''
+        data_type: text
+      - name: libelle_division
+        description: ''
+        data_type: text
+      - name: code_groupe
+        description: ''
+        data_type: text
+      - name: libelle_groupe
+        description: ''
+        data_type: text
+      - name: code_classe
+        description: ''
+        data_type: text
+      - name: libelle_classe
+        description: ''
+        data_type: text
+      - name: libelle_sous_classe
+        description: ''
+        data_type: text
+      - name: nombre_etablissements
+        description: ''
+        data_type: bigint
+sources: []

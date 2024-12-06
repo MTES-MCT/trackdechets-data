@@ -1,0 +1,16 @@
+version: 2
+models:
+  - name: bsdd_emitted_by_week
+    config:
+      materialized: table
+    columns:
+      - name: semaine
+        description: ''
+        data_type: date
+      - name: emissions
+        description: ''
+        data_type: bigint
+      - name: quantite_emise
+        description: ''
+        data_type: numeric
+sources: []

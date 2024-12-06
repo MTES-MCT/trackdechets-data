@@ -1,0 +1,9 @@
+version: 2
+models:
+  - name: codes_operations_traitements
+    columns:
+      - name: description
+        description: Description de l'opération de traitement.
+      - name: code
+        description: Code opération traitement.
+sources: []

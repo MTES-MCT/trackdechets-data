@@ -1,0 +1,14 @@
+version: 2
+models:
+  - name: bordereaux_counts_by_profile
+    columns:
+      - name: siret
+        description: 'Code région'
+        data_type: text
+      - name: num_mentions_bordereaux
+        description: ''
+        data_type: numeric
+      - name: type_etablissement
+        description: ''
+        data_type: text
+sources: []

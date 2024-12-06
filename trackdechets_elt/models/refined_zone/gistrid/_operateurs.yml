@@ -1,0 +1,61 @@
+version: 2
+models:
+  - name: operateurs
+    columns:
+      - name: numero_gistrid
+        description: ''
+        data_type: text
+      - name: type_operateur
+        description: ''
+        data_type: text
+      - name: nom_societe
+        description: ''
+        data_type: text
+      - name: numero_enregistrement
+        description: ''
+        data_type: text
+      - name: adresse
+        description: ''
+        data_type: text
+      - name: pays
+        description: ''
+        data_type: text
+      - name: code_postal
+        description: ''
+        data_type: text
+      - name: commune
+        description: ''
+        data_type: text
+      - name: ville_implatation_etablissement
+        description: ''
+        data_type: text
+      - name: pays_etablissement
+        description: ''
+        data_type: text
+      - name: beneficie_consentement_prealable
+        description: ''
+        data_type: text
+      - name: statut_operateur
+        description: ''
+        data_type: text
+      - name: date_statut
+        description: ''
+        data_type: text
+      - name: departement_etablissement
+        description: ''
+        data_type: text
+      - name: siret
+        description: ''
+        data_type: text
+      - name: s3ic
+        description: ''
+        data_type: text
+      - name: raison_refus
+        description: ''
+        data_type: text
+      - name: nombre_notifications_reservees
+        description: ''
+        data_type: text
+      - name: indicateur_activite
+        description: ''
+        data_type: text

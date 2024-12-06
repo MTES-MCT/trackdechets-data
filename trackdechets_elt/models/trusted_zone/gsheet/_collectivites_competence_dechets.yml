@@ -1,0 +1,29 @@
+version: 2
+models:
+  - name: collectivites_competence_dechets
+    columns:
+      - name: siren
+        description: ""
+        data_type: character varying
+      - name: nom
+        description: ""
+        data_type: character varying
+      - name: code_departement
+        description: ""
+        data_type: character varying
+      - name: nj_epci2023
+        description: Nature juridique de l'EPCI
+        data_type: character varying
+      - name: fisc_epci2023
+        description: Fiscalité de l'EPCI
+        data_type: character varying
+      - name: nb_com_2023
+        description: Nombre de commune de l'EPCI
+        data_type: integer
+      - name: ptot_epci_2023
+        description: Population totale de l'EPCI
+        data_type: integer
+      - name: pmun_epci_2023
+        description: Population municipale de l'EPCI
+        data_type: integer
+sources: []

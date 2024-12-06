@@ -1,0 +1,43 @@
+version: 2
+models:
+  - name: identification_eco_organismes
+    columns:
+      - name: inscrit_sur_td
+        description: ''
+        data_type: boolean
+      - name: eco_organisme_agree
+        description: ''
+        data_type: boolean
+      - name: dans_table_eo
+        description: ''
+        data_type: boolean
+      - name: a_entré_un_agrément_eo
+        description: ''
+        data_type: boolean
+      - name: a_choisi_profil_eo
+        description: ''
+        data_type: boolean
+      - name: visé_dans_bsdd
+        description: ''
+        data_type: boolean
+      - name: visé_dans_bsda
+        description: ''
+        data_type: boolean
+      - name: visé_dans_bsdasri
+        description: ''
+        data_type: boolean
+      - name: siret
+        description: 'Code SIRET de l''établissement.
+
+          '
+        data_type: text
+      - name: nom
+        description: ''
+        data_type: text
+      - name: admin_name
+        description: ''
+        data_type: text
+      - name: admin_email
+        description: ''
+        data_type: text
+sources: []

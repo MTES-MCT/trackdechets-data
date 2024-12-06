@@ -1,0 +1,19 @@
+version: 2
+models:
+  - name: dnd_quantites_traites_hebdo_par_code_traitement
+    columns:
+      - name: semaine
+        description: ''
+        data_type: timestamp with time zone
+      - name: code_operation
+        description: ''
+        data_type: character varying
+      - name: type_operation
+        description: ''
+        data_type: text
+      - name: quantite_traitee
+        description: ''
+        data_type: numeric
+      - name: volume_traite
+        description: ''
+        data_type: numeric

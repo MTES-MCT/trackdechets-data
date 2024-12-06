@@ -1,0 +1,17 @@
+version: 2
+models:
+  - name: bordereaux_valeurs_aberrantes
+    columns:
+      - name: siret
+        description: SIRET etablissement
+      - name: company_types
+        description: ""
+      - name: bordereaux
+        description: ""
+      - name: company_name
+        description: ""
+      - name: user_email
+        description: ""
+      - name: num_bordereaux
+        description: ""
+sources: []

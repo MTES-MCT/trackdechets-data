@@ -1,0 +1,16 @@
+version: 2
+models:
+  - name: tra_15307
+    columns:
+      - name: siret
+        description: 'Code région'
+        data_type: text
+      - name: nom_etablissement
+        description: ''
+        data_type: text
+      - name: email_admin
+        description: ''
+        data_type: text
+      - name: nom_admin
+        description: ''
+        data_type: text

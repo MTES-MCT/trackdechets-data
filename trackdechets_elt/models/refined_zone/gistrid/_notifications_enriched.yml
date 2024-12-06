@@ -1,0 +1,106 @@
+version: 2
+models:
+  - name: notifications_enriched
+    columns:
+      - name: numero_notification
+        description: ''
+        data_type: text
+      - name: annee
+        description: ''
+        data_type: integer
+      - name: type_dossier
+        description: ''
+        data_type: text
+      - name: etat_dossier
+        description: ''
+        data_type: text
+      - name: departement_dossier
+        description: ''
+        data_type: text
+      - name: nom_notifiant
+        description: ''
+        data_type: text
+      - name: numero_gistrid_notifiant
+        description: ''
+        data_type: text
+      - name: siret_notifiant
+        description: ''
+        data_type: text
+      - name: commune_notifiant
+        description: ''
+        data_type: text
+      - name: pays_notifiant
+        description: ''
+        data_type: text
+      - name: nom_producteur
+        description: ''
+        data_type: text
+      - name: commune_producteur
+        description: ''
+        data_type: text
+      - name: pays_producteur
+        description: ''
+        data_type: text
+      - name: nom_installation_traitement
+        description: ''
+        data_type: text
+      - name: numero_gistrid_installation_traitement
+        description: ''
+        data_type: text
+      - name: siret_installation_traitement
+        description: ''
+        data_type: text
+      - name: commune_installation_traitement
+        description: ''
+        data_type: text
+      - name: pays_installation_traitement
+        description: ''
+        data_type: text
+      - name: pays_transit
+        description: ''
+        data_type: text
+      - name: date_consentement_francais
+        description: ''
+        data_type: text
+      - name: date_autorisee_debut_transferts
+        description: ''
+        data_type: text
+      - name: date_autorisee_fin_transferts
+        description: ''
+        data_type: text
+      - name: code_d_r
+        description: ''
+        data_type: text
+      - name: code_cb
+        description: ''
+        data_type: text
+      - name: code_ced
+        description: ''
+        data_type: text
+      - name: code_ocde
+        description: ''
+        data_type: text
+      - name: code_y
+        description: ''
+        data_type: text
+      - name: code_h
+        description: ''
+        data_type: text
+      - name: caracteristiques_physiques
+        description: ''
+        data_type: text
+      - name: quantite_autorisee
+        description: ''
+        data_type: double precision
+      - name: unite
+        description: ''
+        data_type: text
+      - name: nombre_total_transferts_autorises
+        description: ''
+        data_type: integer
+      - name: somme_quantites_recues
+        description: ''
+        data_type: double precision
+      - name: nombre_transferts_receptionnes
+        description: ''
+        data_type: integer

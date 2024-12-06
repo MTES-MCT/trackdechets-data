@@ -1,0 +1,295 @@
+version: 2
+models:
+  - name: bsda
+    config:
+      elementary:
+        timestamp_column: created_at
+        seasonality: day_of_week
+    tests:
+      - elementary.volume_anomalies
+      - elementary.dimension_anomalies:
+          dimensions:
+            - status
+            - waste_code
+            - is_deleted
+          timestamp_column: updated_at
+    columns:
+      - name: id
+        data_type: text
+
+        description: Clé primaire
+      - name: created_at
+        data_type: timestamp without time zone
+
+      - name: updated_at
+        data_type: timestamp without time zone
+
+      - name: is_draft
+        data_type: boolean
+
+      - name: is_deleted
+        data_type: boolean
+
+      - name: status
+        data_type: text
+
+      - name: type
+        data_type: text
+
+      - name: emitter_is_private_individual
+        description: ""
+
+        data_type: boolean
+      - name: emitter_company_name
+        data_type: text
+
+      - name: emitter_company_siret
+        data_type: text
+
+      - name: emitter_company_address
+        data_type: text
+
+      - name: emitter_company_contact
+        data_type: text
+
+      - name: emitter_company_phone
+        data_type: text
+
+      - name: emitter_company_mail
+        data_type: text
+
+      - name: emitter_pickup_site_name
+        data_type: text
+
+      - name: emitter_pickup_site_address
+        data_type: text
+
+      - name: emitter_pickup_site_city
+        data_type: text
+
+      - name: emitter_pickup_site_postal_code
+        data_type: text
+
+      - name: emitter_pickup_site_infos
+        data_type: text
+
+      - name: emitter_emission_signature_author
+        data_type: text
+
+      - name: emitter_emission_signature_date
+        data_type: timestamp with time zone
+
+      - name: waste_code
+        data_type: text
+
+      - name: waste_family_code
+        data_type: text
+
+      - name: waste_material_name
+        data_type: text
+
+      - name: waste_consistence
+        data_type: text
+
+      - name: waste_seal_numbers
+        data_type: ARRAY
+
+      - name: waste_adr
+        data_type: text
+
+      - name: packagings
+        data_type: ARRAY
+
+      - name: weight_value
+        data_type: numeric
+
+      - name: destination_company_name
+        data_type: text
+
+      - name: destination_company_siret
+        data_type: text
+
+      - name: destination_company_address
+        data_type: text
+
+      - name: destination_company_contact
+        data_type: text
+
+      - name: destination_company_phone
+        data_type: text
+
+      - name: destination_company_mail
+        data_type: text
+
+      - name: destination_cap
+        data_type: text
+
+      - name: destination_planned_operation_code
+        data_type: text
+
+      - name: destination_reception_date
+        data_type: timestamp without time zone
+
+      - name: destination_reception_weight
+        data_type: numeric
+        tests:
+          - elementary.column_anomalies:
+              timestamp_column: updated_at
+
+      - name: destination_reception_acceptation_status
+        data_type: text
+
+      - name: destination_reception_refusal_reason
+        data_type: text
+
+      - name: destination_operation_code
+        data_type: text
+
+      - name: destination_operation_date
+        data_type: timestamp without time zone
+
+      - name: destination_operation_signature_author
+        data_type: text
+
+      - name: destination_operation_signature_date
+        data_type: timestamp without time zone
+
+      - name: transporter_transport_signature_date
+        data_type: timestamp with time zone
+
+      - name: worker_company_name
+        data_type: text
+
+      - name: worker_company_siret
+        data_type: text
+
+      - name: worker_company_address
+        data_type: text
+
+      - name: worker_company_contact
+        data_type: text
+
+      - name: worker_company_phone
+        data_type: text
+
+      - name: worker_company_mail
+        data_type: text
+
+      - name: worker_work_has_emitter_paper_signature
+        data_type: boolean
+
+      - name: worker_work_signature_author
+        data_type: text
+
+      - name: worker_work_signature_date
+        data_type: timestamp without time zone
+
+      - name: broker_company_name
+        data_type: text
+
+      - name: broker_company_siret
+        data_type: text
+
+      - name: broker_company_address
+        data_type: text
+
+      - name: broker_company_contact
+        data_type: text
+
+      - name: broker_company_phone
+        data_type: text
+
+      - name: broker_company_mail
+        data_type: text
+
+      - name: broker_recepisse_number
+        data_type: text
+
+      - name: broker_recepisse_department
+        data_type: text
+
+      - name: broker_recepisse_validity_limit
+        data_type: timestamp with time zone
+
+      - name: destination_operation_next_destination_company_name
+        data_type: text
+
+      - name: destination_operation_next_destination_company_siret
+        data_type: text
+
+      - name: destination_operation_next_destination_company_vat_number
+        data_type: text
+
+      - name: destination_operation_next_destination_company_address
+        data_type: text
+
+      - name: destination_operation_next_destination_company_contact
+        data_type: text
+
+      - name: destination_operation_next_destination_company_phone
+        data_type: text
+
+      - name: destination_operation_next_destination_company_mail
+        data_type: text
+
+      - name: destination_operation_next_destination_cap
+        data_type: text
+
+      - name: destination_operation_next_destination_planned_operation_code
+        data_type: text
+
+      - name: weight_is_estimate
+        data_type: boolean
+
+      - name: emitter_custom_info
+        data_type: text
+
+      - name: destination_custom_info
+        data_type: text
+
+      - name: eco_organisme_name
+        data_type: text
+
+      - name: eco_organisme_siret
+        data_type: text
+
+      - name: forwarding_id
+        data_type: text
+
+      - name: grouped_in_id
+        data_type: text
+
+      - name: waste_pop
+        data_type: boolean
+
+      - name: destination_operation_description
+        data_type: text
+
+      - name: worker_is_disabled
+        data_type: boolean
+
+      - name: worker_certification_has_sub_section_four
+        description: ''
+        data_type: boolean
+      - name: worker_certification_has_sub_section_three
+        description: ''
+        data_type: boolean
+      - name: worker_certification_certification_number
+        data_type: text
+
+      - name: worker_certification_validity_limit
+        description: ''
+        data_type: timestamp without time zone
+      - name: worker_certification_organisation
+        data_type: text
+
+      - name: intermediaries_org_ids
+        description: ''
+        data_type: ARRAY
+      - name: destination_operation_mode
+        description: ''
+        data_type: text
+      - name: transporters_org_ids
+        description: ''
+        data_type: ARRAY
+sources: []

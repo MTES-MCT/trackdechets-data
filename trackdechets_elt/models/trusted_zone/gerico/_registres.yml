@@ -1,0 +1,22 @@
+version: 2
+models:
+  - name: registres
+    columns:
+      - name: id
+        description: ''
+        data_type: bigint
+      - name: org_id
+        description: ''
+        data_type: text
+      - name: data_start_date
+        description: ''
+        data_type: timestamp without time zone
+      - name: data_end_date
+        description: ''
+        data_type: timestamp without time zone
+      - name: created
+        description: ''
+        data_type: timestamp without time zone
+      - name: created_by
+        description: ''
+        data_type: text

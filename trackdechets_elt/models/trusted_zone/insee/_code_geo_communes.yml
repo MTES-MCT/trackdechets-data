@@ -1,0 +1,41 @@
+version: 2
+models:
+  - name: code_geo_communes
+    columns:
+      - name: type_commune
+        description: ''
+        data_type: character varying
+      - name: code_region
+        description: ''
+        data_type: integer
+      - name: code_departement
+        description: ''
+        data_type: character varying
+      - name: code_commune
+        description: ''
+        data_type: character varying
+      - name: code_canton
+        description: ''
+        data_type: character varying
+      - name: code_arrondissement
+        description: ''
+        data_type: character varying
+      - name: code_ctcd
+        description: ''
+        data_type: character varying
+      - name: type_nom_en_clair
+        description: ''
+        data_type: integer
+      - name: nom_en_clair
+        description: ''
+        data_type: character varying
+      - name: nom_en_clair_enrichi
+        description: ''
+        data_type: character varying
+      - name: libelle
+        description: ''
+        data_type: character varying
+      - name: code_commune_parente
+        description: ''
+        data_type: character varying
+sources: []

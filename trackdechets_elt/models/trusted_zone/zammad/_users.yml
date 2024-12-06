@@ -1,0 +1,119 @@
+version: 2
+models:
+  - name: users
+    columns:
+      - name: id
+        description: 'identifiant unique de l''utilisateur'
+        data_type: bigint
+      - name: created_at
+        description: ''
+        data_type: timestamp without time zone
+      - name: created_by_id
+        description: ''
+        data_type: bigint
+      - name: updated_at
+        description: ''
+        data_type: timestamp without time zone
+      - name: updated_by_id
+        description: ''
+        data_type: bigint
+      - name: active
+        description: ''
+        data_type: boolean
+      - name: verified
+        description: ''
+        data_type: boolean
+      - name: login
+        description: ''
+        data_type: text
+      - name: email
+        description: ''
+        data_type: text
+      - name: firstname
+        description: ''
+        data_type: text
+      - name: lastname
+        description: ''
+        data_type: text
+      - name: address
+        description: ''
+        data_type: text
+      - name: authorization_ids
+        description: ''
+        data_type: ARRAY
+      - name: city
+        description: ''
+        data_type: text
+      - name: country
+        description: ''
+        data_type: text
+      - name: department
+        description: ''
+        data_type: text
+      - name: fax
+        description: ''
+        data_type: text
+      - name: group_ids
+        description: ''
+        data_type: jsonb
+      - name: image
+        description: ''
+        data_type: text
+      - name: image_source
+        description: ''
+        data_type: text
+      - name: karma_user_ids
+        description: ''
+        data_type: ARRAY
+      - name: last_login
+        description: ''
+        data_type: timestamp without time zone
+      - name: login_failed
+        description: ''
+        data_type: bigint
+      - name: mobile
+        description: ''
+        data_type: text
+      - name: note
+        description: ''
+        data_type: text
+      - name: organization_id
+        description: ''
+        data_type: bigint
+      - name: organization_ids
+        description: ''
+        data_type: ARRAY
+      - name: out_of_office
+        description: ''
+        data_type: boolean
+      - name: out_of_office_end_at
+        description: ''
+        data_type: timestamp without time zone
+      - name: out_of_office_replacement_id
+        description: ''
+        data_type: bigint
+      - name: out_of_office_start_at
+        description: ''
+        data_type: timestamp without time zone
+      - name: phone
+        description: ''
+        data_type: text
+      - name: role_ids
+        description: ''
+        data_type: ARRAY
+      - name: source
+        description: ''
+        data_type: text
+      - name: street
+        description: ''
+        data_type: text
+      - name: vip
+        description: ''
+        data_type: boolean
+      - name: web
+        description: ''
+        data_type: text
+      - name: zip
+        description: ''
+        data_type: text
+sources: []

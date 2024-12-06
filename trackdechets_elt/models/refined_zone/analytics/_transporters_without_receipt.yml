@@ -1,0 +1,9 @@
+version: 2
+models:
+  - name: transporters_without_receipt
+    columns:
+      - name: transporter_company_siret
+        description: 'SIRET de l''établissement collecteur - transporteur.
+
+          '
+sources: []

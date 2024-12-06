@@ -1,0 +1,178 @@
+version: 2
+models: []
+sources:
+  - name: raw_zone_icpe
+    description: Données issues de Géorisques, elles même issues de GUN.
+    loader: airflow
+    tables:
+      - name: installations
+        identifier: installations
+        description: >
+          Base des installations
+        columns:
+          - name: code_aiot
+            description: identifiant unique de l'installation classée
+            tests:
+              - not_null
+            data_type: text
+          - name: num_siret
+            description: ""
+            data_type: text
+          - name: x
+            description: ""
+            data_type: text
+          - name: y
+            description: ""
+            data_type: text
+          - name: adresse1
+            description: ""
+            data_type: text
+          - name: adresse2
+            description: ""
+            data_type: text
+          - name: adresse3
+            description: ""
+            data_type: text
+          - name: code_postal
+            description: ""
+            data_type: text
+          - name: code_insee
+            description: ""
+            data_type: text
+          - name: commune
+            description: ""
+            data_type: text
+          - name: raison_sociale
+            description: ""
+            data_type: text
+          - name: etat_activite
+            description: ""
+            data_type: text
+          - name: code_naf
+            description: ""
+            data_type: text
+          - name: seveso
+            description: ""
+            data_type: text
+          - name: regime
+            description: ""
+            data_type: text
+          - name: priorite_nationale
+            description: ""
+            data_type: text
+          - name: ied
+            description: ""
+            data_type: text
+          - name: type_service_aiot
+            description: ""
+            data_type: text
+          - name: bovins
+            description: ""
+            data_type: text
+          - name: porcs
+            description: ""
+            data_type: text
+          - name: volailles
+            description: ""
+            data_type: text
+          - name: carriere
+            description: ""
+            data_type: text
+          - name: eolienne
+            description: ""
+            data_type: text
+          - name: industrie
+            description: ""
+            data_type: text
+          - name: longitude
+            description: ""
+            data_type: text
+          - name: latitude
+            description: ""
+            data_type: text
+          - name: date_modification
+            description: ""
+            data_type: text
+      - name: rubriques
+        description: >
+          Rubriques associées à chaque installations
+        columns:
+          - name: code_aiot
+            description: Identifiant de l'installation classée
+            tests:
+              - not_null
+            data_type: text
+          - name: rubrique
+            description: ""
+            data_type: text
+          - name: alinea
+            description: ""
+            data_type: text
+          - name: quantite_totale
+            description: ""
+            data_type: text
+          - name: unite
+            description: ""
+            data_type: text
+          - name: nature
+            description: ""
+            data_type: text
+          - name: regime
+            description: ""
+            data_type: text
+      - name: installations_rubriques_2024_raw
+        identifier: installations_rubriques_2024
+        description: >
+          Nouvelles données sur les installations et les rubriques
+        columns:
+          - name: Raison sociale/nom
+            description: ''
+            data_type: text
+          - name: SIRET
+            description: ''
+            data_type: text
+          - name: Code AIOT
+            description: ''
+            data_type: text
+          - name: X
+            description: ''
+            data_type: bigint
+          - name: Y
+            description: ''
+            data_type: bigint
+          - name: Etat du site (code)
+            description: ''
+            data_type: text
+          - name: Etat du site (libellé)
+            description: ''
+            data_type: text
+          - name: Numéro rubrique
+            description: ''
+            data_type: text
+          - name: Régime
+            description: ''
+            data_type: text
+          - name: Quantité projet
+            description: ''
+            data_type: double precision
+          - name: Quantité totale
+            description: ''
+            data_type: double precision
+          - name: Capacité Projet
+            description: ''
+            data_type: double precision
+          - name: Capacité Totale
+            description: ''
+            data_type: double precision
+          - name: Unité
+            description: ''
+            data_type: text
+          - name: Etat technique de la rubrique
+            description: ''
+            data_type: text
+          - name: Etat administratif de la rubrique
+            description: ''
+            data_type: text
+          - name: inserted_at
+            description: ''
+            data_type: timestamp with time zone

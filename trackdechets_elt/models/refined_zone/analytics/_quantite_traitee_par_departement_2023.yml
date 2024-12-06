@@ -1,0 +1,10 @@
+version: 2
+models:
+  - name: quantite_traitee_par_departement_2023
+    columns:
+      - name: code_departement
+        description: ''
+        data_type: character varying
+      - name: quantite_traitee
+        description: ''
+        data_type: numeric

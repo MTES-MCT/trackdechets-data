@@ -1,0 +1,19 @@
+version: 2
+models:
+  - name: quantite_traitee_par_departement
+    columns:
+      - name: departement
+        description: ''
+        data_type: character varying
+      - name: operation_de_traitement
+        description: ''
+        data_type: text
+      - name: nom_departement
+        description: ''
+        data_type: text
+      - name: code_region
+        description: ''
+        data_type: integer
+      - name: quantite_traitee
+        description: ''
+        data_type: numeric

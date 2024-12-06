@@ -1,0 +1,35 @@
+version: 2
+models:
+  - name: code_geo_cantons
+    columns:
+      - name: code_canton
+        description: ''
+        data_type: character varying
+      - name: code_departement
+        description: ''
+        data_type: character varying
+      - name: code_region
+        description: ''
+        data_type: integer
+      - name: type_canton
+        description: ''
+        data_type: integer
+      - name: code_commune_bureau_centraliseur
+        description: ''
+        data_type: character varying
+      - name: type_nom_en_clair
+        description: ''
+        data_type: integer
+      - name: nom_en_clair
+        description: ''
+        data_type: character varying
+      - name: nom_en_clair_enrichi
+        description: ''
+        data_type: character varying
+      - name: libelle
+        description: ''
+        data_type: character varying
+      - name: actual
+        description: ''
+        data_type: character varying
+sources: []

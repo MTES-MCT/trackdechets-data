@@ -1,0 +1,110 @@
+version: 2
+
+sources:
+  - name: raw_zone_gerico
+    description: Données brutes issues de l'application GERICO (Fiche Établissements).
+    tables:
+      - name: sheets_computedinspectiondata
+        description: >
+          Tables qui contient les données de génération de fiches.
+        columns:
+          - name: id
+            description: ''
+            data_type: text
+          - name: org_id
+            description: ''
+            data_type: text
+          - name: created
+            description: ''
+            data_type: timestamp without time zone
+          - name: state
+            description: ''
+            data_type: text
+          - name: created_by
+            description: ''
+            data_type: text
+          - name: data_end_date
+            description: ''
+            data_type: timestamp without time zone
+          - name: data_start_date
+            description: ''
+            data_type: timestamp without time zone
+          - name: creation_mode
+            description: ''
+            data_type: text
+          - name: pdf_rendering_end
+            description: ''
+            data_type: timestamp without time zone
+          - name: pdf_rendering_start
+            description: ''
+            data_type: timestamp without time zone
+          - name: processing_end
+            description: ''
+            data_type: timestamp without time zone
+          - name: processing_start
+            description: ''
+            data_type: timestamp without time zone
+          - name: _sdc_extracted_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: _sdc_received_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: _sdc_batched_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: _sdc_deleted_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: _sdc_sequence
+            description: ''
+            data_type: bigint
+          - name: _sdc_table_version
+            description: ''
+            data_type: bigint
+          - name: _sdc_sync_started_at
+            description: ''
+            data_type: bigint
+      - name: sheets_registrydownload
+        description: >
+          Tables qui contient les données de téléchargement de registres.
+        columns:
+          - name: id
+            description: ''
+            data_type: bigint
+          - name: org_id
+            description: ''
+            data_type: text
+          - name: data_start_date
+            description: ''
+            data_type: timestamp without time zone
+          - name: data_end_date
+            description: ''
+            data_type: timestamp without time zone
+          - name: created
+            description: ''
+            data_type: timestamp without time zone
+          - name: created_by
+            description: ''
+            data_type: text
+          - name: _sdc_extracted_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: _sdc_received_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: _sdc_batched_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: _sdc_deleted_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: _sdc_sequence
+            description: ''
+            data_type: bigint
+          - name: _sdc_table_version
+            description: ''
+            data_type: bigint
+          - name: _sdc_sync_started_at
+            description: ''
+            data_type: bigint

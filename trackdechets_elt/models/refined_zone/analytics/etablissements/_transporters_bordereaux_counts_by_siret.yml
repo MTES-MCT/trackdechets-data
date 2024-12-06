@@ -1,0 +1,49 @@
+version: 2
+models:
+  - name: transporters_bordereaux_counts_by_siret
+    columns:
+      - name: siret
+        description: 'Code région'
+        data_type: text
+      - name: last_bordereau_created_at_as_transporter
+        description: ''
+        data_type: timestamp without time zone
+      - name: num_bsdd_as_transporter
+        description: ''
+        data_type: bigint
+      - name: num_bsdnd_as_transporter
+        description: ''
+        data_type: bigint
+      - name: num_bsda_as_transporter
+        description: ''
+        data_type: bigint
+      - name: num_bsff_as_transporter
+        description: ''
+        data_type: bigint
+      - name: num_bsdasri_as_transporter
+        description: ''
+        data_type: bigint
+      - name: num_bsvhu_as_transporter
+        description: ''
+        data_type: bigint
+      - name: quantity_bsdd_as_transporter
+        description: ''
+        data_type: numeric
+      - name: quantity_bsdnd_as_transporter
+        description: ''
+        data_type: numeric
+      - name: quantity_bsda_as_transporter
+        description: ''
+        data_type: numeric
+      - name: quantity_bsff_as_transporter
+        description: ''
+        data_type: numeric
+      - name: quantity_bsdasri_as_transporter
+        description: ''
+        data_type: numeric
+      - name: quantity_bsvhu_as_transporter
+        description: ''
+        data_type: numeric
+      - name: processing_operations_as_transporter
+        description: ''
+        data_type: ARRAY

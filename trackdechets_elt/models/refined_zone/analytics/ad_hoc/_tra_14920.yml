@@ -1,0 +1,25 @@
+version: 2
+models:
+  - name: tra_14920
+    columns:
+      - name: _bs_type
+        description: ''
+        data_type: text
+      - name: siren
+        description: ''
+        data_type: text
+      - name: siret
+        description: 'Code région'
+        data_type: text
+      - name: num_emetteur
+        description: ''
+        data_type: bigint
+      - name: num_transporteur
+        description: ''
+        data_type: bigint
+      - name: num_destinataire
+        description: ''
+        data_type: bigint
+      - name: total
+        description: ''
+        data_type: bigint

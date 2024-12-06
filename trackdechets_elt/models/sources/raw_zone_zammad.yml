@@ -1,0 +1,410 @@
+version: 2
+models: []
+sources:
+  - name: raw_zone_zammad
+    description: Données extraites de Zammad
+    loader: meltano
+    tables:
+      - name: tickets
+        description: >
+          Données sur les tickets Zammad.
+        columns:
+          - name: id
+            description: identifiant unique du ticket
+            tests:
+              - not_null
+              - unique
+            data_type: bigint
+          - name: group_id
+            description: ''
+            data_type: bigint
+          - name: priority_id
+            description: ''
+            data_type: bigint
+          - name: state_id
+            description: ''
+            data_type: bigint
+          - name: organization_id
+            description: ''
+            data_type: bigint
+          - name: number
+            description: ''
+            data_type: text
+          - name: title
+            description: ''
+            data_type: text
+          - name: owner_id
+            description: ''
+            data_type: bigint
+          - name: customer_id
+            description: ''
+            data_type: bigint
+          - name: note
+            description: ''
+            data_type: text
+          - name: first_response_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: first_response_escalation_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: first_response_in_min
+            description: ''
+            data_type: bigint
+          - name: first_response_diff_in_min
+            description: ''
+            data_type: bigint
+          - name: close_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: close_escalation_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: close_in_min
+            description: ''
+            data_type: bigint
+          - name: close_diff_in_min
+            description: ''
+            data_type: bigint
+          - name: update_escalation_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: update_in_min
+            description: ''
+            data_type: bigint
+          - name: update_diff_in_min
+            description: ''
+            data_type: bigint
+          - name: last_contact_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: last_contact_agent_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: last_contact_customer_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: last_owner_update_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: create_article_type_id
+            description: ''
+            data_type: bigint
+          - name: create_article_sender_id
+            description: ''
+            data_type: bigint
+          - name: article_count
+            description: ''
+            data_type: bigint
+          - name: escalation_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: pending_time
+            description: ''
+            data_type: text
+          - name: type
+            description: ''
+            data_type: text
+          - name: time_unit
+            description: ''
+            data_type: text
+          - name: preferences
+            description: ''
+            data_type: jsonb
+          - name: updated_by_id
+            description: ''
+            data_type: bigint
+          - name: created_by_id
+            description: ''
+            data_type: bigint
+          - name: created_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: updated_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: last_close_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: article_ids
+            description: ''
+            data_type: ARRAY
+          - name: ticket_time_accounting_ids
+            description: ''
+            data_type: ARRAY
+          - name: _sdc_extracted_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: _sdc_received_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: _sdc_batched_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: _sdc_deleted_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: _sdc_sequence
+            description: ''
+            data_type: bigint
+          - name: _sdc_table_version
+            description: ''
+            data_type: bigint
+          - name: _sdc_sync_started_at
+            description: ''
+            data_type: bigint
+      - name: tags
+        description: >
+          Contient la liste des tags pour chaque tickets. Une ligne par ticket ayant des tags.
+        columns:
+          - name: ticket_id
+            description: identifiant du ticket
+            tests:
+              - not_null
+            data_type: bigint
+          - name: tags
+            description: ''
+            data_type: ARRAY
+          - name: _sdc_extracted_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: _sdc_received_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: _sdc_batched_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: _sdc_deleted_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: _sdc_sequence
+            description: ''
+            data_type: bigint
+          - name: _sdc_table_version
+            description: ''
+            data_type: bigint
+          - name: _sdc_sync_started_at
+            description: ''
+            data_type: bigint
+      - name: users
+        description: >
+          Données des utilisateurs Zammad. Un utilisateur peut être aussi bien un utilisateur interne (membre de l'équipe)
+          qu'un utilisateur externe (utilisateur de Trackdéchets ayant créé un ticket support).
+        columns:
+          - name: id
+            description: identifiant unique de l'utilisateur
+            tests:
+              - unique
+              - not_null
+            data_type: bigint
+          - name: organization_id
+            description: ''
+            data_type: bigint
+          - name: login
+            description: ''
+            data_type: text
+          - name: firstname
+            description: ''
+            data_type: text
+          - name: lastname
+            description: ''
+            data_type: text
+          - name: email
+            description: ''
+            data_type: text
+          - name: image
+            description: ''
+            data_type: text
+          - name: image_source
+            description: ''
+            data_type: text
+          - name: web
+            description: ''
+            data_type: text
+          - name: phone
+            description: ''
+            data_type: text
+          - name: fax
+            description: ''
+            data_type: text
+          - name: mobile
+            description: ''
+            data_type: text
+          - name: department
+            description: ''
+            data_type: text
+          - name: street
+            description: ''
+            data_type: text
+          - name: zip
+            description: ''
+            data_type: text
+          - name: city
+            description: ''
+            data_type: text
+          - name: country
+            description: ''
+            data_type: text
+          - name: address
+            description: ''
+            data_type: text
+          - name: vip
+            description: ''
+            data_type: boolean
+          - name: verified
+            description: ''
+            data_type: boolean
+          - name: active
+            description: ''
+            data_type: boolean
+          - name: note
+            description: ''
+            data_type: text
+          - name: last_login
+            description: ''
+            data_type: timestamp without time zone
+          - name: source
+            description: ''
+            data_type: text
+          - name: login_failed
+            description: ''
+            data_type: bigint
+          - name: out_of_office
+            description: ''
+            data_type: boolean
+          - name: out_of_office_start_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: out_of_office_end_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: out_of_office_replacement_id
+            description: ''
+            data_type: bigint
+          - name: preferences
+            description: ''
+            data_type: jsonb
+          - name: updated_by_id
+            description: ''
+            data_type: bigint
+          - name: created_by_id
+            description: ''
+            data_type: bigint
+          - name: created_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: updated_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: role_ids
+            description: ''
+            data_type: ARRAY
+          - name: organization_ids
+            description: ''
+            data_type: ARRAY
+          - name: authorization_ids
+            description: ''
+            data_type: ARRAY
+          - name: karma_user_ids
+            description: ''
+            data_type: ARRAY
+          - name: group_ids
+            description: ''
+            data_type: jsonb
+          - name: _sdc_extracted_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: _sdc_received_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: _sdc_batched_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: _sdc_deleted_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: _sdc_sequence
+            description: ''
+            data_type: bigint
+          - name: _sdc_table_version
+            description: ''
+            data_type: bigint
+          - name: _sdc_sync_started_at
+            description: ''
+            data_type: bigint
+      - name: groups
+        description: >
+          Données groupes Zammad.
+        columns:
+          - name: id
+            description: identifiant unique du groupe
+            tests:
+              - unique
+              - not_null
+            data_type: bigint
+          - name: signature_id
+            description: ''
+            data_type: bigint
+          - name: email_address_id
+            description: ''
+            data_type: bigint
+          - name: name
+            description: ''
+            data_type: text
+          - name: assignment_timeout
+            description: ''
+            data_type: bigint
+          - name: follow_up_possible
+            description: ''
+            data_type: text
+          - name: follow_up_assignment
+            description: ''
+            data_type: boolean
+          - name: active
+            description: ''
+            data_type: boolean
+          - name: note
+            description: ''
+            data_type: text
+          - name: updated_by_id
+            description: ''
+            data_type: bigint
+          - name: created_by_id
+            description: ''
+            data_type: bigint
+          - name: created_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: updated_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: shared_drafts
+            description: ''
+            data_type: boolean
+          - name: reopen_time_in_days
+            description: ''
+            data_type: bigint
+          - name: user_ids
+            description: ''
+            data_type: ARRAY
+          - name: _sdc_extracted_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: _sdc_received_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: _sdc_batched_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: _sdc_deleted_at
+            description: ''
+            data_type: timestamp without time zone
+          - name: _sdc_sequence
+            description: ''
+            data_type: bigint
+          - name: _sdc_table_version
+            description: ''
+            data_type: bigint
+          - name: _sdc_sync_started_at
+            description: ''
+            data_type: bigint

@@ -1,0 +1,70 @@
+version: 2
+models:
+  - name: bsda_transporter
+    columns:
+      - name: id
+        description: ''
+        data_type: text
+      - name: created_at
+        description: ''
+        data_type: timestamp without time zone
+      - name: updated_at
+        description: ''
+        data_type: timestamp without time zone
+      - name: number
+        description: ''
+        data_type: bigint
+      - name: bsda_id
+        description: ''
+        data_type: text
+      - name: transporter_company_siret
+        description: ''
+        data_type: text
+      - name: transporter_company_name
+        description: ''
+        data_type: text
+      - name: transporter_company_vat_number
+        description: ''
+        data_type: text
+      - name: transporter_company_address
+        description: ''
+        data_type: text
+      - name: transporter_company_contact
+        description: ''
+        data_type: text
+      - name: transporter_company_phone
+        description: ''
+        data_type: text
+      - name: transporter_company_mail
+        description: ''
+        data_type: text
+      - name: transporter_custom_info
+        description: ''
+        data_type: text
+      - name: transporter_recepisse_is_exempted
+        description: ''
+        data_type: boolean
+      - name: transporter_recepisse_number
+        description: ''
+        data_type: text
+      - name: transporter_recepisse_department
+        description: ''
+        data_type: text
+      - name: transporter_recepisse_validity_limit
+        description: ''
+        data_type: timestamp without time zone
+      - name: transporter_transport_mode
+        description: ''
+        data_type: text
+      - name: transporter_transport_plates
+        description: ''
+        data_type: ARRAY
+      - name: transporter_transport_taken_over_at
+        description: ''
+        data_type: timestamp without time zone
+      - name: transporter_transport_signature_author
+        description: ''
+        data_type: text
+      - name: transporter_transport_signature_date
+        description: ''
+        data_type: timestamp without time zone

@@ -1,0 +1,157 @@
+version: 2
+models:
+  - name: dd_entrant
+    columns:
+      - name: id
+        description: ''
+        data_type: bigint
+      - name: created_year_utc
+        description: ''
+        data_type: character varying
+      - name: public_id
+        description: ''
+        data_type: character varying
+      - name: code_dechet
+        description: ''
+        data_type: character varying
+      - name: code_dechet_bale
+        description: ''
+        data_type: character varying
+      - name: created_date
+        description: ''
+        data_type: timestamp with time zone
+      - name: date_reception
+        description: ''
+        data_type: date
+      - name: delegation_id
+        description: ''
+        data_type: bigint
+      - name: is_dechet_pop
+        description: ''
+        data_type: boolean
+      - name: denomination_usuelle
+        description: ''
+        data_type: character varying
+      - name: heure_pesee
+        description: ''
+        data_type: time without time zone
+      - name: last_modified_date
+        description: ''
+        data_type: timestamp with time zone
+      - name: numero_document
+        description: ''
+        data_type: character varying
+      - name: numero_notification
+        description: ''
+        data_type: character varying
+      - name: numero_saisie
+        description: ''
+        data_type: character varying
+      - name: origine
+        description: ''
+        data_type: character varying
+      - name: quantite
+        description: ''
+        data_type: numeric
+      - name: code_traitement
+        description: ''
+        data_type: character varying
+      - name: etablissement_id
+        description: ''
+        data_type: bigint
+      - name: etablissement_numero_identification
+        description: ''
+        data_type: character varying
+      - name: created_by_id
+        description: ''
+        data_type: bigint
+      - name: last_modified_by_id
+        description: ''
+        data_type: bigint
+      - name: code_unite
+        description: ''
+        data_type: character varying
+      - name: identifiant_metier
+        description: ''
+        data_type: character varying
+      - name: canceled_by_id
+        description: ''
+        data_type: bigint
+      - name: canceled_comment
+        description: ''
+        data_type: character varying
+      - name: canceled_date
+        description: ''
+        data_type: timestamp with time zone
+      - name: import_id
+        description: ''
+        data_type: bigint
+      - name: producteur_type
+        description: ''
+        data_type: character varying
+      - name: producteur_numero_identification
+        description: ''
+        data_type: character varying
+      - name: producteur_raison_sociale
+        description: ''
+        data_type: character varying
+      - name: producteur_adresse_libelle
+        description: ''
+        data_type: character varying
+      - name: producteur_adresse_commune
+        description: ''
+        data_type: character varying
+      - name: producteur_adresse_code_postal
+        description: ''
+        data_type: character varying
+      - name: producteur_adresse_pays
+        description: ''
+        data_type: character varying
+      - name: expediteur_type
+        description: ''
+        data_type: character varying
+      - name: expediteur_numero_identification
+        description: ''
+        data_type: character varying
+      - name: expediteur_raison_sociale
+        description: ''
+        data_type: character varying
+      - name: expediteur_adresse_prise_en_charge
+        description: ''
+        data_type: character varying
+      - name: expediteur_adresse_libelle
+        description: ''
+        data_type: character varying
+      - name: expediteur_adresse_commune
+        description: ''
+        data_type: character varying
+      - name: expediteur_adresse_code_postal
+        description: ''
+        data_type: character varying
+      - name: expediteur_adresse_pays
+        description: ''
+        data_type: character varying
+      - name: eco_organisme_type
+        description: ''
+        data_type: character varying
+      - name: eco_organisme_numero_identification
+        description: ''
+        data_type: character varying
+      - name: eco_organisme_raison_sociale
+        description: ''
+        data_type: character varying
+      - name: courtier_type
+        description: ''
+        data_type: character varying
+      - name: courtier_numero_identification
+        description: ''
+        data_type: character varying
+      - name: courtier_raison_sociale
+        description: ''
+        data_type: character varying
+      - name: courtier_numero_recepisse
+        description: ''
+        data_type: character varying
+      - name: numeros_indentification_transporteurs
+        description: ''
+        data_type: ARRAY

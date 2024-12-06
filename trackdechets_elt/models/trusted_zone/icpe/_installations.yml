@@ -1,0 +1,80 @@
+version: 2
+models:
+  - name: installations
+    columns:
+      - name: code_aiot
+        description: 'identifiant unique de l''installation classée'
+        data_type: text
+      - name: num_siret
+        description: ''
+        data_type: text
+      - name: x
+        description: ''
+        data_type: integer
+      - name: y
+        description: ''
+        data_type: integer
+      - name: adresse1
+        description: ''
+        data_type: text
+      - name: adresse2
+        description: ''
+        data_type: text
+      - name: adresse3
+        description: ''
+        data_type: text
+      - name: code_postal
+        description: ''
+        data_type: text
+      - name: code_insee
+        description: ''
+        data_type: text
+      - name: commune
+        description: ''
+        data_type: text
+      - name: raison_sociale
+        description: ''
+        data_type: text
+      - name: etat_activite
+        description: ''
+        data_type: text
+      - name: seveso
+        description: ''
+        data_type: text
+      - name: regime
+        description: ''
+        data_type: text
+      - name: priorite_nationale
+        description: ''
+        data_type: boolean
+      - name: ied
+        description: ''
+        data_type: boolean
+      - name: type_service_aiot
+        description: ''
+        data_type: text
+      - name: bovins
+        description: ''
+        data_type: boolean
+      - name: porcs
+        description: ''
+        data_type: boolean
+      - name: volailles
+        description: ''
+        data_type: boolean
+      - name: carriere
+        description: ''
+        data_type: boolean
+      - name: eolienne
+        description: ''
+        data_type: boolean
+      - name: industrie
+        description: ''
+        data_type: boolean
+      - name: longitude
+        description: ''
+        data_type: double precision
+      - name: latitude
+        description: ''
+        data_type: double precision
+sources: []
