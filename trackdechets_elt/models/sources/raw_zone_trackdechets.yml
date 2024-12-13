@@ -2,6 +2,7 @@ version: 2
 models: []
 sources:
   - name: trackdechets_production
+    schema: trackdechets_production_prod
     description: Vue répliquée depuis la base PostgreSQL Trackdéchets de prod
 
     tables:
@@ -689,7 +690,7 @@ sources:
           - name: canAccessDraftOrgIds
             description: ""
             data_type: ARRAY
-      - name: bsdasri_raw
+      - name: bsdasri
         identifier: Bsdasri
         config:
           elementary:
@@ -986,7 +987,7 @@ sources:
           - name: _sdc_sync_started_at
             description: ""
             data_type: bigint
-      - name: bsff_raw
+      - name: bsff
         identifier: Bsff
         description: >
           Une ligne par BSFF, les BSFF supprimés restent dans la table.
@@ -1178,7 +1179,7 @@ sources:
           - name: transportersOrgIds
             description: ""
             data_type: ARRAY
-      - name: bsvhu_raw
+      - name: bsvhu
         identifier: Bsvhu
         description: >
           Une ligne par BSVHU, les BSVHU supprimés restent dans la table.
@@ -1439,7 +1440,7 @@ sources:
           - name: intermediariesOrgIds
             description: ""
             data_type: ARRAY
-      - name: user_raw
+      - name: user
         identifier: User
         description: >
           Une ligne par compte utilisateur.
@@ -1508,7 +1509,7 @@ sources:
           - name: _sdc_sync_started_at
             description: ""
             data_type: bigint
-      - name: company_raw
+      - name: company
         identifier: Company
         description: >
           Une ligne par compte établissement.
@@ -1661,7 +1662,7 @@ sources:
           - name: isDormantSince
             description: ""
             data_type: timestamp without time zone
-      - name: company_association_raw
+      - name: company_association
         identifier: CompanyAssociation
         description: >
           Une ligne par paire (company,user).
@@ -1712,7 +1713,7 @@ sources:
           - name: _sdc_sync_started_at
             description: ""
             data_type: bigint
-      - name: eco_organisme_raw
+      - name: eco_organisme
         identifier: EcoOrganisme
         description: >
           Table entrée en dur, Eco-Organismes qui nous sont connus.
@@ -1763,7 +1764,7 @@ sources:
           - name: _sdc_sync_started_at
             description: ""
             data_type: bigint
-      - name: bsff_packaging_raw
+      - name: bsff_packaging
         identifier: BsffPackaging
         description: >
           Table avec les données des contenants BSFF. Une ligne par contenant.
@@ -1895,7 +1896,7 @@ sources:
           - name: _sdc_sync_started_at
             description: ""
             data_type: bigint
-      - name: broker_receipt_raw
+      - name: broker_receipt
         identifier: BrokerReceipt
         description: >
           Table avec les données des récépissés "Courtier". Une ligne par récépissé.
@@ -1940,7 +1941,7 @@ sources:
           - name: _sdc_sync_started_at
             description: ""
             data_type: bigint
-      - name: trader_receipt_raw
+      - name: trader_receipt
         identifier: TraderReceipt
         description: >
           Table avec les données des récépissés "Négociant". Une ligne par récépissé.
@@ -1985,7 +1986,7 @@ sources:
           - name: _sdc_sync_started_at
             description: ""
             data_type: bigint
-      - name: transporter_receipt_raw
+      - name: transporter_receipt
         identifier: TransporterReceipt
         description: >
           Table avec les données des récépissés "Transporteur". Une ligne par récépissé.
@@ -2030,7 +2031,7 @@ sources:
           - name: _sdc_sync_started_at
             description: ""
             data_type: bigint
-      - name: vhu_agrement_raw
+      - name: vhu_agrement
         identifier: VhuAgrement
         description: >
           Table avec les données des agréments VHU. Une ligne par agrément.
@@ -2072,7 +2073,7 @@ sources:
           - name: _sdc_sync_started_at
             description: ""
             data_type: bigint
-      - name: bsda_revision_request_raw
+      - name: bsda_revision_request
         identifier: BsdaRevisionRequest
         description: >
           Table avec les demande de révision des BSDA. Une ligne par demande de révision.
@@ -2273,7 +2274,7 @@ sources:
           - name: initialWasteSealNumbers
             description: ""
             data_type: ARRAY
-      - name: bsdd_revision_request_raw
+      - name: bsdd_revision_request
         identifier: BsddRevisionRequest
         description: >
           Table avec les demande de révision des BSDD. Une ligne par demande de révision.
@@ -2540,7 +2541,7 @@ sources:
           - name: initialWasteRefusalReason
             description: ""
             data_type: text
-      - name: bsdd_transporter_raw
+      - name: bsdd_transporter
         identifier: BsddTransporter
         description: >
           Table permettant d'avoir tous les segments de transports pour chaque BSDD.
@@ -2642,7 +2643,7 @@ sources:
           - name: _sdc_sync_started_at
             description: ""
             data_type: bigint
-      - name: anonymous_company_raw
+      - name: anonymous_company
         identifier: AnonymousCompany
         description: >
           Table permettant de connaitre les établissements non diffusibles.
@@ -2704,7 +2705,7 @@ sources:
           - name: etatAdministratif
             description: ""
             data_type: text
-      - name: bsda_transporter_raw
+      - name: bsda_transporter
         identifier: BsdaTransporter
         description: >
           Table permettant d'avoir tous les segments de transports pour chaque BSDA.
@@ -2796,7 +2797,7 @@ sources:
           - name: _sdc_sync_started_at
             description: ""
             data_type: bigint
-      - name: bsff_transporter_raw
+      - name: bsff_transporter
         identifier: BsffTransporter
         description: >
           Table permettant d'avoir tous les segments de transports pour chaque BSFF.
@@ -2888,7 +2889,7 @@ sources:
           - name: _sdc_sync_started_at
             description: ""
             data_type: bigint
-      - name: bsdasri_revision_request_raw
+      - name: bsdasri_revision_request
         identifier: BsdasriRevisionRequest
         description: >-
           Table permettant d'avoir les requêtes de révision relatives aux DASRI.

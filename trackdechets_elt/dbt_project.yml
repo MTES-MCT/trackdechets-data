@@ -32,11 +32,6 @@ models:
     # Config indicated by + and applies to all files under models/example/
     +dbt-osmosis: "_{model}.yml"
 
-    raw_zone:
-      +schema: raw_zone
-      trackdechets:
-        +schema: raw_zone_trackdechets
-
     refined_zone:
       analytics:
         +materialized: view

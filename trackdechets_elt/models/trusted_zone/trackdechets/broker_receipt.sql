@@ -1,20 +1,14 @@
 {{
   config(
     materialized = 'table',
-    indexes = [
-        { "columns" : ["id"], "unique": True },
-    ]
     )
 }}
 with source as (
-    select * from {{ source('trackdechets_production', 'broker_receipt_raw') }}
+    select * from {{ source('trackdechets_production', 'broker_receipt') }}
 )
-
-select
-    id,
-    "receiptNumber" as receipt_number,
-    "validityLimit" as validity_limit,
-    department
-from
-    source
-where _sdc_sync_started_at >= (select max(_sdc_sync_started_at) from source)
+SELECT
+    assumeNotNull(toString("id")) as id,
+    assumeNotNull(toString("receiptNumber")) as receipt_number,
+    assumeNotNull(toDateTime64("validityLimit", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("validityLimit",'Europe/Paris'))) as validity_limit,
+    toLowCardinality(assumeNotNull(toString("department"))) as department
+ FROM source

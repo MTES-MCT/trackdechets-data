@@ -1,30 +1,21 @@
 {{
   config(
-    materialized = 'table',
-    indexes = [
-        { "columns" : ["id"], "unique": True },
-        { "columns" : ["siret"], "unique": True },
-    ]
+    materialized = 'table'
     )
 }}
 
 with source as (
-    select * from {{ source('trackdechets_production', 'anonymous_company_raw') }}
-),
-
-renamed as (
-    select
-        id,
-        siret,
-        name,
-        address,
-        "codeNaf"     as code_naf,
-        "libelleNaf"  as libelle_naf,
-        "codeCommune" as code_commune,
-        "vatNumber"   as vat_number,
-        "orgId"       as org_id
-    from source
-    where _sdc_sync_started_at >= (select max(_sdc_sync_started_at) from source)
+    select * from {{ source('trackdechets_production', 'anonymous_company') }}
 )
-
-select * from renamed
+SELECT
+    assumeNotNull(toString("id")) as id,
+    toNullable(toString("siret")) as siret,
+    assumeNotNull(toString("name")) as name,
+    assumeNotNull(toString("address")) as address,
+    toLowCardinality(assumeNotNull(toString("codeNaf"))) as code_naf,
+    toLowCardinality(assumeNotNull(toString("libelleNaf"))) as libelle_naf,
+    toLowCardinality(assumeNotNull(toString("codeCommune"))) as code_commune,
+    toNullable(toString("vatNumber")) as vat_number,
+    assumeNotNull(toString("orgId")) as org_id,
+    toLowCardinality(assumeNotNull(toString("etatAdministratif"))) as etat_administratif
+ FROM source

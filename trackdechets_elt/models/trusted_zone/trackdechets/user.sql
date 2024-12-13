@@ -1,48 +1,30 @@
 {{
   config(
-    materialized = 'table',
-    indexes = [
-        { "columns": ["id"], "unique": True},
-        { "columns": ["email"]}
-    ]
+    materialized = 'incremental',
+    incremental_strategy = 'delete+insert',
+    unique_key = 'id',
+    on_schema_change='append_new_columns'
     )
 }}
 
 with source as (
-    select *
-    from {{ source('trackdechets_production', 'user_raw') }}
-),
-
-renamed as (
-    select
-        id,
-        email,
-        "name",
-        phone,
-        "createdAt"            as created_at,
-        "updatedAt"            as updated_at,
-        "isActive"             as is_active,
-        "activatedAt"          as activated_at,
-        "firstAssociationDate" as first_association_date,
-        "isAdmin"              as is_admin,
-        "isRegistreNational"   as is_registre_national,
-        "governmentAccountId"  as government_account_id
-    from
-        source
-    where _sdc_sync_started_at >= (select max(_sdc_sync_started_at) from source)
+    select * from {{ source('trackdechets_production', 'user') }} b
+    {% if is_incremental() %}
+    where b."updatedAt" >= (SELECT toString(toStartOfDay(max(updated_at)))  FROM {{ this }})
+    {% endif %}
 )
-
-select
-    id,
-    email,
-    "name",
-    phone,
-    created_at,
-    updated_at,
-    is_active,
-    activated_at,
-    first_association_date,
-    is_admin,
-    is_registre_national,
-    government_account_id
-from renamed
+SELECT
+    assumeNotNull(toString("id")) as id,
+    assumeNotNull(toString("email")) as email,
+    assumeNotNull(toString("password")) as password,
+    assumeNotNull(toString("name")) as name,
+    toNullable(toString("phone")) as phone,
+    assumeNotNull(toDateTime64("createdAt", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("createdAt",'Europe/Paris'))) as created_at,
+    assumeNotNull(toDateTime64("updatedAt", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("updatedAt",'Europe/Paris'))) as updated_at,
+    toNullable(toBool("isActive")) as is_active,
+    toNullable(toDateTime64("activatedAt", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("activatedAt",'Europe/Paris'))) as activated_at,
+    toNullable(toDateTime64("firstAssociationDate", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("firstAssociationDate",'Europe/Paris'))) as first_association_date,
+    assumeNotNull(toBool("isAdmin")) as is_admin,
+    toNullable(toInt256("passwordVersion")) as password_version,
+    toNullable(toString("governmentAccountId")) as government_account_id
+ FROM source

@@ -9,21 +9,11 @@
 
 with source as (
     select *
-    from {{ source('trackdechets_production', 'vhu_agrement_raw') }}
-),
-
-renamed as (
-    select
-        id,
-        "agrementNumber" as agrement_number,
-        department
-    from
-        source
-    where _sdc_sync_started_at >= (select max(_sdc_sync_started_at) from source)
+    from {{ source('trackdechets_production', 'vhu_agrement') }}
 )
+SELECT
+    assumeNotNull(toString("id")) as id,
+    assumeNotNull(toString("agrementNumber")) as agrement_number,
+    toLowCardinality(assumeNotNull(toString("department"))) as department
+ FROM source
 
-select
-    id,
-    agrement_number,
-    department
-from renamed

@@ -1,127 +1,57 @@
 {{
   config(
-    materialized = 'table',
-    indexes = [
-        { "columns": ["id"], "unique": True},
-        { "columns": ["created_at"]},
-        { "columns": ["updated_at"]},
-        { "columns": ["siret"]},
-        { "columns": ["org_id"]}
-
-    ]
+    materialized = 'incremental',
+    incremental_strategy = 'delete+insert',
+    unique_key = 'id',
+    on_schema_change='append_new_columns'
     )
 }}
 
 with source as (
-    select *
-    from {{ source('trackdechets_production', 'company_raw') }}
-),
-
-renamed as (
-    select
-        id,
-        siret,
-        "updatedAt"                            as updated_at,
-        "createdAt"                            as created_at,
-        "securityCode"                         as security_code,
-        "name",
-        "gerepId"                              as gerep_id,
-        "codeNaf"                              as code_naf,
-        "givenName"                            as given_name,
-        "contactEmail"                         as contact_email,
-        "contactPhone"                         as contact_phone,
-        website,
-        "transporterReceiptId"                 as transporter_receipt_id,
-        "traderReceiptId"                      as trader_receipt_id,
-        /*Cast JSONB array to TEXT array without the " in the values*/
-        address,
-        latitude,
-        longitude,
-        "brokerReceiptId"                      as broker_receipt_id,
-        "verificationCode"                     as verification_code,
-        "verificationStatus"                   as verification_status,
-        "verificationMode"                     as verification_mode,
-        "verificationComment"                  as verification_comment,
-        "verifiedAt"                           as verified_at,
-        "vhuAgrementDemolisseurId"             as vhu_agrement_demolisseur_id,
-        "vhuAgrementBroyeurId"                 as vhu_agrement_broyeur_id,
-        "allowBsdasriTakeOverWithoutSignature" as allow_bsdasri_take_over_without_signature,
-        "vatNumber"                            as vat_number,
-        contact,
-        "codeDepartement"                      as code_departement,
-        "workerCertificationId"                as worker_certification_id,
-        "orgId"                                as org_id,
-        string_to_array(
-            replace(
-                array_to_string("ecoOrganismeAgreements", ','),
-                '"',
-                ''
-            ),
-            ','
-        )                                      as eco_organisme_agreements,
-        string_to_array(
-            replace(
-                array_to_string("companyTypes", ','),
-                '"',
-                ''
-            ),
-            ','
-        )                                      as company_types,
-        string_to_array(
-            replace(
-                array_to_string("collectorTypes", ','),
-                '"',
-                ''
-            ),
-            ','
-        )                                      as collector_types,
-        string_to_array(
-            replace(
-                array_to_string("wasteProcessorTypes", ','),
-                '"',
-                ''
-            ),
-            ','
-        )                                      as waste_processor_types
-    from
-        source
-    where _sdc_sync_started_at >= (select max(_sdc_sync_started_at) from source)
+    select * from {{ source('trackdechets_production', 'company') }} b
+    {% if is_incremental() %}
+    where b."updatedAt" >= (SELECT toString(toStartOfDay(max(updated_at)))  FROM {{ this }})
+    {% endif %}
 )
-
-select
-    id,
-    siret,
-    updated_at,
-    created_at,
-    security_code,
-    "name",
-    gerep_id,
-    code_naf,
-    given_name,
-    contact_email,
-    contact_phone,
-    website,
-    transporter_receipt_id,
-    trader_receipt_id,
-    eco_organisme_agreements,
-    company_types,
-    address,
-    latitude,
-    longitude,
-    broker_receipt_id,
-    verification_code,
-    verification_status,
-    verification_mode,
-    verification_comment,
-    verified_at,
-    vhu_agrement_demolisseur_id,
-    vhu_agrement_broyeur_id,
-    allow_bsdasri_take_over_without_signature,
-    vat_number,
-    contact,
-    code_departement,
-    worker_certification_id,
-    org_id,
-    collector_types,
-    waste_processor_types
-from renamed
+SELECT
+    assumeNotNull(toString("id")) as id,
+    toNullable(toString("siret")) as siret,
+    assumeNotNull(toDateTime64("updatedAt", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("updatedAt",'Europe/Paris'))) as updated_at,
+    assumeNotNull(toDateTime64("createdAt", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("createdAt",'Europe/Paris'))) as created_at,
+    assumeNotNull(toInt256("securityCode")) as security_code,
+    assumeNotNull(toString("name")) as name,
+    toNullable(toString("gerepId")) as gerep_id,
+    toLowCardinality(toNullable(toString("codeNaf"))) as code_naf,
+    toNullable(toString("givenName")) as given_name,
+    toNullable(toString("contactEmail")) as contact_email,
+    toNullable(toString("contactPhone")) as contact_phone,
+    toNullable(toString("website")) as website,
+    toNullable(toString("transporterReceiptId")) as transporter_receipt_id,
+    toNullable(toString("traderReceiptId")) as trader_receipt_id,
+    assumeNotNull(splitByChar(',',COALESCE (substring(toString("ecoOrganismeAgreements"),2,length("ecoOrganismeAgreements")-2),''))) as eco_organisme_agreements,
+    assumeNotNull(splitByChar(',',COALESCE (substring(toString("companyTypes"),2,length("companyTypes")-2),''))) as company_types,
+    toNullable(toString("address")) as address,
+    toNullable(toFloat64("latitude")) as latitude,
+    toNullable(toFloat64("longitude")) as longitude,
+    toNullable(toString("brokerReceiptId")) as broker_receipt_id,
+    assumeNotNull(toString("verificationCode")) as verification_code,
+    toLowCardinality(assumeNotNull(toString("verificationStatus"))) as verification_status,
+    toLowCardinality(toNullable(toString("verificationMode"))) as verification_mode,
+    toNullable(toString("verificationComment")) as verification_comment,
+    toNullable(toDateTime64("verifiedAt", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("verifiedAt",'Europe/Paris'))) as verified_at,
+    toNullable(toString("vhuAgrementDemolisseurId")) as vhu_agrement_demolisseur_id,
+    toNullable(toString("vhuAgrementBroyeurId")) as vhu_agrement_broyeur_id,
+    assumeNotNull(toBool("allowBsdasriTakeOverWithoutSignature")) as allow_bsdasri_take_over_without_signature,
+    toNullable(toString("vatNumber")) as vat_number,
+    toNullable(toString("contact")) as contact,
+    toLowCardinality(toNullable(toString("codeDepartement"))) as code_departement,
+    toNullable(toString("workerCertificationId")) as worker_certification_id,
+    assumeNotNull(toString("orgId")) as org_id,
+    assumeNotNull(splitByChar(',',COALESCE (substring(toString("collectorTypes"),2,length("collectorTypes")-2),''))) as collector_types,
+    assumeNotNull(splitByChar(',',COALESCE (substring(toString("wasteProcessorTypes"),2,length("wasteProcessorTypes")-2),''))) as waste_processor_types,
+    assumeNotNull(toInt256("webhookSettingsLimit")) as webhook_settings_limit,
+    assumeNotNull(toBool("allowAppendix1SignatureAutomation")) as allow_appendix1_signature_automation,
+    assumeNotNull(splitByChar(',',COALESCE (substring(toString("featureFlags"),2,length("featureFlags")-2),''))) as feature_flags,
+    assumeNotNull(splitByChar(',',COALESCE (substring(toString("wasteVehiclesTypes"),2,length("wasteVehiclesTypes")-2),''))) as waste_vehicles_types,
+    toNullable(toDateTime64("isDormantSince", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("isDormantSince",'Europe/Paris'))) as is_dormant_since
+ FROM source

@@ -1,35 +1,37 @@
+{{ config(
+    materialized = 'incremental',
+    incremental_strategy = 'delete+insert',
+    unique_key = 'id',
+    on_schema_change='append_new_columns'
+) }}
+
 with source as (
-    select * from {{ source('trackdechets_production', 'bsff_transporter_raw') }}
-),
-
-renamed as (
-    select
-        {{ adapter.quote("id") }},
-        {{ adapter.quote("createdAt") }}                           as created_at,
-        {{ adapter.quote("updatedAt") }}                           as updated_at,
-        {{ adapter.quote("number") }},
-        {{ adapter.quote("bsffId") }}                              as bsff_id,
-        {{ adapter.quote("transporterCompanySiret") }}             as transporter_company_siret,
-        {{ adapter.quote("transporterCompanyName") }}              as transporter_company_name,
-        {{ adapter.quote("transporterCompanyVatNumber") }}         as transporter_company_vat_number,
-        {{ adapter.quote("transporterCompanyAddress") }}           as transporter_company_address,
-        {{ adapter.quote("transporterCompanyContact") }}           as transporter_company_contact,
-        {{ adapter.quote("transporterCompanyPhone") }}             as transporter_company_phone,
-        {{ adapter.quote("transporterCompanyMail") }}              as transporter_company_mail,
-        {{ adapter.quote("transporterCustomInfo") }}               as transporter_custom_info,
-        {{ adapter.quote("transporterRecepisseIsExempted") }}      as transporter_recepisse_is_exempted,
-        {{ adapter.quote("transporterRecepisseNumber") }}          as transporter_recepisse_number,
-        {{ adapter.quote("transporterRecepisseDepartment") }}      as transporter_recepisse_department,
-        {{ adapter.quote("transporterRecepisseValidityLimit") }}   as transporter_recepisse_validity_limit,
-        {{ adapter.quote("transporterTransportMode") }}            as transporter_transport_mode,
-        {{ adapter.quote("transporterTransportPlates") }}          as transporter_transport_plates,
-        cast(
-            {{ adapter.quote("transporterTransportTakenOverAt") }} as timestamptz
-        )                                     as transporter_transport_taken_over_at,
-        {{ adapter.quote("transporterTransportSignatureAuthor") }} as transporter_transport_signature_author,
-        {{ adapter.quote("transporterTransportSignatureDate") }}   as transporter_tranport_signature_date
-
-    from source
+    select * from {{ source('trackdechets_production', 'bsff_transporter') }} b
+    {% if is_incremental() %}
+    where b."updatedAt" >= (SELECT toString(toStartOfDay(max(updated_at)))  FROM {{ this }})
+    {% endif %}
 )
-
-select * from renamed
+SELECT
+    assumeNotNull(toString("id")) as id,
+    assumeNotNull(toDateTime64("createdAt", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("createdAt",'Europe/Paris'))) as created_at,
+    assumeNotNull(toDateTime64("updatedAt", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("updatedAt",'Europe/Paris'))) as updated_at,
+    assumeNotNull(toInt256("number")) as number,
+    toNullable(toString("bsffId")) as bsff_id,
+    toNullable(toString("transporterCompanySiret")) as transporter_company_siret,
+    toNullable(toString("transporterCompanyName")) as transporter_company_name,
+    toNullable(toString("transporterCompanyVatNumber")) as transporter_company_vat_number,
+    toNullable(toString("transporterCompanyAddress")) as transporter_company_address,
+    toNullable(toString("transporterCompanyContact")) as transporter_company_contact,
+    toNullable(toString("transporterCompanyPhone")) as transporter_company_phone,
+    toNullable(toString("transporterCompanyMail")) as transporter_company_mail,
+    toNullable(toString("transporterCustomInfo")) as transporter_custom_info,
+    toNullable(toBool("transporterRecepisseIsExempted")) as transporter_recepisse_is_exempted,
+    toNullable(toString("transporterRecepisseNumber")) as transporter_recepisse_number,
+    toLowCardinality(toNullable(toString("transporterRecepisseDepartment"))) as transporter_recepisse_department,
+    toNullable(toDateTime64("transporterRecepisseValidityLimit", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("transporterRecepisseValidityLimit",'Europe/Paris'))) as transporter_recepisse_validity_limit,
+    toLowCardinality(toNullable(toString("transporterTransportMode"))) as transporter_transport_mode,
+    assumeNotNull(splitByChar(',',COALESCE (substring(toString("transporterTransportPlates"),2,length("transporterTransportPlates")-2),''))) as transporter_transport_plates,
+    toNullable(toDateTime64("transporterTransportTakenOverAt", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("transporterTransportTakenOverAt",'Europe/Paris'))) as transporter_transport_taken_over_at,
+    toNullable(toString("transporterTransportSignatureAuthor")) as transporter_transport_signature_author,
+    toNullable(toDateTime64("transporterTransportSignatureDate", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("transporterTransportSignatureDate",'Europe/Paris'))) as transporter_transport_signature_date
+ FROM source

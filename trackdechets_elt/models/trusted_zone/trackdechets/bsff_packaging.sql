@@ -1,99 +1,44 @@
 {{
   config(
-    materialized = 'table',
-    indexes = [
-        { "columns": ["id"], "unique": True},
-        { "columns": ["bsff_id"]},
-        { "columns": ["operation_date"]}
-
-    ]
+    materialized = 'table'
     )
 }}
 
 with source as (
-    select *
-    from {{ source('trackdechets_production', 'bsff_packaging_raw') }}
-),
-
-renamed as (
-    select
-        id,
-        numero,
-        "bsffId"                                   as bsff_id,
-        "acceptationDate"                          as acceptation_date,
-        "acceptationRefusalReason"                 as acceptation_refusal_reason,
-        "acceptationSignatureAuthor"               as acceptation_signature_author,
-        "acceptationSignatureDate"                 as acceptation_signature_date,
-        "acceptationStatus"                        as acceptation_status,
-        "acceptationWasteCode"                     as acceptation_waste_code,
-        "acceptationWasteDescription"              as acceptation_waste_description,
-        "operationDate"                            as operation_date,
-        "operationDescription"                     as operation_description,
-        "operationNoTraceability"                  as operation_no_traceability,
-        "operationSignatureAuthor"                 as operation_signature_author,
-        "operationSignatureDate"                   as operation_signature_date,
-        "operationNextDestinationCap"              as operation_next_destination_cap,
-        "operationNextDestinationCompanyAddress"   as operation_next_destination_company_address,
-        "operationNextDestinationCompanyContact"   as operation_next_destination_company_contact,
-        "operationNextDestinationCompanyMail"      as operation_next_destination_company_mail,
-        "operationNextDestinationCompanyName"      as operation_next_destination_company_name,
-        "operationNextDestinationCompanyPhone"     as operation_next_destination_company_phone,
-        "operationNextDestinationCompanySiret"     as operation_next_destination_company_siret,
-        "operationNextDestinationCompanyVatNumber" as operation_next_destination_company_vat_number,
-        "nextPackagingId"                          as next_packaging_id,
-        other,
-        "type"                                     as type,
-        "emissionNumero"                           as emission_numero,
-        "operationMode"                            as operation_mode,
-        volume
-        / 1000                                     as volume,
-        weight
-        / 1000                                     as weight,
-        "acceptationWeight"
-        / 1000                                     as acceptation_weight,
-        replace(
-            "operationCode", ' ', ''
-        )                                          as operation_code,
-        replace(
-            "operationNextDestinationPlannedOperationCode", ' ', ''
-        )                                          as operation_next_destination_planned_operation_code
-    from
-        source
-    where _sdc_sync_started_at >= (select max(_sdc_sync_started_at) from source)
+    select * from {{ source('trackdechets_production', 'bsff_packaging') }} b
 )
-
-select
-    id,
-    volume,
-    weight,
-    numero,
-    bsff_id,
-    acceptation_date,
-    acceptation_refusal_reason,
-    acceptation_signature_author,
-    acceptation_signature_date,
-    acceptation_status,
-    acceptation_weight,
-    acceptation_waste_code,
-    acceptation_waste_description,
-    operation_date,
-    operation_code,
-    operation_description,
-    operation_no_traceability,
-    operation_signature_author,
-    operation_signature_date,
-    operation_next_destination_planned_operation_code,
-    operation_next_destination_cap,
-    operation_next_destination_company_address,
-    operation_next_destination_company_contact,
-    operation_next_destination_company_mail,
-    operation_next_destination_company_name,
-    operation_next_destination_company_phone,
-    operation_next_destination_company_siret,
-    operation_next_destination_company_vat_number,
-    next_packaging_id,
-    other,
-    type,
-    emission_numero,
-    operation_mode
-from renamed
+SELECT
+    assumeNotNull(toString("id")) as id,
+    toNullable(toFloat64("volume")) as volume,
+    assumeNotNull(toFloat64("weight")) as weight,
+    assumeNotNull(toString("numero")) as numero,
+    assumeNotNull(toString("bsffId")) as bsff_id,
+    toNullable(toDateTime64("acceptationDate", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("acceptationDate",'Europe/Paris'))) as acceptation_date,
+    toNullable(toString("acceptationRefusalReason")) as acceptation_refusal_reason,
+    toNullable(toString("acceptationSignatureAuthor")) as acceptation_signature_author,
+    toNullable(toDateTime64("acceptationSignatureDate", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("acceptationSignatureDate",'Europe/Paris'))) as acceptation_signature_date,
+    toLowCardinality(toNullable(toString("acceptationStatus"))) as acceptation_status,
+    toNullable(toFloat64("acceptationWeight")) as acceptation_weight,
+    toLowCardinality(toNullable(toString("acceptationWasteCode"))) as acceptation_waste_code,
+    toNullable(toString("acceptationWasteDescription")) as acceptation_waste_description,
+    toNullable(toDateTime64("operationDate", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("operationDate",'Europe/Paris'))) as operation_date,
+    toLowCardinality(toNullable(replaceAll(toString("operationCode"),' ',''))) as operation_code,
+    toNullable(toString("operationDescription")) as operation_description,
+    assumeNotNull(toBool("operationNoTraceability")) as operation_no_traceability,
+    toNullable(toString("operationSignatureAuthor")) as operation_signature_author,
+    toNullable(toDateTime64("operationSignatureDate", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("operationSignatureDate",'Europe/Paris'))) as operation_signature_date,
+    toNullable(toString("operationNextDestinationPlannedOperationCode")) as operation_next_destination_planned_operation_code,
+    toNullable(toString("operationNextDestinationCap")) as operation_next_destination_cap,
+    toNullable(toString("operationNextDestinationCompanyAddress")) as operation_next_destination_company_address,
+    toNullable(toString("operationNextDestinationCompanyContact")) as operation_next_destination_company_contact,
+    toNullable(toString("operationNextDestinationCompanyMail")) as operation_next_destination_company_mail,
+    toNullable(toString("operationNextDestinationCompanyName")) as operation_next_destination_company_name,
+    toNullable(toString("operationNextDestinationCompanyPhone")) as operation_next_destination_company_phone,
+    toNullable(toString("operationNextDestinationCompanySiret")) as operation_next_destination_company_siret,
+    toNullable(toString("operationNextDestinationCompanyVatNumber")) as operation_next_destination_company_vat_number,
+    toNullable(toString("nextPackagingId")) as next_packaging_id,
+    toNullable(toString("other")) as other,
+    toLowCardinality(assumeNotNull(toString("type"))) as type,
+    assumeNotNull(toString("emissionNumero")) as emission_numero,
+    toLowCardinality(toNullable(toString("operationMode"))) as operation_mode
+ FROM source

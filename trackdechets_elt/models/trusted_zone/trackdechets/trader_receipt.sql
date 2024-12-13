@@ -9,23 +9,11 @@
 
 with source as (
     select *
-    from {{ source('trackdechets_production', 'trader_receipt_raw') }}
-),
-
-renamed as (
-    select
-        id,
-        "receiptNumber"                      as receipt_number,
-        cast("validityLimit" as timestamptz) as validity_limit,
-        department
-    from
-        source
-    where _sdc_sync_started_at >= (select max(_sdc_sync_started_at) from source)
+    from {{ source('trackdechets_production', 'trader_receipt') }}
 )
-
-select
-    id,
-    receipt_number,
-    validity_limit,
-    department
-from renamed
+SELECT
+    assumeNotNull(toString("id")) as id,
+    assumeNotNull(toString("receiptNumber")) as receipt_number,
+    assumeNotNull(toDateTime64("validityLimit", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("validityLimit",'Europe/Paris'))) as validity_limit,
+    toLowCardinality(assumeNotNull(toString("department"))) as department
+ FROM source

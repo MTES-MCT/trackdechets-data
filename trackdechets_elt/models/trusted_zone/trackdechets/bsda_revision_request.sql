@@ -1,94 +1,73 @@
 {{
   config(
-    materialized = 'table',
-    indexes = [
-        { "columns": ["id"], "unique": True},
-        { "columns": ["bsda_id"]},
-        { "columns": ["created_at"]},
-        { "columns": ["updated_at"]}
-
-    ]
+    materialized = 'incremental',
+    incremental_strategy = 'delete+insert',
+    unique_key = 'id',
+    on_schema_change='append_new_columns'
     )
 }}
 
 with source as (
-    select *
-    from {{ source('trackdechets_production', 'bsda_revision_request_raw') }}
-),
-
-renamed as (
-    select
-        id,
-        "createdAt"                       as created_at,
-        "updatedAt"                       as updated_at,
-        "bsdaId"                          as bsda_id,
-        "authoringCompanyId"              as authoring_company_id,
-        "comment",
-        status,
-        "wasteCode"                       as waste_code,
-        "wastePop"                        as waste_pop,
-        packagings,
-        "wasteSealNumbers"                as waste_seal_numbers,
-        "wasteMaterialName"               as waste_material_name,
-        "destinationCap"                  as destination_cap,
-        "destinationOperationDescription" as destination_operation_description,
-        "brokerCompanyName"               as broker_company_name,
-        "brokerCompanySiret"              as broker_company_siret,
-        "brokerCompanyAddress"            as broker_company_address,
-        "brokerCompanyContact"            as broker_company_contact,
-        "brokerCompanyPhone"              as broker_company_phone,
-        "brokerCompanyMail"               as broker_company_mail,
-        "brokerRecepisseNumber"           as broker_recepisse_number,
-        "brokerRecepisseDepartment"       as broker_recepisse_department,
-        "brokerRecepisseValidityLimit"    as broker_recepisse_validity_limit,
-        "emitterPickupSiteName"           as emitter_pickup_site_name,
-        "emitterPickupSiteAddress"        as emitter_pickup_site_address,
-        "emitterPickupSiteCity"           as emitter_pickup_site_city,
-        "emitterPickupSitePostalCode"     as emitter_pickup_site_postal_code,
-        "emitterPickupSiteInfos"          as emitter_pickup_site_infos,
-        "isCanceled"                      as is_canceled,
-        "destinationOperationMode"        as destination_operation_mode,
-        "destinationReceptionWeight"
-        / 1000                            as destination_reception_weight,
-        replace(
-            "destinationOperationCode", ' ', ''
-        )                                 as destination_operation_code
-    from
-        source
-    where _sdc_sync_started_at >= (select max(_sdc_sync_started_at) from source)
+    select * from {{ source('trackdechets_production', 'bsda_revision_request') }} b
+    {% if is_incremental() %}
+    where b."updatedAt" >= (SELECT toString(toStartOfDay(max(updated_at)))  FROM {{ this }})
+    {% endif %}
 )
-
-select
-    id,
-    created_at,
-    updated_at,
-    bsda_id,
-    authoring_company_id,
-    comment,
-    status,
-    waste_code,
-    waste_pop,
-    packagings,
-    waste_seal_numbers,
-    waste_material_name,
-    destination_cap,
-    destination_reception_weight,
-    destination_operation_code,
-    destination_operation_description,
-    broker_company_name,
-    broker_company_siret,
-    broker_company_address,
-    broker_company_contact,
-    broker_company_phone,
-    broker_company_mail,
-    broker_recepisse_number,
-    broker_recepisse_department,
-    broker_recepisse_validity_limit,
-    emitter_pickup_site_name,
-    emitter_pickup_site_address,
-    emitter_pickup_site_city,
-    emitter_pickup_site_postal_code,
-    emitter_pickup_site_infos,
-    is_canceled,
-    destination_operation_mode
-from renamed
+SELECT
+    assumeNotNull(toString("id")) as id,
+    assumeNotNull(toDateTime64("createdAt", 6)) as created_at,
+    assumeNotNull(toDateTime64("updatedAt", 6)) as updated_at,
+    assumeNotNull(toString("bsdaId")) as bsda_id,
+    assumeNotNull(toString("authoringCompanyId")) as authoring_company_id,
+    assumeNotNull(toString("comment")) as comment,
+    toLowCardinality(assumeNotNull(toString("status"))) as status,
+    toLowCardinality(toNullable(toString("wasteCode"))) as waste_code,
+    toNullable(toBool("wastePop")) as waste_pop,
+    toNullable(toString("packagings")) as packagings,
+    assumeNotNull(splitByChar(',',COALESCE (substring(toString("wasteSealNumbers"),2,length("wasteSealNumbers")-2),''))) as waste_seal_numbers,
+    toNullable(toString("wasteMaterialName")) as waste_material_name,
+    toNullable(toString("destinationCap")) as destination_cap,
+    toNullable(toFloat64("destinationReceptionWeight")) as destination_reception_weight,
+    toLowCardinality(toNullable(replaceAll(toString("destinationOperationCode"),' ',''))) as destination_operation_code,
+    toNullable(toString("destinationOperationDescription")) as destination_operation_description,
+    toNullable(toString("brokerCompanyName")) as broker_company_name,
+    toNullable(toString("brokerCompanySiret")) as broker_company_siret,
+    toNullable(toString("brokerCompanyAddress")) as broker_company_address,
+    toNullable(toString("brokerCompanyContact")) as broker_company_contact,
+    toNullable(toString("brokerCompanyPhone")) as broker_company_phone,
+    toNullable(toString("brokerCompanyMail")) as broker_company_mail,
+    toNullable(toString("brokerRecepisseNumber")) as broker_recepisse_number,
+    toLowCardinality(toNullable(toString("brokerRecepisseDepartment"))) as broker_recepisse_department,
+    toNullable(toDateTime64("brokerRecepisseValidityLimit", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("brokerRecepisseValidityLimit",'Europe/Paris'))) as broker_recepisse_validity_limit,
+    toNullable(toString("emitterPickupSiteName")) as emitter_pickup_site_name,
+    toNullable(toString("emitterPickupSiteAddress")) as emitter_pickup_site_address,
+    toNullable(toString("emitterPickupSiteCity")) as emitter_pickup_site_city,
+    toLowCardinality(toNullable(toString("emitterPickupSitePostalCode"))) as emitter_pickup_site_postal_code,
+    toNullable(toString("emitterPickupSiteInfos")) as emitter_pickup_site_infos,
+    assumeNotNull(toBool("isCanceled")) as is_canceled,
+    toLowCardinality(toNullable(toString("destinationOperationMode"))) as destination_operation_mode,
+    toNullable(toString("initialBrokerCompanyAddress")) as initial_broker_company_address,
+    toNullable(toString("initialBrokerCompanyContact")) as initial_broker_company_contact,
+    toNullable(toString("initialBrokerCompanyMail")) as initial_broker_company_mail,
+    toNullable(toString("initialBrokerCompanyName")) as initial_broker_company_name,
+    toNullable(toString("initialBrokerCompanyPhone")) as initial_broker_company_phone,
+    toNullable(toString("initialBrokerCompanySiret")) as initial_broker_company_siret,
+    toLowCardinality(toNullable(toString("initialBrokerRecepisseDepartment"))) as initial_broker_recepisse_department,
+    toNullable(toString("initialBrokerRecepisseNumber")) as initial_broker_recepisse_number,
+    toNullable(toDateTime64("initialBrokerRecepisseValidityLimit", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("initialBrokerRecepisseValidityLimit",'Europe/Paris'))) as initial_broker_recepisse_validity_limit,
+    toNullable(toString("initialDestinationCap")) as initial_destination_cap,
+    toLowCardinality(toNullable(replaceAll(toString("initialDestinationOperationCode"),' ',''))) as initial_destination_operation_code,
+    toNullable(toString("initialDestinationOperationDescription")) as initial_destination_operation_description,
+    toLowCardinality(toNullable(toString("initialDestinationOperationMode"))) as initial_destination_operation_mode,
+    toNullable(toDecimal256("initialDestinationReceptionWeight", 30)) as initial_destination_reception_weight,
+    toNullable(toString("initialEmitterPickupSiteAddress")) as initial_emitter_pickup_site_address,
+    toNullable(toString("initialEmitterPickupSiteCity")) as initial_emitter_pickup_site_city,
+    toNullable(toString("initialEmitterPickupSiteInfos")) as initial_emitter_pickup_site_infos,
+    toNullable(toString("initialEmitterPickupSiteName")) as initial_emitter_pickup_site_name,
+    toLowCardinality(toNullable(toString("initialEmitterPickupSitePostalCode"))) as initial_emitter_pickup_site_postal_code,
+    toNullable(toString("initialPackagings")) as initial_packagings,
+    toLowCardinality(toNullable(toString("initialWasteCode"))) as initial_waste_code,
+    toNullable(toString("initialWasteMaterialName")) as initial_waste_material_name,
+    toNullable(toBool("initialWastePop")) as initial_waste_pop,
+    assumeNotNull(splitByChar(',',COALESCE (substring(toString("initialWasteSealNumbers"),2,length("initialWasteSealNumbers")-2),''))) as initial_waste_seal_numbers
+ FROM source

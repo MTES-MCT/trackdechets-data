@@ -8,13 +8,13 @@
 
 with source as (
     select *
-    from {{ source('raw_zone_icpe', 'installations_rubriques_2024_raw') }}
+    from {{ source('raw_zone_icpe', 'installations_rubriques_2024') }}
     where
         inserted_at
         = (
             select max(inserted_at)
             from
-                {{ source('raw_zone_icpe', 'installations_rubriques_2024_raw') }}
+                {{ source('raw_zone_icpe', 'installations_rubriques_2024') }}
         )
 ),
 

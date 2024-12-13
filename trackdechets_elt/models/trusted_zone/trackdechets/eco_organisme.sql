@@ -1,35 +1,19 @@
 {{
   config(
-    materialized = 'table',
-    indexes = [
-        { "columns": ["id"], "unique": True},
-        { "columns": ["siret"], "unique": True}
-
-    ]
+    materialized = 'table'
     )
 }}
 
 with source as (
     select *
-    from {{ source('trackdechets_production', 'eco_organisme_raw') }}
-),
-
-renamed as (
-    select
-        id,
-        siret,
-        "name",
-        address,
-        "handleBsdasri" as handle_bsdasri
-    from
-        source
-    where _sdc_sync_started_at >= (select max(_sdc_sync_started_at) from source)
+    from {{ source('trackdechets_production', 'eco_organisme') }}
 )
-
-select
-    id,
-    siret,
-    "name",
-    address,
-    handle_bsdasri
-from renamed
+SELECT
+    assumeNotNull(toString("id")) as id,
+    assumeNotNull(toString("siret")) as siret,
+    assumeNotNull(toString("name")) as name,
+    assumeNotNull(toString("address")) as address,
+    assumeNotNull(toBool("handleBsdasri")) as handle_bsdasri,
+    assumeNotNull(toBool("handleBsda")) as handle_bsda,
+    assumeNotNull(toBool("handleBsvhu")) as handle_bsvhu
+ FROM source

@@ -120,59 +120,59 @@ sources:
           - name: regime
             description: ""
             data_type: text
-      - name: installations_rubriques_2024_raw
+      - name: installations_rubriques_2024
         identifier: installations_rubriques_2024
         description: >
           Nouvelles données sur les installations et les rubriques
         columns:
           - name: Raison sociale/nom
-            description: ''
+            description: ""
             data_type: text
           - name: SIRET
-            description: ''
+            description: ""
             data_type: text
           - name: Code AIOT
-            description: ''
+            description: ""
             data_type: text
           - name: X
-            description: ''
+            description: ""
             data_type: bigint
           - name: Y
-            description: ''
+            description: ""
             data_type: bigint
           - name: Etat du site (code)
-            description: ''
+            description: ""
             data_type: text
           - name: Etat du site (libellé)
-            description: ''
+            description: ""
             data_type: text
           - name: Numéro rubrique
-            description: ''
+            description: ""
             data_type: text
           - name: Régime
-            description: ''
+            description: ""
             data_type: text
           - name: Quantité projet
-            description: ''
+            description: ""
             data_type: double precision
           - name: Quantité totale
-            description: ''
+            description: ""
             data_type: double precision
           - name: Capacité Projet
-            description: ''
+            description: ""
             data_type: double precision
           - name: Capacité Totale
-            description: ''
+            description: ""
             data_type: double precision
           - name: Unité
-            description: ''
+            description: ""
             data_type: text
           - name: Etat technique de la rubrique
-            description: ''
+            description: ""
             data_type: text
           - name: Etat administratif de la rubrique
-            description: ''
+            description: ""
             data_type: text
           - name: inserted_at
-            description: ''
+            description: ""
             data_type: timestamp with time zone
