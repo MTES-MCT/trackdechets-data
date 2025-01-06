@@ -36,7 +36,7 @@ SELECT
     toLowCardinality(toNullable(toString("wasteDetailsCode"))) as waste_details_code,
     toNullable(toString("wasteDetailsOnuCode")) as waste_details_onu_code,
     toNullable(toDecimal256("wasteDetailsQuantity", 30)) as waste_details_quantity,
-    toNullable(toString("wasteDetailsQuantityType")) as waste_details_quantity_type,
+    toLowCardinality(toNullable(toString("wasteDetailsQuantityType"))) as waste_details_quantity_type,
     assumeNotNull(toString("readableId")) as readable_id,
     toLowCardinality(assumeNotNull(toString("status"))) as status,
     toNullable(toDateTime64("sentAt", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("sentAt",'Europe/Paris'))) as sent_at,

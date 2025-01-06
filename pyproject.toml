@@ -1,7 +1,7 @@
 [project]
 name = "trackdechets-elt"
 version = "0.1.0"
-description = "Add your description here"
+description = "Data pipelines for Trackdechets project."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [

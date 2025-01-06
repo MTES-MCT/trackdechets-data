@@ -1,5 +1,5 @@
 # Postgres config reference:
-trackdechets_elt:
+trackdechets:
   target: "{{ env_var('DBT_ENVIRONMENT', 'dev') }}"
   outputs:
     dev:
