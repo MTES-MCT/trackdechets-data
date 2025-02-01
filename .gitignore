@@ -11,3 +11,4 @@ wheels/
 
 .env
 logs/dbt.log
+.DS_Store
