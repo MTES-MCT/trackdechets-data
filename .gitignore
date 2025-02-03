@@ -21,3 +21,4 @@ clickhouse/logs/*.log
 
 # airflow
 airflow/logs/*/*
+

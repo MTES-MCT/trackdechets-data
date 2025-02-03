@@ -1,5 +1,0 @@
-<clickhouse>
-    <http_port>8123</http_port>
-    <tcp_port>9000</tcp_port>
-    <listen_host>::</listen_host>
-</clickhouse>
