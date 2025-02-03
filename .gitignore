@@ -12,3 +12,12 @@ wheels/
 .env
 logs/dbt.log
 .DS_Store
+
+# clickhouse
+clickhouse-data
+clickhouse/users.d/default-user.xml
+clickhouse/config.d/config.xml
+clickhouse/logs/*.log
+
+# airflow
+airflow/logs/*/*

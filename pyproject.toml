@@ -5,6 +5,7 @@ description = "Data pipelines for Trackdechets project."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "apache-airflow>=2.10.4",
     "dbt-clickhouse>=1.8.5",
     "dbt-core>=1.8.9",
     "dlt[clickhouse]>=1.5.0",
