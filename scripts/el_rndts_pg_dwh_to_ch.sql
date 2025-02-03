@@ -1,5 +1,5 @@
 --- dnd_entrant
-create table trusted_zone_rndts.dnd_entrant engine = MergeTree ORDER BY () as (
+create table raw_zone_rndts.dnd_entrant engine = MergeTree ORDER BY () as (
 SELECT
     toNullable(toInt256("id")) as id,
     toNullable(toString("created_year_utc")) as created_year_utc,
@@ -55,7 +55,7 @@ SELECT
  FROM old_dwh_rndts.dnd_entrant);
 
 -- dnd sortant
-create table trusted_zone_rndts.dnd_sortant engine = MergeTree ORDER BY () as (
+create table raw_zone_rndts.dnd_sortant engine = MergeTree ORDER BY () as (
 SELECT
     toNullable(toInt256("id")) as id,
     toNullable(toString("created_year_utc")) as created_year_utc,
@@ -117,7 +117,7 @@ SELECT
 );
 
 -- dd_entrant
-create table trusted_zone_rndts.dd_entrant engine = MergeTree ORDER BY () as (
+create table raw_zone_rndts.dd_entrant engine = MergeTree ORDER BY () as (
 SELECT
     toNullable(toInt256("id")) as id,
     toNullable(toString("created_year_utc")) as created_year_utc,
@@ -174,7 +174,7 @@ SELECT
 )
 
 -- dd_sortant
-create table trusted_zone_rndts.dd_sortant engine = MergeTree ORDER BY () as (
+create table raw_zone_rndts.dd_sortant engine = MergeTree ORDER BY () as (
 SELECT
     toNullable(toInt256("id")) as id,
     toNullable(toString("created_year_utc")) as created_year_utc,
@@ -237,7 +237,7 @@ SELECT
 )
  
 -- sortie_statut_dechet
-create table trusted_zone_rndts.sortie_statut_dechet engine = MergeTree ORDER BY () as (
+create table raw_zone_rndts.sortie_statut_dechet engine = MergeTree ORDER BY () as (
 SELECT
     toNullable(toInt256("id")) as id,
     toNullable(toString("created_year_utc")) as created_year_utc,
@@ -280,7 +280,7 @@ SELECT
 )
 
 -- texs_entrant
-create table trusted_zone_rndts.texs_entrant engine = MergeTree ORDER BY () as (
+create table raw_zone_rndts.texs_entrant engine = MergeTree ORDER BY () as (
 SELECT
     toNullable(toInt256("id")) as id,
     toNullable(toString("created_year_utc")) as created_year_utc,
@@ -337,7 +337,7 @@ SELECT
 )
 
 -- texs_sortant
-create table trusted_zone_rndts.texs_sortant engine = MergeTree ORDER BY () as (
+create table raw_zone_rndts.texs_sortant engine = MergeTree ORDER BY () as (
 SELECT
     toNullable(toInt256("id")) as id,
     toNullable(toString("created_year_utc")) as created_year_utc,
@@ -395,7 +395,7 @@ SELECT
 )
 
 -- dd_entrant_transporteur
-create table trusted_zone_rndts.dd_entrant_transporteur engine = MergeTree
+create table raw_zone_rndts.dd_entrant_transporteur engine = MergeTree
 ORDER BY
 () as (
 SELECT
@@ -414,7 +414,7 @@ SELECT
 )
 
 -- dd_sortant_transporteur
-create table trusted_zone_rndts.dd_sortant_transporteur engine = MergeTree
+create table raw_zone_rndts.dd_sortant_transporteur engine = MergeTree
 ORDER BY
 () as (
 SELECT
@@ -433,7 +433,7 @@ SELECT
 )
 
 -- dnd_sortant_transporteur
-create table trusted_zone_rndts.dnd_sortant_transporteur engine = MergeTree
+create table raw_zone_rndts.dnd_sortant_transporteur engine = MergeTree
 ORDER BY
 () as (
 SELECT
@@ -452,7 +452,7 @@ SELECT
 )
 
 -- dnd_entrant_transporteur
-create table trusted_zone_rndts.dnd_entrant_transporteur engine = MergeTree
+create table raw_zone_rndts.dnd_entrant_transporteur engine = MergeTree
 ORDER BY
 () as (
 SELECT
@@ -472,7 +472,7 @@ SELECT
 
 
 -- texs_entrant_transporteur
-create table trusted_zone_rndts.texs_entrant_transporteur engine = MergeTree
+create table raw_zone_rndts.texs_entrant_transporteur engine = MergeTree
 ORDER BY
 () as (
 SELECT
@@ -491,7 +491,7 @@ SELECT
 )
 
 -- texs_sortant_transporteur
-create table trusted_zone_rndts.texs_sortant_transporteur engine = MergeTree
+create table raw_zone_rndts.texs_sortant_transporteur engine = MergeTree
 ORDER BY
 () as (
 SELECT
@@ -510,7 +510,7 @@ SELECT
 )
 
 -- etablissement
-create table trusted_zone_rndts.etablissement engine = MergeTree
+create table raw_zone_rndts.etablissement engine = MergeTree
 ORDER BY
 () as (
 SELECT
