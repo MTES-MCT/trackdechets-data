@@ -23,3 +23,13 @@ Il faut créer un fichier `users.d/default-user.xml` contenant :
 
 Ensuite, il faut créer un user "admin" comme prcis dans la doc de clickhouse : https://clickhouse.com/docs/en/operations/access-rights#access-control-usage.
 Puis supprimer le user `default` dans le fichier précdemment créé.
+
+Pour la configuration serveur, il faut créer un fichier `config.d/config.xml` basé sur ce template :
+
+```xml
+<clickhouse>
+    <http_port>8123</http_port>
+    <tcp_port>9000</tcp_port>
+    <listen_host>0.0.0.0</listen_host>
+</clickhouse>
+```

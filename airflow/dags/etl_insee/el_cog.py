@@ -69,7 +69,7 @@ def el_cog():
     """DAG qui met à jour le Code Officiel Géographique dans le Data Warehouse Clickhouse Trackdéchets."""
 
     @task
-    def extract_stock_etablissement() -> str:
+    def download_and_extract_all_cog_files() -> str:
         tmp_dir = Path(tempfile.mkdtemp(prefix="base_sirene_ETL"))
 
         logger.info(
@@ -129,7 +129,7 @@ def el_cog():
     def cleanup_tmp_files(tmp_dir: str):
         shutil.rmtree(tmp_dir)
 
-    tmp_dir = extract_stock_etablissement()
+    tmp_dir = download_and_extract_all_cog_files()
     insert_data_to_ch(tmp_dir) >> cleanup_tmp_files(tmp_dir)
 
 
