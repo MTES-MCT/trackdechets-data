@@ -10,7 +10,7 @@ def create_alert_body(context):
     Creates post body to be sent to mattermost channel.
     """
 
-    base_url = "https://airflow.dataeng.internal.mattermost.com"
+    base_url = "http://localhost:8080"
     execution_date = context["ts"]
     dag_context = context["dag"]
     dag_name = dag_context.dag_id

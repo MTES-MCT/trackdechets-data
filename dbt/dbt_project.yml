@@ -84,3 +84,9 @@ models:
 
   elementary:
     +schema: "elementary"
+
+
+
+seeds:
+  trackdechets:
+    +schema: raw_zone_referentials

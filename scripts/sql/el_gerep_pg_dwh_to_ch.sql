@@ -22,7 +22,7 @@ SELECT
     toLowCardinality(toNullable(toString("Code déchet produit"))) as "Code déchet produit",
     toNullable(toString("Déchet produit")) as "Déchet produit",
     toNullable(toString("Quntité produite (t/an)")) as "Quntité produite (t/an)"
- FROM old_dwh_gerep.gerep_producteurs_2021
+ FROM pg_dwh_raw_zone_gerep.gerep_producteurs_2021
 )
 
 
@@ -47,5 +47,5 @@ SELECT
     toLowCardinality(toNullable(toString("Code déchet traité"))) as "Code déchet traité",
     toNullable(toString("Déchet traité")) as "Déchet traité",
     toNullable(toString("Quantité traitée (t/an)")) as "Quantité traitée (t/an)"
- FROM old_dwh_gerep.gerep_traiteurs_2021
+ FROM pg_dwh_raw_zone_gerep.gerep_traiteurs_2021
 )

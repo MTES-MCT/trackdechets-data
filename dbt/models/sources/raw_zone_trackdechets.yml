@@ -2,7 +2,7 @@ version: 2
 models: []
 sources:
   - name: trackdechets_production
-    schema: trackdechets_production_prod
+    schema: pg_trackdechets_production
     description: Vue répliquée depuis la base PostgreSQL Trackdéchets de prod
 
     tables:
