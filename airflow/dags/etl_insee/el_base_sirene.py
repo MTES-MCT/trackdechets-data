@@ -54,7 +54,7 @@ def el_base_sirene():
 
         client = clickhouse_connect.get_client(
             host=Variable.get("DWH_HOST"),
-            port=Variable.get("DWH_PORT"),
+            port=Variable.get("DWH_HTTP_PORT"),
             username=Variable.get("DWH_USERNAME"),
             password=Variable.get("DWH_PASSWORD"),
             database="raw_zone_insee",

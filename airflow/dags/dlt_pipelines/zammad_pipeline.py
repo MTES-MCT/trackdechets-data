@@ -1,7 +1,7 @@
 import dlt
 import requests
 from datetime import datetime, timedelta
-from typing import Any, Dict, Iterable, Optional
+from typing import Iterable, Optional
 from dlt.sources.helpers.rest_client import RESTClient
 from dlt.sources.helpers.rest_client.auth import BearerTokenAuth
 
@@ -10,6 +10,9 @@ import logging
 
 logger = logging.getLogger("zammad_pipeline")
 logger.setLevel(logging.INFO)
+
+# Disable logging for RESTClient
+logging.getLogger("your_logger_name").setLevel(logging.CRITICAL)
 
 # Retrieve the Zammad API token and base URL from DLT secrets
 API_TOKEN = dlt.secrets["ZAMMAD_API_TOKEN"]
@@ -220,7 +223,7 @@ if __name__ == "__main__":
         pipeline_name="zammad_pipeline",
         destination="clickhouse",  # Replace with your destination
         progress="enlighten",
-        dev_mode=True,
+        dev=True,
     )
 
     # Extract and load data

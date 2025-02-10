@@ -1,0 +1,70 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Debugger: load_gun_data",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/integration/gun/load_gun_data_pg.py",
+            "args": [
+                "${input:conUrl}",
+                "${input:filepath}",
+            ],
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "Python Debugger: load_gistrid_data",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/integration/gistrid/load_gistrid_data_pg.py",
+            "args": [
+                "${input:conUrl}",
+                "${input:filepath}",
+                "${input:year}",
+            ],
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "Python Debugger: load_gistrid_data_ch",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/integration/gistrid/load_gistrid_data_ch.py",
+            "args": [
+                "--dwh_username",
+                "${env:DWH_USERNAME}",
+                "--dwh_username",
+                "${env:DWH_PASSWORD}",
+                "--year",
+                "${input:year}",
+                "${input:file_type}",
+                "${input:filepath}",
+            ],
+            "console": "integratedTerminal",
+        }
+    ],
+    "inputs": [
+        {
+            "id": "conUrl",
+            "type": "promptString",
+            "description": "sqlalchemy style connection url.",
+        },
+        {
+            "id": "filepath",
+            "type": "promptString",
+            "description": "filepath to gun data connection url.",
+        },
+        {
+            "id": "year",
+            "type": "promptString",
+            "description": "year of the GISTRID dataset.",
+        },
+        {
+            "id": "file_type",
+            "type": "promptString",
+            "description": "File type to load for GISTRID datasets.",
+        }
+    ]
+}

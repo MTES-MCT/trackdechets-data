@@ -22,3 +22,4 @@ clickhouse/logs/*.log
 # airflow
 airflow/logs/*/*
 
+airflow/dags/.dlt/secrets.toml

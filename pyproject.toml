@@ -5,11 +5,17 @@ description = "Data pipelines for Trackdechets project."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-    "apache-airflow>=2.10.4",
+    "clickhouse-connect>=0.8.7",
+    "clickhouse-sqlalchemy>=0.2.9",
     "dbt-clickhouse>=1.8.5",
     "dbt-core>=1.8.9",
-    "dlt[clickhouse]>=1.5.0",
+    "dlt[cli,clickhouse]>=1.5.0",
     "enlighten>=1.13.0",
+    "fastexcel>=0.12.1",
+    "pandas>=2.2.3",
+    "polars>=1.21.0",
+    "psycopg[binary,pool]>=3.2.4",
+    "sqlalchemy>=2.0",
     "sqlfluff-templater-dbt>=3.2.5",
     "sqlfluff>=3.2.5",
 ]

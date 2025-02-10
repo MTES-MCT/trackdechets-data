@@ -1,4 +1,5 @@
 # put your configuration values here
+dags_folder = "/Users/luis/projets/beta.gouv/trackdechets/trackdechets-elt/airflow/dags"
 
 [runtime]
 log_level = "WARNING" # the system log level of dlt
