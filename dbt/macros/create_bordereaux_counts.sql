@@ -41,14 +41,14 @@
 
     {% set dangerous_waste_filter %}
         {% if model_name == "bsdd" %}
-            waste_details_code ~* '.*\*$'
+           match(waste_details_code,'(?i).*\*$')
             OR waste_details_pop
             or waste_details_is_dangerous  
         {% elif model_name == "bsda" %}
-            waste_code ~* '.*\*$'
+            match(waste_details_code,'(?i).*\*$')
             OR waste_pop
         {% else %}
-            waste_code ~* '.*\*$'
+            match(waste_details_code,'(?i).*\*$')
         {% endif %}
     {% endset %}
     
@@ -64,17 +64,14 @@
         SELECT
             id,
             {{ processing_operation_column_name }} as "processing_operation_code",
-            case
-                when {{ quantity_column_name }} > 60 then {{ quantity_column_name }} / 1000
-                else {{ quantity_column_name }}
-            END as "quantity",
+            if({{ quantity_column_name }} > 60, {{ quantity_column_name }} / 1000,{{ quantity_column_name }}) as "quantity",
             {{ date_column_name }}
         FROM
             {{ ref(model_name) }}
         WHERE
-            {{ date_column_name }} < DATE_TRUNC('week', now())
+            {{ date_column_name }} < toStartOfWeek(now('Europe/Paris'), 1, 'Europe/Paris')
             {% if not model_name == "bsff_packaging"%}
-                AND is_deleted is false
+                AND not is_deleted
                 AND ({{ draft_filter }})
                 {% if filter_dangerous_waste %}
                     AND (
@@ -88,10 +85,7 @@
             {% endif %}
     )
     SELECT
-        DATE_TRUNC(
-            'week',
-            {{ date_column_name }}
-        )::date AS "semaine",
+        toDate(toStartOfWeek({{ date_column_name }}, 1, 'Europe/Paris')) AS "semaine",
         COUNT(id) AS {{ count_name }},
         sum(quantity) as {{ quantity_name }}
         {% if ("traitements" in count_name) or ("contenants_traites" in count_name)  %}
@@ -103,13 +97,7 @@
     FROM
         bordereaux
     GROUP BY
-        DATE_TRUNC(
-            'week',
-            {{ date_column_name }}
-        )
+        toStartOfWeek({{ date_column_name }}, 1, 'Europe/Paris')
     ORDER BY
-        DATE_TRUNC(
-            'week',
-            {{ date_column_name }}
-        )
+        toStartOfWeek({{ date_column_name }}, 1, 'Europe/Paris')
 {%- endmacro %}

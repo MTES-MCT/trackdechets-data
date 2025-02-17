@@ -1,13 +1,13 @@
 select
-    id_canton                  as "code_canton",
-    id_departement             as "code_departement",
-    cast(id_region as integer) as "code_region",
-    cast(typct as integer)     as "type_canton",
-    burcentral                 as "code_commune_bureau_centraliseur",
-    cast(tncc as integer)      as "type_nom_en_clair",
-    ncc                        as "nom_en_clair",
-    nccenr                     as "nom_en_clair_enrichi",
-    libelle,
-    actual
+    CAN        as CODE_CANTON,
+    DEP        as CODE_DEPARTEMENT,
+    REG        as CODE_REGION,
+    COMPCT     as CODE_COMPOSITION_COMMUNALE,
+    BURCENTRAL as CODE_COMMUNE_BUREU_CENTRAL,
+    TNCC       as TYPE_NOM_EN_CLAIR,
+    NCC        as NOM_EN_CLAIR,
+    NCCENR     as NOM_EN_CLAIR_ENRICHI,
+    LIBELLE,
+    TYPECT     as TYPE_CANTON
 from
-    {{ source('raw_zone_insee', 'canton') }}
+    {{ source('raw_zone_insee', 'code_canton') }}

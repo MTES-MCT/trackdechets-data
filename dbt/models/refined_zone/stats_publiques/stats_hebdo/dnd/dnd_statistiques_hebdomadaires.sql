@@ -50,10 +50,12 @@ select
     coalesce(entrants.semaine, sortants.semaine) as semaine,
     coalesce(
         entrants.nombre_declarations_dnd_entrant, 0
-    )                                            as nombre_declarations_dnd_entrant,
+    )
+        as nombre_declarations_dnd_entrant,
     coalesce(
         sortants.nombre_declarations_dnd_sortant, 0
-    )                                            as nombre_declarations_dnd_sortant,
+    )
+        as nombre_declarations_dnd_sortant,
     coalesce(
         entrants.quantite_dnd_entrant, 0
     )                                            as quantite_dnd_entrant,

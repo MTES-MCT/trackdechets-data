@@ -1,16 +1,7 @@
 {{
   config(
-    materialized = 'table',
-    indexes=[
-        {"columns":['id'],"unique":True},
-        {"columns":['created_date']},
-        {"columns":['etablissement_numero_identification']},
-        {"columns":['producteur_numero_identification']},
-        {"columns":['date_expedition']},
-        {"columns":['numeros_indentification_transporteurs'],"type":"GIN"},
-        ]
-
-    )
+    materialized = 'table'
+  )
 }}
 
 with source as (
@@ -20,9 +11,9 @@ with source as (
 transporter_source as (
     select
         dnd_sortant_id,
-        ARRAY_AGG(
-            transporteur_numero_identification::text
-        ) as numeros_indentification_transporteurs
+        assumeNotNull(ARRAY_AGG(
+            transporteur_numero_identification
+        )) as numeros_indentification_transporteurs
     from
         {{ ref("dnd_sortant_transporteur") }}
     group by 1
@@ -93,7 +84,7 @@ select
     r.created_year_utc,
     r.code_dechet,
     r.created_date,
-    r.date_expedition::date,
+    r.date_expedition,
     r.is_dechet_pop,
     r.denomination_usuelle,
     r.last_modified_date,

@@ -1,11 +1,3 @@
-{{ config(
-  pre_hook = "{{ create_indexes_for_source([
-    'Code AIOT',
-    'SIRET',
-    'Numéro rubrique'
-    ]) }}"
-) }}
-
 with source as (
     select *
     from {{ source('raw_zone_icpe', 'installations_rubriques_2024') }}
@@ -21,10 +13,10 @@ with source as (
 renamed as (
     select
         "Raison sociale/nom"                as raison_sociale,
-        "SIRET"                             as siret,
+        siret,
         "Code AIOT"                         as code_aiot,
-        "X"                                 as x,
-        "Y"                                 as y,
+        x,
+        y,
         "Etat du site (code)"               as code_etat_site,
         "Etat du site (libellé)"            as libelle_etat_site,
         "Numéro rubrique"                   as rubrique,
@@ -53,5 +45,5 @@ select
     etat_technique_rubrique,
     etat_administratif_rubrique,
     coalesce(quantite_totale, capacite_totale) as quantite_totale,
-    replace(rubrique, '.', '-')                as rubrique
+    replaceall(rubrique, '.', '-')             as rubrique
 from renamed

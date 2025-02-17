@@ -15,17 +15,25 @@
     )
 }}
 
-with "stats" as (
+with stats as (
     select
-        siret,
-        sbs.processing_operations_as_destination_bsdd    as processing_operations_bsdd,
-        sbs.processing_operations_as_destination_bsdnd   as processing_operations_bsdnd,
-        sbs.processing_operations_as_destination_bsda    as processing_operations_bsda,
-        sbs.processing_operations_as_destination_bsff    as processing_operations_bsff,
-        sbs.processing_operations_as_destination_bsdasri as processing_operations_bsdasri,
-        sbs.processing_operations_as_destination_bsvhu   as processing_operations_bsvhu,
-        dnd_processing_operations_as_destination         as processing_operation_dnd,
-        texs_processing_operations_as_destination        as processing_operation_texs,
+        sbs.siret,
+        sbs.processing_operations_as_destination_bsdd
+            as processing_operations_bsdd,
+        sbs.processing_operations_as_destination_bsdnd
+            as processing_operations_bsdnd,
+        sbs.processing_operations_as_destination_bsda
+            as processing_operations_bsda,
+        sbs.processing_operations_as_destination_bsff
+            as processing_operations_bsff,
+        sbs.processing_operations_as_destination_bsdasri
+            as processing_operations_bsdasri,
+        sbs.processing_operations_as_destination_bsvhu
+            as processing_operations_bsvhu,
+        sbs.dnd_processing_operations_as_destination
+            as processing_operation_dnd,
+        sbs.texs_processing_operations_as_destination
+            as processing_operation_texs,
         sbs.num_bsdd_as_emitter > 0
         or sbs.num_bsdd_as_transporter > 0
         or sbs.num_bsdd_as_destination > 0               as bsdd,
@@ -51,7 +59,7 @@ with "stats" as (
         sbs.num_ssd_statements_as_destination > 0        as ssd,
         sbs.num_pnttd_statements_as_destination > 0      as pnttd
     from {{ ref('statistics_by_siret') }} as sbs
-    where char_length(siret) = 14
+    where char_length(sbs.siret) = 14
 ),
 
 joined as (
@@ -95,7 +103,7 @@ joined as (
             se.enseigne_3_etablissement,
             se.denomination_usuelle_etablissement
         )                                    as nom_etablissement
-    from "stats" as s
+    from stats as s
     left join {{ ref('etablissements_texs_dd') }} as et on s.siret = et.siret
     left join {{ ref("stock_etablissement") }} as se on s.siret = se.siret
     left join {{ ref("company") }} as c on s.siret = c.siret

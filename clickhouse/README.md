@@ -21,7 +21,7 @@ Il faut créer un fichier `users.d/default-user.xml` contenant :
 </clickhouse>
 ```
 
-Ensuite, il faut créer un user "admin" comme prcis dans la doc de clickhouse : https://clickhouse.com/docs/en/operations/access-rights#access-control-usage.
+Ensuite, il faut créer un user "admin" comme précisé dans la doc de clickhouse : https://clickhouse.com/docs/en/operations/access-rights#access-control-usage.
 Puis supprimer le user `default` dans le fichier précdemment créé.
 
 Pour la configuration serveur, il faut créer un fichier `config.d/config.xml` basé sur ce template :

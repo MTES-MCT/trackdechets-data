@@ -11,16 +11,20 @@ with dnd_entrant_stats as (
         etablissement_numero_identification as siret,
         count(
             distinct id
-        )                                   as num_dnd_statements_as_destination,
+        )
+            as num_dnd_statements_as_destination,
         sum(quantite) filter (
             where code_unite = 'T'
-        )                                   as quantity_dnd_statements_as_destination,
+        )
+            as quantity_dnd_statements_as_destination,
         sum(quantite) filter (
             where code_unite = 'M3'
-        )                                   as volume_dnd_statements_as_destination,
+        )
+            as volume_dnd_statements_as_destination,
         array_agg(
             distinct code_traitement
-        )                                   as dnd_processing_operations_as_destination
+        )
+            as dnd_processing_operations_as_destination
     from {{ ref('dnd_entrant') }}
     group by 1
 ),
@@ -46,13 +50,16 @@ dnd_transporteur_stats as (
         numero_indentification_transporteur as siret,
         count(
             distinct id
-        )                                   as num_dnd_statements_as_transporteur,
+        )
+            as num_dnd_statements_as_transporteur,
         sum(quantite) filter (
             where code_unite = 'T'
-        )                                   as quantity_dnd_statements_as_transporteur,
+        )
+            as quantity_dnd_statements_as_transporteur,
         sum(quantite) filter (
             where code_unite = 'M3'
-        )                                   as volume_dnd_statements_as_transporteur
+        )
+            as volume_dnd_statements_as_transporteur
     from {{ ref('dnd_entrant') }},
         unnest(
             {{ ref('dnd_entrant') }}.numeros_indentification_transporteurs
@@ -65,16 +72,20 @@ texs_entrant_stats as (
         etablissement_numero_identification as siret,
         count(
             distinct id
-        )                                   as num_texs_statements_as_destination,
+        )
+            as num_texs_statements_as_destination,
         sum(quantite) filter (
             where code_unite = 'T'
-        )                                   as quantity_texs_statements_as_destination,
+        )
+            as quantity_texs_statements_as_destination,
         sum(quantite) filter (
             where code_unite = 'M3'
-        )                                   as volume_texs_statements_as_destination,
+        )
+            as volume_texs_statements_as_destination,
         array_agg(
             distinct code_traitement
-        )                                   as texs_processing_operations_as_destination
+        )
+            as texs_processing_operations_as_destination
     from {{ ref('texs_entrant') }}
     group by 1
 ),
@@ -100,13 +111,16 @@ texs_transporteur_stats as (
         numero_indentification_transporteur as siret,
         count(
             distinct id
-        )                                   as num_texs_statements_as_transporteur,
+        )
+            as num_texs_statements_as_transporteur,
         sum(quantite) filter (
             where code_unite = 'T'
-        )                                   as quantity_texs_statements_as_transporteur,
+        )
+            as quantity_texs_statements_as_transporteur,
         sum(quantite) filter (
             where code_unite = 'M3'
-        )                                   as volume_texs_statements_as_transporteur
+        )
+            as volume_texs_statements_as_transporteur
     from {{ ref('texs_entrant') }},
         unnest(
             {{ ref('texs_entrant') }}.numeros_indentification_transporteurs
@@ -119,13 +133,16 @@ ssd_stats as (
         etablissement_numero_identification as siret,
         count(
             distinct id
-        )                                   as num_ssd_statements_as_destination,
+        )
+            as num_ssd_statements_as_destination,
         sum(quantite) filter (
             where code_unite = 'T'
-        )                                   as quantity_ssd_statements_as_destination,
+        )
+            as quantity_ssd_statements_as_destination,
         sum(quantite) filter (
             where code_unite = 'M3'
-        )                                   as volume_ssd_statements_as_destination
+        )
+            as volume_ssd_statements_as_destination
     from {{ ref("sortie_statut_dechet") }}
     group by 1
 )

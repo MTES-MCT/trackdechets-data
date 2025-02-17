@@ -11,7 +11,7 @@ with rubriques_data as (
         ir.quantite_totale,
         ir.libelle_etat_site,
         ir.rubrique,
-        se.code_commune_etablissement as "code_commune_insee"
+        se.code_commune_etablissement as code_commune_insee
     from
         {{ ref('installations_rubriques_2024') }} as ir
     left join {{ ref('stock_etablissement') }} as se
@@ -86,7 +86,7 @@ select
     w.quantite_dnd_traitee_2023_td,
     coalesce(
         r.code_commune_insee, w.code_commune_insee
-    )                                as "code_commune_insee",
+    )                                as code_commune_insee,
     coalesce(r.rubrique, w.rubrique) as rubrique,
     case
         when
@@ -102,7 +102,7 @@ select
             (coalesce(r.siret, r.rubrique) is not null)
             and (w.siret is not null)
             then 'Présent TD et Géorisque'
-    end                              as "statut_donnee"
+    end                              as statut_donnee
 from
     rubriques_data as r
 full outer join wastes_data as w

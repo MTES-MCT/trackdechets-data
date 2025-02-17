@@ -8,7 +8,7 @@ import clickhouse_connect
 import httpx
 import pandas as pd
 from clickhouse_connect.driver.tools import insert_file
-from mattermost import mm_failed_task
+from utils.alerting import send_alert_to_mattermost
 from pendulum import datetime
 
 from airflow.decorators import dag, task
@@ -29,7 +29,7 @@ DWH_CON = Connection.get_connection_from_secrets("td_datawarehouse")
     schedule_interval="0 2 * * *",
     catchup=False,
     start_date=datetime(2024, 10, 19),
-    on_failure_callback=mm_failed_task,
+    on_failure_callback=send_alert_to_mattermost,
 )
 def companies_geocoding():
     @task

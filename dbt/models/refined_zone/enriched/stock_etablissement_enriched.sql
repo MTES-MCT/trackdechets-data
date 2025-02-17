@@ -19,10 +19,10 @@ WITH etabs AS (
         cgc.code_region
     FROM
         {{ ref('stock_etablissement') }}
-        AS se
+            AS se
     LEFT JOIN
         {{ ref('code_geo_communes') }}
-        AS cgc
+            AS cgc
         ON
             se.code_commune_etablissement = cgc.code_commune
             AND cgc.type_commune != 'COMD'

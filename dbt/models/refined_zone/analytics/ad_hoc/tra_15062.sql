@@ -11,10 +11,10 @@
 
 with emetteurs as (
     select
-        "_bs_type",
-        substring(emitter_company_siret for 9) as siren,
-        emitter_company_siret                  as siret,
-        count(*)                               as num_emetteur
+        be._bs_type,
+        substring(be.emitter_company_siret for 9) as siren,
+        be.emitter_company_siret                  as siret,
+        count(*)                                  as num_emetteur
     from {{ ref('bordereaux_enriched') }} as be
     where be.received_at >= now() - interval '1 year'
     group by 1, 2, 3
@@ -26,8 +26,11 @@ emetteurs_rankes as (
     select
         emetteurs.*,
         row_number()
-            over (partition by "_bs_type", siren order by num_emetteur desc)
-        as rang
+            over (
+                partition by emetteurs._bs_type, emetteurs.siren
+                order by emetteurs.num_emetteur desc
+            )
+            as rang
     from emetteurs
 ),
 
@@ -35,7 +38,7 @@ emetteurs_rankes as (
 transporteurs as (
 -- Gestion du multimodal
     select
-        "_bs_type",
+        _bs_type,
         substring(coalesce(
             be.transporter_company_siret,
             bsddt.transporter_company_siret,
@@ -54,13 +57,13 @@ transporteurs as (
     from {{ ref('bordereaux_enriched') }} as be
     left join
         {{ ref('bsdd_transporter') }} as bsddt
-        on be.id = bsddt.form_id and be."_bs_type" = 'BSDD'
+        on be.id = bsddt.form_id and be._bs_type = 'BSDD'
     left join
         {{ ref('bsda_transporter') }} as bsdat
-        on be.id = bsdat.bsda_id and be."_bs_type" = 'BSDA'
+        on be.id = bsdat.bsda_id and be._bs_type = 'BSDA'
     left join
         {{ ref('bsff_transporter') }} as bsfft
-        on be.id = bsfft.bsff_id and be."_bs_type" = 'BSFF'
+        on be.id = bsfft.bsff_id and be._bs_type = 'BSFF'
     where be.received_at >= now() - interval '1 year'
     group by 1, 2, 3
     order by 3 desc
@@ -71,18 +74,21 @@ transporteurs_rankes as (
     select
         transporteurs.*,
         row_number()
-            over (partition by "_bs_type", siren order by num_transporteur desc)
-        as rang
+            over (
+                partition by transporteurs._bs_type, transporteurs.siren
+                order by transporteurs.num_transporteur desc
+            )
+            as rang
     from transporteurs
 ),
 
 
 destinataires as (
     select
-        "_bs_type",
-        substring(destination_company_siret for 9) as siren,
-        destination_company_siret                  as siret,
-        count(*)                                   as num_destinataire
+        be._bs_type,
+        substring(be.destination_company_siret for 9) as siren,
+        be.destination_company_siret                  as siret,
+        count(*)                                      as num_destinataire
     from {{ ref('bordereaux_enriched') }} as be
     where be.received_at >= now() - interval '1 year'
     group by 1, 2, 3
@@ -94,8 +100,11 @@ destinataires_rankes as (
     select
         destinataires.*,
         row_number()
-            over (partition by "_bs_type", siren order by num_destinataire desc)
-        as rang
+            over (
+                partition by destinataires._bs_type, destinataires.siren
+                order by destinataires.num_destinataire desc
+            )
+            as rang
     from destinataires
 ),
 
@@ -104,8 +113,8 @@ destinataires_rankes as (
 all_stats as (
     select
         coalesce(
-            e."_bs_type", t."_bs_type", d."_bs_type"
-        )                               as "_bs_type",
+            e._bs_type, t._bs_type, d._bs_type
+        )                               as _bs_type,
         coalesce(
             e.siren, t.siren, d.siren
         )                               as siren,
@@ -121,12 +130,12 @@ all_stats as (
     from emetteurs_rankes as e
     full outer join
         transporteurs_rankes as t
-        on e.siret = t.siret and e."_bs_type" = t."_bs_type"
+        on e.siret = t.siret and e._bs_type = t._bs_type
     full outer join
         destinataires_rankes as d
         on
             coalesce(e.siret, t.siret) = d.siret
-            and coalesce(e."_bs_type", t."_bs_type") = d."_bs_type"
+            and coalesce(e._bs_type, t._bs_type) = d._bs_type
     where
         coalesce(e.siret, t.siret, d.siret) is not null
         and coalesce(e.siret, t.siret, d.siret) != ''
@@ -140,7 +149,7 @@ all_stats as (
 top_bsdd as (
     select *
     from all_stats
-    where "_bs_type" = 'BSDD'
+    where _bs_type = 'BSDD'
     order by total desc
     limit 20000
 ),
@@ -149,7 +158,7 @@ top_bsda as (
     (
         select *
         from all_stats where
-            "_bs_type" = 'BSDA'
+            _bs_type = 'BSDA'
             and siren not in (select siren from top_bsdd)
         order by total desc
         limit 15000
@@ -163,7 +172,7 @@ top_bsdasri as (
     (
         select *
         from all_stats where
-            "_bs_type" = 'BSDASRI'
+            _bs_type = 'BSDASRI'
             and siren not in (select siren from top_bsda)
         order by total desc
         limit 15000
@@ -177,7 +186,7 @@ top_bsff as (
     (
         select *
         from all_stats where
-            "_bs_type" = 'BSFF'
+            _bs_type = 'BSFF'
             and siren not in (select siren from top_bsdasri)
         order by total desc
         limit 15000
@@ -191,7 +200,7 @@ top_bsvhu as (
     (
         select *
         from all_stats where
-            "_bs_type" = 'BSVHU'
+            _bs_type = 'BSVHU'
             and siren not in (select siren from top_bsff)
         order by total desc
         limit 10000

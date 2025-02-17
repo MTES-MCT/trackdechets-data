@@ -22,76 +22,68 @@ with ttr_list as (
 
 grouped_data as (
     select
-        extract(
-            'year'
-            from
-            date_trunc(
-                'year',
-                taken_over_at
+        TOYEAR(
+            be.taken_over_at
+        )                      as annee,
+        be.emitter_departement
+            as code_departement_insee,
+        be.waste_code
+            as code_dechet,
+        MAX(
+            be.emitter_region
+        )                      as code_region_insee,
+        SUM(
+            IF(
+                be.quantity_received > 60,
+                be.quantity_received / 1000,
+                be.quantity_received
             )
-        )::int                 as annee,
-        be.emitter_departement as code_departement_insee,
-        be.waste_code          as code_dechet,
-        max(be.emitter_region) as code_region_insee,
-        sum(
-            case
-                when quantity_received > 60 then quantity_received / 1000
-                else quantity_received
-            end
         )                      as quantite_produite
     from
         {{ ref('bordereaux_enriched') }} as be
     where
     /* Uniquement déchets dangereux */
         (
-            waste_code ~* '.*\*$'
-            or coalesce(
-                waste_pop,
+            MATCH(be.waste_details_code, '(?i).*\*$')
+            or COALESCE(
+                be.waste_pop,
                 false
             )
-            or coalesce(
-                waste_is_dangerous,
+            or COALESCE(
+                be.waste_is_dangerous,
                 false
             )
         )
         /* Pas de bouillons */
-        and not is_draft
+        and not be.is_draft
         /* Uniquement les non TTRs */
-        and emitter_company_siret not in (select siret from ttr_list)
+        and be.emitter_company_siret not in (select siret from ttr_list)
         /* Uniquement les données jusqu'à la dernière semaine complète */
-        and be.taken_over_at between '2020-01-01' and date_trunc(
-            'week',
-            now()
+        and be.taken_over_at between '2020-01-01' and TOSTARTOFWEEK(
+            NOW('Europe/Paris'), 1, 'Europe/Paris'
         )
         and be._bs_type != 'BSFF'
-    group by extract(
-        'year'
-        from
-        date_trunc(
-            'year',
-            taken_over_at
-        )
-    ), be.emitter_departement, be.waste_code
+    group by 1, 2, 3
 ),
 
 bsff_data as (
     select
-        extract(
-            'year'
-            from
-            date_trunc(
-                'year',
-                beff.transporter_transport_taken_over_at
+        TOYEAR(
+            beff.transporter_transport_taken_over_at
+        )                        as annee,
+        beff.emitter_departement
+            as code_departement_insee,
+        beff.waste_code
+            as code_dechet,
+        MAX(
+            beff.emitter_region
+        )                        as code_region_insee,
+        SUM(
+            IF(
+                acceptation_weight > 60,
+                acceptation_weight / 1000,
+                acceptation_weight
             )
-        )::int                   as annee,
-        beff.emitter_departement as code_departement_insee,
-        beff.waste_code          as code_dechet,
-        max(beff.emitter_region) as code_region_insee,
-        sum(
-            case
-                when acceptation_weight > 60 then acceptation_weight / 1000
-                else acceptation_weight
-            end
         )                        as quantite_produite
     from
         {{ ref('bsff_packaging') }} as bp
@@ -100,39 +92,31 @@ bsff_data as (
             bp.bsff_id = beff.id
     where
     /* Uniquement déchets dangereux */
-        acceptation_waste_code ~* '.*\*$'
+        MATCH(acceptation_waste_code, '(?i).*\*$')
         /* Uniquement les non TTRs */
         and beff.emitter_company_siret not in (select siret from ttr_list)
         /* Uniquement les données jusqu'à la dernière semaine complète */
-        and beff.transporter_transport_taken_over_at between '2020-01-01' and date_trunc(
-            'week',
-            now()
+        and beff.transporter_transport_taken_over_at between '2020-01-01' and TOSTARTOFWEEK(
+            NOW('Europe/Paris'), 1, 'Europe/Paris'
         )
     group by
-        extract(
-            'year'
-            from
-            date_trunc(
-                'year',
-                beff.transporter_transport_taken_over_at
-            )
-        ), beff.emitter_departement, beff.waste_code
+        1, 2, 3
 ),
 
 merged_data as (
     select
-        coalesce(a.annee, b.annee) as annee,
-        coalesce(
+        COALESCE(a.annee, b.annee) as annee,
+        COALESCE(
             a.code_departement_insee, b.code_departement_insee
         )                          as code_departement_insee,
-        coalesce(
+        COALESCE(
             a.code_region_insee, b.code_region_insee
         )                          as code_region_insee,
-        coalesce(
+        COALESCE(
             a.code_dechet, b.code_dechet
         )                          as code_dechet,
-        coalesce(a.quantite_produite, 0)
-        + coalesce(
+        COALESCE(a.quantite_produite, 0)
+        + COALESCE(
             b.quantite_produite, 0
         )                          as quantite_produite
     from grouped_data as a

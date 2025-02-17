@@ -1,13 +1,7 @@
 {{
   config(
-    materialized = 'table',
-    indexes=[
-        {"columns":['id'],"unique":True},
-        {"columns":['created_date']},
-        {"columns":['etablissement_numero_identification']},
-        ]
-
-    )
+    materialized = 'table'
+  )
 }}
 
 with source as (

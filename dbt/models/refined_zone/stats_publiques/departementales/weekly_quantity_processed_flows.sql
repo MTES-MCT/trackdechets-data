@@ -1,26 +1,25 @@
 {{
   config(
     materialized = 'table',
-    indexes = [{"columns":["departement_origine","departement_destination","semaine"],"unique":true}]
     )
 }}
 
 with preprocessed_data as (
     select
-        emitter_departement     as departement_origine,
-        destination_departement as departement_destination,
+        be.emitter_departement     as departement_origine,
+        be.destination_departement as departement_destination,
         date_trunc(
             'week', be.processed_at
-        )                       as semaine,
+        )                          as semaine,
         coalesce(
             be.quantity_received, be.accepted_quantity_packagings
-        )                       as quantite_traitee
+        )                          as quantite_traitee
     from {{ ref('bordereaux_enriched') }} as be
     where {{ dangerous_waste_filter('bordereaux_enriched') }}
     /* Pas de bouillons */
-    and status != 'DRAFT'
+    and be.status != 'DRAFT'
     /* Uniquement codes opérations finales */
-    and processing_operation not in (
+    and be.processing_operation not in (
         'D9',
         'D13',
         'D14',
@@ -29,13 +28,13 @@ with preprocessed_data as (
         'R13'
     )
     /* Uniquement les données jusqu'à la dernière semaine complète */
-    and processed_at < date_trunc(
+    and be.processed_at < date_trunc(
         'week',
         now()
     )
-    and emitter_departement is not null
-    and destination_departement is not null
-    and quantity_received is not null
+    and be.emitter_departement is not null
+    and be.destination_departement is not null
+    and be.quantity_received is not null
 )
 
 select

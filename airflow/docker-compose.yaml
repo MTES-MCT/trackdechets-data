@@ -75,6 +75,8 @@ x-airflow-common: &airflow-common
     - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
     - ../dbt:/opt/airflow/dbt
   user: "${AIRFLOW_UID:-50000}:0"
+  networks:
+    - data_external_network
   depends_on: &airflow-common-depends-on
     redis:
       condition: service_healthy
@@ -90,6 +92,8 @@ services:
       POSTGRES_DB: airflow
     volumes:
       - postgres-db-volume:/var/lib/postgresql/data
+    networks:
+      - data_external_network
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "airflow"]
       interval: 10s
@@ -103,6 +107,8 @@ services:
     image: redis:7.2-bookworm
     expose:
       - 6379
+    networks:
+      - data_external_network
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
@@ -264,3 +270,6 @@ services:
 
 volumes:
   postgres-db-volume:
+networks:
+  data_external_network:
+    external: true

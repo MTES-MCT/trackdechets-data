@@ -1,7 +1,7 @@
 version: 2
 models: []
 sources:
-  - name: raw_zone
+  - name: raw_zone_referentials
     description: Tables qui ne correspondent à aucune catégorie spécifique.
     tables:
       - name: laposte_hexasmal

@@ -5,44 +5,7 @@ sources:
     description: Données issues de l'open data INSEE
     loader: airflow
     tables:
-      - name: naf2008
-        description: >
-          Une ligne par code sous-classe  de la nomenclature des activités françaises édition 2008.
-        columns:
-          - name: code_section
-            description: ''
-            data_type: character varying
-          - name: libelle_section
-            description: ''
-            data_type: character varying
-          - name: code_division
-            description: ''
-            data_type: character varying
-          - name: libelle_division
-            description: ''
-            data_type: character varying
-          - name: code_groupe
-            description: ''
-            data_type: character varying
-          - name: libelle_groupe
-            description: ''
-            data_type: character varying
-          - name: code_classe
-            description: ''
-            data_type: character varying
-          - name: libelle_classe
-            description: ''
-            data_type: character varying
-          - name: code_sous_classe
-            description: Clé unique
-            tests:
-              - unique
-              - not_null
-            data_type: character varying
-          - name: libelle_sous_classe
-            description: ''
-            data_type: character varying
-      - name: arrondissement
+      - name: code_arrondissement
         description: >
           Données géographiques INSEE des arrondissements français.
           Une ligne par code arrondissement.
@@ -74,7 +37,7 @@ sources:
           - name: libelle
             description: ''
             data_type: character varying
-      - name: canton
+      - name: code_canton
         description: >
           Données géographiques INSEE des cantons français.
           Une ligne par identifiant canton.
@@ -112,7 +75,7 @@ sources:
           - name: actual
             description: ''
             data_type: character varying
-      - name: commune
+      - name: code_commune
         description: >
           Données géographiques INSEE des communes françaises.
           Une ligne par code commune.
@@ -155,7 +118,7 @@ sources:
           - name: comparent
             description: ''
             data_type: character varying
-      - name: departement
+      - name: code_departement
         description: >
           Données géographiques INSEE des département français.
           Une ligne par code département.
@@ -184,45 +147,7 @@ sources:
           - name: libelle
             description: ''
             data_type: character varying
-      - name: pays
-        description: >
-          Données géographiques INSEE des pays du monde.
-          Une ligne par pays.
-        columns:
-          - name: cog
-            description: ''
-            data_type: character varying
-          - name: actual
-            description: ''
-            data_type: character varying
-          - name: capay
-            description: ''
-            data_type: character varying
-          - name: crpay
-            description: ''
-            data_type: character varying
-          - name: ani
-            description: ''
-            data_type: character varying
-          - name: libcog
-            description: ''
-            data_type: character varying
-          - name: libenr
-            description: ''
-            data_type: character varying
-          - name: ancnom
-            description: ''
-            data_type: character varying
-          - name: codeiso2
-            description: ''
-            data_type: character varying
-          - name: codeiso3
-            description: ''
-            data_type: character varying
-          - name: codenum3
-            description: ''
-            data_type: character varying
-      - name: region
+      - name: code_region
         description: >
           Données géographiques INSEE des régions françaises.
           Une ligne par région.
@@ -415,3 +340,6 @@ sources:
           - name: caractereEmployeurEtablissement
             description: ''
             data_type: character varying
+      - name: code_territoires_outre_mer
+        description: >
+          Code géographique pour les collectivités et terrtioitres d'Outre-Mer.

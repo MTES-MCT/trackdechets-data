@@ -7,27 +7,27 @@
 
 with preprocessed_data as (
     select
-        destination_departement as departement,
-        be.processing_operation as code_operation,
+        be.destination_departement as departement,
+        be.processing_operation    as code_operation,
         date_trunc(
             'week', be.processed_at
-        )                       as semaine,
+        )                          as semaine,
         case
-            when processing_operation like 'R%' then 'Déchet valorisé'
-            when processing_operation like 'D%' then 'Déchet éliminé'
+            when be.processing_operation like 'R%' then 'Déchet valorisé'
+            when be.processing_operation like 'D%' then 'Déchet éliminé'
             else 'Autre'
-        end                     as type_operation,
+        end                        as type_operation,
         coalesce(
             be.quantity_received, be.accepted_quantity_packagings
-        )                       as quantite_traitee
+        )                          as quantite_traitee
     from {{ ref('bordereaux_enriched') }} as be
     where
         /* Uniquement les déchets dangereux */
         {{ dangerous_waste_filter('bordereaux_enriched') }}
         /* Pas de bouillons */
-        and status != 'DRAFT'
+        and be.status != 'DRAFT'
         /* Uniquement codes opérations finales */
-        and processing_operation not in (
+        and be.processing_operation not in (
             'D9',
             'D13',
             'D14',
@@ -36,13 +36,13 @@ with preprocessed_data as (
             'R13'
         )
         /* Uniquement les données jusqu'à la dernière semaine complète */
-        and processed_at < date_trunc(
+        and be.processed_at < date_trunc(
             'week',
             now()
         )
-        and emitter_departement is not null
-        and destination_departement is not null
-        and quantity_received is not null
+        and be.emitter_departement is not null
+        and be.destination_departement is not null
+        and be.quantity_received is not null
 )
 
 select

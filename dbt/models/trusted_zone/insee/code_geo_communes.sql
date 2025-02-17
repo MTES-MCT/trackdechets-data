@@ -1,15 +1,15 @@
 select
-    typecom               as "type_commune",
-    cast(reg as integer)  as "code_region",
-    dep                   as "code_departement",
-    com                   as "code_commune",
-    can                   as "code_canton",
-    arr                   as "code_arrondissement",
-    ctcd                  as "code_ctcd",
-    cast(tncc as integer) as "type_nom_en_clair",
-    ncc                   as "nom_en_clair",
-    nccenr                as "nom_en_clair_enrichi",
-    libelle,
-    comparent             as "code_commune_parente"
+    TYPECOM   as TYPE_COMMUNE,
+    COM       as CODE_COMMUNE,
+    REG       as CODE_REGION,
+    DEP       as CODE_DEPARTEMENT,
+    CTCD      as CODE_COLLECTIVITE_TERRITORIALE,
+    ARR       as CODE_ARRONDISSEMENT,
+    CAN       as CODE_CANTON,
+    TNCC      as TYPE_NOM_EN_CLAIR,
+    NCC       as NOM_EN_CLAIR,
+    NCCENR    as NOM_EN_CLAIR_ENRICHI,
+    LIBELLE,
+    COMPARENT as CODE_COMMUNE_PARENTE
 from
-    {{ source('raw_zone_insee', 'commune') }}
+    {{ source('raw_zone_insee', 'code_commune') }}

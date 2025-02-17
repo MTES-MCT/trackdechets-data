@@ -8,103 +8,352 @@
 }}
 
 with source as (
-    select * from {{ source('trackdechets_production', 'bsda') }} b
+    select * from {{ source('trackdechets_production', 'bsda') }} as b
     {% if is_incremental() %}
-    where b."updatedAt" >= (SELECT toString(toStartOfDay(max(updated_at)))  FROM {{ this }})
+        where
+            b.updatedat
+            >= (select toString(toStartOfDay(max(updated_at))) from {{ this }})
     {% endif %}
 )
-SELECT
-    assumeNotNull(toString("id")) as id,
-    assumeNotNull(toDateTime64("createdAt", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("createdAt",'Europe/Paris'))) as created_at,
-    assumeNotNull(toDateTime64("updatedAt", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("updatedAt",'Europe/Paris'))) as updated_at,
-    assumeNotNull(toBool("isDraft")) as is_draft,
-    assumeNotNull(toBool("isDeleted")) as is_deleted,
-    toLowCardinality(assumeNotNull(toString("status"))) as status,
-    assumeNotNull(toString("type")) as type,
-    toNullable(toBool("emitterIsPrivateIndividual")) as emitter_is_private_individual,
-    toNullable(toString("emitterCompanyName")) as emitter_company_name,
-    toNullable(toString("emitterCompanySiret")) as emitter_company_siret,
-    toNullable(toString("emitterCompanyAddress")) as emitter_company_address,
-    toNullable(toString("emitterCompanyContact")) as emitter_company_contact,
-    toNullable(toString("emitterCompanyPhone")) as emitter_company_phone,
-    toNullable(toString("emitterCompanyMail")) as emitter_company_mail,
-    toNullable(toString("emitterPickupSiteName")) as emitter_pickup_site_name,
-    toNullable(toString("emitterPickupSiteAddress")) as emitter_pickup_site_address,
-    toNullable(toString("emitterPickupSiteCity")) as emitter_pickup_site_city,
-    toLowCardinality(toNullable(toString("emitterPickupSitePostalCode"))) as emitter_pickup_site_postal_code,
-    toNullable(toString("emitterPickupSiteInfos")) as emitter_pickup_site_infos,
-    toNullable(toString("emitterEmissionSignatureAuthor")) as emitter_emission_signature_author,
-    toNullable(toDateTime64("emitterEmissionSignatureDate", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("emitterEmissionSignatureDate",'Europe/Paris'))) as emitter_emission_signature_date,
-    toLowCardinality(toNullable(toString("wasteCode"))) as waste_code,
-    toNullable(toString("wasteFamilyCode")) as waste_family_code,
-    toNullable(toString("wasteMaterialName")) as waste_material_name,
-    toNullable(toString("wasteConsistence")) as waste_consistence,
-    assumeNotNull(splitByChar(',',COALESCE (substring(toString("wasteSealNumbers"),2,length("wasteSealNumbers")-2),''))) as waste_seal_numbers,
-    toNullable(toString("wasteAdr")) as waste_adr,
-    assumeNotNull(toString("packagings")) as packagings,
-    toNullable(toDecimal256("weightValue", 30))/ 1000 as weight_value,
-    toNullable(toString("destinationCompanyName")) as destination_company_name,
-    toNullable(toString("destinationCompanySiret")) as destination_company_siret,
-    toNullable(toString("destinationCompanyAddress")) as destination_company_address,
-    toNullable(toString("destinationCompanyContact")) as destination_company_contact,
-    toNullable(toString("destinationCompanyPhone")) as destination_company_phone,
-    toNullable(toString("destinationCompanyMail")) as destination_company_mail,
-    toNullable(toString("destinationCap")) as destination_cap,
-    toNullable(replaceAll(toString("destinationPlannedOperationCode"),' ','')) as destination_planned_operation_code,
-    toNullable(toDateTime64("destinationReceptionDate", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("destinationReceptionDate",'Europe/Paris'))) as destination_reception_date,
-    toNullable(toDecimal256("destinationReceptionWeight", 30))/1000 as destination_reception_weight,
-    toNullable(toString("destinationReceptionAcceptationStatus")) as destination_reception_acceptation_status,
-    toNullable(toString("destinationReceptionRefusalReason")) as destination_reception_refusal_reason,
-    toLowCardinality(toNullable(replaceAll(toString("destinationOperationCode"),' ',''))) as destination_operation_code,
-    toNullable(toDateTime64("destinationOperationDate", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("destinationOperationDate",'Europe/Paris'))) as destination_operation_date,
-    toNullable(toString("destinationOperationSignatureAuthor")) as destination_operation_signature_author,
-    toNullable(toDateTime64("destinationOperationSignatureDate", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("destinationOperationSignatureDate",'Europe/Paris'))) as destination_operation_signature_date,
-    toNullable(toDateTime64("transporterTransportSignatureDate", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("transporterTransportSignatureDate",'Europe/Paris'))) as transporter_transport_signature_date,
-    toNullable(toString("workerCompanyName")) as worker_company_name,
-    toNullable(toString("workerCompanySiret")) as worker_company_siret,
-    toNullable(toString("workerCompanyAddress")) as worker_company_address,
-    toNullable(toString("workerCompanyContact")) as worker_company_contact,
-    toNullable(toString("workerCompanyPhone")) as worker_company_phone,
-    toNullable(toString("workerCompanyMail")) as worker_company_mail,
-    toNullable(toBool("workerWorkHasEmitterPaperSignature")) as worker_work_has_emitter_paper_signature,
-    toNullable(toString("workerWorkSignatureAuthor")) as worker_work_signature_author,
-    toNullable(toDateTime64("workerWorkSignatureDate", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("workerWorkSignatureDate",'Europe/Paris'))) as worker_work_signature_date,
-    toNullable(toString("brokerCompanyName")) as broker_company_name,
-    toNullable(toString("brokerCompanySiret")) as broker_company_siret,
-    toNullable(toString("brokerCompanyAddress")) as broker_company_address,
-    toNullable(toString("brokerCompanyContact")) as broker_company_contact,
-    toNullable(toString("brokerCompanyPhone")) as broker_company_phone,
-    toNullable(toString("brokerCompanyMail")) as broker_company_mail,
-    toNullable(toString("brokerRecepisseNumber")) as broker_recepisse_number,
-    toLowCardinality(toNullable(toString("brokerRecepisseDepartment"))) as broker_recepisse_department,
-    toNullable(toDateTime64("brokerRecepisseValidityLimit", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("brokerRecepisseValidityLimit",'Europe/Paris'))) as broker_recepisse_validity_limit,
-    toNullable(toString("destinationOperationNextDestinationCompanyName")) as destination_operation_next_destination_company_name,
-    toNullable(toString("destinationOperationNextDestinationCompanySiret")) as destination_operation_next_destination_company_siret,
-    toNullable(toString("destinationOperationNextDestinationCompanyVatNumber")) as destination_operation_next_destination_company_vat_number,
-    toNullable(toString("destinationOperationNextDestinationCompanyAddress")) as destination_operation_next_destination_company_address,
-    toNullable(toString("destinationOperationNextDestinationCompanyContact")) as destination_operation_next_destination_company_contact,
-    toNullable(toString("destinationOperationNextDestinationCompanyPhone")) as destination_operation_next_destination_company_phone,
-    toNullable(toString("destinationOperationNextDestinationCompanyMail")) as destination_operation_next_destination_company_mail,
-    toNullable(toString("destinationOperationNextDestinationCap")) as destination_operation_next_destination_cap,
-    toNullable(replaceAll(toString("destinationOperationNextDestinationPlannedOperationCode"),' ','')) as destination_operation_next_destination_planned_operation_code,
-    toNullable(toBool("weightIsEstimate")) as weight_is_estimate,
-    toNullable(toString("emitterCustomInfo")) as emitter_custom_info,
-    toNullable(toString("destinationCustomInfo")) as destination_custom_info,
-    toNullable(toString("ecoOrganismeName")) as eco_organisme_name,
-    toNullable(toString("ecoOrganismeSiret")) as eco_organisme_siret,
-    toNullable(toString("forwardingId")) as forwarding_id,
-    toNullable(toString("groupedInId")) as grouped_in_id,
-    toNullable(toBool("wastePop")) as waste_pop,
-    toNullable(toString("destinationOperationDescription")) as destination_operation_description,
-    toNullable(toBool("workerIsDisabled")) as worker_is_disabled,
-    toNullable(toBool("workerCertificationHasSubSectionFour")) as worker_certification_has_sub_section_four,
-    toNullable(toBool("workerCertificationHasSubSectionThree")) as worker_certification_has_sub_section_three,
-    toNullable(toString("workerCertificationCertificationNumber")) as worker_certification_certification_number,
-    toNullable(toDateTime64("workerCertificationValidityLimit", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("workerCertificationValidityLimit",'Europe/Paris'))) as worker_certification_validity_limit,
-    toNullable(toString("workerCertificationOrganisation")) as worker_certification_organisation,
-    assumeNotNull(splitByChar(',',COALESCE (substring(toString("intermediariesOrgIds"),2,length("intermediariesOrgIds")-2),''))) as intermediaries_org_ids,
-    toLowCardinality(toNullable(toString("destinationOperationMode"))) as destination_operation_mode,
-    assumeNotNull(splitByChar(',',COALESCE (substring(toString("transportersOrgIds"),2,length("transportersOrgIds")-2),''))) as transporters_org_ids,
-    assumeNotNull(toInt256("rowNumber")) as row_number,
-    assumeNotNull(splitByChar(',',COALESCE (substring(toString("canAccessDraftOrgIds"),2,length("canAccessDraftOrgIds")-2),''))) as can_access_draft_org_ids
- FROM source
+
+select
+    assumeNotNull(
+        toString(id)
+    )      as id,
+    assumeNotNull(
+        toDateTime64(createdat, 6, 'Europe/Paris')
+        - timeZoneOffset(toTimeZone(createdat, 'Europe/Paris'))
+    )      as created_at,
+    assumeNotNull(
+        toDateTime64(updatedat, 6, 'Europe/Paris')
+        - timeZoneOffset(toTimeZone(updatedat, 'Europe/Paris'))
+    )      as updated_at,
+    assumeNotNull(
+        toBool(isdraft)
+    )      as is_draft,
+    assumeNotNull(
+        toBool(isdeleted)
+    )      as is_deleted,
+    toLowCardinality(
+        assumeNotNull(toString(status))
+    )      as status,
+    assumeNotNull(
+        toString(type)
+    )      as type,
+    toNullable(
+        toBool(emitterisprivateindividual)
+    )      as emitter_is_private_individual,
+    toNullable(
+        toString(emittercompanyname)
+    )      as emitter_company_name,
+    toNullable(
+        toString(emittercompanysiret)
+    )      as emitter_company_siret,
+    toNullable(
+        toString(emittercompanyaddress)
+    )      as emitter_company_address,
+    toNullable(
+        toString(emittercompanycontact)
+    )      as emitter_company_contact,
+    toNullable(
+        toString(emittercompanyphone)
+    )      as emitter_company_phone,
+    toNullable(
+        toString(emittercompanymail)
+    )      as emitter_company_mail,
+    toNullable(
+        toString(emitterpickupsitename)
+    )      as emitter_pickup_site_name,
+    toNullable(
+        toString(emitterpickupsiteaddress)
+    )      as emitter_pickup_site_address,
+    toNullable(
+        toString(emitterpickupsitecity)
+    )      as emitter_pickup_site_city,
+    toLowCardinality(
+        toNullable(toString(emitterpickupsitepostalcode))
+    )      as emitter_pickup_site_postal_code,
+    toNullable(
+        toString(emitterpickupsiteinfos)
+    )      as emitter_pickup_site_infos,
+    toNullable(
+        toString(emitteremissionsignatureauthor)
+    )      as emitter_emission_signature_author,
+    toNullable(
+        toDateTime64(emitteremissionsignaturedate, 6, 'Europe/Paris')
+        - timeZoneOffset(
+            toTimeZone(emitteremissionsignaturedate, 'Europe/Paris')
+        )
+    )      as emitter_emission_signature_date,
+    toLowCardinality(
+        toNullable(toString(wastecode))
+    )      as waste_code,
+    toNullable(
+        toString(wastefamilycode)
+    )      as waste_family_code,
+    toNullable(
+        toString(wastematerialname)
+    )      as waste_material_name,
+    toNullable(
+        toString(wasteconsistence)
+    )      as waste_consistence,
+    assumeNotNull(
+        splitByChar(
+            ',',
+            cOALESCE(
+                substring(
+                    toString(wastesealnumbers), 2, length(wastesealnumbers) - 2
+                ),
+                ''
+            )
+        )
+    )      as waste_seal_numbers,
+    toNullable(
+        toString(wasteadr)
+    )      as waste_adr,
+    assumeNotNull(
+        toString(packagings)
+    )      as packagings,
+    toNullable(toDecimal256(weightvalue, 30))
+    / 1000 as weight_value,
+    toNullable(
+        toString(destinationcompanyname)
+    )      as destination_company_name,
+    toNullable(
+        toString(destinationcompanysiret)
+    )      as destination_company_siret,
+    toNullable(
+        toString(destinationcompanyaddress)
+    )      as destination_company_address,
+    toNullable(
+        toString(destinationcompanycontact)
+    )      as destination_company_contact,
+    toNullable(
+        toString(destinationcompanyphone)
+    )      as destination_company_phone,
+    toNullable(
+        toString(destinationcompanymail)
+    )      as destination_company_mail,
+    toNullable(
+        toString(destinationcap)
+    )      as destination_cap,
+    toNullable(
+        replaceAll(toString(destinationplannedoperationcode), ' ', '')
+    )      as destination_planned_operation_code,
+    toNullable(
+        toDateTime64(destinationreceptiondate, 6, 'Europe/Paris')
+        - timeZoneOffset(toTimeZone(destinationreceptiondate, 'Europe/Paris'))
+    )      as destination_reception_date,
+    toNullable(toDecimal256(destinationreceptionweight, 30))
+    / 1000 as destination_reception_weight,
+    toNullable(
+        toString(destinationreceptionacceptationstatus)
+    )      as destination_reception_acceptation_status,
+    toNullable(
+        toString(destinationreceptionrefusalreason)
+    )      as destination_reception_refusal_reason,
+    toLowCardinality(
+        toNullable(replaceAll(toString(destinationoperationcode), ' ', ''))
+    )      as destination_operation_code,
+    toNullable(
+        toDateTime64(destinationoperationdate, 6, 'Europe/Paris')
+        - timeZoneOffset(toTimeZone(destinationoperationdate, 'Europe/Paris'))
+    )      as destination_operation_date,
+    toNullable(
+        toString(destinationoperationsignatureauthor)
+    )      as destination_operation_signature_author,
+    toNullable(
+        toDateTime64(destinationoperationsignaturedate, 6, 'Europe/Paris')
+        - timeZoneOffset(
+            toTimeZone(destinationoperationsignaturedate, 'Europe/Paris')
+        )
+    )      as destination_operation_signature_date,
+    toNullable(
+        toDateTime64(transportertransportsignaturedate, 6, 'Europe/Paris')
+        - timeZoneOffset(
+            toTimeZone(transportertransportsignaturedate, 'Europe/Paris')
+        )
+    )      as transporter_transport_signature_date,
+    toNullable(
+        toString(workercompanyname)
+    )      as worker_company_name,
+    toNullable(
+        toString(workercompanysiret)
+    )      as worker_company_siret,
+    toNullable(
+        toString(workercompanyaddress)
+    )      as worker_company_address,
+    toNullable(
+        toString(workercompanycontact)
+    )      as worker_company_contact,
+    toNullable(
+        toString(workercompanyphone)
+    )      as worker_company_phone,
+    toNullable(
+        toString(workercompanymail)
+    )      as worker_company_mail,
+    toNullable(
+        toBool(workerworkhasemitterpapersignature)
+    )      as worker_work_has_emitter_paper_signature,
+    toNullable(
+        toString(workerworksignatureauthor)
+    )      as worker_work_signature_author,
+    toNullable(
+        toDateTime64(workerworksignaturedate, 6, 'Europe/Paris')
+        - timeZoneOffset(toTimeZone(workerworksignaturedate, 'Europe/Paris'))
+    )      as worker_work_signature_date,
+    toNullable(
+        toString(brokercompanyname)
+    )      as broker_company_name,
+    toNullable(
+        toString(brokercompanysiret)
+    )      as broker_company_siret,
+    toNullable(
+        toString(brokercompanyaddress)
+    )      as broker_company_address,
+    toNullable(
+        toString(brokercompanycontact)
+    )      as broker_company_contact,
+    toNullable(
+        toString(brokercompanyphone)
+    )      as broker_company_phone,
+    toNullable(
+        toString(brokercompanymail)
+    )      as broker_company_mail,
+    toNullable(
+        toString(brokerrecepissenumber)
+    )      as broker_recepisse_number,
+    toLowCardinality(
+        toNullable(toString(brokerrecepissedepartment))
+    )      as broker_recepisse_department,
+    toNullable(
+        toDateTime64(brokerrecepissevaliditylimit, 6, 'Europe/Paris')
+        - timeZoneOffset(
+            toTimeZone(brokerrecepissevaliditylimit, 'Europe/Paris')
+        )
+    )      as broker_recepisse_validity_limit,
+    toNullable(
+        toString(destinationoperationnextdestinationcompanyname)
+    )      as destination_operation_next_destination_company_name,
+    toNullable(
+        toString(destinationoperationnextdestinationcompanysiret)
+    )      as destination_operation_next_destination_company_siret,
+    toNullable(
+        toString(destinationoperationnextdestinationcompanyvatnumber)
+    )      as destination_operation_next_destination_company_vat_number,
+    toNullable(
+        toString(destinationoperationnextdestinationcompanyaddress)
+    )      as destination_operation_next_destination_company_address,
+    toNullable(
+        toString(destinationoperationnextdestinationcompanycontact)
+    )      as destination_operation_next_destination_company_contact,
+    toNullable(
+        toString(destinationoperationnextdestinationcompanyphone)
+    )      as destination_operation_next_destination_company_phone,
+    toNullable(
+        toString(destinationoperationnextdestinationcompanymail)
+    )      as destination_operation_next_destination_company_mail,
+    toNullable(
+        toString(destinationoperationnextdestinationcap)
+    )      as destination_operation_next_destination_cap,
+    toNullable(
+        replaceAll(
+            toString(destinationoperationnextdestinationplannedoperationcode),
+            ' ',
+            ''
+        )
+    )      as destination_operation_next_destination_planned_operation_code,
+    toNullable(
+        toBool(weightisestimate)
+    )      as weight_is_estimate,
+    toNullable(
+        toString(emittercustominfo)
+    )      as emitter_custom_info,
+    toNullable(
+        toString(destinationcustominfo)
+    )      as destination_custom_info,
+    toNullable(
+        toString(ecoorganismename)
+    )      as eco_organisme_name,
+    toNullable(
+        toString(ecoorganismesiret)
+    )      as eco_organisme_siret,
+    toNullable(
+        toString(forwardingid)
+    )      as forwarding_id,
+    toNullable(
+        toString(groupedinid)
+    )      as grouped_in_id,
+    toNullable(
+        toBool(wastepop)
+    )      as waste_pop,
+    toNullable(
+        toString(destinationoperationdescription)
+    )      as destination_operation_description,
+    toNullable(
+        toBool(workerisdisabled)
+    )      as worker_is_disabled,
+    toNullable(
+        toBool(workercertificationhassubsectionfour)
+    )      as worker_certification_has_sub_section_four,
+    toNullable(
+        toBool(workercertificationhassubsectionthree)
+    )      as worker_certification_has_sub_section_three,
+    toNullable(
+        toString(workercertificationcertificationnumber)
+    )      as worker_certification_certification_number,
+    toNullable(
+        toDateTime64(workercertificationvaliditylimit, 6, 'Europe/Paris')
+        - timeZoneOffset(
+            toTimeZone(workercertificationvaliditylimit, 'Europe/Paris')
+        )
+    )      as worker_certification_validity_limit,
+    toNullable(
+        toString(workercertificationorganisation)
+    )      as worker_certification_organisation,
+    assumeNotNull(
+        splitByChar(
+            ',',
+            cOALESCE(
+                substring(
+                    toString(intermediariesorgids),
+                    2,
+                    length(intermediariesorgids) - 2
+                ),
+                ''
+            )
+        )
+    )      as intermediaries_org_ids,
+    toLowCardinality(
+        toNullable(toString(destinationoperationmode))
+    )      as destination_operation_mode,
+    assumeNotNull(
+        splitByChar(
+            ',',
+            coalesce(
+                substring(
+                    toString(transportersorgids),
+                    2,
+                    length(transportersorgids) - 2
+                ),
+                ''
+            )
+        )
+    )      as transporters_org_ids,
+    assumeNotNull(
+        toInt256(rownumber)
+    )      as row_number,
+    assumeNotNull(
+        splitByChar(
+            ',',
+            coalesce(
+                substring(
+                    toString(canaccessdraftorgids),
+                    2,
+                    length(canaccessdraftorgids) - 2
+                ),
+                ''
+            )
+        )
+    )      as can_access_draft_org_ids
+from source

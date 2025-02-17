@@ -27,14 +27,14 @@ grouped_data as (
             from
             date_trunc(
                 'year',
-                taken_over_at
+                be.taken_over_at
             )
         )::int         as annee,
         be.emitter_naf as naf,
         sum(
             case
-                when quantity_received > 60 then quantity_received / 1000
-                else quantity_received
+                when be.quantity_received > 60 then be.quantity_received / 1000
+                else be.quantity_received
             end
         )              as quantite_traitee
     from
@@ -42,27 +42,27 @@ grouped_data as (
     where
     /* Uniquement déchets dangereux */
         (
-            waste_code ~* '.*\*$'
+            be.waste_code ~* '.*\*$'
             or coalesce(
-                waste_pop,
+                be.waste_pop,
                 false
             )
             or coalesce(
-                waste_is_dangerous,
+                be.waste_is_dangerous,
                 false
             )
         )
         /* Pas de bouillons */
-        and not is_draft
+        and not be.is_draft
         /* Uniquement les non TTRs */
-        and emitter_company_siret not in (select siret from ttr_list)
+        and be.emitter_company_siret not in (select siret from ttr_list)
         /* Uniquement les données jusqu'à la dernière semaine complète */
         and be.taken_over_at between '2020-01-01' and date_trunc(
             'week',
             now()
         )
-        and _bs_type != 'BSFF'
-    group by date_trunc('year', be.taken_over_at), emitter_naf
+        and be._bs_type != 'BSFF'
+    group by date_trunc('year', be.taken_over_at), be.emitter_naf
 ),
 
 bsff_data as (

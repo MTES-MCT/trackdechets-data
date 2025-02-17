@@ -1,15 +1,7 @@
 {{
   config(
-    materialized = 'table',
-    indexes=[
-        {"columns":['id'],"unique":True},
-        {"columns":['created_date']},
-        {"columns":['etablissement_numero_identification']},
-        {"columns":['date_reception']},
-        {"columns":['numeros_indentification_transporteurs'],"type":"GIN"},
-        ]
-
-    )
+    materialized = 'table'
+  )
 }}
 
 with source as (
@@ -19,9 +11,9 @@ with source as (
 transporter_source as (
     select
         dnd_entrant_id,
-        ARRAY_AGG(
-            transporteur_numero_identification::text
-        ) as numeros_indentification_transporteurs
+        assumeNotNull(ARRAY_AGG(
+            transporteur_numero_identification
+        )) as numeros_indentification_transporteurs
     from
         {{ ref("dnd_entrant_transporteur") }}
     group by 1
@@ -87,10 +79,10 @@ select
     r.created_year_utc,
     r.code_dechet,
     r.created_date,
-    r.date_reception::date,
+    r.date_reception,
     r.is_dechet_pop,
     r.denomination_usuelle,
-    r.heure_pesee::time,
+    r.heure_pesee,
     r.last_modified_date,
     r.numero_document,
     r.numero_notification,

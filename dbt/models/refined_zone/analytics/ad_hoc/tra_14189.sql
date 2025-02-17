@@ -5,98 +5,98 @@
 }}
 with destinataires as (
     select
-        destination_company_siret as siret,
-        count(distinct id) filter (
+        be.destination_company_siret as siret,
+        count(distinct be.id) filter (
             where
-            "_bs_type" = 'BSDD'
-        )                         as num_bsdd,
-        sum(quantity_received) filter (
+            be._bs_type = 'BSDD'
+        )                            as num_bsdd,
+        sum(be.quantity_received) filter (
             where
-            "_bs_type" = 'BSDD'
-        )                         as quantite_traitee_bsdd,
-        count(distinct id) filter (
+            be._bs_type = 'BSDD'
+        )                            as quantite_traitee_bsdd,
+        count(distinct be.id) filter (
             where
-            "_bs_type" = 'BSDA'
-        )                         as num_bsda,
-        sum(quantity_received) filter (
+            be._bs_type = 'BSDA'
+        )                            as num_bsda,
+        sum(be.quantity_received) filter (
             where
-            "_bs_type" = 'BSDA'
-        )                         as quantite_traitee_bsda,
-        count(distinct id) filter (
+            be._bs_type = 'BSDA'
+        )                            as quantite_traitee_bsda,
+        count(distinct be.id) filter (
             where
-            "_bs_type" = 'BSFF'
-        )                         as num_bsff,
-        sum(quantity_received) filter (
+            be._bs_type = 'BSFF'
+        )                            as num_bsff,
+        sum(be.quantity_received) filter (
             where
-            "_bs_type" = 'BSFF'
-        )                         as quantite_traitee_bsff,
-        count(distinct id) filter (
+            be._bs_type = 'BSFF'
+        )                            as quantite_traitee_bsff,
+        count(distinct be.id) filter (
             where
-            "_bs_type" = 'BSDASRI'
-        )                         as num_bsdasri,
-        sum(quantity_received) filter (
+            be._bs_type = 'BSDASRI'
+        )                            as num_bsdasri,
+        sum(be.quantity_received) filter (
             where
-            "_bs_type" = 'BSDASRI'
-        )                         as quantite_traitee_bsdasri,
-        count(distinct id) filter (
+            be._bs_type = 'BSDASRI'
+        )                            as quantite_traitee_bsdasri,
+        count(distinct be.id) filter (
             where
-            "_bs_type" = 'BSVHU'
-        )                         as num_bsvhu,
-        sum(quantity_received) filter (
+            be._bs_type = 'BSVHU'
+        )                            as num_bsvhu,
+        sum(be.quantity_received) filter (
             where
-            "_bs_type" = 'BSVHU'
-        )                         as quantite_traitee_bsvhu
+            be._bs_type = 'BSVHU'
+        )                            as quantite_traitee_bsvhu
     from
         {{ ref('bordereaux_enriched') }} as be
     where
-        destination_region = 11
+        be.destination_region = 11
         and be.processed_at >= '2023-01-01'
     group by
-        destination_company_siret
+        be.destination_company_siret
 ),
 
 emetteurs as (
     select
         be.emitter_company_siret as siret,
-        count(distinct id) filter (
+        count(distinct be.id) filter (
             where
-            "_bs_type" = 'BSDD'
+            be._bs_type = 'BSDD'
         )                        as num_bsdd_envoyes,
         sum(be.quantity_received) filter (
             where
-            "_bs_type" = 'BSDD'
+            be._bs_type = 'BSDD'
         )                        as quantite_envoyee_bsdd,
-        count(distinct id) filter (
+        count(distinct be.id) filter (
             where
-            "_bs_type" = 'BSDA'
+            be._bs_type = 'BSDA'
         )                        as num_bsda_envoyes,
-        sum(quantity_received) filter (
+        sum(be.quantity_received) filter (
             where
-            "_bs_type" = 'BSDA'
+            be._bs_type = 'BSDA'
         )                        as quantite_envoyee_bsda,
-        count(distinct id) filter (
+        count(distinct be.id) filter (
             where
-            "_bs_type" = 'BSFF'
+            be._bs_type = 'BSFF'
         )                        as num_bsff_envoyes,
         sum(be.quantity_received) filter (
             where
-            "_bs_type" = 'BSFF'
+            be._bs_type = 'BSFF'
         )                        as quantite_envoyee_bsff,
-        count(distinct id) filter (
+        count(distinct be.id) filter (
             where
-            "_bs_type" = 'BSDASRI'
+            be._bs_type = 'BSDASRI'
         )                        as num_bsdasri_envoyes,
         sum(be.quantity_received) filter (
             where
-            "_bs_type" = 'BSDASRI'
+            be._bs_type = 'BSDASRI'
         )                        as quantite_envoyee_bsdasri,
-        count(distinct id) filter (
+        count(distinct be.id) filter (
             where
-            "_bs_type" = 'BSVHU'
+            be._bs_type = 'BSVHU'
         )                        as num_bsvhu_envoyes,
         sum(be.quantity_received) filter (
             where
-            "_bs_type" = 'BSVHU'
+            be._bs_type = 'BSVHU'
         )                        as quantite_envoyee_bsvhu
     from
         {{ ref('bordereaux_enriched') }} as be

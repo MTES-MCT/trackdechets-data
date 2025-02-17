@@ -6,27 +6,27 @@
 
 with bordereaux_data as (
     select
-        _bs_type,
-        id,
-        destination_company_siret,
-        eco_organisme_siret,
-        emitter_company_siret,
-        transporter_company_siret,
-        worker_company_siret,
-        quantity_received
+        be._bs_type,
+        be.id,
+        be.destination_company_siret,
+        be.eco_organisme_siret,
+        be.emitter_company_siret,
+        be.transporter_company_siret,
+        be.worker_company_siret,
+        be.quantity_received
     from
         {{ ref('bordereaux_enriched') }} as be
     where
         be.processed_at is not null
         and not be.is_draft
         and (
-            waste_code ~* '.*\*$'
+            be.waste_code ~* '.*\*$'
             or coalesce(
-                waste_pop,
+                be.waste_pop,
                 false
             )
             or coalesce(
-                waste_is_dangerous,
+                be.waste_is_dangerous,
                 false
             )
         )
@@ -35,7 +35,7 @@ with bordereaux_data as (
 
 emitter_counts as (
     select
-        emitter_company_siret as "siret",
+        emitter_company_siret as siret,
         count(id) filter (
             where
             _bs_type = 'BSDD'
@@ -84,7 +84,7 @@ emitter_counts as (
 
 transporter_counts as (
     select
-        transporter_company_siret as "siret",
+        transporter_company_siret as siret,
         count(id) filter (
             where
             _bs_type = 'BSDD'
@@ -133,7 +133,7 @@ transporter_counts as (
 
 destination_counts as (
     select
-        destination_company_siret as "siret",
+        destination_company_siret as siret,
         count(id) filter (
             where
             _bs_type = 'BSDD'

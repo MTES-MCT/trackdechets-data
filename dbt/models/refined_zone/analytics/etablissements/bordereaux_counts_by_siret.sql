@@ -6,7 +6,7 @@
 
 WITH emitter_counts AS (
     SELECT
-        emitter_company_siret AS "siret",
+        emitter_company_siret AS siret,
         COUNT(id) FILTER (
             WHERE
             _bs_type = 'BSDD'
@@ -95,7 +95,7 @@ transporter_counts AS (
 
 destination_counts AS (
     SELECT
-        destination_company_siret AS "siret",
+        destination_company_siret AS siret,
         COUNT(id) FILTER (
             WHERE
             _bs_type = 'BSDD'
@@ -182,7 +182,8 @@ destination_counts AS (
         ) FILTER (
             WHERE
             _bs_type = 'BSDASRI'
-        )                         AS processing_operations_as_destination_bsdasri,
+        )
+            AS processing_operations_as_destination_bsdasri,
         ARRAY_AGG(
             DISTINCT processing_operation
         ) FILTER (

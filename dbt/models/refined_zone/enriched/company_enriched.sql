@@ -30,14 +30,14 @@ select
     c.*,
     naf.*,
     etabs.etat_administratif_etablissement,
-    communes.code_commune     as "code_commune_insee",
-    communes.code_departement as "code_departement_insee",
-    communes.code_region      as "code_region_insee"
+    communes.code_commune     as code_commune_insee,
+    communes.code_departement as code_departement_insee,
+    communes.code_region      as code_region_insee
 from
     {{ ref('company') }} as c
 left join
     {{ ref('stock_etablissement') }}
-    as etabs
+        as etabs
     on c.siret = etabs.siret
 left join
     communes
@@ -48,7 +48,7 @@ left join
         ) = communes.code_commune
 left join
     {{ ref('nomenclature_activites_francaises') }}
-    as naf
+        as naf
     on replace(
         coalesce(etabs.activite_principale_etablissement, c.code_naf),
         '.',

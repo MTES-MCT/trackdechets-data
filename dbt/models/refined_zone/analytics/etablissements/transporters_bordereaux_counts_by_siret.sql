@@ -8,7 +8,7 @@
 
 with bsdd_transporter_counts as (
     select
-        transporter_company_siret as "siret",
+        transporter_company_siret as siret,
         COUNT(id) filter (
             where {{ dangerous_waste_filter('bsdd') }}
         )                         as num_bsdd_as_transporter,
@@ -25,7 +25,8 @@ with bsdd_transporter_counts as (
         )                         as quantity_bsdnd_as_transporter,
         MAX(
             created_at
-        )                         as last_bordereau_created_at_as_transporter_bsdd,
+        )
+            as last_bordereau_created_at_as_transporter_bsdd,
         ARRAY_AGG(
             distinct processing_operation_done
         )                         as processing_operations_as_transporter_bsdd
@@ -37,7 +38,7 @@ with bsdd_transporter_counts as (
 
 bsda_transporter_counts as (
     select
-        transporter_company_siret as "siret",
+        transporter_company_siret as siret,
         COUNT(
             id
         )                         as num_bsda_as_transporter,
@@ -46,7 +47,8 @@ bsda_transporter_counts as (
         )                         as quantity_bsda_as_transporter,
         MAX(
             created_at
-        )                         as last_bordereau_created_at_as_transporter_bsda,
+        )
+            as last_bordereau_created_at_as_transporter_bsda,
         ARRAY_AGG(
             distinct destination_operation_code
         )                         as processing_operations_as_transporter_bsda
@@ -58,12 +60,13 @@ bsda_transporter_counts as (
 
 bsff_transporter_counts as (
     select
-        transporter_company_siret as "siret",
+        transporter_company_siret as siret,
         COUNT(id)                 as num_bsff_as_transporter,
         SUM(acceptation_weight)   as quantity_bsff_as_transporter,
         MAX(
             created_at
-        )                         as last_bordereau_created_at_as_transporter_bsff,
+        )
+            as last_bordereau_created_at_as_transporter_bsff,
         ARRAY_AGG(
             distinct operation_code
         )                         as processing_operations_as_transporter_bsff
@@ -76,7 +79,7 @@ bsff_transporter_counts as (
 
 transporter_counts_legacy as (
     select
-        transporter_company_siret as "siret",
+        transporter_company_siret as siret,
         COUNT(id) filter (
             where
             _bs_type = 'BSDASRI'
@@ -119,7 +122,7 @@ grouped as (
             last_bordereau_created_at_as_transporter_bsda,
             last_bordereau_created_at_as_transporter_bsff
         )
-        as last_bordereau_created_at_as_transporter,
+            as last_bordereau_created_at_as_transporter,
         COALESCE(
             bsdd_tc.num_bsdd_as_transporter,
             0
@@ -139,7 +142,8 @@ grouped as (
         COALESCE(
             tc.num_bsdasri_as_transporter,
             0
-        )                                          as num_bsdasri_as_transporter,
+        )
+            as num_bsdasri_as_transporter,
         COALESCE(
             tc.num_bsvhu_as_transporter,
             0
@@ -147,31 +151,38 @@ grouped as (
         COALESCE(
             bsdd_tc.quantity_bsdd_as_transporter,
             0
-        )                                          as quantity_bsdd_as_transporter,
+        )
+            as quantity_bsdd_as_transporter,
         COALESCE(
             bsdd_tc.quantity_bsdnd_as_transporter,
             0
-        )                                          as quantity_bsdnd_as_transporter,
+        )
+            as quantity_bsdnd_as_transporter,
         COALESCE(
             bsda_tc.quantity_bsda_as_transporter,
             0
-        )                                          as quantity_bsda_as_transporter,
+        )
+            as quantity_bsda_as_transporter,
         COALESCE(
             bsff_tc.quantity_bsff_as_transporter,
             0
-        )                                          as quantity_bsff_as_transporter,
+        )
+            as quantity_bsff_as_transporter,
         COALESCE(
             tc.quantity_bsdasri_as_transporter,
             0
-        )                                          as quantity_bsdasri_as_transporter,
+        )
+            as quantity_bsdasri_as_transporter,
         COALESCE(
             tc.quantity_bsvhu_as_transporter,
             0
-        )                                          as quantity_bsvhu_as_transporter,
+        )
+            as quantity_bsvhu_as_transporter,
         bsdd_tc.processing_operations_as_transporter_bsdd
         || bsda_tc.processing_operations_as_transporter_bsda
         || bsff_tc.processing_operations_as_transporter_bsff
-        || tc.processing_operations_as_transporter as processing_operations_as_transporter
+        || tc.processing_operations_as_transporter
+            as processing_operations_as_transporter
     from
         bsdd_transporter_counts as bsdd_tc
     full

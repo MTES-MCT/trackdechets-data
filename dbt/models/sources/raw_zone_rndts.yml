@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: raw_zone_rndts
-    schema: raw_zone_rndts_v2
+    schema: raw_zone_rndts
     description: Données brutes fournies par le RNDTS.
     tables:
       - name: dd_entrant

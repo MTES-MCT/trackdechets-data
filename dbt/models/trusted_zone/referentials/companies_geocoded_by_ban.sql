@@ -11,7 +11,8 @@
 }}
 
 with source as (
-    select * from {{ source('raw_zone', 'companies_geocoded_by_ban') }}
+    select *
+    from {{ source('raw_zone_referentials', 'companies_geocoded_by_ban') }}
 ),
 
 renamed as (

@@ -1,13 +1,15 @@
 {{ config(
-  pre_hook = "{{ create_indexes_for_source([
-    'created',
-    'created_by',
-    'org_id'
-    ]) }}"
+    materialized = 'incremental',
+    incremental_strategy = 'delete+insert',
+    unique_key = 'id',
+    on_schema_change='append_new_columns'
 ) }}
 
 with source as (
-    select * from {{ source('raw_zone_gerico', 'sheets_registrydownload') }}
+    select * from {{ source('raw_zone_gerico', 'registry_registrydownload') }} a
+    {% if is_incremental() %}
+    where a.created >= (select toString(max(created)) from {{ this }})
+    {% endif %}
 ),
 
 renamed as (

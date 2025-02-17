@@ -1,15 +1,16 @@
 {{ config(
-  pre_hook = "{{ create_indexes_for_source([
-    'created',
-    'created_by',
-    'org_id',
-    'creation_mode'
-    ]) }}"
+    materialized = 'incremental',
+    incremental_strategy = 'delete+insert',
+    unique_key = 'id',
+    on_schema_change='append_new_columns'
 ) }}
 
 with source as (
     select *
-    from {{ source('raw_zone_gerico', 'sheets_computedinspectiondata') }}
+    from {{ source('raw_zone_gerico', 'sheets_computedinspectiondata') }} a
+    {% if is_incremental() %}
+    where a.created >= (select toString(max(created)) from {{ this }})
+    {% endif %}
 ),
 
 renamed as (
@@ -26,7 +27,6 @@ renamed as (
         {{ adapter.quote("pdf_rendering_start") }},
         {{ adapter.quote("processing_end") }},
         {{ adapter.quote("processing_start") }}
-
     from source
 )
 

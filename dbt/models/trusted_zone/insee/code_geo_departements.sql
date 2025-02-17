@@ -1,10 +1,10 @@
 select
-    cast(reg as integer)  as "code_region",
-    dep                   as "code_departement",
-    cheflieu              as "code_commune_chef_lieu",
-    cast(tncc as integer) as "type_nom_en_clair",
-    ncc                   as "nom_en_clair",
-    nccenr                as "nom_en_clair_enrichi",
-    libelle
+    DEP      as CODE_DEPARTEMENT,
+    REG      as CODE_REGION,
+    CHEFLIEU as CODE_COMMUNE_CHEF_LIEU,
+    TNCC     as TYPE_NOM_EN_CLAIR,
+    NCC      as NOM_EN_CLAIR,
+    NCCENR   as NOM_EN_CLAIR_ENRICHI,
+    LIBELLE
 from
-    {{ source('raw_zone_insee', 'departement') }}
+    {{ source('raw_zone_insee', 'code_departement') }}

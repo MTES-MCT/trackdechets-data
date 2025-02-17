@@ -208,8 +208,10 @@ if __name__ == "__main__":
         default=False,
         help="Year of the notifications dataset, if applicable. Default to None.",
     )
-    parser.add_argument("file_type", help="Year of the dataset.")
-    parser.add_argument("filepath", help="Path to the Excel GISTRID dataset.")
+    parser.add_argument(
+        "file_type", help="Type of the dataset. For example 'installations'."
+    )
+    parser.add_argument("filepath", help="Path to the Excel or CSV GISTRID dataset.")
 
     args = parser.parse_args()
 

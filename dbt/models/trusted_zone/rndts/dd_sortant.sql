@@ -1,14 +1,6 @@
 {{
   config(
     materialized = 'table',
-    indexes=[
-        {"columns":['id'],"unique":True},
-        {"columns":['created_date']},
-        {"columns":['etablissement_numero_identification']},
-        {"columns":['producteur_numero_identification']},
-        {"columns":['date_expedition']},
-        {"columns":['numeros_indentification_transporteurs'],"type":"GIN"},
-        ]
     )
 }}
 
@@ -21,9 +13,9 @@ with source as (
 transporter_source as (
     select
         dd_sortant_id,
-        ARRAY_AGG(
-            transporteur_numero_identification::text
-        ) as numeros_indentification_transporteurs
+        assumeNotNull(ARRAY_AGG(
+            transporteur_numero_identification
+        )) as numeros_indentification_transporteurs
     from
         {{ ref("dd_sortant_transporteur") }}
     group by 1

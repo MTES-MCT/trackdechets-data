@@ -1,15 +1,7 @@
 {{
   config(
-    materialized = 'table',
-    indexes=[
-        {"columns":['id'],"unique":True},
-        {"columns":['created_date']},
-        {"columns":['etablissement_numero_identification']},
-        {"columns":['date_reception']},
-        {"columns":['numeros_indentification_transporteurs'],"type":"GIN"},
-        ]
-
-    )
+    materialized = 'table'
+  )
 }}
 
 
@@ -22,9 +14,9 @@ with source as (
 transporter_source as (
     select
         texs_entrant_id,
-        ARRAY_AGG(
-            transporteur_numero_identification::text
-        ) as numeros_indentification_transporteurs
+        assumeNotNull(ARRAY_AGG(
+            transporteur_numero_identification
+        )) as numeros_indentification_transporteurs
     from
         {{ ref("texs_entrant_transporteur") }}
     group by 1

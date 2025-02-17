@@ -9,8 +9,16 @@ services:
         soft: 262144
         hard: 262144
     volumes:
-      - ./clickhouse-data:/var/lib/clickhouse
+      - clickhouse-data:/var/lib/clickhouse
       - ./config.d:/etc/clickhouse-server/config.d
       - ./users.d:/etc/clickhouse-server/users.d
       - ./logs:/var/log/clickhouse-server
     restart: unless-stopped
+    networks:
+      - data_external_network
+
+volumes:
+  clickhouse-data:
+networks:
+  data_external_network:
+    external: true

@@ -11,26 +11,26 @@ WITH decheteries AS (
         ) AS company_name,
         MAX(
             c.contact_email
-        ) AS "contact_email",
+        ) AS contact_email,
         MAX(
             c.company_types::text
-        ) AS "company_types",
+        ) AS company_types,
         MAX(
             u.email
-        ) AS "email_admin"
+        ) AS email_admin
     FROM
         {{ ref('company') }} AS c
     LEFT JOIN
         {{ ref('company_association') }}
-        AS ca
-        ON ca.company_id = c.id
+            AS ca
+        ON c.id = ca.company_id
     LEFT JOIN
         {{ ref('user') }}
-        AS u
+            AS u
         ON ca.user_id = u.id
     WHERE
         'WASTE_CENTER' = ANY(company_types)
-        AND ca."role" = 'ADMIN'
+        AND ca.role = 'ADMIN'
     GROUP BY
         siret
 ),
@@ -40,29 +40,29 @@ joined AS (
         decheteries.siret,
         COUNT(*) FILTER (
             WHERE
-            be."_bs_type" = 'BSDD'
-        ) AS "num_bsdd_destinataire",
+            be._bs_type = 'BSDD'
+        ) AS num_bsdd_destinataire,
         COUNT(*) FILTER (
             WHERE
-            be."_bs_type" = 'BSDA'
-        ) AS "num_bsda_destinataire",
+            be._bs_type = 'BSDA'
+        ) AS num_bsda_destinataire,
         COUNT(*) FILTER (
             WHERE
-            be."_bs_type" = 'BSFF'
-        ) AS "num_bsff_destinataire",
+            be._bs_type = 'BSFF'
+        ) AS num_bsff_destinataire,
         COUNT(*) FILTER (
             WHERE
-            be."_bs_type" = 'BSDASRI'
-        ) AS "num_bsdasri_destinataire",
+            be._bs_type = 'BSDASRI'
+        ) AS num_bsdasri_destinataire,
         COUNT(*) FILTER (
             WHERE
-            be."_bs_type" = 'BSVHU'
-        ) AS "num_bsvhu_destinataire"
+            be._bs_type = 'BSVHU'
+        ) AS num_bsvhu_destinataire
     FROM
         decheteries
     LEFT JOIN
         {{ ref('bordereaux_enriched') }}
-        AS be
+            AS be
         ON decheteries.siret = be.destination_company_siret
     WHERE
         be.processed_at IS NOT NULL
@@ -75,29 +75,29 @@ joined_2 AS (
         decheteries.siret,
         COUNT(*) FILTER (
             WHERE
-            be."_bs_type" = 'BSDD'
-        ) AS "num_bsdd_emetteur",
+            be._bs_type = 'BSDD'
+        ) AS num_bsdd_emetteur,
         COUNT(*) FILTER (
             WHERE
-            be."_bs_type" = 'BSDA'
-        ) AS "num_bsda_emetteur",
+            be._bs_type = 'BSDA'
+        ) AS num_bsda_emetteur,
         COUNT(*) FILTER (
             WHERE
-            be."_bs_type" = 'BSFF'
-        ) AS "num_bsff_emetteur",
+            be._bs_type = 'BSFF'
+        ) AS num_bsff_emetteur,
         COUNT(*) FILTER (
             WHERE
-            be."_bs_type" = 'BSDASRI'
-        ) AS "num_bsdasri_emetteur",
+            be._bs_type = 'BSDASRI'
+        ) AS num_bsdasri_emetteur,
         COUNT(*) FILTER (
             WHERE
-            be."_bs_type" = 'BSVHU'
-        ) AS "num_bsvhu_emetteur"
+            be._bs_type = 'BSVHU'
+        ) AS num_bsvhu_emetteur
     FROM
         decheteries
     LEFT JOIN
         {{ ref('bordereaux_enriched') }}
-        AS be
+            AS be
         ON decheteries.siret = be.emitter_company_siret
     WHERE
         be.processed_at IS NOT NULL
@@ -126,35 +126,35 @@ final_ AS (
         ) + COALESCE(
             num_bsdd_emetteur,
             0
-        )                                          AS "num_bsdd",
+        )                                          AS num_bsdd,
         COALESCE(
             num_bsda_destinataire,
             0
         ) + COALESCE(
             num_bsda_emetteur,
             0
-        )                                          AS "num_bsda",
+        )                                          AS num_bsda,
         COALESCE(
             num_bsff_destinataire,
             0
         ) + COALESCE(
             num_bsff_emetteur,
             0
-        )                                          AS "num_bsff",
+        )                                          AS num_bsff,
         COALESCE(
             num_bsdasri_destinataire,
             0
         ) + COALESCE(
             num_bsdasri_emetteur,
             0
-        )                                          AS "num_bsdasri",
+        )                                          AS num_bsdasri,
         COALESCE(
             num_bsvhu_destinataire,
             0
         ) + COALESCE(
             num_bsvhu_emetteur,
             0
-        )                                          AS "num_bsvhu"
+        )                                          AS num_bsvhu
     FROM
         joined
     FULL OUTER JOIN joined_2 ON joined.siret = joined_2.siret
@@ -165,7 +165,7 @@ SELECT
     decheteries.company_name  AS "Nom de l'établissement",
     decheteries.company_types AS "Profils de l'établissement",
     decheteries.contact_email AS "E-mail de contact de l'établissement",
-    decheteries."email_admin" AS "E-mail de l'admin de l'établissement",
+    decheteries.email_admin   AS "E-mail de l'admin de l'établissement",
     final_.num_bsdd_destinataire,
     final_.num_bsda_destinataire,
     final_.num_bsff_destinataire,
@@ -180,7 +180,7 @@ SELECT
     + num_bsda
     + num_bsff
     + num_bsdasri
-    + num_bsvhu               AS "total_bordereaux"
+    + num_bsvhu               AS total_bordereaux
 FROM
     decheteries
 LEFT JOIN final_ ON decheteries.siret = final_.siret
