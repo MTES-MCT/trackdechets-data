@@ -75,7 +75,7 @@ renamed as (
 )
 
 select
-    r.id,
+    r.id as id,
     r.created_year_utc,
     r.code_dechet,
     r.created_date,
@@ -126,6 +126,6 @@ select
     r.courtier_raison_sociale,
     r.courtier_numero_recepisse,
     t.numeros_indentification_transporteurs
-from renamed as r
-left join transporter_source as t on r.id = t.dnd_entrant_id
-left join {{ ref('etablissement') }} as e on r.etablissement_id = e.id
+from renamed r
+left join transporter_source t on r.id = t.dnd_entrant_id
+left join {{ ref('etablissement') }} e on r.etablissement_id = e.id

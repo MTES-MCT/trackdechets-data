@@ -1,11 +1,6 @@
 {{
   config(
     materialized = 'table',
-    indexes=[
-        {"columns":["siret"],"unique":True},
-        {"columns":["org_id"],"unique":True},
-        {"columns":["code_commune_insee"]}
-    ]
     )
 }}
 

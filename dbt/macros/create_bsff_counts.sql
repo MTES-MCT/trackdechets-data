@@ -21,24 +21,18 @@
             b.id as bordereau_id,
             bp.id as packaging_id,
             bp.operation_code as "operation_code",
-            case
-                when bp.acceptation_weight > 60 then bp.acceptation_weight / 1000
-                else bp.acceptation_weight
-            END as "quantity",
+            if(bp.acceptation_weight > 60,bp.acceptation_weight / 1000,bp.acceptation_weight) as "quantity",
             {{ date_column_name }}
         FROM {{ ref('bsff') }} b
         LEFT JOIN {{ ref('bsff_packaging') }} bp ON b.id = bp.bsff_id
         WHERE
-            {{ date_column_name }} < DATE_TRUNC('week',now())
-            AND (b.waste_code ~* '.*\*$' or coalesce(bp.acceptation_waste_code ~* '.*\*$',false))
+            {{ date_column_name }} < toStartOfWeek(now('Europe/Paris'),1,'Europe/Paris')
+            AND (match(b.waste_code,'(?i).*\*$') or coalesce(match(bp.acceptation_waste_code,'(?i).*\*$'),false))
             and not is_draft
             and not is_deleted
     )
     SELECT
-        DATE_TRUNC(
-            'week',
-            {{ date_column_name }}
-        )::timestamp AS "semaine",
+        toStartOfWeek({{ date_column_name }},1,'Europe/Paris') AS "semaine",
         count(distinct bordereau_id) as {{ count_name }}_bordereaux,
         count(distinct packaging_id) as {{ count_name }}_contenants,
         sum("quantity") as {{ quantity_name }}
@@ -53,13 +47,7 @@
     FROM
         bordereaux
     GROUP BY
-        DATE_TRUNC(
-            'week',
-            {{ date_column_name }}
-        )
+        1
     ORDER BY
-        DATE_TRUNC(
-            'week',
-            {{ date_column_name }}
-        )
+        1
 {%- endmacro %}

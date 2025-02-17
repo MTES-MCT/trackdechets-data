@@ -50,7 +50,7 @@ renamed as (
 )
 
 select
-    r.id,
+    r.id as id,
     r.created_year_utc,
     r.public_id,
     r.identifiant_metier,

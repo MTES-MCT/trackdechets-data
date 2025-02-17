@@ -3,18 +3,18 @@
     ) -%}
 
     {% if model_name == "bsdd" %}
-            (waste_details_code ~* '.*\*$'
+            (match(waste_details_code,'(?i).*\*$')
             OR waste_details_pop
             OR waste_details_is_dangerous )
     {% elif model_name == "bordereaux_enriched" %}
-            (waste_code ~* '.*\*$'
+            (match(waste_code,'(?i).*\*$')
             OR coalesce(waste_pop,false)
             OR coalesce(waste_is_dangerous,false))
     {% elif model_name == "bsda" %}
-        (waste_code ~* '.*\*$'
+        (match(waste_code,'(?i).*\*$')
         OR waste_pop)
     {% else %}
-        (waste_code ~* '.*\*$')
+        (match(waste_code,'(?i).*\*$'))
     {% endif %}
-
+    
 {%- endmacro %}

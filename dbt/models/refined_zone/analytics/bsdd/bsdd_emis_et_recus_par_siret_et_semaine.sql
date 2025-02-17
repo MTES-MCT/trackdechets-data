@@ -24,32 +24,20 @@ with bsdd as (
 select
     emitter_company_siret as siret,
     'emis'                as flux,
-    date_trunc(
-        'week',
-        sent_at
-    )                     as semaine,
+    toStartOfWeek(sent_at,1,'Europe/Paris')                     as semaine,
     count(id)             as nombre_bordereaux
 from bsdd
 group by
-    emitter_company_siret,
-    date_trunc(
-        'week',
-        sent_at
-    )
+    1,3
 union all
 select
     recipient_company_siret as siret,
     'reçus'                as flux,
-    date_trunc(
-        'week',
-        received_at
+    toStartOfWeek(
+        received_at,1,'Europe/Paris'
     )                       as semaine,
     count(*)                as nombre_bordereaux
 from
     bsdd
 group by
-    recipient_company_siret,
-    date_trunc(
-        'week',
-        received_at
-    )
+    1,3

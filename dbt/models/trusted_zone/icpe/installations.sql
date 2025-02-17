@@ -1,8 +1,8 @@
 select
     code_aiot,
     num_siret,
-    x::int,
-    y::int,
+    toInt256(x),
+    toInt256(y),
     adresse1,
     adresse2,
     adresse3,
@@ -22,7 +22,7 @@ select
     carriere::bool,
     eolienne::bool,
     industrie::bool,
-    replace(longitude, '', null)::float as longitude,
-    replace(latitude, '', null)::float  as latitude
+    toFloat64(nullIf(longitude, '')) as longitude,
+    toFloat64(nullIf(latitude, ''))  as latitude
 from
     {{ source('raw_zone_icpe', 'installations') }}

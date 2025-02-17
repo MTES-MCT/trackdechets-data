@@ -80,7 +80,7 @@ renamed as (
 )
 
 select
-    r.id,
+    r.id as id,
     r.created_year_utc,
     r.code_dechet,
     r.created_date,

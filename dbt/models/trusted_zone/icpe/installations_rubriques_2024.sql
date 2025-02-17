@@ -13,10 +13,10 @@ with source as (
 renamed as (
     select
         "Raison sociale/nom"                as raison_sociale,
-        siret,
+        "SIRET" as siret,
         "Code AIOT"                         as code_aiot,
-        x,
-        y,
+        "X" as x,
+        "Y" as y,
         "Etat du site (code)"               as code_etat_site,
         "Etat du site (libellé)"            as libelle_etat_site,
         "Numéro rubrique"                   as rubrique,
@@ -45,5 +45,5 @@ select
     etat_technique_rubrique,
     etat_administratif_rubrique,
     coalesce(quantite_totale, capacite_totale) as quantite_totale,
-    replaceall(rubrique, '.', '-')             as rubrique
+    replaceAll(rubrique, '.', '-')             as rubrique
 from renamed

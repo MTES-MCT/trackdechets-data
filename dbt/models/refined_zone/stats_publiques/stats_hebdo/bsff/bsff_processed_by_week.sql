@@ -1,9 +1,3 @@
-{{
-    config(
-        indexes = [ {'columns': ['semaine'], 'unique': True }]
-    )
-}}
-
 {% set non_final_operation_codes %}
     (
         'D9',
@@ -19,15 +13,15 @@ WITH bordereaux AS (
     SELECT
         b.id                                    AS bordereau_id,
         max(bp.operation_date)                  AS bordereaux_processed_at,
-        bool_and(bp.operation_date IS NOT null) AS is_processed
+        toBool(count(bp.operation_date)=count(*)) AS is_processed
     FROM {{ ref('bsff') }} AS b
     FULL OUTER JOIN {{ ref('bsff_packaging') }} AS bp ON b.id = bsff_id
     WHERE
-        (b.waste_code ~* '.*\*$')
+        ({{ dangerous_waste_filter('bsff') }})
         AND NOT b.is_draft
         AND NOT b.is_deleted
     GROUP BY b.id
-    HAVING max(bp.operation_date) < date_trunc('week', now())
+    HAVING max(bp.operation_date) < toStartOfWeek(now('Europe/Paris'),1,'Europe/Paris')
 ),
 
 packagings AS (
@@ -35,17 +29,14 @@ packagings AS (
         bp.id AS packaging_id,
         bp.operation_code,
         bp.operation_date,
-        CASE
-            WHEN bp.acceptation_weight > 60 THEN bp.acceptation_weight / 1000
-            ELSE bp.acceptation_weight
-        END   AS quantity
+        if(bp.acceptation_weight > 60, bp.acceptation_weight / 1000,bp.acceptation_weight) AS quantity
     FROM {{ ref('bsff') }} AS b
     LEFT JOIN {{ ref('bsff_packaging') }} AS bp ON b.id = bp.bsff_id
     WHERE
-        operation_date < date_trunc('week', now())
+        operation_date < toStartOfWeek(now('Europe/Paris'),1,'Europe/Paris')
         AND (
-            b.waste_code ~* '.*\*$'
-            OR coalesce(bp.acceptation_waste_code ~* '.*\*$', false)
+            {{ dangerous_waste_filter('bsff') }}
+            OR coalesce(match(bp.acceptation_waste_code,'(?i).*\*$'), false)
         )
         AND NOT is_draft
         AND NOT is_deleted
@@ -53,9 +44,8 @@ packagings AS (
 
 bordereaux_by_week AS (
     SELECT
-        date_trunc(
-            'week',
-            b.bordereaux_processed_at
+        toStartOfWeek(
+            b.bordereaux_processed_at,1,'Europe/Paris'
         ) AS semaine,
         count(DISTINCT b.bordereau_id) FILTER (
             WHERE b.is_processed
@@ -63,17 +53,13 @@ bordereaux_by_week AS (
     FROM
         bordereaux AS b
     GROUP BY
-        date_trunc(
-            'week',
-            b.bordereaux_processed_at
-        )
+        1
 ),
 
 packagings_by_week AS (
     SELECT
-        date_trunc(
-            'week',
-            c.operation_date
+        toStartOfWeek(
+            c.operation_date,1,'Europe/Paris'
         )                              AS semaine,
         count(DISTINCT c.packaging_id) AS traitements_contenants,
         sum(c.quantity)                AS quantite_traitee,
@@ -92,10 +78,7 @@ packagings_by_week AS (
     FROM
         packagings AS c
     GROUP BY
-        date_trunc(
-            'week',
-            c.operation_date
-        )
+        1
 )
 
 SELECT

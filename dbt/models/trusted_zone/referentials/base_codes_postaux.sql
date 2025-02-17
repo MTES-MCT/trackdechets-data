@@ -5,14 +5,14 @@ SELECT
     ligne_5,
     "libellé_d_acheminement"
         AS libelle_acheminement,
-    TOFLOAT64(
-        ARRAYELEMENTORNULL(
-            SPLITBYSTRING(', ', ASSUMENOTNULL(coordonnees_gps)), 1
+    toFloat64(
+        arrayElementOrNull(
+            splitByString(', ', assumeNotNull(coordonnees_gps)), 1
         )
     )                         AS latitude,
-    TOFLOAT64(
-        ARRAYELEMENTORNULL(
-            SPLITBYSTRING(', ', ASSUMENOTNULL(coordonnees_gps)), 2
+    toFloat64(
+        arrayElementOrNull(
+            splitByString(', ', assumeNotNull(coordonnees_gps)), 2
         )
     )                         AS longitude
 FROM

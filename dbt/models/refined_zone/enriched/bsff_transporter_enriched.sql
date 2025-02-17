@@ -1,15 +1,6 @@
 {{
   config(
     materialized = 'table',
-    indexes = [ 
-        {'columns': ['id'] , 'unique': True },
-        {'columns': ['created_at'] },
-        {'columns': ['updated_at'] },
-        { 'columns': ['emitter_company_siret'] },
-        { 'columns' :['destination_company_siret'] },
-        { 'columns' :['transporter_company_siret'], },
-        { 'columns' :['waste_code'] },
-    ]
     )
 }}
 
@@ -36,7 +27,7 @@ with bsff_transporter_with_bsff as (
         bt.transporter_transport_plates,
         bt.transporter_transport_taken_over_at,
         bt.transporter_transport_signature_author,
-        bt.transporter_tranport_signature_date,
+        bt.transporter_transport_signature_date,
         b.created_at as bordereau_created_at,
         b.emitter_company_siret,
         b.destination_company_siret,
@@ -66,9 +57,7 @@ select
     max(b.transporter_company_phone)  as transporter_company_phone,
     max(b.transporter_company_mail)   as transporter_company_mail,
     max(b.transporter_custom_info)    as transporter_custom_info,
-    bool_and(
-        b.transporter_recepisse_is_exempted
-    )                                 as transporter_recepisse_is_exempted,
+    min(b.transporter_recepisse_is_exempted)  as transporter_recepisse_is_exempted,
     max(
         b.transporter_recepisse_number
     )                                 as transporter_recepisse_number,

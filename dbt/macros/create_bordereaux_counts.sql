@@ -45,10 +45,10 @@
             OR waste_details_pop
             or waste_details_is_dangerous  
         {% elif model_name == "bsda" %}
-            match(waste_details_code,'(?i).*\*$')
+            match(waste_code,'(?i).*\*$')
             OR waste_pop
         {% else %}
-            match(waste_details_code,'(?i).*\*$')
+            match(waste_code,'(?i).*\*$')
         {% endif %}
     {% endset %}
     
