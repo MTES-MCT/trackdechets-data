@@ -9,9 +9,6 @@ SELECT
     article_count,
     article_ids,
     close_at,
-    close_diff_in_min,
-    close_escalation_at,
-    close_in_min,
     create_article_sender_id,
     create_article_type_id,
     customer_id,
@@ -26,7 +23,6 @@ SELECT
     last_contact_at,
     last_contact_customer_at,
     last_owner_update_at,
-    note,
     organization_id,
     owner_id,
     pending_time,
@@ -34,9 +30,6 @@ SELECT
     state_id,
     ticket_time_accounting_ids,
     time_unit,
-    "type",
-    update_diff_in_min,
-    update_escalation_at,
-    update_in_min
+    tags
 FROM
     {{ source("raw_zone_zammad", "tickets") }}
