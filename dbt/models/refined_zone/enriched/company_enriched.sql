@@ -1,6 +1,10 @@
 {{
   config(
     materialized = 'table',
+    query_settings = {
+        "join_algorithm":"'grace_hash'",
+        "grace_hash_join_initial_buckets":4
+    }
     )
 }}
 
@@ -22,7 +26,46 @@ with communes as (
 )
 
 select
-    c.*,
+    c.id,
+	c.siret as "siret",
+	c.updated_at,
+	c.created_at,
+	c.security_code,
+	c.name,
+	c.gerep_id,
+	c.code_naf,
+	c.given_name,
+	c.contact_email,
+	c.contact_phone,
+	c.website,
+	c.transporter_receipt_id,
+	c.trader_receipt_id,
+	c.eco_organisme_agreements,
+	c.company_types,
+	c.address,
+	c.latitude,
+	c.longitude,
+	c.broker_receipt_id,
+	c.verification_code,
+	c.verification_status,
+	c.verification_mode,
+	c.verification_comment,
+	c.verified_at,
+	c.vhu_agrement_demolisseur_id,
+	c.vhu_agrement_broyeur_id,
+	c.allow_bsdasri_take_over_without_signature,
+	c.vat_number,
+	c.contact,
+	c.code_departement as "code_departement",
+	c.worker_certification_id,
+	c.org_id,
+	c.collector_types,
+	c.waste_processor_types,
+	c.webhook_settings_limit,
+	c.allow_appendix1_signature_automation,
+	c.feature_flags,
+	c.waste_vehicles_types,
+	c.is_dormant_since,
     naf.*,
     etabs.etat_administratif_etablissement,
     communes.code_commune     as code_commune_insee,

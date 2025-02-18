@@ -1,9 +1,7 @@
 {{
   config(
     materialized = 'table',
-    indexes = [{"columns":["siret"],"unique":True}]
-    )
-}}
+    )}}
 
 select
     destination_company_siret as siret,

@@ -1,12 +1,7 @@
 {{
   config(
     materialized = 'table',
-    indexes = [
-        {
-            "columns":["siret"],
-            "unique":true
-        }
-    ]
+
     )
 }}
 

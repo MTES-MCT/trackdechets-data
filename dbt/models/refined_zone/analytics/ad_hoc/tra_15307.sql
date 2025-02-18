@@ -1,10 +1,6 @@
 {{
   config(
     materialized = 'table',
-    indexes = [{
-        "columns" : ["siret","email_admin"],
-        "unique":true
-    }]
     )
 }}
 

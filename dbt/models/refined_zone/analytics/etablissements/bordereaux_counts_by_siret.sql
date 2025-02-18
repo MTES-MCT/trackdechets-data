@@ -1,7 +1,5 @@
 {{ config(
     materialized = 'table',
-    indexes = [ {'columns': ['siret'],
-    'unique': True },],
 ) }}
 
 WITH emitter_counts AS (

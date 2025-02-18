@@ -1,11 +1,7 @@
 {{
   config(
     materialized = 'table',
-    indexes = [
-        { "columns": ["id"], "unique": True}
-    ]
-    )
-}}
+    )}}
 
 with source as (
     select *

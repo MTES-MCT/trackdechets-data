@@ -1,7 +1,5 @@
 {{ config(
     materialized = 'table',
-    indexes = [ {'columns': ['siret'],
-    'unique': True },],
 ) }}
 
 with export_stats as (

@@ -1,14 +1,7 @@
 {{
   config(
     materialized = 'table',
-    indexes = [
-        {
-            'columns':['siret'],
-            'unique': true
-        }
-    ]
-    )
-}}
+    )}}
 
 with td_installations as (
     select

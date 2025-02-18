@@ -555,7 +555,7 @@ wheels = [
 
 [[package]]
 name = "dbt-clickhouse"
-version = "1.8.5"
+version = "1.8.9"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "clickhouse-connect" },
@@ -563,9 +563,9 @@ dependencies = [
     { name = "dbt-core" },
     { name = "setuptools" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/bc/53/32af8d68158a5098a0addf97749f204ac376eb4244de58469c3fcb4b30c3/dbt_clickhouse-1.8.5.tar.gz", hash = "sha256:33c98a5cfd6a67dbefc2f8dfd299e60cca64098549772053a98e58804e15fd60", size = 57343 }
+sdist = { url = "https://files.pythonhosted.org/packages/9c/4c/af581516020db1e6acde1aad69b48b79f8e328ed60cf2784dc09bb6ee8b8/dbt_clickhouse-1.8.9.tar.gz", hash = "sha256:0efe5a000c1d2588713d90169f4e915de240f0c4bcf93f89635c853114cd13a1", size = 69917 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/30/1f/c6518158d43dd7f175db7b3c35e2e561d398df9215e3f09670c4885f6825/dbt_clickhouse-1.8.5-py2.py3-none-any.whl", hash = "sha256:02b3a9358a15efd7645c94b14d8a910598d0f1d26c0706e547ec577eef59391b", size = 64579 },
+    { url = "https://files.pythonhosted.org/packages/4f/6a/e230083df84319d273de5a45f9ce1a1de645e23ef855bfb2849c1f5bcd8b/dbt_clickhouse-1.8.9-py2.py3-none-any.whl", hash = "sha256:bf40225e720da7d86e7d0c7df6a562d4647bff2cb34517dab08262ae9dcf737e", size = 67636 },
 ]
 
 [[package]]
@@ -2507,7 +2507,7 @@ dependencies = [
 requires-dist = [
     { name = "clickhouse-connect", specifier = ">=0.8.7" },
     { name = "clickhouse-sqlalchemy", specifier = ">=0.2.9" },
-    { name = "dbt-clickhouse", specifier = ">=1.8.5" },
+    { name = "dbt-clickhouse", specifier = ">=1.8.9" },
     { name = "dbt-core", specifier = ">=1.8.9" },
     { name = "dbt-osmosis", specifier = ">=1.1.13" },
     { name = "dlt", extras = ["cli", "clickhouse"], specifier = ">=1.5.0" },

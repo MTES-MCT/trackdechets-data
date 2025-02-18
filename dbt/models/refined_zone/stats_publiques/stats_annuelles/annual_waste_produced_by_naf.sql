@@ -1,9 +1,7 @@
 {{
   config(
     materialized = 'table',
-    indexes = [{"columns":["annee","code_sous_classe"], "unique":true}]
-    )
-}}
+    )}}
 with ttr_list as (
     select distinct destination_company_siret as siret
     from

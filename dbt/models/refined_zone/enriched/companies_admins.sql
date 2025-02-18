@@ -1,12 +1,6 @@
 {{
   config(
     materialized = 'table',
-    indexes = [
-        { "columns": ["association_id"], "unique": True},
-        { "columns": ["company_id"]},
-        { "columns": ["user_id"]},
-        { "columns": ["company_siret"]},
-    ]
     )
 }}
 
@@ -24,7 +18,6 @@ select
     u.first_association_date
         as user_first_association_date,
     u.is_admin                                   as user_is_admin,
-    u.is_registre_national                       as user_is_registre_national,
     ce.id                                        as company_id,
     ce.siret                                     as company_siret,
     ce.created_at                                as company_created_at,

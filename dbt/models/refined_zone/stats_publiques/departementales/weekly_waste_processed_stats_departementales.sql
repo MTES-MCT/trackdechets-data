@@ -1,9 +1,7 @@
 {{
   config(
     materialized = 'table',
-    indexes = [{"columns":["departement","code_operation","semaine"],"unique":true}]
-    )
-}}
+    )}}
 
 with preprocessed_data as (
     select

@@ -1,10 +1,7 @@
 {{
   config(
     materialized = 'table',
-    indexes = [ {'columns': ['siret'],
-    'unique': True },],
-    )
-}}
+    )}}
 
 select
     coalesce(b.siret, st.siret)      as siret,

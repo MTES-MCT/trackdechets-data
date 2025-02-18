@@ -1,19 +1,7 @@
 {{
   config(
     materialized = 'table',
-    indexes = [ 
-        {
-            'columns': ['siret'],
-            'unique': True 
-        },
-        {
-            'columns': ['coords'],
-            'type': 'GIST' 
-        },
-    ],
-    tags = ['fiche_etablissement']
-    )
-}}
+    )}}
 
 with stats as (
     select

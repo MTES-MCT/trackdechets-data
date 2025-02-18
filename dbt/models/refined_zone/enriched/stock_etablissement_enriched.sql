@@ -1,12 +1,10 @@
 {{
   config(
     materialized = 'table',
-    indexes = [ 
-        {'columns': ['siret'], 'unique': True },
-        {'columns': ['code_commune']},
-        {'columns': ['code_departement']},
-        {'columns': ['code_region'] },
-    ]
+    query_settings = {
+        "join_algorithm":"'grace_hash'",
+        "grace_hash_join_initial_buckets":4
+    }
     )
 }}
 

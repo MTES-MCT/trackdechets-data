@@ -1,19 +1,10 @@
 {{
   config(
     materialized = 'table',
-    indexes = [{"columns":["annee","code_sous_classe"], "unique":true}]
-    )
-}}
+    )}}
 
 select
-    extract(
-        'year'
-        from
-        date_trunc(
-            'year',
-            ce.created_at
-        )
-    )::int                   as annee,
+    toYear(ce.created_at)  as annee,
     ce.code_sous_classe,
     max(code_section)        as code_section,
     max(libelle_section)     as libelle_section,
@@ -29,8 +20,5 @@ from
     {{ ref('company_enriched') }} as ce
 where
     ce.created_at >= '2020-01-01'
-    and ce.created_at < date_trunc('week', now())
-group by date_trunc(
-    'year',
-    ce.created_at
-), ce.code_sous_classe
+    and ce.created_at < toStartOfWeek(now('Europe/Paris'),1,'Europe/Paris')
+group by 1,2

@@ -1,9 +1,7 @@
 {{
   config(
     materialized = 'table',
-    indexes = [{"columns":["semaine","type_bordereau","code_operation"],"unique":true}]
-    )
-}}
+    )}}
 
 with bs_data as (
     select

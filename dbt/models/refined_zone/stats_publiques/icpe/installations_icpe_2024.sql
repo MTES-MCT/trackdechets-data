@@ -1,7 +1,6 @@
 {{
   config(
     materialized = 'table',
-    indexes=[{"columns":["code_aiot"]},{"columns":["siret"]},{"columns":["rubrique"]}]
     )
 }}
 
@@ -50,7 +49,7 @@ installations as (
         (ir.libelle_etat_site = 'Avec titre') -- noqa: LXR
         and (ir.etat_administratif_rubrique in ('En vigueur', 'A l''arrêt'))
         and (ir.etat_technique_rubrique = 'Exploité')
-        and (ir.raison_sociale !~* 'illégal|illicite')
+        and not match(ir.raison_sociale,''illégal|illicite'')
 )
 
 select

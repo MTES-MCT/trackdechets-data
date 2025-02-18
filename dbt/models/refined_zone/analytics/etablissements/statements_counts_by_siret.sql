@@ -1,10 +1,7 @@
 {{
   config(
     materialized = 'table',
-    indexes = [ {'columns': ['siret'],
-    'unique': True },],
-    )
-}}
+    )}}
 
 with dnd_entrant_stats as (
     select
