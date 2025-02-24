@@ -44,7 +44,7 @@ def companies_geocoding():
     def extract_companies_to_geocode(tmp_dir: str):
         logger.info("Retrieving companies to geolocalize.")
 
-        con = DWH_CON.to_json()
+        con = DWH_CON.to_dict()
 
         client = clickhouse_connect.get_client(
             host=con.get("host"),
@@ -103,7 +103,7 @@ def companies_geocoding():
             Path(tmp_dir) / "companies_geocoded.csv", dtype=str
         )
 
-        con = DWH_CON.to_json()
+        con = DWH_CON.to_dict()
 
         client = clickhouse_connect.get_client(
             host=con.get("host"),

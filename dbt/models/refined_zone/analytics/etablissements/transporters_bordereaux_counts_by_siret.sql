@@ -1,7 +1,5 @@
 {{ config(
     materialized = 'table',
-    indexes = [ {'columns': ['siret'],
-    'unique': True },],
 ) }}
 
 
@@ -9,11 +7,9 @@
 with bsdd_transporter_counts as (
     select
         transporter_company_siret as siret,
-        COUNT(id) filter (
-            where {{ dangerous_waste_filter('bsdd') }}
+        countIf(id,{{ dangerous_waste_filter('bsdd') }}
         )                         as num_bsdd_as_transporter,
-        COUNT(id) filter (
-            where not {{ dangerous_waste_filter('bsdd') }}
+        countIf(id,not {{ dangerous_waste_filter('bsdd') }}
         )                         as num_bsdnd_as_transporter,
         SUM(quantity_received) filter (
             where
@@ -49,7 +45,7 @@ bsda_transporter_counts as (
             created_at
         )
             as last_bordereau_created_at_as_transporter_bsda,
-        ARRAY_AGG(
+        groupArray(
             distinct destination_operation_code
         )                         as processing_operations_as_transporter_bsda
     from
@@ -67,7 +63,7 @@ bsff_transporter_counts as (
             created_at
         )
             as last_bordereau_created_at_as_transporter_bsff,
-        ARRAY_AGG(
+        groupArray(
             distinct operation_code
         )                         as processing_operations_as_transporter_bsff
     from
@@ -99,7 +95,7 @@ transporter_counts_legacy as (
         MAX(
             created_at
         )                         as last_bordereau_created_at_as_transporter,
-        ARRAY_AGG(
+        groupArray(
             distinct processing_operation
         )                         as processing_operations_as_transporter
     from
@@ -250,8 +246,6 @@ select
     ARRAY_AGG(
         distinct processing_operation_as_transporter
     ) as processing_operations_as_transporter
-from grouped,
-    UNNEST(
-        grouped.processing_operations_as_transporter
-    ) as processing_operation_as_transporter
+from grouped
+ARRAY JOIN grouped.processing_operations_as_transporter as processing_operation_as_transporter
 group by 1

@@ -9,35 +9,16 @@ with agg_data as (
         destination_region   as code_region_insee,
         _bs_type             as type_bordereau,
         processing_operation as code_operation,
-        date_part(
-            'year',
-            processed_at
-        )                    as annee,
-        case
-            when processing_operation like 'R%' then 'Déchet valorisé'
-            when processing_operation like 'D%' then 'Déchet éliminé'
-            else 'Autre'
-        end                  as type_operation,
+        toYear(processed_at)                    as annee,
+        multiIf(processing_operation like 'R%','Déchet valorisé',processing_operation like 'D%','Déchet éliminé','Autre')          as type_operation,
         sum(
-            case
-                when quantity_received > 60 then quantity_received / 1000
-                else quantity_received
-            end
+            if(quantity_received > 60,quantity_received / 1000,quantity_received)
         )                    as quantite_traitee
     from
         {{ ref('bordereaux_enriched') }}
     where
     /* Uniquement déchets dangereux */
-        (
-            waste_code ~* '.*\*$'
-            or coalesce(
-                waste_pop,
-                false
-            )
-            or coalesce(
-                waste_is_dangerous,
-                false
-            )
+        ({{ dangerous_waste_filter('bordereaux_enriched') }}
         )
         /* Pas de bouillons */
         and not is_draft
@@ -51,18 +32,12 @@ with agg_data as (
             'R13'
         )
         /* Uniquement les données jusqu'à la dernière semaine complète */
-        and processed_at < date_trunc(
-            'week',
-            now()
-        )
+        and processed_at < toStartOfWeek(now('Europe/Paris'),1,'Europe/Paris')
     group by
-        date_part(
-            'year',
-            processed_at
-        ),
-        destination_region,
-        _bs_type,
-        processing_operation
+        4,
+        1,
+        2,
+        3
 )
 
 select

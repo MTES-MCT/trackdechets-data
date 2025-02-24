@@ -1,16 +1,15 @@
 {{
   config(
     materialized = 'table',
-    indexes=[{"columns":["siret","day_of_processing","rubrique"]}]
     )
 }}
 
 with installations as (
     select
         siret,
-        substring(rubrique for 6)     as rubrique,
+        substring(rubrique,1,6)     as rubrique,
         max(raison_sociale)           as raison_sociale,
-        array_agg(distinct code_aiot) as codes_aiot,
+        groupArray(distinct code_aiot) as codes_aiot,
         sum(quantite_totale)          as quantite_autorisee
     from
         {{ ref('installations_rubriques_2024') }}
@@ -29,10 +28,7 @@ wastes as (
     select
         b.destination_company_siret as siret,
         b.processing_operation,
-        date_trunc(
-            'day',
-            b.processed_at
-        )                           as day_of_processing,
+        toStartOfDay(b.processed_at)                           as day_of_processing,
         sum(b.quantity_received)    as quantite_traitee
     from
         {{ ref('bordereaux_enriched') }} as b
@@ -44,17 +40,10 @@ wastes as (
         )
         and b.processed_at >= '2022-01-01'
         and (
-            b.waste_code ~* '.*\*$'
-            or coalesce(b.waste_pop, false)
-            or coalesce(b.waste_is_dangerous, false)
+            {{ dangerous_waste_filter('borderaux_enriched') }}
         )
     group by
-        b.destination_company_siret,
-        date_trunc(
-            'day',
-            b.processed_at
-        ),
-        b.processing_operation
+        1,3,2
 ),
 
 wastes_rubriques as (
@@ -70,9 +59,7 @@ wastes_rubriques as (
             wastes.processing_operation = mrco.code_operation
             and mrco.rubrique in ('2770', '2790', '2760-1')
     group by
-        wastes.siret,
-        wastes.day_of_processing,
-        mrco.rubrique
+        1,2,3
 )
 
 select *

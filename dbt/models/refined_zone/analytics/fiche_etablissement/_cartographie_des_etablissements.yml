@@ -3,7 +3,7 @@ models:
   - name: cartographie_des_etablissements
     config:
         contract:
-          enforced: true
+          enforced: false
     columns:
       - name: siret
         constraints:

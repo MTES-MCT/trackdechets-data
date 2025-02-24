@@ -57,10 +57,8 @@ dnd_transporteur_stats as (
             where code_unite = 'M3'
         )
             as volume_dnd_statements_as_transporteur
-    from {{ ref('dnd_entrant') }},
-        unnest(
-            {{ ref('dnd_entrant') }}.numeros_indentification_transporteurs
-        ) as numero_indentification_transporteur
+    from {{ ref('dnd_entrant') }}
+    ARRAY JOIN {{ ref('dnd_entrant') }}.numeros_indentification_transporteurs as numero_indentification_transporteur
     group by 1
 ),
 
@@ -118,10 +116,8 @@ texs_transporteur_stats as (
             where code_unite = 'M3'
         )
             as volume_texs_statements_as_transporteur
-    from {{ ref('texs_entrant') }},
-        unnest(
-            {{ ref('texs_entrant') }}.numeros_indentification_transporteurs
-        ) as numero_indentification_transporteur
+    from {{ ref('texs_entrant') }}
+    ARRAY JOIN {{ ref('texs_entrant') }}.numeros_indentification_transporteurs as numero_indentification_transporteur
     group by 1
 ),
 

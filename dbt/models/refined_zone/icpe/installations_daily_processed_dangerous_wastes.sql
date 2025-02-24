@@ -1,7 +1,6 @@
 {{
   config(
     materialized = 'table',
-    indexes=[{"columns":["siret","day_of_processing","rubrique"], "unique":True}],
     tags =  ["fiche-etablissements"]
     )
 }}
@@ -32,10 +31,7 @@ wastes as (
     select
         b.destination_company_siret as siret,
         b.processing_operation,
-        date_trunc(
-            'day',
-            b.processed_at
-        )                           as day_of_processing,
+        toStartOfDay(b.processed_at) as day_of_processing,
         sum(b.quantity_received)    as quantite_traitee
     from
         {{ ref('bordereaux_enriched') }} as b
@@ -47,17 +43,10 @@ wastes as (
         )
         and b.processed_at >= '2022-01-01'
         and (
-            b.waste_code ~* '.*\*$'
-            or coalesce(b.waste_pop, false)
-            or coalesce(b.waste_is_dangerous, false)
+            {{ dangerous_waste_filter('bordereaux_enriched') }}
         )
     group by
-        b.destination_company_siret,
-        date_trunc(
-            'day',
-            b.processed_at
-        ),
-        b.processing_operation
+        1,3,2
 ),
 
 wastes_rubriques as (

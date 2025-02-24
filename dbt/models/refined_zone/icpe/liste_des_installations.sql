@@ -1,15 +1,19 @@
 {{
   config(
     materialized = 'table',
-    )}}
+    query_settings = {
+        "join_algorithm":"'grace_hash'",
+        "grace_hash_join_initial_buckets":4
+    }
+)}}
 
 with td_installations as (
     select
         destination_company_siret                as siret,
         max(destination_company_name)            as company_name,
         max(destination_company_address)         as company_address,
-        array_agg(distinct processing_operation) as codes_operation,
-        array_agg(distinct _bs_type)             as types_bordereaux
+        groupArray(distinct processing_operation) as codes_operation,
+        groupArray(distinct _bs_type)             as types_bordereaux
     from
         {{ ref('bordereaux_enriched') }}
     group by 1
@@ -18,16 +22,16 @@ with td_installations as (
 gun_installations as (
     select
         siret,
-        max(raison_sociale)                            as raison_sociale,
-        array_agg(distinct code_aiot)                  as codes_aiot,
-        array_agg(distinct rubrique order by rubrique) as rubriques
+        max(ir.raison_sociale) as "raison_sociale",
+        groupArray(distinct code_aiot)                  as codes_aiot,
+        arraySort(groupArray(distinct rubrique)) as rubriques
     from
-        {{ ref('installations_rubriques_2024') }}
+        {{ ref('installations_rubriques_2024') }} ir
     where
         (libelle_etat_site = 'Avec titre') -- noqa: LXR
         and (etat_administratif_rubrique in ('En vigueur', 'A l''arrêt'))
         and (etat_technique_rubrique = 'Exploité')
-        and (raison_sociale !~* 'illégal|illicite')
+        and (match(ir.raison_sociale,'(?i)illégal|illicite'))
     group by 1
 ),
 
@@ -47,7 +51,7 @@ joined_data as (
         td_installations as ti
     full outer join gun_installations as gi on ti.siret = gi.siret
     where
-        char_length(coalesce(ti.siret, gi.siret)) = 14
+        lengthUTF8(coalesce(ti.siret, gi.siret)) = 14
         and coalesce(ti.siret, gi.siret) is not null
 )
 

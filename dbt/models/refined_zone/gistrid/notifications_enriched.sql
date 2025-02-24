@@ -1,11 +1,6 @@
 {{
   config(
     materialized = 'table',
-     indexes=[{"columns":["numero_notification"], "unique":True},
-    {"columns":["numero_gistrid_notifiant"]},
-    {"columns":["numero_gistrid_installation_traitement"]},
-    {"columns":["siret_notifiant"]},
-    {"columns":["siret_installation_traitement"]}]
     )
 }}
 

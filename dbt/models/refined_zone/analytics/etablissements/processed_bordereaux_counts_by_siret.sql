@@ -1,7 +1,5 @@
 {{ config(
     materialized = 'table',
-    indexes = [ {'columns': ['siret'],
-    'unique': True },],
 ) }}
 
 with bordereaux_data as (
@@ -20,15 +18,7 @@ with bordereaux_data as (
         be.processed_at is not null
         and not be.is_draft
         and (
-            be.waste_code ~* '.*\*$'
-            or coalesce(
-                be.waste_pop,
-                false
-            )
-            or coalesce(
-                be.waste_is_dangerous,
-                false
-            )
+            {{ dangerous_waste_filter('bordereaux_enriched') }}
         )
 
 ),
@@ -36,24 +26,19 @@ with bordereaux_data as (
 emitter_counts as (
     select
         emitter_company_siret as siret,
-        count(id) filter (
-            where
+        countIf(id,
             _bs_type = 'BSDD'
         )                     as num_bsdd_as_emitter,
-        count(id) filter (
-            where
+        countIf(id,
             _bs_type = 'BSDA'
         )                     as num_bsda_as_emitter,
-        count(id) filter (
-            where
+        countIf(id,
             _bs_type = 'BSFF'
         )                     as num_bsff_as_emitter,
-        count(id) filter (
-            where
+        countIf(id,
             _bs_type = 'BSDASRI'
         )                     as num_bsdasri_as_emitter,
-        count(id) filter (
-            where
+        countIf(id,
             _bs_type = 'BSVHU'
         )                     as num_bsvhu_as_emitter,
         sum(quantity_received) filter (
@@ -85,24 +70,19 @@ emitter_counts as (
 transporter_counts as (
     select
         transporter_company_siret as siret,
-        count(id) filter (
-            where
+        countIf(id,
             _bs_type = 'BSDD'
         )                         as num_bsdd_as_transporter,
-        count(id) filter (
-            where
+        countIf(id,
             _bs_type = 'BSDA'
         )                         as num_bsda_as_transporter,
-        count(id) filter (
-            where
+        countIf(id,
             _bs_type = 'BSFF'
         )                         as num_bsff_as_transporter,
-        count(id) filter (
-            where
+        countIf(id,
             _bs_type = 'BSDASRI'
         )                         as num_bsdasri_as_transporter,
-        count(id) filter (
-            where
+        countIf(id,
             _bs_type = 'BSVHU'
         )                         as num_bsvhu_as_transporter,
         sum(quantity_received) filter (
@@ -134,24 +114,19 @@ transporter_counts as (
 destination_counts as (
     select
         destination_company_siret as siret,
-        count(id) filter (
-            where
+        countIf(id,
             _bs_type = 'BSDD'
         )                         as num_bsdd_as_destination,
-        count(id) filter (
-            where
+        countIf(id,
             _bs_type = 'BSDA'
         )                         as num_bsda_as_destination,
-        count(id) filter (
-            where
+        countIf(id,
             _bs_type = 'BSFF'
         )                         as num_bsff_as_destination,
-        count(id) filter (
-            where
+        countIf(id,
             _bs_type = 'BSDASRI'
         )                         as num_bsdasri_as_destination,
-        count(id) filter (
-            where
+        countIf(id,
             _bs_type = 'BSVHU'
         )                         as num_bsvhu_as_destination,
         sum(quantity_received) filter (

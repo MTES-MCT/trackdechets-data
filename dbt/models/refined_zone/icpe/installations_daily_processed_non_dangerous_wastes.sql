@@ -1,7 +1,6 @@
 {{
   config(
     materialized = 'table',
-    indexes=[{"columns":["siret","day_of_processing","rubrique"], "unique":True}],
     tags =  ["fiche-etablissements"]
     )
 }}
@@ -9,19 +8,16 @@
 with installations as (
     select
         siret,
-        case
-            when rubrique !~* '^2791.*' then substring(rubrique for 6)
-            else '2791' -- take into account the 'alineas'
-        end                           as rubrique,
+        if(match(rubrique,'^2791.*'),substring(rubrique,1,6),'2791') as rubrique,
         max(raison_sociale)           as raison_sociale,
-        array_agg(distinct code_aiot) as codes_aiot,
+        groupArray(distinct code_aiot) as codes_aiot,
         sum(quantite_totale)          as quantite_autorisee
     from
         {{ ref('installations_rubriques_2024') }}
     where
         siret is not null
         and (
-            rubrique ~* '^2771.*|^2791.*|^2760\-2.*'
+            match(rubrique,'^2771.*|^2791.*|^2760\-2.*')
         )
         and etat_technique_rubrique = 'Exploité'
         and etat_administratif_rubrique = 'En vigueur'
@@ -95,7 +91,7 @@ wastes_rubriques as (
         on
             wastes.code_traitement = mrco.code_operation
             and (
-                rubrique ~* '^2771.*|^2791.*|^2760\-2.*'
+                match(rubrique,'^2771.*|^2791.*|^2760\-2.*')
             )
     group by
         wastes.siret,

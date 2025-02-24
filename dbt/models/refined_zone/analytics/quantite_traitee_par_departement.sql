@@ -23,5 +23,5 @@ where
         'R12',
         'R13'
     )
-    and date_part('year', be.processed_at) = 2023
-group by be.destination_departement, be.processing_operation
+    and toYear(be.processed_at) = 2023
+group by 1,2

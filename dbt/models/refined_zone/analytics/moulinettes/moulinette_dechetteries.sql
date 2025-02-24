@@ -1,5 +1,5 @@
 {{ config(
-    indexes = [ {'columns': ['siret'] }]
+    materialized = 'table'
 ) }}
 
 WITH decheteries AS (
@@ -29,7 +29,7 @@ WITH decheteries AS (
             AS u
         ON ca.user_id = u.id
     WHERE
-        'WASTE_CENTER' = ANY(company_types)
+        has(c.company_types,'WASTE_CENTER')
         AND ca.role = 'ADMIN'
     GROUP BY
         siret
@@ -38,24 +38,19 @@ WITH decheteries AS (
 joined AS (
     SELECT
         decheteries.siret,
-        COUNT(*) FILTER (
-            WHERE
+        countIf(
             be._bs_type = 'BSDD'
         ) AS num_bsdd_destinataire,
-        COUNT(*) FILTER (
-            WHERE
+        countIf(
             be._bs_type = 'BSDA'
         ) AS num_bsda_destinataire,
-        COUNT(*) FILTER (
-            WHERE
+        countIf(
             be._bs_type = 'BSFF'
         ) AS num_bsff_destinataire,
-        COUNT(*) FILTER (
-            WHERE
+        countIf(
             be._bs_type = 'BSDASRI'
         ) AS num_bsdasri_destinataire,
-        COUNT(*) FILTER (
-            WHERE
+        countIf(
             be._bs_type = 'BSVHU'
         ) AS num_bsvhu_destinataire
     FROM
@@ -73,26 +68,11 @@ joined AS (
 joined_2 AS (
     SELECT
         decheteries.siret,
-        COUNT(*) FILTER (
-            WHERE
-            be._bs_type = 'BSDD'
-        ) AS num_bsdd_emetteur,
-        COUNT(*) FILTER (
-            WHERE
-            be._bs_type = 'BSDA'
-        ) AS num_bsda_emetteur,
-        COUNT(*) FILTER (
-            WHERE
-            be._bs_type = 'BSFF'
-        ) AS num_bsff_emetteur,
-        COUNT(*) FILTER (
-            WHERE
-            be._bs_type = 'BSDASRI'
-        ) AS num_bsdasri_emetteur,
-        COUNT(*) FILTER (
-            WHERE
-            be._bs_type = 'BSVHU'
-        ) AS num_bsvhu_emetteur
+        countIf(be._bs_type = 'BSDD') AS num_bsdd_emetteur,
+        countIf(be._bs_type = 'BSDA') AS num_bsda_emetteur,
+        countIf(be._bs_type = 'BSFF') AS num_bsff_emetteur,
+        countIf(be._bs_type = 'BSDASRI') AS num_bsdasri_emetteur,
+        countIf(be._bs_type = 'BSVHU') AS num_bsvhu_emetteur
     FROM
         decheteries
     LEFT JOIN

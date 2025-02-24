@@ -11,5 +11,5 @@ RUN apt-get update \
 
 USER airflow
 ADD requirements.txt .
-
+ENV SHELL /bin/bash
 RUN pip install apache-airflow==${AIRFLOW_VERSION} -r requirements.txt

@@ -1,5 +1,5 @@
 select
-    extract('year' from date_trunc('year', created_at))::int as annee,
+    toYear(created_at) as annee,
     _bs_type                                                 as type_bordereau,
     count(id)                                                as creations
 from
@@ -7,15 +7,12 @@ from
 where
     /* Uniquement déchets dangereux */
     (
-        waste_code ~* '.*\*$'
-        or coalesce(waste_pop, false)
-        or coalesce(waste_is_dangerous, false)
+        {{dangerous_waste_filter('bordereaux_enriched')}}
     )
     /* Pas de bouillons */
     and status != 'DRAFT'
     /* Uniquement les données jusqu'à la dernière semaine complète */
-    and created_at < date_trunc('week', now())
+    and created_at < toStartOfWeek(now('Europe/Paris'),1,'Europe/Paris')
 group by
-    date_trunc('year', created_at),
-    _bs_type
-order by annee desc, _bs_type asc
+    1,2
+order by 1 desc, 2 asc

@@ -34,8 +34,21 @@ def load_gun_csv_file_to_dwh(con_url: str, filepath: str):
         pl.lit(datetime.now(timezone.utc)).alias("inserted_at")
     )
 
+    if "Capacité projet" in new_icpe_data_df.columns:
+        logging.info("Renaming 'Capacité projet' to 'Capacité Projet'")
+        new_icpe_data_df = new_icpe_data_df.rename(
+            {
+                "Capacité projet": "Capacité Projet",
+            }
+        )
+    if "Capacité totale" in new_icpe_data_df.columns:
+        logging.info("Renaming 'Capacité totale' to 'Capacité Totale'")
+        new_icpe_data_df = new_icpe_data_df.rename(
+            {"Capacité totale": "Capacité Totale"}
+        )
+
     new_icpe_data_df.write_database(
-        "installations_rubriques_2024",
+        "raw_zone_icpe.installations_rubriques_2024",
         connection=engine,
         if_table_exists="append",
     )

@@ -5,34 +5,28 @@
 WITH emitter_counts AS (
     SELECT
         emitter_company_siret AS siret,
-        COUNT(id) FILTER (
-            WHERE
+        countIf(id,
             _bs_type = 'BSDD'
             AND ({{ dangerous_waste_filter('bordereaux_enriched') }})
         )                     AS num_bsdd_as_emitter,
-        COUNT(id) FILTER (
-            WHERE
+        countIf(id,
             _bs_type = 'BSDD'
             AND NOT ({{ dangerous_waste_filter('bordereaux_enriched') }})
         )                     AS num_bsdnd_as_emitter,
-        COUNT(id) FILTER (
-            WHERE
+        countIf(id,
             _bs_type = 'BSDA'
         )                     AS num_bsda_as_emitter,
-        COUNT(id) FILTER (
-            WHERE
+        countIf(id,
             _bs_type = 'BSFF'
         )                     AS num_bsff_as_emitter,
-        COUNT(id) FILTER (
-            WHERE
+        countIf(id,
             _bs_type = 'BSDASRI'
         )                     AS num_bsdasri_as_emitter,
-        COUNT(id) FILTER (
-            WHERE
+        countIf(id,
             _bs_type = 'BSVHU'
         )                     AS num_bsvhu_as_emitter,
         SUM(quantity_received) FILTER (
-            WHERE
+            where
             _bs_type = 'BSDD'
             AND ({{ dangerous_waste_filter('bordereaux_enriched') }})
         )                     AS quantity_bsdd_as_emitter,
@@ -94,30 +88,24 @@ transporter_counts AS (
 destination_counts AS (
     SELECT
         destination_company_siret AS siret,
-        COUNT(id) FILTER (
-            WHERE
+        countIf(id,
             _bs_type = 'BSDD'
             AND ({{ dangerous_waste_filter('bordereaux_enriched') }})
         )                         AS num_bsdd_as_destination,
-        COUNT(id) FILTER (
-            WHERE
+        countIf(id,
             _bs_type = 'BSDD'
             AND NOT ({{ dangerous_waste_filter('bordereaux_enriched') }})
         )                         AS num_bsdnd_as_destination,
-        COUNT(id) FILTER (
-            WHERE
+        countIf(id,
             _bs_type = 'BSDA'
         )                         AS num_bsda_as_destination,
-        COUNT(id) FILTER (
-            WHERE
+        countIf(id,
             _bs_type = 'BSFF'
         )                         AS num_bsff_as_destination,
-        COUNT(id) FILTER (
-            WHERE
+        countIf(id,
             _bs_type = 'BSDASRI'
         )                         AS num_bsdasri_as_destination,
-        COUNT(id) FILTER (
-            WHERE
+        countIf(id,
             _bs_type = 'BSVHU'
         )                         AS num_bsvhu_as_destination,
         SUM(quantity_received) FILTER (
@@ -149,40 +137,40 @@ destination_counts AS (
         MAX(
             created_at
         )                         AS last_bordereau_created_at_as_destination,
-        ARRAY_AGG(
+        groupArray(
             DISTINCT processing_operation
         ) FILTER (
             WHERE
             _bs_type = 'BSDD'
             AND ({{ dangerous_waste_filter('bordereaux_enriched') }})
         )                         AS processing_operations_as_destination_bsdd,
-        ARRAY_AGG(
+        groupArray(
             DISTINCT processing_operation
         ) FILTER (
             WHERE
             _bs_type = 'BSDD'
             AND NOT ({{ dangerous_waste_filter('bordereaux_enriched') }})
         )                         AS processing_operations_as_destination_bsdnd,
-        ARRAY_AGG(
+        groupArray(
             DISTINCT processing_operation
         ) FILTER (
             WHERE
             _bs_type = 'BSDA'
         )                         AS processing_operations_as_destination_bsda,
-        ARRAY_AGG(
+        groupArray(
             DISTINCT processing_operation
         ) FILTER (
             WHERE
             _bs_type = 'BSFF'
         )                         AS processing_operations_as_destination_bsff,
-        ARRAY_AGG(
+        groupArray(
             DISTINCT processing_operation
         ) FILTER (
             WHERE
             _bs_type = 'BSDASRI'
         )
             AS processing_operations_as_destination_bsdasri,
-        ARRAY_AGG(
+        groupArray(
             DISTINCT processing_operation
         ) FILTER (
             WHERE
@@ -376,7 +364,54 @@ full_ AS (
 )
 
 SELECT
-    *,
+    siret,
+    last_bordereau_created_at_as_emitter,
+    last_bordereau_created_at_as_transporter,
+    last_bordereau_created_at_as_destination,
+    processing_operations_as_emitter,
+    processing_operations_as_transporter,
+    processing_operations_as_destination_bsdd,
+    processing_operations_as_destination_bsdnd,
+    processing_operations_as_destination_bsda,
+    processing_operations_as_destination_bsff,
+    processing_operations_as_destination_bsdasri,
+    processing_operations_as_destination_bsvhu,
+    num_bsdd_as_emitter,
+    num_bsdnd_as_emitter,
+    num_bsda_as_emitter,
+    num_bsff_as_emitter,
+    num_bsdasri_as_emitter,
+    num_bsvhu_as_emitter,
+    quantity_bsdd_as_emitter,
+    quantity_bsdnd_as_emitter,
+    quantity_bsda_as_emitter,
+    quantity_bsff_as_emitter,
+    quantity_bsdasri_as_emitter,
+    quantity_bsvhu_as_emitter,
+    num_bsdnd_as_transporter,
+    num_bsdd_as_transporter,
+    num_bsda_as_transporter,
+    num_bsff_as_transporter,
+    num_bsdasri_as_transporter,
+    num_bsvhu_as_transporter,
+    quantity_bsdd_as_transporter,
+    quantity_bsdnd_as_transporter,
+    quantity_bsda_as_transporter,
+    quantity_bsff_as_transporter,
+    quantity_bsdasri_as_transporter,
+    quantity_bsvhu_as_transporter,
+    num_bsdd_as_destination,
+    num_bsdnd_as_destination,
+    num_bsda_as_destination,
+    num_bsff_as_destination,
+    num_bsdasri_as_destination,
+    num_bsvhu_as_destination,
+    quantity_bsdd_as_destination,
+    quantity_bsdnd_as_destination,
+    quantity_bsda_as_destination,
+    quantity_bsff_as_destination,
+    quantity_bsdasri_as_destination,
+    quantity_bsvhu_as_destination,
     GREATEST(
         last_bordereau_created_at_as_emitter,
         last_bordereau_created_at_as_transporter,

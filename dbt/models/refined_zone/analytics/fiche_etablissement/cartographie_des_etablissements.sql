@@ -1,11 +1,15 @@
 {{
   config(
     materialized = 'table',
+    query_settings = {
+        "join_algorithm":"'grace_hash'",
+        "grace_hash_join_initial_buckets":8
+    }
     )}}
 
 with stats as (
     select
-        sbs.siret,
+        sbs.`siret` as siret,
         sbs.processing_operations_as_destination_bsdd
             as processing_operations_bsdd,
         sbs.processing_operations_as_destination_bsdnd
@@ -52,7 +56,25 @@ with stats as (
 
 joined as (
     select
-        s.*,
+        s.siret as siret,
+        s.processing_operations_bsdd,
+        s.processing_operations_bsdnd,
+        s.processing_operations_bsda,
+        s.processing_operations_bsff,
+        s.processing_operations_bsdasri,
+        s.processing_operations_bsvhu,
+        s.processing_operation_dnd,
+        s.processing_operation_texs,
+        s.bsdd,
+        s.bsdnd,
+        s.bsda,
+        s.bsff,
+        s.bsdasri,
+        s.bsvhu,
+        s.dnd,
+        s.texs,
+        s.ssd,
+        s.pnttd,
         c.company_types                      as profils,
         c.collector_types                    as profils_collecteur,
         c.waste_processor_types              as profils_installation,
@@ -62,18 +84,9 @@ joined as (
         c.address                            as adresse_td,
         c.latitude                           as latitude_td,
         c.longitude                          as longitude_td,
-        cban.latitude                        as latitude_ban,
-        cban.longitude                       as longitude_ban,
         et.num_texs_dd_as_emitter > 0
         or et.num_texs_dd_as_transporter > 0
         or et.num_texs_dd_as_destination > 0 as texs_dd,
-        st_setsrid(
-            st_point(
-                coalesce(c.longitude, cban.longitude),
-                coalesce(c.latitude, cban.latitude)
-            ),
-            4326
-        )                                    as coords,
         nullif(
             coalesce(se.complement_adresse_etablissement || ' ', '')
             || coalesce(se.numero_voie_etablissement || ' ', '')
@@ -100,9 +113,6 @@ joined as (
         on
             se.code_commune_etablissement = cgc.code_commune
             and cgc.type_commune != 'COMD'
-    left join
-        {{ ref("companies_geocoded_by_ban") }} as cban
-        on s.siret = cban.siret and cban.result_status = 'ok'
 )
 
 select
@@ -137,7 +147,4 @@ select
     adresse_insee,
     latitude_td,
     longitude_td,
-    latitude_ban,
-    longitude_ban,
-    coords
 from joined

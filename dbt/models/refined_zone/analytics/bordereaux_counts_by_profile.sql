@@ -128,9 +128,7 @@ select
     sum(
         num_bordereaux
     ) as num_mentions_bordereaux,
-    max(
-        type_etablissement order by num_bordereaux
-    ) as type_etablissement
+    maxArgMax(type_etablissement,num_bordereaux) as type_etablissement
 from
     merged
 group by

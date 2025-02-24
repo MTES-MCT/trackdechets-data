@@ -1,7 +1,11 @@
 import argparse
 import logging
+from pathlib import Path
+import shutil
+import tempfile
 
 import clickhouse_connect
+import polars as pl
 from clickhouse_connect.driver.tools import insert_file
 
 logging.basicConfig(
@@ -28,7 +32,7 @@ CREATE TABLE IF NOT EXISTS raw_zone_icpe.installations_rubriques_2024 (
 	"Unité" Nullable(String),
 	"Etat technique de la rubrique" Nullable(String),
 	"Etat administratif de la rubrique" Nullable(String),
-	inserted_at DateTime64 DEFAULT now()
+	inserted_at DateTime64(9, 'Europe/Paris') DEFAULT now('Europe/Paris')
 )
 ENGINE = MergeTree()
 ORDER BY ()
@@ -56,6 +60,27 @@ def load_gun_csv_file_to_dwh(
 
     client.command(GUN_TABLE_DDL)
 
+    tmp_dir = Path(tempfile.mkdtemp(prefix="gun_el"))
+
+    gun_df = pl.read_csv(
+        filepath,
+        null_values="NULL",
+        schema_overrides={"Code AIOT": pl.String, "SIRET": pl.String},
+    )
+
+    if "Capacité projet" in gun_df.columns:
+        logging.info("Renaming 'Capacité projet' to 'Capacité Projet'")
+        gun_df = gun_df.rename(
+            {
+                "Capacité projet": "Capacité Projet",
+            }
+        )
+    if "Capacité totale" in gun_df.columns:
+        logging.info("Renaming 'Capacité totale' to 'Capacité Totale'")
+        gun_df = gun_df.rename({"Capacité totale": "Capacité Totale"})
+
+    gun_df.write_csv(tmp_dir / "gun.csv", null_value="NULL")
+
     logger.info(
         "Starting data insertion into DWH.",
     )
@@ -63,7 +88,7 @@ def load_gun_csv_file_to_dwh(
     insert_file(
         client=client,
         table="raw_zone_icpe.installations_rubriques_2024",
-        file_path=filepath,
+        file_path=str(tmp_dir / "gun.csv"),
         fmt="CSVWithNames",
         settings={"format_csv_null_representation": "NULL"},
     )
@@ -71,6 +96,8 @@ def load_gun_csv_file_to_dwh(
     logger.info(
         "Finished data insertion into DWH.",
     )
+
+    shutil.rmtree(tmp_dir)
 
 
 if __name__ == "__main__":

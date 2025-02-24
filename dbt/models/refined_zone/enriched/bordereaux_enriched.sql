@@ -1,8 +1,8 @@
 select
     'BSDD'                            as _bs_type,
-    id,
-    readable_id,
-    created_at,
+    toNullable(id) as id,
+    toNullable(readable_id) as readable_id,
+    toNullable(created_at) as created_at,
     taken_over_at,
     received_at,
     processed_at,
@@ -44,9 +44,9 @@ where not is_deleted
 union all
 select
     'BSDA'                               as _bs_type,
-    id,
-    id                                   as readable_id,
-    created_at,
+    toNullable(id) as id,
+    toNullable(id)                                  as readable_id,
+    toNullable(created_at) as created_at,
     transporter_transport_signature_date as taken_over_at,
     destination_reception_date           as received_at,
     destination_operation_date           as processed_at,
@@ -88,9 +88,9 @@ where not is_deleted
 union all
 select
     'BSFF'                              as _bs_type,
-    id,
-    id                                  as readable_id,
-    created_at,
+    toNullable(id) as id,
+    toNullable(id)                                  as readable_id,
+    toNullable(created_at) as created_at,
     transporter_transport_signature_date as taken_over_at,
     destination_reception_date          as received_at,
     null                                as processed_at,
@@ -132,9 +132,9 @@ where not is_deleted
 union all
 select
     'BSDASRI'                                as _bs_type,
-    id,
-    id                                       as readable_id,
-    created_at,
+    toNullable(id) as id,
+    toNullable(id)                                       as readable_id,
+    toNullable(created_at) created_at,
     transporter_taken_over_at                as taken_over_at,
     destination_reception_date               as received_at,
     destination_operation_date               as processed_at,
@@ -177,9 +177,9 @@ where not is_deleted
 union all
 select
     'BSVHU'                             as _bs_type,
-    id,
-    id                                  as readable_id,
-    created_at,
+    toNullable(id) as id,
+    toNullable(id)                                 as readable_id,
+    toNullable(created_at) as created_at,
     transporter_transport_taken_over_at as taken_over_at,
     destination_reception_date          as received_at,
     destination_operation_date          as processed_at,

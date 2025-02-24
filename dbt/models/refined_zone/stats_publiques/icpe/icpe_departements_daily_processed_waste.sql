@@ -1,13 +1,13 @@
 {{
   config(
     materialized = 'table',
-    indexes=[{"columns":["code_departement_insee"]},{"columns":["rubrique"]}]
     )
 }}
 
 with stats as (
     select
         code_departement_insee,
+        if(not match())
         case
             when rubrique !~* '^2791.*' then substring(rubrique for 6)
             else '2791' -- take into account the 'alineas' of 2791

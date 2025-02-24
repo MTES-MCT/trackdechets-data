@@ -1,7 +1,6 @@
 {{
   config(
     materialized = 'table',
-    indexes=[{"columns":["code_region_insee"]},{"columns":["rubrique"]}]
     )
 }}
 

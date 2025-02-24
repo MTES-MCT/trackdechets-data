@@ -1,7 +1,6 @@
 {{
   config(
     materialized = 'table',
-   indexes=[{"columns":["siret","day_of_processing"]}]
     )
 }}
 SELECT
