@@ -7,13 +7,14 @@ from pathlib import Path
 import clickhouse_connect
 import httpx
 import pandas as pd
-from clickhouse_connect.driver.tools import insert_file
-from utils.alerting import send_alert_to_mattermost
-from pendulum import datetime
-
 from airflow.decorators import dag, task
 from airflow.models import Connection
 from airflow.utils.trigger_rule import TriggerRule
+from clickhouse_connect.driver.tools import insert_file
+from pendulum import datetime
+from utils.alerting import send_alert_to_mattermost
+
+from geocoding.schema import COMPANIES_GEOCODED_DDL
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -113,6 +114,9 @@ def companies_geocoding():
             database="raw_zone_referentials",
         )
 
+        logger.info("Creating table (if not exists) 'companies_geocoded_by_ban_tmp'.")
+        client.command(COMPANIES_GEOCODED_DDL)
+
         logger.info(
             "Starting insertion of geocoded data (%s companies)",
             len(companies_geocoded_df),
@@ -120,7 +124,7 @@ def companies_geocoding():
         insert_file(
             client,
             "companies_geocoded_by_ban_tmp",
-            Path(tmp_dir) / "companies_geocoded.csv",
+            str(Path(tmp_dir) / "companies_geocoded.csv"),
             database="raw_zone_referentials",
             fmt="CSVWithNames",
         )
