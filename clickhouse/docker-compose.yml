@@ -2,8 +2,8 @@ services:
   clickhouse:
     image: clickhouse:24.12
     ports:
-      - "127.0.0.1:9000:9000"
-      - "127.0.0.1:8123:8123"
+      - "127.0.0.1:${HTTP_PORT:-9000}:9000"
+      - "127.0.0.1:${PORT:-8123}:8123"
     ulimits:
       nofile:
         soft: 262144

@@ -1,6 +1,12 @@
 # Trackdéchets ELT
 
-## Infra Docker
+## Tunnels SSH
+
+En production, créer les tunnels SSH comme suit :
+
+```bash
+sudo nano /etc/systemd/system/ssh-tunnels.service
+```
 
 ## Migration données :
 
