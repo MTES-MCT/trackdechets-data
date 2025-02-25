@@ -81,6 +81,8 @@ models:
         +schema: trusted_zone_rndts
       gerico:
         +schema: trusted_zone_gerico
+      referentials:
+        +schema: trusted_zone_referentials
 
   elementary:
     +schema: "elementary"

@@ -7,35 +7,25 @@ with bs_data as (
     select
         _bs_type             as type_bordereau,
         processing_operation as code_operation,
-        date_trunc(
-            'week',
-            processed_at
+        toStartOfWeek(
+            processed_at,1,'Europe/Paris'
         )                    as semaine,
-        case
-            when processing_operation like 'R%' then 'Déchet valorisé'
-            when processing_operation like 'D%' then 'Déchet éliminé'
-            else 'Autre'
-        end                  as type_operation,
+        multiIf(
+            processing_operation like 'R%','Déchet valorisé',
+            processing_operation like 'D%','Déchet éliminé',
+            'Autre'
+        ) as type_operation,
         sum(
-            case
-                when quantity_received > 60 then quantity_received / 1000
-                else quantity_received
-            end
-        )                    as quantite_traitee
+            if(
+                quantity_received > 60,quantity_received / 1000,quantity_received
+            )
+           )   as quantite_traitee
     from
         {{ ref('bordereaux_enriched') }}
     where
     /* Uniquement déchets dangereux */
         (
-            waste_code ~* '.*\*$'
-            or coalesce(
-                waste_pop,
-                false
-            )
-            or coalesce(
-                waste_is_dangerous,
-                false
-            )
+            {{ dangerous_waste_filter('bordereaux_enriched') }}
         )
         /* Pas de bouillons */
         and status != 'DRAFT'
@@ -49,44 +39,38 @@ with bs_data as (
             'R13'
         )
         /* Uniquement les données jusqu'à la dernière semaine complète */
-        and processed_at < date_trunc(
-            'week',
-            now()
+        and processed_at < toStartOfWeek(
+            now('Europe/Paris'),1,'Europe/Paris'
         )
         and _bs_type != 'BSFF'
     group by
-        date_trunc(
-            'week',
-            processed_at
-        ),
-        _bs_type,
-        processing_operation
+        3,
+        1,
+        2
 ),
 
 bsff_data as (
     select
         'BSFF'         as type_bordereau,
         operation_code as code_operation,
-        date_trunc(
-            'week',
-            operation_date
+        toStartOfWeek(
+            operation_date,1,'Europe/Paris'
         )              as semaine,
-        case
-            when operation_code like 'R%' then 'Déchet valorisé'
-            when operation_code like 'D%' then 'Déchet éliminé'
-            else 'Autre'
-        end            as type_operation,
-        sum(
-            case
-                when acceptation_weight > 60 then acceptation_weight / 1000
-                else acceptation_weight
-            end
-        )              as quantite_traitee
+        multiIf(
+            operation_code like 'R%','Déchet valorisé',
+            operation_code like 'D%','Déchet éliminé',
+            'Autre'
+        )  as type_operation,
+        toDecimal256(sum(
+            if(
+                acceptation_weight > 60,acceptation_weight / 1000,acceptation_weight
+            )
+        ),30)              as quantite_traitee
     from
         {{ ref('bsff_packaging') }}
     where
     /* Uniquement déchets dangereux */
-        acceptation_waste_code ~* '.*\*$'
+        match(acceptation_waste_code,'.*\*$')
         /* Uniquement codes opérations finales */
         and operation_code not in (
             'D9',
@@ -97,16 +81,11 @@ bsff_data as (
             'R13'
         )
         /* Uniquement les données jusqu'à la dernière semaine complète */
-        and operation_date < date_trunc(
-            'week',
-            now()
+        and operation_date < toStartOfWeek(
+            now('Europe/Paris'),1,'Europe/Paris'
         )
     group by
-        date_trunc(
-            'week',
-            operation_date
-        ),
-        operation_code
+        3,2
 ),
 
 merged_data as (
@@ -118,7 +97,7 @@ merged_data as (
 )
 
 select
-    semaine::date,
+    toDate(semaine),
     type_bordereau,
     code_operation,
     type_operation,

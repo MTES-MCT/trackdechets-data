@@ -10,8 +10,8 @@ with entrants as (
         count(
             distinct id
         )                                    as nombre_declarations_dnd_entrant,
-        sum(if(quantite > 60, quantite / 1000,quantite)) filter (where code_unite = 'T') as quantite_dnd_entrant,
-        sum(quantite) filter ( where code_unite = 'M3')                                    as volume_dnd_entrant
+        sumIf(if(quantite > 60, quantite / 1000,quantite), code_unite = 'T') as quantite_dnd_entrant,
+        sumIf(quantite,  code_unite = 'M3')                                   as volume_dnd_entrant
     from {{ ref("dnd_entrant") }}
     where toStartOfWeek(toDateTime(date_reception),1,'Europe/Paris') < toStartOfWeek(now('Europe/Paris'),1,'Europe/Paris')
     group by 1
@@ -23,10 +23,8 @@ sortants as (
         count(
             distinct id
         )                                    as nombre_declarations_dnd_sortant,
-        sum(if(quantite > 60, quantite / 1000,quantite)) filter (where code_unite = 'T') as quantite_dnd_sortant,
-        sum(quantite) filter (
-            where code_unite = 'M3'
-        )                                    as volume_dnd_sortant
+        sumIf(if(quantite > 60, quantite / 1000,quantite), code_unite = 'T') as quantite_dnd_sortant,
+        sumIf(quantite,code_unite = 'M3')                              as volume_dnd_sortant
     from {{ ref("dnd_sortant") }}
     where toStartOfWeek(toDateTime(date_expedition),1,'Europe/Paris') < toStartOfWeek(now('Europe/Paris'),1,'Europe/Paris')
     group by 1

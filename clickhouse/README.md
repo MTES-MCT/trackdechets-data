@@ -33,3 +33,9 @@ Pour la configuration serveur, il faut créer un fichier `config.d/config.xml` b
     <listen_host>0.0.0.0</listen_host>
 </clickhouse>
 ```
+
+Il faut créer un réseau docker comme suit :
+
+```bash
+docker network create data_external_network
+```

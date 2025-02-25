@@ -25,6 +25,7 @@ my_cosmos_dag = DbtDag(
     # selection
     render_config=RenderConfig(
         select=["trusted_zone.trackdechets+"],
+        exclude=["refined_zone.analytics.ad_hoc"],
         test_behavior=TestBehavior.AFTER_ALL,
     ),
     # normal dag parameters
@@ -32,5 +33,6 @@ my_cosmos_dag = DbtDag(
     start_date=datetime(2023, 1, 1),
     catchup=False,
     dag_id="dbt_trackdechets",
-    default_args={"retries": 2},
+    default_args={"retries": 0},
+    concurrency=2,
 )

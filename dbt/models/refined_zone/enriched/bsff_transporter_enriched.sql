@@ -3,7 +3,7 @@
     materialized = 'table',
     query_settings = {
         "join_algorithm":"'grace_hash'",
-        "grace_hash_join_initial_buckets":4
+        "grace_hash_join_initial_buckets":8
     }
     )
 }}
@@ -83,7 +83,7 @@ select
     )                                 as transporter_transport_signature_author,
     max(
         b.transporter_transport_signature_date
-    )                                 as transporter_tranport_signature_date,
+    )                                 as transporter_transport_signature_date,
     max(b.bordereau_created_at)       as bordereau_created_at,
     max(b.emitter_company_siret)      as emitter_company_siret,
     max(b.destination_company_siret)  as destination_company_siret,

@@ -49,7 +49,7 @@ installations as (
         (ir.libelle_etat_site = 'Avec titre') -- noqa: LXR
         and (ir.etat_administratif_rubrique in ('En vigueur', 'A l''arrêt'))
         and (ir.etat_technique_rubrique = 'Exploité')
-        and not match(ir.raison_sociale,''illégal|illicite'')
+        and not match(ir.raison_sociale,'illégal|illicite')
 )
 
 select
@@ -89,7 +89,7 @@ left join coord_commune_data as coord1
         coalesce(se.code_commune_etablissement, i.code_insee)
         = coord1.code_commune_insee
 left join coord_cp_data as coord2
-    on i.code_postal::int = coord2.code_postal
+    on i.code_postal = coord2.code_postal
 left join {{ ref('code_geo_communes') }} as cgc on
     coalesce(
         se.code_commune_etablissement,

@@ -22,18 +22,18 @@ with ttr_list as (
 
 grouped_data as (
     select
-        TOYEAR(
+        toYear(
             be.taken_over_at
         )                      as annee,
         be.emitter_departement
             as code_departement_insee,
         be.waste_code
             as code_dechet,
-        MAX(
+        max(
             be.emitter_region
         )                      as code_region_insee,
-        SUM(
-            IF(
+        sum(
+            if(
                 be.quantity_received > 60,
                 be.quantity_received / 1000,
                 be.quantity_received
@@ -44,23 +44,15 @@ grouped_data as (
     where
     /* Uniquement déchets dangereux */
         (
-            MATCH(be.waste_details_code, '(?i).*\*$')
-            or COALESCE(
-                be.waste_pop,
-                false
-            )
-            or COALESCE(
-                be.waste_is_dangerous,
-                false
-            )
+           {{ dangerous_waste_filter("bordereaux_enriched") }}
         )
         /* Pas de bouillons */
         and not be.is_draft
         /* Uniquement les non TTRs */
         and be.emitter_company_siret not in (select siret from ttr_list)
         /* Uniquement les données jusqu'à la dernière semaine complète */
-        and be.taken_over_at between '2020-01-01' and TOSTARTOFWEEK(
-            NOW('Europe/Paris'), 1, 'Europe/Paris'
+        and be.taken_over_at between '2020-01-01' and toStartOfWeek(
+            now('Europe/Paris'), 1, 'Europe/Paris'
         )
         and be._bs_type != 'BSFF'
     group by 1, 2, 3
@@ -68,18 +60,18 @@ grouped_data as (
 
 bsff_data as (
     select
-        TOYEAR(
-            beff.transporter_transport_taken_over_at
+        toYear(
+            beff.transporter_transport_signature_date
         )                        as annee,
         beff.emitter_departement
             as code_departement_insee,
         beff.waste_code
             as code_dechet,
-        MAX(
+        max(
             beff.emitter_region
         )                        as code_region_insee,
-        SUM(
-            IF(
+        sum(
+            if(
                 acceptation_weight > 60,
                 acceptation_weight / 1000,
                 acceptation_weight
@@ -92,11 +84,11 @@ bsff_data as (
             bp.bsff_id = beff.id
     where
     /* Uniquement déchets dangereux */
-        MATCH(acceptation_waste_code, '(?i).*\*$')
+        match(acceptation_waste_code, '(?i).*\*$')
         /* Uniquement les non TTRs */
         and beff.emitter_company_siret not in (select siret from ttr_list)
         /* Uniquement les données jusqu'à la dernière semaine complète */
-        and beff.transporter_transport_taken_over_at between '2020-01-01' and TOSTARTOFWEEK(
+        and beff.transporter_transport_signature_date between '2020-01-01' and toStartOfWeek(
             NOW('Europe/Paris'), 1, 'Europe/Paris'
         )
     group by
@@ -105,18 +97,18 @@ bsff_data as (
 
 merged_data as (
     select
-        COALESCE(a.annee, b.annee) as annee,
-        COALESCE(
+        coalesce(a.annee, b.annee) as annee,
+        coalesce(
             a.code_departement_insee, b.code_departement_insee
         )                          as code_departement_insee,
-        COALESCE(
+        coalesce(
             a.code_region_insee, b.code_region_insee
         )                          as code_region_insee,
-        COALESCE(
+        coalesce(
             a.code_dechet, b.code_dechet
         )                          as code_dechet,
-        COALESCE(a.quantite_produite, 0)
-        + COALESCE(
+        coalesce(a.quantite_produite, 0)
+        + coalesce(
             b.quantite_produite, 0
         )                          as quantite_produite
     from grouped_data as a

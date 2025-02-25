@@ -7,10 +7,7 @@
 with stats as (
     select
         code_region_insee,
-        case
-            when rubrique !~* '^2791.*' then substring(rubrique for 6)
-            else '2791' -- take into account the 'alineas' of 2791
-        end                       as rubrique,
+        if(not match(rubrique,'^2791.*'),substring(rubrique,1,6),'2791')   as rubrique,
         count(distinct code_aiot) as nombre_installations,
         sum(quantite_autorisee)   as quantite_autorisee
     from
@@ -52,7 +49,7 @@ select
     w.code_region_insee,
     cg.libelle as nom_region,
     w.rubrique,
-    w.day_of_processing::date,
+    w.day_of_processing,
     w.nombre_installations,
     w.quantite_traitee,
     w.quantite_autorisee
