@@ -206,7 +206,7 @@ if __name__ == "__main__":
         "--full-refresh",
         action="store_true",
         default=False,
-        help="Year of the notifications dataset, if applicable. Default to None.",
+        help="If true, drop the existing table before insertion.",
     )
     parser.add_argument(
         "file_type", help="Type of the dataset. For example 'installations'."
