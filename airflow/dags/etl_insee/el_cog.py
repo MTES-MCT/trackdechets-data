@@ -6,7 +6,7 @@ from datetime import datetime
 from pathlib import Path
 
 from airflow.decorators import dag, task
-from airflow.models import Variable
+from airflow.models import Connection
 from airflow.utils.trigger_rule import TriggerRule
 import clickhouse_connect
 from clickhouse_connect.driver.tools import insert_file
