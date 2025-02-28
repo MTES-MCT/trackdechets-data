@@ -1,7 +1,7 @@
 from datetime import timedelta
 import os
 from airflow.decorators import dag
-from airflow.models import Variable
+from airflow.models import Connection
 
 import dlt
 from dlt.common import pendulum
@@ -50,18 +50,17 @@ def load_zammad_data():
 
     # secrets
     # what you can do is reassign env variables:
+    DWH_CON = Connection.get_connection_from_secrets("td_datawarehouse").to_dict()
+
     os.environ["DESTINATION__CLICKHOUSE__CREDENTIALS__DATABASE"] = "raw_zone_zammad"
-    os.environ["DESTINATION__CLICKHOUSE__CREDENTIALS__PASSWORD"] = Variable.get(
-        "DWH_PASSWORD"
+    os.environ["DESTINATION__CLICKHOUSE__CREDENTIALS__PASSWORD"] = DWH_CON.get(
+        "password"
     )
-    os.environ["DESTINATION__CLICKHOUSE__CREDENTIALS__USERNAME"] = Variable.get(
-        "DWH_USERNAME"
+    os.environ["DESTINATION__CLICKHOUSE__CREDENTIALS__USERNAME"] = DWH_CON.get("login")
+    os.environ["DESTINATION__CLICKHOUSE__CREDENTIALS__PORT"] = str(DWH_CON.get("port"))
+    os.environ["DESTINATION__CLICKHOUSE__CREDENTIALS__HTTP_PORT"] = str(
+        DWH_CON.get("extra").get("http_port")
     )
-    os.environ["DESTINATION__CLICKHOUSE__CREDENTIALS__PORT"] = Variable.get("DWH_PORT")
-    os.environ["DESTINATION__CLICKHOUSE__CREDENTIALS__HTTP_PORT"] = Variable.get(
-        "DWH_HTTP_PORT"
-    )
-    os.environ["DESTINATION__CLICKHOUSE__CREDENTIALS__HOST"] = Variable.get("DWH_HOST")
     os.environ["DESTINATION__CLICKHOUSE__CREDENTIALS__SECURE"] = "0"
 
     # modify the pipeline parameters
