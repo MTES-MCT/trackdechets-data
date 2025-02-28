@@ -52,11 +52,12 @@ def el_base_sirene():
     def insert_data_to_ch(tmp_dir: str, params: dict[str, Any] = None):
         tmp_dir = Path(tmp_dir)
 
+        DWH_CON = Connection.get_connection_from_secrets("td_datawarehouse").to_dict()
         client = clickhouse_connect.get_client(
-            host=Variable.get("DWH_HOST"),
-            port=Variable.get("DWH_HTTP_PORT"),
-            username=Variable.get("DWH_USERNAME"),
-            password=Variable.get("DWH_PASSWORD"),
+            host=DWH_CON.get("host"),
+            port=DWH_CON.get("extra").get("http_port"),
+            username=DWH_CON.get("login"),
+            password=DWH_CON.get("password"),
             database="raw_zone_insee",
         )
 
