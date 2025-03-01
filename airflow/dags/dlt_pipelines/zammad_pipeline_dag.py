@@ -53,6 +53,7 @@ def load_zammad_data():
     DWH_CON = Connection.get_connection_from_secrets("td_datawarehouse").to_dict()
 
     os.environ["DESTINATION__CLICKHOUSE__CREDENTIALS__DATABASE"] = "raw_zone_zammad"
+    os.environ["DESTINATION__CLICKHOUSE__CREDENTIALS__HOST"] = DWH_CON.get("host")
     os.environ["DESTINATION__CLICKHOUSE__CREDENTIALS__PASSWORD"] = DWH_CON.get(
         "password"
     )
