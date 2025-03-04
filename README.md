@@ -1,13 +1,5 @@
 # Trackdéchets ELT
 
-## Tunnels SSH
-
-En production, créer les tunnels SSH comme suit :
-
-```bash
-sudo nano /etc/systemd/system/ssh-tunnels.service
-```
-
 ## Migration données :
 
     1. Données de prod Trackdéchets
