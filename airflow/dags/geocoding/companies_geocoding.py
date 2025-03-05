@@ -49,7 +49,7 @@ def companies_geocoding():
 
         client = clickhouse_connect.get_client(
             host=con.get("host"),
-            port=con.get("port"),
+            port=con.get("extra").get("http_port"),
             username=con.get("login"),
             password=con.get("password"),
             database="raw_zone_referentials",
