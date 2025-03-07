@@ -1,0 +1,3 @@
+metabase.trackdechets.beta.gouv.fr
+
+reverse_proxy :3000
