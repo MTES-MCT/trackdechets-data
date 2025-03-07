@@ -12,6 +12,11 @@ services:
     environment:
       MB_DB_CONNECTION_URI: jdbc:postgresql://postgres_mb:5432/metabaseappdb?user=${MB_DB_USER}&password=${MB_DB_PASSWORD}
       MB_DB_TYPE: postgres
+      MB_ENCRYPTION_SECRET_KEY: ${MB_ENCRYPTION_SECRET_KEY}
+      MB_LOAD_SAMPLE_CONTENT: false
+      MB_NO_SURVEYS: true
+      MB_SURVEYS_ENABLED: false
+      MB_START_OF_WEEK: :monday
     networks:
       - metanet1
       - data_external_network
