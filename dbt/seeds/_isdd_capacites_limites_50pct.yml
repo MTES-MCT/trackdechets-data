@@ -1,0 +1,6 @@
+version: 2
+
+seeds:
+  - name: isdd_capacites_limites_50pct
+    description: Capacités limite à 50% pour les ISDD. Objectifs futurs.
+    

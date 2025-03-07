@@ -39,7 +39,7 @@ WITH emitter_counts AS (
             WHERE
             _bs_type = 'BSDA'
         )                     AS quantity_bsda_as_emitter,
-        SUM(quantity_received) FILTER (
+        SUM(accepted_quantity_packagings) FILTER (
             WHERE
             _bs_type = 'BSFF'
         )                     AS quantity_bsff_as_emitter,
@@ -122,7 +122,7 @@ destination_counts AS (
             WHERE
             _bs_type = 'BSDA'
         )                         AS quantity_bsda_as_destination,
-        SUM(quantity_received) FILTER (
+        SUM(accepted_quantity_packagings) FILTER (
             WHERE
             _bs_type = 'BSFF'
         )                         AS quantity_bsff_as_destination,
