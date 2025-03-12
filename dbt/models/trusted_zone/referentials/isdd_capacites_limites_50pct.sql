@@ -1,5 +1,5 @@
 with source as (
-        select * from {{ source('raw_zone', 'isdd_capacites_limites_50pct') }}
+        select * from {{ ref('isdd_capacites_limites_50pct') }}
   ),
   renamed as (
       select
