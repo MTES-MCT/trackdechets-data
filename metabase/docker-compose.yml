@@ -9,6 +9,7 @@ services:
       - metabase-data:/metabase-data
     ports:
       - 3000:3000
+    restart: unless-stopped
     environment:
       MB_DB_CONNECTION_URI: jdbc:postgresql://postgres_mb:5432/metabaseappdb?user=${MB_DB_USER}&password=${MB_DB_PASSWORD}
       MB_DB_TYPE: postgres
@@ -31,6 +32,7 @@ services:
     image: postgres:16.8-bookworm
     container_name: postgres_mb
     hostname: postgres_mb
+    restart: unless-stopped
     environment:
       POSTGRES_USER: ${MB_DB_USER}
       POSTGRES_DB: metabaseappdb
