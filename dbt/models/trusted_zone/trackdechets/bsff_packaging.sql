@@ -9,8 +9,8 @@ with source as (
 )
 SELECT
     assumeNotNull(toString("id")) as id,
-    toNullable(toFloat64("volume")) as volume,
-    assumeNotNull(toFloat64("weight")) as weight,
+    toNullable(toFloat64("volume"))/1000 as volume,
+    assumeNotNull(toFloat64("weight"))/1000 as weight,
     assumeNotNull(toString("numero")) as numero,
     assumeNotNull(toString("bsffId")) as bsff_id,
     toNullable(toDateTime64("acceptationDate", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("acceptationDate",'Europe/Paris'))) as acceptation_date,
@@ -18,7 +18,7 @@ SELECT
     toNullable(toString("acceptationSignatureAuthor")) as acceptation_signature_author,
     toNullable(toDateTime64("acceptationSignatureDate", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("acceptationSignatureDate",'Europe/Paris'))) as acceptation_signature_date,
     toLowCardinality(toNullable(toString("acceptationStatus"))) as acceptation_status,
-    toNullable(toFloat64("acceptationWeight")) as acceptation_weight,
+    toNullable(toFloat64("acceptationWeight"))/1000 as acceptation_weight,
     toLowCardinality(toNullable(toString("acceptationWasteCode"))) as acceptation_waste_code,
     toNullable(toString("acceptationWasteDescription")) as acceptation_waste_description,
     toNullable(toDateTime64("operationDate", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("operationDate",'Europe/Paris'))) as operation_date,
@@ -27,7 +27,7 @@ SELECT
     assumeNotNull(toBool("operationNoTraceability")) as operation_no_traceability,
     toNullable(toString("operationSignatureAuthor")) as operation_signature_author,
     toNullable(toDateTime64("operationSignatureDate", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("operationSignatureDate",'Europe/Paris'))) as operation_signature_date,
-    toNullable(toString("operationNextDestinationPlannedOperationCode")) as operation_next_destination_planned_operation_code,
+    toNullable(replaceAll(toString("operationNextDestinationPlannedOperationCode"),' ','')) as operation_next_destination_planned_operation_code,
     toNullable(toString("operationNextDestinationCap")) as operation_next_destination_cap,
     toNullable(toString("operationNextDestinationCompanyAddress")) as operation_next_destination_company_address,
     toNullable(toString("operationNextDestinationCompanyContact")) as operation_next_destination_company_contact,

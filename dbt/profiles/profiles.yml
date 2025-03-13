@@ -11,9 +11,9 @@ trackdechets:
       threads: 2
     prod:
       type: clickhouse
-      host: "{{ env_var('DBT_HOST') }}"
-      user: "{{ env_var('DBT_USER') }}"
-      password: "{{ env_var('DBT_PASSWORD') }}"
-      port: "{{ env_var('DBT_PORT') | int }}"
+      host: "{{ env_var('DBT_HOST_PROD') }}"
+      user: "{{ env_var('DBT_USER_PROD') }}"
+      password: "{{ env_var('DBT_PASSWORD_PROD') }}"
+      port: "{{ env_var('DBT_PORT_PROD') | int }}"
       threads: 6
       use_colors: false
