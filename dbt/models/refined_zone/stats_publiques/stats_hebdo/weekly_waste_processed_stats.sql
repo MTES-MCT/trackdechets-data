@@ -97,7 +97,7 @@ merged_data as (
 )
 
 select
-    toDate(semaine),
+    toDate(semaine) as "semaine",
     type_bordereau,
     code_operation,
     type_operation,
