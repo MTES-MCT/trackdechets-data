@@ -17,7 +17,6 @@ services:
       MB_LOAD_SAMPLE_CONTENT: false
       MB_NO_SURVEYS: true
       MB_SURVEYS_ENABLED: false
-      MB_START_OF_WEEK: :monday
     networks:
       - metanet1
       - data_external_network

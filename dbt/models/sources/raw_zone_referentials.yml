@@ -50,7 +50,6 @@ sources:
         description: >
           Une ligne par SIRET avec son adresse et ses coordonnées géopgraphiques calculées par la Base des Adresses Nationales.
         loader: Airflow
-
         columns:
           - name: siret
             description: ''
@@ -115,3 +114,7 @@ sources:
           - name: result_status
             description: ''
             data_type: text
+      - name: codes_dechets
+        description: >
+          Liste des codes dechets avec leur description
+        loader: seed

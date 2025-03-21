@@ -1,0 +1,5 @@
+version: 2
+
+seeds:
+  - name: codes_dechets
+    description: Liste des codes dechets avec leur description
