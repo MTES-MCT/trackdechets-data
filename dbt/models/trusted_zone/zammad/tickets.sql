@@ -30,6 +30,6 @@ SELECT
     state_id,
     ticket_time_accounting_ids,
     time_unit,
-    tags
+	splitByChar(',',assumeNotNull(replaceRegexpAll(tags, '^\[|\]$|"', ''))) as tags
 FROM
     {{ source("raw_zone_zammad", "tickets") }}
