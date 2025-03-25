@@ -71,7 +71,7 @@ SELECT
     toNullable(toString("destinationReceptionWasteRefusalReason")) as destination_reception_waste_refusal_reason,
     toNullable(toDecimal256("destinationReceptionWasteRefusedWeightValue", 30))/1000 as destination_reception_waste_refused_weight_value,
     toNullable(toDecimal256("destinationReceptionWasteWeightValue", 30))/1000 as destination_reception_waste_weight_value,
-    toNullable(toFloat64("destinationReceptionWasteVolume")) as destination_reception_waste_volume,
+    toNullable(toFloat64("destinationReceptionWasteVolume"))/1000 as destination_reception_waste_volume,
     toNullable(toString("destinationCustomInfo")) as destination_custom_info,
     toNullable(toDateTime64("destinationReceptionDate", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("destinationReceptionDate",'Europe/Paris'))) as destination_reception_date,
     toLowCardinality(toNullable(replaceAll(toString("destinationOperationCode"),' ',''))) as destination_operation_code,
