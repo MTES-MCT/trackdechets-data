@@ -3,9 +3,11 @@ import shutil
 import tempfile
 import time
 from pathlib import Path
+from io import StringIO
 
 import clickhouse_connect
 import httpx
+import tqdm
 import pandas as pd
 from airflow.decorators import dag, task
 from airflow.models import Connection
@@ -73,30 +75,52 @@ def companies_geocoding():
 
         logger.info("%s to geolocalize.", len(companies_df))
 
-        companies_df.to_csv(Path(tmp_dir) / "companies_df.csv", index=False)
+        companies_df.to_parquet(Path(tmp_dir) / "companies_df.parquet", index=False)
 
     @task
     def geocode_with_ban(tmp_dir: str):
         tmp_dir = Path(tmp_dir)
-        with httpx.Client(timeout=6000) as client:
-            files = {"data": open(tmp_dir / "companies_df.csv", "rb")}
 
-            logger.info("Requesting BAN.")
-            start_time = time.time()
-            res = client.post(
-                url="https://api-adresse.data.gouv.fr/search/csv/",
-                data={"citycode": "code_commune_insee", "columns": "adresse"},
-                files=files,
+        companies_df = pd.read_parquet(tmp_dir / "companies_df.parquet")
+
+        batch_size = 5_000
+        results = []
+        for i in tqdm.trange(0, len(companies_df), batch_size):
+            companies_chunck_df = companies_df.iloc[i : (i + batch_size)]
+            companies_chunck_df.to_csv(
+                tmp_dir / f"companies_data_chunck_{i}.csv", index=False
             )
-            total_time = time.time() - start_time
+            with httpx.Client(timeout=6000) as client:
+                files = {"data": open(tmp_dir / f"companies_data_chunck_{i}.csv", "rb")}
 
-            logger.info("BAN responded after : %s seconds", total_time)
+                logger.info("Chunck %s - Requesting BAN.", i)
+                start_time = time.time()
+                res = client.post(
+                    url="https://api-adresse.data.gouv.fr/search/csv/",
+                    data={"citycode": "code_commune_insee", "columns": "adresse"},
+                    files=files,
+                )
+                total_time = time.time() - start_time
 
-        if res.status_code == 200:
-            with open(tmp_dir / "companies_geocoded.csv", mode="w") as f:
-                f.write(res.text)
-        else:
-            raise Exception("Problem requesting the ban", res.status_code, res.text)
+                logger.info(
+                    "Chunck %s - BAN responded after : %s seconds", i, total_time
+                )
+
+            if res.status_code == 200:
+                results.append(res.text)
+            else:
+                raise Exception(
+                    "Problem requesting the ban", res.status_code, res.text, res.headers
+                )
+
+            time.sleep(5)
+
+        geocoded_df = pd.concat([pd.read_csv(StringIO(e)) for e in results])
+        logger.info(
+            "Saving geocoded dataframe into csv file. Shape of dataframe : %s",
+            geocoded_df.shape,
+        )
+        geocoded_df.to_csv(tmp_dir / "companies_geocoded.csv", index=False)
 
     @task
     def insert_companies_geocoded_data_to_database(tmp_dir):
@@ -108,7 +132,7 @@ def companies_geocoding():
 
         client = clickhouse_connect.get_client(
             host=con.get("host"),
-            port=con.get("port"),
+            port=con.get("extra").get("http_port"),
             username=con.get("login"),
             password=con.get("password"),
             database="raw_zone_referentials",
