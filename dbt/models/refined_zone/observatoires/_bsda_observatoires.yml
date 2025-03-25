@@ -1,0 +1,143 @@
+version: 2
+models:
+  - name: bsda_observatoires
+    columns:
+      - name: id
+        description: Clé primaire
+        data_type: string
+      - name: date_creation
+        data_type: datetime64(6, 'europe/paris')
+      - name: date_mise_a_jour
+        data_type: datetime64(6, 'europe/paris')
+      - name: statut
+        data_type: string
+      - name: emetteur_type
+        data_type: string
+      - name: emetteur_est_particulier
+        data_type: bool
+      - name: emetteur_nom_etablissement
+        data_type: string
+      - name: emetteur_siret_etablissement
+        data_type: string
+      - name: emetteur_adresse_etablissement
+        data_type: string
+      - name: emetteur_code_commune
+        data_type: string
+      - name: emetteur_code_departement
+        data_type: string
+      - name: emetteur_code_region
+        data_type: string
+      - name: emetteur_code_naf
+        data_type: string
+      - name: emetteur_nom_chantier
+        data_type: string
+      - name: emetteur_adresse_chantier
+        data_type: string
+      - name: emetteur_ville_chantier
+        data_type: string
+      - name: emetteur_code_postal_chantier
+        data_type: string
+      - name: emetteur_informations_chantier
+        data_type: string
+      - name: emetteur_date_signature_emission
+        data_type: datetime64(6, 'europe/paris')
+      - name: entreprise_travaux_nom_etablissement
+        data_type: string
+      - name: entreprise_travaux_siret_etablissement
+        data_type: string
+      - name: entreprise_travaux_adresse_etablissement
+        data_type: string
+      - name: entreprise_travaux_sous_section_trois
+        data_type: bool
+      - name: entreprise_travaux_sous_section_quatre
+        data_type: bool
+      - name: entreprise_travaux_date_signature
+        data_type: datetime64(6, 'europe/paris')
+      - name: transporteurs_noms_etablissements
+        data_type: Array(String)
+      - name: transporteurs_sirets_etablissements
+        data_type: Array(String)
+      - name: transporteurs_adresses_etablissements
+        data_type: Array(String)
+      - name: transporteur_date_prise_en_charge
+        data_type: datetime64(6, 'europe/paris')
+      - name: transporteur_date_signature
+        data_type: datetime64(6, 'europe/paris')
+      - name: destinataire_nom_etablissement
+        data_type: string
+      - name: destinataire_siret_etablissement
+        data_type: string
+      - name: destinataire_adresse_etablissement
+        data_type: string
+      - name: destinataire_code_commune
+        data_type: string
+      - name: destinataire_code_departement
+        data_type: string
+      - name: destinataire_code_region
+        data_type: string
+      - name: destinataire_code_naf
+        data_type: string
+      - name: destinataire_cap_etablissement
+        data_type: string
+      - name: destinataire_date_reception
+        data_type: datetime64(6, 'europe/paris')
+      - name: destinataire_quantite_recue
+        data_type: decimal(76, 30)
+      - name: destinataire_dechet_statut_acceptation
+        data_type: string
+      - name: destinataire_dechet_raison_refus
+        data_type: string
+      - name: destinataire_date_signature_traitement
+        data_type: datetime64(6, 'europe/paris')
+      - name: destinataire_operation_traitement_prevue_code
+        data_type: string
+      - name: destinataire_date_operation_traitement
+        data_type: datetime64(6, 'europe/paris')
+      - name: destinataire_operation_traitement_realisee_code
+        data_type: string
+      - name: destinataire_operation_traitement_realisee_description
+        data_type: string
+      - name: destinataire_operation_traitement_realisee_mode
+        data_type: string
+      - name: dechet_code
+        data_type: string
+      - name: dechet_code_famille
+        data_type: string
+      - name: dechet_nom_materiau
+        data_type: string
+      - name: dechet_consistance
+        data_type: string
+      - name: dechet_pop
+        data_type: bool
+      - name: dechet_adr
+        data_type: string
+      - name: dechet_quantite
+        data_type: decimal(76, 30)
+      - name: dechet_quantite_type
+        data_type: bool
+      - name: contenants
+        data_type: String
+      - name: destinataire_ulterieur_numero_tva_etablissement
+        data_type: string
+      - name: destinataire_ulterieur_nom_etablissement
+        data_type: string
+      - name: destinataire_ulterieur_siret_etablissement
+        data_type: string
+      - name: destinataire_ulterieur_adresse_etablissement
+        data_type: string
+      - name: destinataire_ulterieur_cap
+        data_type: string
+      - name: destinataire_ulterieur_operation_prevue_code
+        data_type: string
+      - name: eco_organisme_nom
+        data_type: string
+      - name: eco_organisme_siret
+        data_type: string
+      - name: courtier_nom_etablissement
+        data_type: string
+      - name: courtier_siret_etablissement
+        data_type: string
+      - name: courtier_adresse_etablissement
+        data_type: string
+      - name: courtier_code_departement_etablissement
+        data_type: string

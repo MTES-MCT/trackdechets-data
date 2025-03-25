@@ -1,0 +1,117 @@
+version: 2
+models:
+  - name: bsdasri_observatoires
+    columns:
+      - name: id
+        description: Clé primaire
+        data_type: string
+      - name: date_creation
+        data_type: datetime64(6, 'europe/paris')
+      - name: date_mise_a_jour
+        data_type: datetime64(6, 'europe/paris')
+      - name: bsdasri_type
+        data_type: string
+      - name: statut
+        data_type: string
+      - name: emis_par_eco_organisme
+        data_type: bool
+      - name: emetteur_nom_etablissement
+        data_type: string
+      - name: emetteur_siret_etablissement
+        data_type: string
+      - name: emetteur_adresse_etablissement
+        data_type: string
+      - name: emetteur_code_commune
+        data_type: string
+      - name: emetteur_code_departement
+        data_type: string
+      - name: emetteur_code_region
+        data_type: string
+      - name: emetteur_code_naf
+        data_type: string
+      - name: emetteur_nom_chantier
+        data_type: string
+      - name: emetteur_adresse_chantier
+        data_type: string
+      - name: emetteur_ville_chantier
+        data_type: string
+      - name: emetteur_code_postal_chantier
+        data_type: string
+      - name: emetteur_informations_chantier
+        data_type: string
+      - name: emetteur_date_signature_emission
+        data_type: datetime64(6, 'europe/paris')
+      - name: transporteur_nom_etablissement
+        data_type: string
+      - name: transporteur_siret_etablissement
+        data_type: string
+      - name: transporteur_adresse_etablissement
+        data_type: string
+      - name: transporteur_dechet_statut_acceptation
+        data_type: string
+      - name: transporteur_dechet_quantite
+        data_type: decimal(76, 30)
+      - name: transporteur_dechet_volume
+        data_type: float64
+      - name: transporteur_dechet_raison_refus
+        data_type: string
+      - name: transporteur_dechet_quantite_refus
+        data_type: decimal(76, 30)
+      - name: transporteur_date_prise_en_charge
+        data_type: datetime64(6, 'europe/paris')
+      - name: transporteur_date_signature
+        data_type: datetime64(6, 'europe/paris')
+      - name: destinataire_nom_etablissement
+        data_type: string
+      - name: destinataire_siret_etablissement
+        data_type: string
+      - name: destinataire_adresse_etablissement
+        data_type: string
+      - name: destinataire_code_commune
+        data_type: string
+      - name: destinataire_code_departement
+        data_type: string
+      - name: destinataire_code_region
+        data_type: string
+      - name: destinataire_code_naf
+        data_type: string
+      - name: destinataire_dechet_statut_acceptation
+        data_type: string
+      - name: destinataire_dechet_raison_refus
+        data_type: string
+      - name: destinataire_dechet_quantite_refus
+        data_type: decimal(76, 30)
+      - name: destinataire_quantite_recue
+        data_type: decimal(76, 30)
+      - name: destinataire_volume_recu
+        data_type: float64
+      - name: destinataire_date_signature_reception
+        data_type: datetime64(6, 'europe/paris')
+      - name: destinataire_date_reception
+        data_type: datetime64(6, 'europe/paris')
+      - name: destinataire_operation_traitement_realisee_code
+        data_type: string
+      - name: destinataire_operation_traitement_realisee_mode
+        data_type: string
+      - name: destinataire_date_signature_traitement
+        data_type: datetime64(6, 'europe/paris')
+      - name: destinataire_date_operation_traitement
+        data_type: datetime64(6, 'europe/paris')
+      - name: transporteur_mode_transport
+        data_type: string
+      - name: dechet_code
+        data_type: string
+      - name: dechet_adr
+        data_type: string
+      - name: dechet_quantite
+        data_type: decimal(76, 30)
+      - name: dechet_type_quantite
+        data_type: bool
+      - name: dechet_volume
+        data_type: float64
+      - name: contenants
+        data_type: String
+      - name: eco_organisme_nom
+        data_type: string
+      - name: eco_organisme_siret
+        data_type: string

@@ -6,3 +6,5 @@ models:
         data_type: String
       - name: description
         data_type: String
+  - name: codes_dechets
+    columns: []

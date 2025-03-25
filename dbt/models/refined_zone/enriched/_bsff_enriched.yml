@@ -101,5 +101,15 @@ models:
         data_type: float64
       - name: destination_naf
         data_type: string
+      - name: num_packagings
+        data_type: UInt64
+      - name: num_accepted_packagings
+        data_type: UInt64
+      - name: num_processed_packagings
+        data_type: UInt64
       - name: accepted_quantity_packagings
         data_type: float64
+      - name: operations_codes_packagings
+        data_type: Array(String)
+      - name: last_operation_date_packagings
+        data_type: DateTime64(6, 'Europe/Paris')
