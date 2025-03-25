@@ -3,72 +3,48 @@ models:
   - name: bsdd_transporter
     columns:
       - name: id
-        description: ''
-        data_type: text
+        data_type: string
       - name: number
-        description: ''
-        data_type: bigint
+        data_type: int16
       - name: transporter_company_siret
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_company_name
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_company_address
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_company_contact
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_company_phone
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_company_mail
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_is_exempted_of_receipt
-        description: ''
-        data_type: boolean
+        data_type: bool
       - name: transporter_receipt
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_department
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_validity_limit
-        description: ''
-        data_type: timestamp with time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: transporter_number_plate
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_transport_mode
-        description: ''
-        data_type: text
+        data_type: string
       - name: ready_to_take_over
-        description: ''
-        data_type: boolean
+        data_type: bool
       - name: taken_over_at
-        description: ''
-        data_type: timestamp with time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: taken_over_by
-        description: ''
-        data_type: text
+        data_type: string
       - name: created_at
-        description: ''
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: updated_at
-        description: ''
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: form_id
-        description: ''
-        data_type: text
+        data_type: string
       - name: previous_transporter_company_org_id
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_company_vat_number
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_custom_info
-        description: ''
-        data_type: text
-sources: []
+        data_type: string

@@ -3,26 +3,18 @@ models:
   - name: icpe_departements_daily_processed_waste
     columns:
       - name: code_departement_insee
-        description: ''
-        data_type: text
+        data_type: string
       - name: nom_departement
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: code_region_insee
-        description: ''
-        data_type: integer
+        data_type: string
       - name: rubrique
-        description: ''
-        data_type: text
+        data_type: string
       - name: day_of_processing
-        description: ''
         data_type: date
       - name: nombre_installations
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: quantite_traitee
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: quantite_autorisee
-        description: ''
-        data_type: double precision
+        data_type: float64

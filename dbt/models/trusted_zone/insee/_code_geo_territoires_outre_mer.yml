@@ -1,0 +1,20 @@
+version: 2
+models:
+  - name: code_geo_territoires_outre_mer
+    columns:
+      - name: code_zonage_outre_mer
+        data_type: String
+      - name: type_nom_en_clair
+        data_type: UInt8
+      - name: nom_en_clair
+        data_type: String
+      - name: nom_en_clair_enrichi
+        data_type: String
+      - name: libelle
+        data_type: String
+      - name: code_nature_zonage
+        data_type: String
+      - name: code_collectivite_outre_mer
+        data_type: String
+      - name: libelle_collectivite_outre_mer
+        data_type: String

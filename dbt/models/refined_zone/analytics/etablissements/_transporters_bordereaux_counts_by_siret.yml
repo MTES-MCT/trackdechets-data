@@ -3,47 +3,33 @@ models:
   - name: transporters_bordereaux_counts_by_siret
     columns:
       - name: siret
-        description: 'Code région'
-        data_type: text
+        description: Code région
+        data_type: string
       - name: last_bordereau_created_at_as_transporter
-        description: ''
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: num_bsdd_as_transporter
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: num_bsdnd_as_transporter
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: num_bsda_as_transporter
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: num_bsff_as_transporter
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: num_bsdasri_as_transporter
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: num_bsvhu_as_transporter
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: quantity_bsdd_as_transporter
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: quantity_bsdnd_as_transporter
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: quantity_bsda_as_transporter
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: quantity_bsff_as_transporter
-        description: ''
-        data_type: numeric
+        data_type: float64
       - name: quantity_bsdasri_as_transporter
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: quantity_bsvhu_as_transporter
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: processing_operations_as_transporter
-        description: ''
-        data_type: ARRAY
+        data_type: Array(String)

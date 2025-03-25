@@ -3,98 +3,98 @@ models:
   - name: bsdd_transporter_enriched
     columns:
       - name: id
-        description: 'Identifiant unique du BSDD en base.'
-        data_type: text
+        description: Identifiant unique du BSDD en base.
+        data_type: string
       - name: number
-        description: ''
-        data_type: bigint
+        data_type: int16
       - name: transporter_company_siret
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_company_name
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_company_address
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_company_contact
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_company_phone
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_company_mail
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_is_exempted_of_receipt
-        description: ''
-        data_type: boolean
+        data_type: bool
       - name: transporter_receipt
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_department
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_validity_limit
-        description: ''
-        data_type: timestamp with time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: transporter_number_plate
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_transport_mode
-        description: ''
-        data_type: text
+        data_type: string
       - name: ready_to_take_over
-        description: ''
-        data_type: boolean
+        data_type: bool
       - name: taken_over_at
-        description: ''
-        data_type: timestamp with time zone
+        description: "Date à laquelle le transporteur a signé l'enlèvement initial.\n"
+        data_type: datetime64(6, 'europe/paris')
       - name: taken_over_by
-        description: ''
-        data_type: text
+        description: "Nom de la personne qui a signé l'enlèvement initial pour le transporteur.\n"
+        data_type: string
       - name: created_at
-        description: ''
-        data_type: timestamp without time zone
+        description: "Date de création du BSDD.\n"
+        data_type: datetime64(6, 'europe/paris')
       - name: updated_at
-        description: ''
-        data_type: timestamp without time zone
+        description: "Date de la dernière modification du BSDD.\n"
+        data_type: datetime64(6, 'europe/paris')
       - name: form_id
-        description: ''
-        data_type: text
+        data_type: string
       - name: previous_transporter_company_org_id
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_company_vat_number
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_custom_info
-        description: ''
-        data_type: text
+        data_type: string
       - name: bordereau_created_at
-        description: ''
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'europe/paris')
+      - name: bordereau_updated_at
+        data_type: DateTime64(6, 'Europe/Paris')
+      - name: status
+        description: "Statut du BSD (brouillon, envoyé, reçu, traité, etc)\n"
+        data_type: String
       - name: emitter_company_siret
-        description: ''
-        data_type: text
+        description: "SIRET de l'établissement émetteur du déchet.\n"
+        data_type: string
+      - name: emitter_type
+        description: "Type d'émetteur.\n"
+        data_type: String
       - name: recipient_company_siret
-        description: ''
-        data_type: text
+        description: >
+          SIRET de l'installation de destination ou d’entreposage ou de reconditionnement prévue (case
+          2).
+        data_type: string
       - name: eco_organisme_siret
-        description: ''
-        data_type: text
+        description: "SIRET de l'éco-organisme responsable du BSDD.\n"
+        data_type: string
       - name: waste_details_code
-        description: ''
-        data_type: text
+        description: |
+          Rubrique déchet au format "00 00 00*". 
+          Le symbole * permet d'identifier si le déchet est dangereux.
+          La nomenclature complète des codes déchets peut être retrouvée sur [ce lien](https://aida.ineris.fr/reglementation/liste-codification-dechets-annexe-ii-larticle-r-541-8).
+        data_type: string
       - name: waste_details_is_dangerous
-        description: ''
-        data_type: boolean
+        description: >
+          Caractère dangereux du déchet au sens de l’article R541-8 du code de l’environnement.
+        data_type: bool
       - name: waste_details_pop
-        description: ''
-        data_type: boolean
+        description: "Est `true` si le déchet contient des Polluants Organiques Persistants (POP).\n"
+        data_type: bool
+      - name: waste_details_quantity
+        description: "Quantité en tonnes pesée au départ.\n"
+        data_type: Decimal(76, 30)
       - name: quantity_received
-        description: ''
-        data_type: numeric
+        description: "Quantité reçue sur l'installation de destination, en tonnes.\n"
+        data_type: decimal(76, 30)
+      - name: quantity_refused
+        data_type: Decimal(76, 30)
       - name: processing_operation_done
-        description: ''
-        data_type: text
+        description: "Traitement réalisé (code D/R).\n"
+        data_type: string

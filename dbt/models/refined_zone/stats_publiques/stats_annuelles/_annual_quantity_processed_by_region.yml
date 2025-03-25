@@ -3,20 +3,14 @@ models:
   - name: annual_quantity_processed_by_region
     columns:
       - name: annee
-        description: ''
-        data_type: double precision
+        data_type: uint16
       - name: code_region_insee
-        description: ''
-        data_type: integer
+        data_type: string
       - name: type_bordereau
-        description: ''
-        data_type: text
+        data_type: string
       - name: code_operation
-        description: ''
-        data_type: text
+        data_type: string
       - name: type_operation
-        description: ''
-        data_type: text
+        data_type: string
       - name: quantite_traitee
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 30)

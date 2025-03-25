@@ -1,0 +1,8 @@
+version: 2
+models:
+  - name: codes_dechets
+    columns:
+      - name: code
+        data_type: String
+      - name: description
+        data_type: String

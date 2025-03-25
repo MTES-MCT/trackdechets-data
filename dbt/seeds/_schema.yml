@@ -1,0 +1,88 @@
+version: 2
+seeds:
+  - name: naf_2008
+    description: Nomenclature des activités françaises
+    columns:
+      - name: code_section
+        data_type: String
+      - name: libelle_section
+        data_type: String
+      - name: code_division
+        data_type: Int32
+      - name: libelle_division
+        data_type: String
+      - name: code_groupe
+        data_type: Float32
+      - name: libelle_groupe
+        data_type: String
+      - name: code_classe
+        data_type: Float32
+      - name: libelle_classe
+        data_type: String
+      - name: code_sous_classe
+        data_type: String
+      - name: libelle_sous_classe
+        data_type: String
+  - name: referentiel_codes_operation_rubriques
+    description: Référentiel pour la correspondance entre rubrique ICPE et code opération
+    columns:
+      - name: code_operation
+        data_type: String
+      - name: rubrique
+        data_type: String
+  - name: codes_dechets
+    description: Liste des codes dechets avec leur description
+    columns:
+      - name: code
+        data_type: String
+      - name: description
+        data_type: String
+  - name: matching_td_georisques
+    description: Matching manuel fait entre etablissements ICPE et SIRETs
+    config:
+      column_types:
+        code_aiot: String
+        siret_icpe: String
+        siret_gerep: String
+        siret_td: String
+        code_postal: String
+    columns:
+      - name: code_aiot
+        data_type: String
+      - name: nom_etablissement_icpe
+        data_type: String
+      - name: code_postal
+        data_type: String
+      - name: siret_icpe
+        data_type: String
+      - name: siret_gerep
+        data_type: String
+      - name: siret_td
+        data_type: String
+      - name: traite
+        data_type: String
+  - name: isdd_capacites_limites_50pct
+    description: Capacités limite à 50% pour les ISDD. Objectifs futurs.
+    columns:
+      - name: RÉGION
+        data_type: String
+      - name: DÉPARTEMENT
+        data_type: String
+      - name: NOM SITE
+        data_type: String
+      - name: COMMUNE
+        data_type: String
+      - name: CAPACITÉ AUTORISÉE 50
+        data_type: Int32
+      - name: SIRET
+        data_type: String
+      - name: INSCRIT
+        data_type: String
+      - name: PROFIL ISDND
+        data_type: String
+      - name: PROFIL MAJ
+        data_type: String
+      - name: INSCRIT RNDTS
+        data_type: String
+      - name: commentaires
+        data_type: String

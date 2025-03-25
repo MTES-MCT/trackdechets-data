@@ -3,21 +3,15 @@ models:
   - name: liste_exutoires_dechets_dangereux
     columns:
       - name: siret
-        description: 'Code région'
-        data_type: text
+        description: Code région
+        data_type: string
       - name: traiteur_bsdd
-        description: ''
-        data_type: boolean
+        data_type: uint8
       - name: traiteur_bsda
-        description: ''
-        data_type: boolean
+        data_type: uint8
       - name: traiteur_bsff
-        description: ''
-        data_type: boolean
+        data_type: uint8
       - name: traiteur_bsdasri
-        description: ''
-        data_type: boolean
+        data_type: uint8
       - name: traiteur_bsvhu
-        description: ''
-        data_type: boolean
-sources: []
+        data_type: uint8

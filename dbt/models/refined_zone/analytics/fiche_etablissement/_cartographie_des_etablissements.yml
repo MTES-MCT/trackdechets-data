@@ -2,111 +2,86 @@ version: 2
 models:
   - name: cartographie_des_etablissements
     config:
-        contract:
-          enforced: false
+      contract:
+        enforced: false
     columns:
       - name: siret
         constraints:
           - type: not_null
+            name:
+            expression:
+            warn_unenforced: true
+            warn_unsupported: true
+            to:
+            to_columns: []
           - type: primary_key
-        description: "SIRET de l'etablissement"
-        data_type: text
+            name:
+            expression:
+            warn_unenforced: true
+            warn_unsupported: true
+            to:
+            to_columns: []
+        description: SIRET de l'etablissement
+        data_type: string
       - name: nom_etablissement
-        description: ''
-        data_type: text
+        data_type: string
       - name: profils
-        description: ''
-        data_type: text[]
+        data_type: array(string)
       - name: profils_collecteur
-        description: ''
-        data_type: text[]
+        data_type: array(string)
       - name: profils_installation
-        description: ''
-        data_type: text[]
+        data_type: array(string)
       - name: bsdd
-        description: ''
-        data_type: boolean
+        data_type: uint8
       - name: bsdnd
-        description: ''
-        data_type: boolean
+        data_type: uint8
       - name: bsda
-        description: ''
-        data_type: boolean
+        data_type: uint8
       - name: bsff
-        description: ''
-        data_type: boolean
+        data_type: uint8
       - name: bsdasri
-        description: ''
-        data_type: boolean
+        data_type: uint8
       - name: bsvhu
-        description: ''
-        data_type: boolean
+        data_type: uint8
       - name: texs_dd
-        description: ''
-        data_type: boolean
+        data_type: uint8
       - name: dnd
-        description: ''
-        data_type: boolean
+        data_type: uint8
       - name: texs
-        description: ''
-        data_type: boolean
+        data_type: uint8
       - name: ssd
-        description: ''
-        data_type: boolean
+        data_type: uint8
       - name: pnttd
-        description: ''
-        data_type: boolean
+        data_type: uint8
       - name: processing_operations_bsdd
-        description: ''
-        data_type: text[]
+        data_type: array(string)
       - name: processing_operations_bsdnd
-        description: ''
-        data_type: text[]
+        data_type: array(string)
       - name: processing_operations_bsda
-        description: ''
-        data_type: text[]
+        data_type: array(string)
       - name: processing_operations_bsff
-        description: ''
-        data_type: text[]
+        data_type: array(string)
       - name: processing_operations_bsdasri
-        description: ''
-        data_type: text[]
+        data_type: array(string)
       - name: processing_operations_bsvhu
-        description: ''
-        data_type: text[]
+        data_type: array(string)
       - name: processing_operation_dnd
-        description: ''
-        data_type: text[]
+        data_type: array(string)
       - name: processing_operation_texs
-        description: ''
-        data_type: text[]
+        data_type: array(string)
       - name: code_commune_insee
-        description: 'Code commune correspondant à celui dans la base géographique des communes de l''INSEE.'
-        data_type: character varying
+        description: >-
+          Code commune correspondant à celui dans la base géographique des communes de l'INSEE.
+        data_type: string
       - name: code_departement_insee
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: code_region_insee
-        description: ''
-        data_type: integer
+        data_type: string
       - name: adresse_td
-        description: ''
-        data_type: text
+        data_type: string
       - name: adresse_insee
-        description: ''
-        data_type: text
+        data_type: string
       - name: latitude_td
-        description: ''
-        data_type: numeric
+        data_type: float64
       - name: longitude_td
-        description: ''
-        data_type: numeric
-      - name: latitude_ban
-        description: ''
-        data_type: double precision
-      - name: longitude_ban
-        description: ''
-        data_type: double precision
-      - name: coords
-        description: ''
-        data_type: geometry
+        data_type: float64

@@ -1,5 +1,0 @@
-version: 2
-
-seeds:
-  - name: referentiel_codes_operation_rubriques
-    description: Référentiel pour la correspondance entre rubrique ICPE et code opération

@@ -14,119 +14,161 @@ models:
           timestamp_column: updated_at
     columns:
       - name: id
-        description: "Clé primaire"
-        data_type: text
+        description: Clé primaire
+        data_type: string
       - name: created_at
-        description: ""
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: updated_at
-        description: ""
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: bsdd_id
-        description: ""
-        data_type: text
+        data_type: string
       - name: authoring_company_id
-        description: ""
-        data_type: text
+        data_type: string
       - name: comment
-        description: ""
-        data_type: text
+        data_type: string
       - name: status
-        description: ""
-        data_type: text
+        data_type: string
       - name: recipient_cap
-        description: ""
-        data_type: text
+        data_type: string
       - name: waste_details_code
-        description: ""
-        data_type: text
+        data_type: string
       - name: waste_details_pop
-        description: ""
-        data_type: boolean
+        data_type: bool
       - name: quantity_received
-        description: ""
         tests:
           - elementary.column_anomalies
-        data_type: numeric
+        data_type: float64
       - name: processing_operation_done
-        description: ""
-        data_type: text
+        data_type: string
       - name: broker_company_name
-        description: ""
-        data_type: text
+        data_type: string
       - name: broker_company_siret
-        description: ""
-        data_type: text
+        data_type: string
       - name: broker_company_address
-        description: ""
-        data_type: text
+        data_type: string
       - name: broker_company_contact
-        description: ""
-        data_type: text
+        data_type: string
       - name: broker_company_phone
-        description: ""
-        data_type: text
+        data_type: string
       - name: broker_company_mail
-        description: ""
-        data_type: text
+        data_type: string
       - name: broker_receipt
-        description: ""
-        data_type: text
+        data_type: string
       - name: broker_department
-        description: ""
-        data_type: text
+        data_type: string
       - name: broker_validity_limit
-        description: ""
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: trader_company_address
-        description: ""
-        data_type: text
+        data_type: string
       - name: trader_company_contact
-        description: ""
-        data_type: text
+        data_type: string
       - name: trader_company_phone
-        description: ""
-        data_type: text
+        data_type: string
       - name: trader_company_mail
-        description: ""
-        data_type: text
+        data_type: string
       - name: trader_receipt
-        description: ""
-        data_type: text
+        data_type: string
       - name: trader_department
-        description: ""
-        data_type: text
+        data_type: string
       - name: trader_validity_limit
-        description: ""
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: temporary_storage_destination_cap
-        description: ""
-        data_type: text
+        data_type: string
       - name: temporary_storage_destination_processing_operation
-        description: ""
-        data_type: text
+        data_type: string
       - name: trader_company_siret
-        description: ""
-        data_type: text
+        data_type: string
       - name: trader_company_name
-        description: ""
-        data_type: text
+        data_type: string
       - name: waste_details_name
-        description: ""
-        data_type: text
+        data_type: string
       - name: waste_details_packaging_infos
-        description: ""
-        data_type: ARRAY
+        data_type: String
       - name: processing_operation_description
-        description: ""
-        data_type: text
+        data_type: string
       - name: temporary_storage_temporary_storer_quantity_received
-        description: ""
-        data_type: numeric
+        data_type: float64
       - name: is_canceled
-        description: ""
-        data_type: boolean
+        data_type: bool
       - name: destination_operation_mode
-        description: ''
-        data_type: text
-sources: []
+        data_type: string
+      - name: waste_details_quantity
+        data_type: Decimal(76, 30)
+      - name: waste_details_sample_number
+        data_type: String
+      - name: quantity_refused
+        data_type: Float64
+      - name: waste_acceptation_status
+        data_type: String
+      - name: waste_refusal_reason
+        data_type: String
+      - name: initial_broker_company_address
+        data_type: String
+      - name: initial_broker_company_contact
+        data_type: String
+      - name: initial_broker_company_mail
+        data_type: String
+      - name: initial_broker_company_name
+        data_type: String
+      - name: initial_broker_company_phone
+        data_type: String
+      - name: initial_broker_company_siret
+        data_type: String
+      - name: initial_broker_department
+        data_type: String
+      - name: initial_broker_receipt
+        data_type: String
+      - name: initial_broker_validity_limit
+        data_type: DateTime64(6, 'Europe/Paris')
+      - name: initial_destination_operation_mode
+        data_type: String
+      - name: initial_processing_operation_description
+        data_type: String
+      - name: initial_processing_operation_done
+        data_type: String
+      - name: initial_quantity_received
+        data_type: Decimal(76, 30)
+      - name: initial_quantity_refused
+        data_type: Decimal(76, 30)
+      - name: initial_recipient_cap
+        data_type: String
+      - name: initial_temporary_storage_destination_cap
+        data_type: String
+      - name: initial_temporary_storage_destination_processing_operation
+        data_type: String
+      - name: initial_temporary_storage_temporary_storer_quantity_received
+        data_type: Decimal(76, 30)
+      - name: initial_trader_company_address
+        data_type: String
+      - name: initial_trader_company_contact
+        data_type: String
+      - name: initial_trader_company_mail
+        data_type: String
+      - name: initial_trader_company_name
+        data_type: String
+      - name: initial_trader_company_phone
+        data_type: String
+      - name: initial_trader_company_siret
+        data_type: String
+      - name: initial_trader_department
+        data_type: String
+      - name: initial_trader_receipt
+        data_type: String
+      - name: initial_trader_validity_limit
+        data_type: DateTime64(6, 'Europe/Paris')
+      - name: initial_waste_acceptation_status
+        data_type: String
+      - name: initial_waste_details_code
+        data_type: String
+      - name: initial_waste_details_name
+        data_type: String
+      - name: initial_waste_details_packaging_infos
+        data_type: String
+      - name: initial_waste_details_pop
+        data_type: Bool
+      - name: initial_waste_details_quantity
+        data_type: Decimal(76, 30)
+      - name: initial_waste_details_sample_number
+        data_type: String
+      - name: initial_waste_refusal_reason
+        data_type: String

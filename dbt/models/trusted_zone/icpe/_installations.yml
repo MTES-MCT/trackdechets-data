@@ -3,78 +3,53 @@ models:
   - name: installations
     columns:
       - name: code_aiot
-        description: 'identifiant unique de l''installation classée'
-        data_type: text
+        description: identifiant unique de l'installation classée
+        data_type: string
       - name: num_siret
-        description: ''
-        data_type: text
-      - name: x
-        description: ''
-        data_type: integer
-      - name: y
-        description: ''
-        data_type: integer
+        data_type: string
+      - name: toInt256(x)
+        data_type: Int256
+      - name: toInt256(y)
+        data_type: Int256
       - name: adresse1
-        description: ''
-        data_type: text
+        data_type: string
       - name: adresse2
-        description: ''
-        data_type: text
+        data_type: string
       - name: adresse3
-        description: ''
-        data_type: text
+        data_type: string
       - name: code_postal
-        description: ''
-        data_type: text
+        data_type: string
       - name: code_insee
-        description: ''
-        data_type: text
+        data_type: string
       - name: commune
-        description: ''
-        data_type: text
+        data_type: string
       - name: raison_sociale
-        description: ''
-        data_type: text
+        data_type: string
       - name: etat_activite
-        description: ''
-        data_type: text
+        data_type: string
       - name: seveso
-        description: ''
-        data_type: text
+        data_type: string
       - name: regime
-        description: ''
-        data_type: text
-      - name: priorite_nationale
-        description: ''
-        data_type: boolean
-      - name: ied
-        description: ''
-        data_type: boolean
+        data_type: string
+      - name: CAST(priorite_nationale, 'bool')
+        data_type: Bool
+      - name: CAST(ied, 'bool')
+        data_type: Bool
       - name: type_service_aiot
-        description: ''
-        data_type: text
-      - name: bovins
-        description: ''
-        data_type: boolean
-      - name: porcs
-        description: ''
-        data_type: boolean
-      - name: volailles
-        description: ''
-        data_type: boolean
-      - name: carriere
-        description: ''
-        data_type: boolean
-      - name: eolienne
-        description: ''
-        data_type: boolean
-      - name: industrie
-        description: ''
-        data_type: boolean
+        data_type: string
+      - name: CAST(bovins, 'bool')
+        data_type: Bool
+      - name: CAST(porcs, 'bool')
+        data_type: Bool
+      - name: CAST(volailles, 'bool')
+        data_type: Bool
+      - name: CAST(carriere, 'bool')
+        data_type: Bool
+      - name: CAST(eolienne, 'bool')
+        data_type: Bool
+      - name: CAST(industrie, 'bool')
+        data_type: Bool
       - name: longitude
-        description: ''
-        data_type: double precision
+        data_type: float64
       - name: latitude
-        description: ''
-        data_type: double precision
-sources: []
+        data_type: float64

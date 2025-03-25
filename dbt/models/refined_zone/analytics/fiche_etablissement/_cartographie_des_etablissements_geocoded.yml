@@ -1,0 +1,77 @@
+version: 2
+models:
+  - name: cartographie_des_etablissements_geocoded
+    columns:
+      - name: siret
+        description: SIRET de l'etablissement
+        data_type: String
+      - name: nom_etablissement
+        data_type: String
+      - name: profils
+        data_type: Array(String)
+      - name: profils_collecteur
+        data_type: Array(String)
+      - name: profils_installation
+        data_type: Array(String)
+      - name: bsdd
+        data_type: UInt8
+      - name: bsdnd
+        data_type: UInt8
+      - name: bsda
+        data_type: UInt8
+      - name: bsff
+        data_type: UInt8
+      - name: bsdasri
+        data_type: UInt8
+      - name: bsvhu
+        data_type: UInt8
+      - name: texs_dd
+        data_type: UInt8
+      - name: dnd
+        data_type: UInt8
+      - name: texs
+        data_type: UInt8
+      - name: ssd
+        data_type: UInt8
+      - name: pnttd
+        data_type: UInt8
+      - name: processing_operations_bsdd
+        data_type: Array(String)
+      - name: processing_operations_bsdnd
+        data_type: Array(String)
+      - name: processing_operations_bsda
+        data_type: Array(String)
+      - name: processing_operations_bsff
+        data_type: Array(String)
+      - name: processing_operations_bsdasri
+        data_type: Array(String)
+      - name: processing_operations_bsvhu
+        data_type: Array(String)
+      - name: processing_operation_dnd
+        data_type: Array(String)
+      - name: processing_operation_texs
+        data_type: Array(String)
+      - name: code_commune_insee
+        description: >-
+          Code commune correspondant à celui dans la base géographique des communes de l'INSEE.
+        data_type: String
+      - name: code_departement_insee
+        data_type: String
+      - name: code_region_insee
+        data_type: String
+      - name: adresse_td
+        data_type: String
+      - name: adresse_insee
+        data_type: String
+      - name: latitude_td
+        data_type: Float64
+      - name: longitude_td
+        data_type: Float64
+      - name: latitude_ban
+        data_type: Float64
+      - name: longitude_ban
+        data_type: Float64
+      - name: coords
+        data_type: String
+      - name: coords_h3_index
+        data_type: UInt64

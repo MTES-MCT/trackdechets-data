@@ -3,20 +3,14 @@ models:
   - name: registres
     columns:
       - name: id
-        description: ''
-        data_type: bigint
+        data_type: int64
       - name: org_id
-        description: ''
-        data_type: text
+        data_type: string
       - name: data_start_date
-        description: ''
-        data_type: timestamp without time zone
+        data_type: datetime64(6)
       - name: data_end_date
-        description: ''
-        data_type: timestamp without time zone
+        data_type: datetime64(6)
       - name: created
-        description: ''
-        data_type: timestamp without time zone
+        data_type: datetime64(6)
       - name: created_by
-        description: ''
-        data_type: text
+        data_type: string

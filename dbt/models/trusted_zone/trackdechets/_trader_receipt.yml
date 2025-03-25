@@ -3,21 +3,17 @@ models:
   - name: trader_receipt
     columns:
       - name: id
-        description: "Clé primaire"
-        data_type: text
+        description: Clé primaire
+        data_type: string
       - name: receipt_number
-        description: ""
         tests:
           - elementary.column_anomalies
-        data_type: text
+        data_type: string
       - name: validity_limit
-        description: ""
         tests:
           - elementary.column_anomalies
-        data_type: timestamp with time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: department
-        description: ""
         tests:
           - elementary.column_anomalies
-        data_type: text
-sources: []
+        data_type: string

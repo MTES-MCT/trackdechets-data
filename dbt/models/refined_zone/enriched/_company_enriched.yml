@@ -3,150 +3,113 @@ models:
   - name: company_enriched
     columns:
       - name: id
-        description: 'Clé primaire'
-        data_type: text
+        description: Clé primaire
+        data_type: string
       - name: siret
-        description: 'Code région'
-        data_type: text
+        description: Code région
+        data_type: string
       - name: updated_at
-        description: ''
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: created_at
-        description: ''
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: security_code
-        description: ''
-        data_type: bigint
+        data_type: int256
       - name: name
-        description: ''
-        data_type: text
+        data_type: string
       - name: gerep_id
-        description: ''
-        data_type: text
+        data_type: string
       - name: code_naf
-        description: ''
-        data_type: text
+        data_type: string
       - name: given_name
-        description: ''
-        data_type: text
+        data_type: string
       - name: contact_email
-        description: ''
-        data_type: text
+        data_type: string
       - name: contact_phone
-        description: ''
-        data_type: text
+        data_type: string
       - name: website
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_receipt_id
-        description: ''
-        data_type: text
+        data_type: string
       - name: trader_receipt_id
-        description: ''
-        data_type: text
+        data_type: string
       - name: eco_organisme_agreements
-        description: ''
-        data_type: ARRAY
+        data_type: Array(String)
       - name: company_types
-        description: ''
-        data_type: ARRAY
+        data_type: Array(String)
       - name: address
-        description: ''
-        data_type: text
+        data_type: string
       - name: latitude
-        description: ''
-        data_type: numeric
+        data_type: float64
       - name: longitude
-        description: ''
-        data_type: numeric
+        data_type: float64
       - name: broker_receipt_id
-        description: ''
-        data_type: text
+        data_type: string
       - name: verification_code
-        description: ''
-        data_type: text
+        data_type: string
       - name: verification_status
-        description: ''
-        data_type: text
+        data_type: string
       - name: verification_mode
-        description: ''
-        data_type: text
+        data_type: string
       - name: verification_comment
-        description: ''
-        data_type: text
+        data_type: string
       - name: verified_at
-        description: ''
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: vhu_agrement_demolisseur_id
-        description: ''
-        data_type: text
+        data_type: string
       - name: vhu_agrement_broyeur_id
-        description: ''
-        data_type: text
+        data_type: string
       - name: allow_bsdasri_take_over_without_signature
-        description: ''
-        data_type: boolean
+        data_type: bool
       - name: vat_number
-        description: ''
-        data_type: text
+        data_type: string
       - name: contact
-        description: ''
-        data_type: text
+        data_type: string
       - name: code_departement
-        description: ''
-        data_type: text
+        data_type: string
       - name: worker_certification_id
-        description: ''
-        data_type: text
+        data_type: string
       - name: org_id
-        data_type: text
-        description: ''
+        data_type: string
       - name: collector_types
-        description: ''
-        data_type: ARRAY
+        data_type: Array(String)
       - name: waste_processor_types
-        description: ''
-        data_type: ARRAY
+        data_type: Array(String)
+      - name: webhook_settings_limit
+        data_type: Int256
+      - name: allow_appendix1_signature_automation
+        data_type: Bool
+      - name: feature_flags
+        data_type: Array(String)
+      - name: waste_vehicles_types
+        data_type: Array(String)
+      - name: is_dormant_since
+        data_type: DateTime64(6, 'Europe/Paris')
       - name: code_section
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: libelle_section
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: code_division
-        description: ''
-        data_type: character varying
+        data_type: int32
       - name: libelle_division
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: code_groupe
-        description: ''
-        data_type: character varying
+        data_type: float32
       - name: libelle_groupe
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: code_classe
-        description: ''
-        data_type: character varying
+        data_type: float32
       - name: libelle_classe
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: code_sous_classe
-        description: 'Clé unique'
-        data_type: character varying
+        description: Clé unique
+        data_type: string
       - name: libelle_sous_classe
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: etat_administratif_etablissement
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: code_commune_insee
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: code_departement_insee
-        description: ''
-        data_type: text
+        data_type: string
       - name: code_region_insee
-        description: ''
-        data_type: integer
-sources: []
+        data_type: string

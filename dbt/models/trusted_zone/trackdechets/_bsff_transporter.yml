@@ -3,68 +3,46 @@ models:
   - name: bsff_transporter
     columns:
       - name: id
-        description: ''
-        data_type: text
+        data_type: string
       - name: created_at
-        description: ''
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: updated_at
-        description: ''
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: number
-        description: ''
-        data_type: bigint
+        data_type: int256
       - name: bsff_id
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_company_siret
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_company_name
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_company_vat_number
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_company_address
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_company_contact
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_company_phone
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_company_mail
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_custom_info
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_recepisse_is_exempted
-        description: ''
-        data_type: boolean
+        data_type: bool
       - name: transporter_recepisse_number
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_recepisse_department
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_recepisse_validity_limit
-        description: ''
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: transporter_transport_mode
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_transport_plates
-        description: ''
-        data_type: ARRAY
+        data_type: Array(String)
       - name: transporter_transport_taken_over_at
-        description: ''
-        data_type: timestamp with time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: transporter_transport_signature_author
-        description: ''
-        data_type: text
-      - name: transporter_tranport_signature_date
-        description: ''
-        data_type: timestamp without time zone
+        data_type: string
+      - name: transporter_transport_signature_date
+        data_type: DateTime64(6, 'Europe/Paris')

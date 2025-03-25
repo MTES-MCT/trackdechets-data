@@ -4,6 +4,7 @@ models:
     columns:
       - name: description
         description: Description de l'opération de traitement.
+        data_type: String
       - name: code
         description: Code opération traitement.
-sources: []
+        data_type: String

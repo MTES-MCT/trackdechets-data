@@ -1,0 +1,26 @@
+version: 2
+models:
+  - name: liste_des_installations
+    columns:
+      - name: jd.siret
+        data_type: String
+      - name: code_commune
+        data_type: String
+      - name: cgc.code_departement
+        data_type: String
+      - name: present_td
+        data_type: UInt8
+      - name: present_gun
+        data_type: UInt8
+      - name: codes_operation
+        data_type: Array(String)
+      - name: types_bordereaux
+        data_type: Array(String)
+      - name: codes_aiot
+        data_type: Array(String)
+      - name: rubriques
+        data_type: Array(String)
+      - name: nom_etablissement
+        data_type: String
+      - name: adresse
+        data_type: String

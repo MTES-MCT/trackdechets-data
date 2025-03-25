@@ -3,17 +3,20 @@ models:
   - name: broker_receipt
     columns:
       - name: id
-        description: "Clé primaire"
+        description: Clé primaire
+        data_type: String
       - name: receipt_number
-        description: "Numéro de récépissé"
+        description: Numéro de récépissé
         tests:
           - elementary.column_anomalies
+        data_type: String
       - name: validity_limit
-        description: "Date limite de validité du récépisse"
+        description: Date limite de validité du récépisse
         tests:
           - elementary.column_anomalies
+        data_type: DateTime64(6, 'Europe/Paris')
       - name: department
-        description: "Département de validité du récépissé"
+        description: Département de validité du récépissé
         tests:
           - elementary.column_anomalies
-sources: []
+        data_type: String

@@ -3,117 +3,69 @@ models:
   - name: users
     columns:
       - name: id
-        description: 'identifiant unique de l''utilisateur'
-        data_type: bigint
+        description: identifiant unique de l'utilisateur
+        data_type: int64
       - name: created_at
-        description: ''
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'utc')
       - name: created_by_id
-        description: ''
-        data_type: bigint
+        data_type: int64
       - name: updated_at
-        description: ''
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'utc')
       - name: updated_by_id
-        description: ''
-        data_type: bigint
+        data_type: int64
       - name: active
-        description: ''
-        data_type: boolean
+        data_type: bool
       - name: verified
-        description: ''
-        data_type: boolean
+        data_type: bool
       - name: login
-        description: ''
-        data_type: text
+        data_type: string
       - name: email
-        description: ''
-        data_type: text
+        data_type: string
       - name: firstname
-        description: ''
-        data_type: text
+        data_type: string
       - name: lastname
-        description: ''
-        data_type: text
+        data_type: string
       - name: address
-        description: ''
-        data_type: text
+        data_type: string
       - name: authorization_ids
-        description: ''
-        data_type: ARRAY
+        data_type: String
       - name: city
-        description: ''
-        data_type: text
+        data_type: string
       - name: country
-        description: ''
-        data_type: text
+        data_type: string
       - name: department
-        description: ''
-        data_type: text
+        data_type: string
       - name: fax
-        description: ''
-        data_type: text
+        data_type: string
       - name: group_ids
-        description: ''
-        data_type: jsonb
+        data_type: string
       - name: image
-        description: ''
-        data_type: text
-      - name: image_source
-        description: ''
-        data_type: text
-      - name: karma_user_ids
-        description: ''
-        data_type: ARRAY
-      - name: last_login
-        description: ''
-        data_type: timestamp without time zone
-      - name: login_failed
-        description: ''
-        data_type: bigint
-      - name: mobile
-        description: ''
-        data_type: text
-      - name: note
-        description: ''
-        data_type: text
-      - name: organization_id
-        description: ''
-        data_type: bigint
-      - name: organization_ids
-        description: ''
-        data_type: ARRAY
-      - name: out_of_office
-        description: ''
-        data_type: boolean
-      - name: out_of_office_end_at
-        description: ''
-        data_type: timestamp without time zone
-      - name: out_of_office_replacement_id
-        description: ''
-        data_type: bigint
-      - name: out_of_office_start_at
-        description: ''
-        data_type: timestamp without time zone
-      - name: phone
-        description: ''
-        data_type: text
-      - name: role_ids
-        description: ''
-        data_type: ARRAY
+        data_type: string
       - name: source
-        description: ''
-        data_type: text
+        data_type: string
+      - name: last_login
+        data_type: datetime64(6, 'utc')
+      - name: login_failed
+        data_type: int64
+      - name: mobile
+        data_type: string
+      - name: note
+        data_type: string
+      - name: organization_id
+        data_type: int64
+      - name: organization_ids
+        data_type: String
+      - name: out_of_office
+        data_type: bool
+      - name: phone
+        data_type: string
+      - name: role_ids
+        data_type: String
       - name: street
-        description: ''
-        data_type: text
+        data_type: string
       - name: vip
-        description: ''
-        data_type: boolean
+        data_type: bool
       - name: web
-        description: ''
-        data_type: text
+        data_type: string
       - name: zip
-        description: ''
-        data_type: text
-sources: []
+        data_type: string

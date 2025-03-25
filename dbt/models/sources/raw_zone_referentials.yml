@@ -1,5 +1,4 @@
 version: 2
-models: []
 sources:
   - name: raw_zone_referentials
     description: Tables qui ne correspondent à aucune catégorie spécifique.
@@ -13,108 +12,90 @@ sources:
               Code commune correspondant à celui dans la base géographique des communes de l'INSEE.
             tests:
               - not_null
-            data_type: character varying
+            data_type: string
           - name: nom_commune
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: code_postal
             description: Code postal de la commune
             tests:
               - not_null
-            data_type: integer
+            data_type: string
           - name: ligne_5
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: libellé_d_acheminement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: coordonnees_gps
-            description: ''
-            data_type: character varying
+            data_type: string
       - name: codes_operations_traitements
         description: >
           Une ligne par code opération traitement (codes R et D) avec la description de l'opération associée.
         columns:
           - name: code
-            description: >
-              Code opération traitement.
+            description: "Code opération traitement.\n"
             tests:
               - not_null
               - unique
+            data_type: String
           - name: description
             description: Description de l'opération de traitement.
             tests:
               - not_null
               - unique
+            data_type: String
       - name: companies_geocoded_by_ban
         description: >
-          Une ligne par SIRET avec son adresse et ses coordonnées géopgraphiques calculées par la Base des Adresses Nationales.
+          Une ligne par SIRET avec son adresse et ses coordonnées géopgraphiques calculées par la Base
+          des Adresses Nationales.
         loader: Airflow
         columns:
           - name: siret
-            description: ''
-            data_type: text
+            data_type: string
           - name: adresse
-            description: ''
-            data_type: text
+            data_type: string
           - name: code_commune_insee
-            description: ''
-            data_type: text
-          - name: latitude
-            description: ''
-            data_type: text
+            data_type: string
           - name: longitude
-            description: ''
-            data_type: text
-          - name: result_label
-            description: ''
-            data_type: text
+            data_type: string
+          - name: latitude
+            data_type: string
           - name: result_score
-            description: ''
-            data_type: text
+            data_type: string
           - name: result_score_next
-            description: ''
-            data_type: text
+            data_type: string
+          - name: result_label
+            data_type: string
           - name: result_type
-            description: ''
-            data_type: text
+            data_type: string
           - name: result_id
-            description: ''
-            data_type: text
+            data_type: string
           - name: result_housenumber
-            description: ''
-            data_type: text
+            data_type: string
           - name: result_name
-            description: ''
-            data_type: text
+            data_type: string
           - name: result_street
-            description: ''
-            data_type: text
+            data_type: string
           - name: result_postcode
-            description: ''
-            data_type: text
+            data_type: string
           - name: result_city
-            description: ''
-            data_type: text
+            data_type: string
           - name: result_context
-            description: ''
-            data_type: text
+            data_type: string
           - name: result_citycode
-            description: ''
-            data_type: text
+            data_type: string
           - name: result_oldcitycode
-            description: ''
-            data_type: text
+            data_type: string
           - name: result_oldcity
-            description: ''
-            data_type: text
+            data_type: string
           - name: result_district
-            description: ''
-            data_type: text
+            data_type: string
           - name: result_status
-            description: ''
-            data_type: text
+            data_type: string
       - name: codes_dechets
         description: >
           Liste des codes dechets avec leur description
         loader: seed
+        columns:
+          - name: code
+            data_type: String
+          - name: description
+            data_type: String

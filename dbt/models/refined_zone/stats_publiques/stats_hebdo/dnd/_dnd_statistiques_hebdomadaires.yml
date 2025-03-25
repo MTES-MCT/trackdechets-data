@@ -3,23 +3,16 @@ models:
   - name: dnd_statistiques_hebdomadaires
     columns:
       - name: semaine
-        description: ''
-        data_type: timestamp with time zone
+        data_type: date
       - name: nombre_declarations_dnd_entrant
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: nombre_declarations_dnd_sortant
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: quantite_dnd_entrant
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 9)
       - name: volume_dnd_entrant
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 9)
       - name: quantite_dnd_sortant
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 9)
       - name: volume_dnd_sortant
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 9)

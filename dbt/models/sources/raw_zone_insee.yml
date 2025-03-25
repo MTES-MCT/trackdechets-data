@@ -1,5 +1,4 @@
 version: 2
-models: []
 sources:
   - name: raw_zone_insee
     description: Données issues de l'open data INSEE
@@ -10,336 +9,244 @@ sources:
           Données géographiques INSEE des arrondissements français.
           Une ligne par code arrondissement.
         columns:
-          - name: arr
-            description: Code arrondissement
-            tests:
-              - unique
-              - not_null
-            data_type: character varying
-          - name: dep
-            description: ''
-            data_type: character varying
-          - name: reg
-            description: ''
-            data_type: character varying
-          - name: cheflieu
-            description: ''
-            data_type: character varying
-          - name: tncc
-            description: ''
-            data_type: character varying
-          - name: ncc
-            description: ''
-            data_type: character varying
-          - name: nccenr
-            description: ''
-            data_type: character varying
-          - name: libelle
-            description: ''
-            data_type: character varying
+          - name: ARR
+            data_type: String
+          - name: DEP
+            data_type: String
+          - name: REG
+            data_type: String
+          - name: CHEFLIEU
+            data_type: String
+          - name: TNCC
+            data_type: String
+          - name: NCC
+            data_type: String
+          - name: NCCENR
+            data_type: String
+          - name: LIBELLE
+            data_type: String
       - name: code_canton
         description: >
           Données géographiques INSEE des cantons français.
           Une ligne par identifiant canton.
         columns:
-          - name: id_canton
-            description: Code canton
-            tests:
-              - unique
-              - not_null
-            data_type: character varying
-          - name: id_departement
-            description: ''
-            data_type: character varying
-          - name: id_region
-            description: ''
-            data_type: character varying
-          - name: typct
-            description: ''
-            data_type: character varying
-          - name: burcentral
-            description: ''
-            data_type: character varying
-          - name: tncc
-            description: ''
-            data_type: character varying
-          - name: ncc
-            description: ''
-            data_type: character varying
-          - name: nccenr
-            description: ''
-            data_type: character varying
-          - name: libelle
-            description: ''
-            data_type: character varying
-          - name: actual
-            description: ''
-            data_type: character varying
+          - name: CAN
+            data_type: String
+          - name: DEP
+            data_type: String
+          - name: REG
+            data_type: String
+          - name: COMPCT
+            data_type: String
+          - name: BURCENTRAL
+            data_type: String
+          - name: TNCC
+            data_type: Int32
+          - name: NCC
+            data_type: String
+          - name: NCCENR
+            data_type: String
+          - name: LIBELLE
+            data_type: String
+          - name: TYPECT
+            data_type: String
       - name: code_commune
         description: >
           Données géographiques INSEE des communes françaises.
           Une ligne par code commune.
         columns:
-          - name: typecom
-            description: ''
-            data_type: character varying
-          - name: com
-            description: Code commune
-            tests:
-              - not_null
-            data_type: character varying
-          - name: reg
-            description: ''
-            data_type: character varying
-          - name: dep
-            description: ''
-            data_type: character varying
-          - name: ctcd
-            description: ''
-            data_type: character varying
-          - name: arr
-            description: ''
-            data_type: character varying
-          - name: tncc
-            description: ''
-            data_type: character varying
-          - name: ncc
-            description: ''
-            data_type: character varying
-          - name: nccenr
-            description: ''
-            data_type: character varying
-          - name: libelle
-            description: ''
-            data_type: character varying
-          - name: can
-            description: ''
-            data_type: character varying
-          - name: comparent
-            description: ''
-            data_type: character varying
+          - name: TYPECOM
+            data_type: String
+          - name: COM
+            data_type: String
+          - name: REG
+            data_type: String
+          - name: DEP
+            data_type: String
+          - name: CTCD
+            data_type: String
+          - name: ARR
+            data_type: String
+          - name: TNCC
+            data_type: UInt8
+          - name: NCC
+            data_type: String
+          - name: NCCENR
+            data_type: String
+          - name: LIBELLE
+            data_type: String
+          - name: CAN
+            data_type: String
+          - name: COMPARENT
+            data_type: String
       - name: code_departement
         description: >
           Données géographiques INSEE des département français.
           Une ligne par code département.
         columns:
-          - name: dep
-            description: Code département
-            tests:
-              - unique
-              - not_null
-            data_type: character varying
-          - name: reg
-            description: ''
-            data_type: character varying
-          - name: cheflieu
-            description: ''
-            data_type: character varying
-          - name: tncc
-            description: ''
-            data_type: character varying
-          - name: ncc
-            description: ''
-            data_type: character varying
-          - name: nccenr
-            description: ''
-            data_type: character varying
-          - name: libelle
-            description: ''
-            data_type: character varying
+          - name: DEP
+            data_type: String
+          - name: REG
+            data_type: String
+          - name: CHEFLIEU
+            data_type: String
+          - name: TNCC
+            data_type: UInt8
+          - name: NCC
+            data_type: String
+          - name: NCCENR
+            data_type: String
+          - name: LIBELLE
+            data_type: String
       - name: code_region
         description: >
           Données géographiques INSEE des régions françaises.
           Une ligne par région.
         columns:
-          - name: reg
-            description: Code région
-            tests:
-              - unique
-              - not_null
-            data_type: character varying
-          - name: cheflieu
-            description: ''
-            data_type: character varying
-          - name: tncc
-            description: ''
-            data_type: character varying
-          - name: ncc
-            description: ''
-            data_type: character varying
-          - name: nccenr
-            description: ''
-            data_type: character varying
-          - name: libelle
-            description: ''
-            data_type: character varying
+          - name: REG
+            data_type: String
+          - name: CHEFLIEU
+            data_type: String
+          - name: TNCC
+            data_type: UInt8
+          - name: NCC
+            data_type: String
+          - name: NCCENR
+            data_type: String
+          - name: LIBELLE
+            data_type: String
       - name: stock_etablissement
         description: >
           Données des établissements français.
           Une ligne par établissement.
         columns:
           - name: siren
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: nic
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: siret
             description: Code région
             tests:
               - unique
               - not_null
-            data_type: character varying
+            data_type: string
           - name: statutDiffusionEtablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: dateCreationEtablissement
-            description: ''
             data_type: date
           - name: trancheEffectifsEtablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: anneeEffectifsEtablissement
-            description: ''
-            data_type: character varying
+            data_type: int16
           - name: activitePrincipaleRegistreMetiersEtablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: dateDernierTraitementEtablissement
-            description: ''
-            data_type: timestamp without time zone
+            data_type: datetime
           - name: etablissementSiege
-            description: ''
-            data_type: boolean
+            data_type: bool
           - name: nombrePeriodesEtablissement
-            description: ''
-            data_type: integer
+            data_type: uint8
           - name: complementAdresseEtablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: numeroVoieEtablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: indiceRepetitionEtablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: dernierNumeroVoieEtablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: indiceRepetitionDernierNumeroVoieEtablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: typeVoieEtablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: libelleVoieEtablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: codePostalEtablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: libelleCommuneEtablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: libelleCommuneEtrangerEtablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: distributionSpecialeEtablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: codeCommuneEtablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: codeCedexEtablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: libelleCedexEtablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: codePaysEtrangerEtablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: libellePaysEtrangerEtablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: identifiantAdresseEtablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: coordonneeLambertAbscisseEtablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: coordonneeLambertOrdonneeEtablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: complementAdresse2Etablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: numeroVoie2Etablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: indiceRepetition2Etablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: typeVoie2Etablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: libelleVoie2Etablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: codePostal2Etablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: libelleCommune2Etablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: libelleCommuneEtranger2Etablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: distributionSpeciale2Etablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: codeCommune2Etablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: codeCedex2Etablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: libelleCedex2Etablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: codePaysEtranger2Etablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: libellePaysEtranger2Etablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: dateDebut
-            description: ''
             data_type: date
           - name: etatAdministratifEtablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: enseigne1Etablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: enseigne2Etablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: enseigne3Etablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: denominationUsuelleEtablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: activitePrincipaleEtablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: nomenclatureActivitePrincipaleEtablissement
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: caractereEmployeurEtablissement
-            description: ''
-            data_type: character varying
+            data_type: string
       - name: code_territoires_outre_mer
-        description: >
+        description: >-
           Code géographique pour les collectivités et terrtioitres d'Outre-Mer.
+        columns:
+          - name: COM_COMER
+            data_type: String
+          - name: TNCC
+            data_type: UInt8
+          - name: NCC
+            data_type: String
+          - name: NCCENR
+            data_type: String
+          - name: LIBELLE
+            data_type: String
+          - name: NATURE_ZONAGE
+            data_type: String
+          - name: COMER
+            data_type: String
+          - name: LIBELLE_COMER
+            data_type: String

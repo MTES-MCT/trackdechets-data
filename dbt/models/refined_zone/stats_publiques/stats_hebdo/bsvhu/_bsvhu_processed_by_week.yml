@@ -5,24 +5,16 @@ models:
       materialized: table
     columns:
       - name: semaine
-        description: ''
         data_type: date
       - name: traitements
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: quantite_traitee
-        description: ''
-        data_type: numeric
+        data_type: float64
       - name: traitements_operations_non_finales
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: quantite_traitee_operations_non_finales
-        description: ''
-        data_type: numeric
+        data_type: float64
       - name: traitements_operations_finales
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: quantite_traitee_operations_finales
-        description: ''
-        data_type: numeric
-sources: []
+        data_type: float64

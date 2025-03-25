@@ -5,15 +5,10 @@ models:
       materialized: table
     columns:
       - name: semaine
-        description: ''
-        data_type: timestamp without time zone
+        data_type: date
       - name: emissions_bordereaux
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: emissions_contenants
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: quantite_emise
-        description: ''
-        data_type: numeric
-sources: []
+        data_type: float64

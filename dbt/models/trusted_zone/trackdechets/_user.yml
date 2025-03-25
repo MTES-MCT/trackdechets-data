@@ -9,39 +9,29 @@ models:
       - elementary.volume_anomalies
     columns:
       - name: id
-        description: "Clé primaire"
-        data_type: text
+        description: Clé primaire
+        data_type: string
       - name: email
-        description: ""
-        data_type: text
+        data_type: string
+      - name: password
+        data_type: String
       - name: name
-        description: ""
-        data_type: text
+        data_type: string
       - name: phone
-        description: ""
-        data_type: text
+        data_type: string
       - name: created_at
-        description: ""
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: updated_at
-        description: ""
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: is_active
-        description: ""
-        data_type: boolean
+        data_type: bool
       - name: activated_at
-        description: ""
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: first_association_date
-        description: ""
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: is_admin
-        description: ""
-        data_type: boolean
-      - name: is_registre_national
-        description: ""
-        data_type: boolean
+        data_type: bool
+      - name: password_version
+        data_type: Int256
       - name: government_account_id
-        description: ''
-        data_type: text
-sources: []
+        data_type: string

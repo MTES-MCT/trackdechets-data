@@ -7,9 +7,6 @@ models:
       materialized: table
     columns:
       - name: semaine
-        description: ''
-        data_type: timestamp without time zone
+        data_type: date
       - name: creations
-        description: ''
-        data_type: bigint
-sources: []
+        data_type: uint64

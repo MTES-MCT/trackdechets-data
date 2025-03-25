@@ -3,158 +3,106 @@ models:
   - name: texs_sortant
     columns:
       - name: id
-        description: ''
-        data_type: bigint
+        data_type: int256
       - name: created_year_utc
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: code_dechet
-        description: ''
-        data_type: character varying
-      - name: created_date
-        description: ''
-        data_type: timestamp with time zone
+        data_type: string
+      - name: r.created_date
+        data_type: DateTime64(6, 'Europe/Paris')
       - name: date_expedition
-        description: ''
         data_type: date
       - name: denomination_usuelle
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: identifiant_terrain_sis
-        description: ''
-        data_type: character varying
-      - name: last_modified_date
-        description: ''
-        data_type: timestamp with time zone
+        data_type: string
+      - name: r.last_modified_date
+        data_type: DateTime64(6, 'Europe/Paris')
       - name: numero_document
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: numero_notification
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: numero_saisie
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: quantite
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 9)
       - name: is_tex_pop
-        description: ''
-        data_type: boolean
+        data_type: bool
       - name: code_traitement
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: etablissement_id
-        description: ''
-        data_type: bigint
+        data_type: int256
       - name: etablissement_numero_identification
-        description: ''
-        data_type: character varying
-      - name: created_by_id
-        description: ''
-        data_type: bigint
-      - name: last_modified_by_id
-        description: ''
-        data_type: bigint
+        data_type: string
+      - name: r.created_by_id
+        data_type: Int256
+      - name: r.last_modified_by_id
+        data_type: Int256
       - name: code_unite
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: numero_bordereau
-        description: ''
-        data_type: character varying
-      - name: public_id
-        description: ''
-        data_type: character varying
+        data_type: string
+      - name: r.public_id
+        data_type: String
       - name: coordonnees_geographiques
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: coordonnees_geographiques_valorisee
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: qualification_code
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: delegation_id
-        description: ''
-        data_type: bigint
+        data_type: int256
       - name: origine
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: code_dechet_bale
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: identifiant_metier
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: canceled_by_id
-        description: ''
-        data_type: bigint
+        data_type: int256
       - name: canceled_comment
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: canceled_date
-        description: ''
-        data_type: timestamp with time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: import_id
-        description: ''
-        data_type: bigint
+        data_type: int256
       - name: producteur_type
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: producteur_numero_identification
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: producteur_raison_sociale
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: producteur_adresse_libelle
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: producteur_adresse_commune
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: producteur_adresse_code_postal
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: producteur_adresse_pays
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: destinataire_type
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: destinataire_numero_identification
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: destinataire_raison_sociale
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: destinataire_adresse_destination
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: destinataire_adresse_libelle
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: destinataire_adresse_commune
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: destinataire_adresse_code_postal
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: destinataire_adresse_pays
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: courtier_type
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: courtier_numero_identification
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: courtier_raison_sociale
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: courtier_numero_recepisse
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: numeros_indentification_transporteurs
-        description: ''
-        data_type: ARRAY
+        data_type: Array(String)
