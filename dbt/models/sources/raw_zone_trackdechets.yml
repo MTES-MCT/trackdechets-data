@@ -2076,3 +2076,8 @@ sources:
             data_type: text
           - name: initialWasteCode
             data_type: text
+      - name: worker_certification
+        identifier: WorkerCertification
+        description: >-
+          Table listant les certification détenues les entreprises de travaux.
+        columns: []
