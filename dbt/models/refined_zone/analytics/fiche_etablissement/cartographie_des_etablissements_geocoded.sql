@@ -9,6 +9,8 @@ select
 	profils,
 	profils_collecteur,
 	profils_installation,
+    worker_company_has_sub_section_four,
+    worker_company_has_sub_section_three,
 	bsdd,
 	bsdd_emitter,
 	bsdd_transporter,

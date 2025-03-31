@@ -198,6 +198,8 @@ joined as (
         c.company_types                      as profils,
         c.collector_types                    as profils_collecteur,
         c.waste_processor_types              as profils_installation,
+        wc.has_sub_section_four              as worker_company_has_sub_section_four,
+        wc.has_sub_section_three             as worker_company_has_sub_section_three,
         se.code_commune_etablissement        as code_commune_insee,
         cgc.code_departement                 as code_departement_insee,
         cgc.code_region                      as code_region_insee,
@@ -225,6 +227,7 @@ joined as (
     left join {{ ref('etablissements_texs_dd') }} as et on s.siret = et.siret
     left join {{ ref("stock_etablissement") }} as se on s.siret = se.siret
     left join {{ ref("company") }} as c on s.siret = c.siret
+    left join {{ ref('worker_certification') }} wc on wc.id=c.worker_certification_id
     left join
         {{ ref("code_geo_communes") }} as cgc
         on
@@ -238,6 +241,8 @@ select
     profils,
     profils_collecteur,
     profils_installation,
+    worker_company_has_sub_section_four,
+    worker_company_has_sub_section_three,
     bsdd,
     bsdd_emitter,
     bsdd_transporter,
