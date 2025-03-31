@@ -9,47 +9,129 @@
 
 with stats as (
     select
-        sbs.`siret` as siret,
-        sbs.processing_operations_as_destination_bsdd
-            as processing_operations_bsdd,
-        sbs.processing_operations_as_destination_bsdnd
-            as processing_operations_bsdnd,
-        sbs.processing_operations_as_destination_bsda
-            as processing_operations_bsda,
-        sbs.processing_operations_as_destination_bsff
-            as processing_operations_bsff,
-        sbs.processing_operations_as_destination_bsdasri
-            as processing_operations_bsdasri,
-        sbs.processing_operations_as_destination_bsvhu
-            as processing_operations_bsvhu,
-        sbs.dnd_processing_operations_as_destination
-            as processing_operation_dnd,
-        sbs.texs_processing_operations_as_destination
-            as processing_operation_texs,
-        sbs.num_bsdd_as_emitter > 0
-        or sbs.num_bsdd_as_transporter > 0
-        or sbs.num_bsdd_as_destination > 0               as bsdd,
-        sbs.num_bsdnd_as_emitter > 0
-        or sbs.num_bsdnd_as_transporter > 0
-        or sbs.num_bsdnd_as_destination > 0              as bsdnd,
-        sbs.num_bsda_as_emitter > 0
-        or sbs.num_bsda_as_transporter > 0
-        or sbs.num_bsda_as_destination > 0               as bsda,
-        sbs.num_bsff_as_emitter > 0
-        or sbs.num_bsff_as_transporter > 0
-        or sbs.num_bsff_as_destination > 0               as bsff,
-        sbs.num_bsdasri_as_emitter > 0
-        or sbs.num_bsdasri_as_transporter > 0
-        or sbs.num_bsdasri_as_destination > 0            as bsdasri,
-        sbs.num_bsvhu_as_emitter > 0
-        or sbs.num_bsvhu_as_transporter > 0
-        or sbs.num_bsvhu_as_destination > 0              as bsvhu,
-        sbs.num_dnd_statements_as_destination > 0
-        or sbs.num_dnd_statements_as_emitter > 0         as dnd,
-        sbs.num_texs_statements_as_destination > 0
-        or sbs.num_texs_statements_as_emitter > 0        as texs,
-        sbs.num_ssd_statements_as_destination > 0        as ssd,
-        sbs.num_pnttd_statements_as_destination > 0      as pnttd
+        sbs.siret,
+        sbs.processing_operations_as_destination_bsdd as processing_operations_bsdd,
+        sbs.processing_operations_as_destination_bsdnd as processing_operations_bsdnd,
+        sbs.processing_operations_as_destination_bsda as processing_operations_bsda,
+        sbs.processing_operations_as_destination_bsff as processing_operations_bsff,
+        sbs.processing_operations_as_destination_bsdasri as processing_operations_bsdasri,
+        sbs.processing_operations_as_destination_bsvhu as processing_operations_bsvhu,
+        sbs.dnd_processing_operations_as_destination as processing_operation_dnd,
+        sbs.texs_processing_operations_as_destination as processing_operation_texs,
+        sbs.waste_codes_as_destination as waste_codes_bordereaux,
+        sbs.dnd_waste_codes_as_destination as waste_codes_dnd_statements,
+        sbs.texs_waste_codes_as_destination as waste_codes_texs_statements,
+        arrayConcat(sbs.waste_codes_as_destination,sbs.dnd_waste_codes_as_destination,sbs.texs_waste_codes_as_destination) as waste_codes_processed,
+        coalesce(
+            sbs.num_bsdd_as_emitter > 0, false
+        ) as bsdd_emitter,
+        coalesce(
+            sbs.num_bsdd_as_transporter > 0, false
+        ) as bsdd_transporter,
+        coalesce(
+            sbs.num_bsdd_as_destination > 0, false
+        ) as bsdd_destination,
+        coalesce(
+            sbs.num_bsdd_as_emitter > 0
+            or sbs.num_bsdd_as_transporter > 0
+            or sbs.num_bsdd_as_destination > 0, false
+        ) as bsdd,
+        coalesce(
+            sbs.num_bsdnd_as_emitter > 0, false
+        ) as bsdnd_emitter,
+        coalesce(
+            sbs.num_bsdnd_as_transporter > 0, false
+        ) as bsdnd_transporter,
+        coalesce(
+            sbs.num_bsdnd_as_destination > 0, false
+        ) as bsdnd_destination,
+        coalesce(
+            sbs.num_bsdnd_as_emitter > 0
+            or sbs.num_bsdnd_as_transporter > 0
+            or sbs.num_bsdnd_as_destination > 0, false
+        ) as bsdnd,
+        coalesce(
+            sbs.num_bsda_as_emitter > 0, false
+        ) as bsda_emitter,
+        coalesce(
+            sbs.num_bsda_as_transporter > 0, false
+        ) as bsda_transporter,
+        coalesce(
+            sbs.num_bsda_as_destination > 0, false
+        ) as bsda_destination,
+        coalesce(
+            sbs.num_bsda_as_emitter > 0
+            or sbs.num_bsda_as_transporter > 0
+            or sbs.num_bsda_as_destination > 0, false
+        ) as bsda,
+        coalesce(
+            sbs.num_bsff_as_emitter > 0, false
+        ) as bsff_emitter,
+        coalesce(
+            sbs.num_bsff_as_transporter > 0, false
+        ) as bsff_transporter,
+        coalesce(
+            sbs.num_bsff_as_destination > 0, false
+        ) as bsff_destination,
+        coalesce(
+            sbs.num_bsff_as_emitter > 0
+            or sbs.num_bsff_as_transporter > 0
+            or sbs.num_bsff_as_destination > 0, false
+        ) as bsff,
+        coalesce(
+            sbs.num_bsdasri_as_emitter > 0, false
+        ) as bsdasri_emitter,
+        coalesce(
+            sbs.num_bsdasri_as_transporter > 0, false
+        ) as bsdasri_transporter,
+        coalesce(
+            sbs.num_bsdasri_as_destination > 0, false
+        ) as bsdasri_destination,
+        coalesce(
+            sbs.num_bsdasri_as_emitter > 0
+            or sbs.num_bsdasri_as_transporter > 0
+            or sbs.num_bsdasri_as_destination > 0, false
+        ) as bsdasri,
+        coalesce(
+            sbs.num_bsvhu_as_emitter > 0, false
+        ) as bsvhu_emitter,
+        coalesce(
+            sbs.num_bsvhu_as_transporter > 0, false
+        ) as bsvhu_transporter,
+        coalesce(
+            sbs.num_bsvhu_as_destination > 0, false
+        ) as bsvhu_destination,
+        coalesce(
+            sbs.num_bsvhu_as_emitter > 0
+            or sbs.num_bsvhu_as_transporter > 0
+            or sbs.num_bsvhu_as_destination > 0, false
+        ) as bsvhu,
+        coalesce(
+            sbs.num_dnd_statements_as_emitter > 0, false
+        ) as dnd_emitter,
+        coalesce(
+            sbs.num_texs_statements_as_destination > 0, false
+        ) as dnd_destination,
+        coalesce(
+            sbs.num_dnd_statements_as_destination > 0
+            or sbs.num_dnd_statements_as_emitter > 0, false
+        ) as dnd,
+        coalesce(
+            sbs.num_texs_statements_as_destination > 0, false
+        ) as texs_destination,
+        coalesce(
+            sbs.num_texs_statements_as_emitter > 0, false
+        ) as texs_emitter,
+        coalesce(
+            sbs.num_texs_statements_as_destination > 0
+            or sbs.num_texs_statements_as_emitter > 0, false
+        ) as texs,
+        coalesce(
+            sbs.num_ssd_statements_as_emitter > 0, false
+        ) as ssd,
+        coalesce(
+            sbs.num_pnttd_statements_as_destination > 0, false
+        ) as pnttd
     from {{ ref('statistics_by_siret') }} as sbs
     where char_length(sbs.siret) = 14
 ),
@@ -65,14 +147,52 @@ joined as (
         s.processing_operations_bsvhu,
         s.processing_operation_dnd,
         s.processing_operation_texs,
+        s.waste_codes_bordereaux,
+        s.waste_codes_dnd_statements,
+        s.waste_codes_texs_statements,
+        s.waste_codes_processed,
         s.bsdd,
+        s.bsdd_emitter,
+        s.bsdd_transporter,
+        s.bsdd_destination,
         s.bsdnd,
+        s.bsdnd_emitter,
+        s.bsdnd_transporter,
+        s.bsdnd_destination,
         s.bsda,
+        s.bsda_emitter,
+        s.bsda_transporter,
+        s.bsda_destination,
         s.bsff,
+        s.bsff_emitter,
+        s.bsff_transporter,
+        s.bsff_destination,
         s.bsdasri,
+        s.bsdasri_emitter,
+        s.bsdasri_transporter,
+        s.bsdasri_destination,
         s.bsvhu,
+        s.bsvhu_emitter,
+        s.bsvhu_transporter,
+        s.bsvhu_destination,
+        coalesce(et.num_texs_dd_as_emitter > 0, false) as texs_dd_emitter,
+        coalesce(
+            et.num_texs_dd_as_transporter > 0, false
+        )                                              as texs_dd_transporter,
+        coalesce(
+            et.num_texs_dd_as_destination > 0, false
+        )                                              as texs_dd_destination,
+        coalesce(
+            et.num_texs_dd_as_emitter > 0
+            or et.num_texs_dd_as_transporter > 0
+            or et.num_texs_dd_as_destination > 0, false
+        )                                              as texs_dd,
         s.dnd,
+        s.dnd_emitter,
+        s.dnd_destination,
         s.texs,
+        s.texs_destination,
+        s.texs_emitter,
         s.ssd,
         s.pnttd,
         c.company_types                      as profils,
@@ -84,9 +204,6 @@ joined as (
         c.address                            as adresse_td,
         c.latitude                           as latitude_td,
         c.longitude                          as longitude_td,
-        et.num_texs_dd_as_emitter > 0
-        or et.num_texs_dd_as_transporter > 0
-        or et.num_texs_dd_as_destination > 0 as texs_dd,
         nullif(
             coalesce(se.complement_adresse_etablissement || ' ', '')
             || coalesce(se.numero_voie_etablissement || ' ', '')
@@ -122,14 +239,39 @@ select
     profils_collecteur,
     profils_installation,
     bsdd,
+    bsdd_emitter,
+    bsdd_transporter,
+    bsdd_destination,
     bsdnd,
+    bsdnd_emitter,
+    bsdnd_transporter,
+    bsdnd_destination,
     bsda,
+    bsda_emitter,
+    bsda_transporter,
+    bsda_destination,
     bsff,
+    bsff_emitter,
+    bsff_transporter,
+    bsff_destination,
     bsdasri,
+    bsdasri_emitter,
+    bsdasri_transporter,
+    bsdasri_destination,
     bsvhu,
+    bsvhu_emitter,
+    bsvhu_transporter,
+    bsvhu_destination,
     texs_dd,
+    texs_dd_emitter,
+    texs_dd_transporter,
+    texs_dd_destination,
     dnd,
+    dnd_emitter,
+    dnd_destination,
     texs,
+    texs_destination,
+    texs_emitter,
     ssd,
     pnttd,
     processing_operations_bsdd,
@@ -140,11 +282,15 @@ select
     processing_operations_bsvhu,
     processing_operation_dnd,
     processing_operation_texs,
+    waste_codes_bordereaux,
+    waste_codes_dnd_statements,
+    waste_codes_texs_statements,
+    waste_codes_processed,
     code_commune_insee,
     code_departement_insee,
     code_region_insee,
     adresse_td,
     adresse_insee,
     latitude_td,
-    longitude_td,
+    longitude_td
 from joined
