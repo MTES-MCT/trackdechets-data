@@ -56,7 +56,7 @@ WITH emitter_counts AS (
         )                     AS last_bordereau_created_at_as_emitter,
         ARRAY_AGG(
             DISTINCT processing_operation
-        )                     AS processing_operations_as_emitter
+        ) filter (where processing_operation is not null)                  AS processing_operations_as_emitter
     FROM
         {{ ref('bordereaux_enriched') }}
     GROUP BY
@@ -143,31 +143,36 @@ destination_counts AS (
             WHERE
             _bs_type = 'BSDD'
             AND ({{ dangerous_waste_filter('bordereaux_enriched') }})
-        )                         AS processing_operations_as_destination_bsdd,
+            AND processing_operation is not null
+        )                        AS processing_operations_as_destination_bsdd,
         groupArray(
             DISTINCT processing_operation
         ) FILTER (
             WHERE
             _bs_type = 'BSDD'
             AND NOT ({{ dangerous_waste_filter('bordereaux_enriched') }})
+            AND processing_operation is not null
         )                         AS processing_operations_as_destination_bsdnd,
         groupArray(
             DISTINCT processing_operation
         ) FILTER (
             WHERE
             _bs_type = 'BSDA'
+            AND processing_operation is not null
         )                         AS processing_operations_as_destination_bsda,
         groupArray(
             DISTINCT processing_operation
         ) FILTER (
             WHERE
             _bs_type = 'BSFF'
+            AND processing_operation is not null
         )                         AS processing_operations_as_destination_bsff,
         groupArray(
             DISTINCT processing_operation
         ) FILTER (
             WHERE
             _bs_type = 'BSDASRI'
+            AND processing_operation is not null
         )
             AS processing_operations_as_destination_bsdasri,
         groupArray(
@@ -175,10 +180,11 @@ destination_counts AS (
         ) FILTER (
             WHERE
             _bs_type = 'BSVHU'
+            AND processing_operation is not null
         )                         AS processing_operations_as_destination_bsvhu,
         groupArray(
             DISTINCT waste_code
-        )                         AS waste_codes_as_destination
+        ) filter (where waste_code is not null)                         AS waste_codes_as_destination
     FROM
         {{ ref('bordereaux_enriched') }}
     GROUP BY

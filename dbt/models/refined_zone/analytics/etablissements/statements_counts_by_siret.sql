@@ -20,7 +20,7 @@ with dnd_entrant_stats as (
             as volume_dnd_statements_as_destination,
         array_agg(
             distinct code_traitement
-        )
+        ) filter (where code_traitement is not null)
             as dnd_processing_operations_as_destination,
         array_agg(distinct code_dechet)     as dnd_waste_codes_as_destination
     from {{ ref('dnd_entrant') }}
