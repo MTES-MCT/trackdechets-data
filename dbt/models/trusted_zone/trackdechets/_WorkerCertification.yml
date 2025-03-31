@@ -1,0 +1,16 @@
+version: 2
+models:
+  - name: WorkerCertification
+    columns:
+      - name: id
+        data_type: String
+      - name: has_sub_section_four
+        data_type: Bool
+      - name: has_sub_section_three
+        data_type: Bool
+      - name: certification_number
+        data_type: String
+      - name: validity_limit
+        data_type: DateTime64(6, 'Europe/Paris')
+      - name: organisation
+        data_type: String

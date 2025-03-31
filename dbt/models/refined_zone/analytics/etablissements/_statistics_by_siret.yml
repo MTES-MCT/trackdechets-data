@@ -27,6 +27,8 @@ models:
         data_type: Array(String)
       - name: processing_operations_as_destination_bsvhu
         data_type: Array(String)
+      - name: waste_codes_as_destination
+        data_type: Array(String)
       - name: num_bsdd_as_emitter
         data_type: uint64
       - name: num_bsdnd_as_emitter
@@ -107,6 +109,10 @@ models:
         data_type: Array(String)
       - name: texs_processing_operations_as_destination
         data_type: Array(String)
+      - name: dnd_waste_codes_as_destination
+        data_type: Array(String)
+      - name: texs_waste_codes_as_destination
+        data_type: Array(String)
       - name: num_dnd_statements_as_destination
         data_type: uint64
       - name: quantity_dnd_statements_as_destination
@@ -143,12 +149,12 @@ models:
         data_type: decimal(76, 9)
       - name: volume_texs_statements_as_transporteur
         data_type: decimal(76, 9)
-      - name: num_ssd_statements_as_destination
-        data_type: uint64
-      - name: quantity_ssd_statements_as_destination
-        data_type: decimal(76, 9)
-      - name: volume_ssd_statements_as_destination
-        data_type: decimal(76, 9)
+      - name: num_ssd_statements_as_emitter
+        data_type: UInt64
+      - name: quantity_ssd_statements_as_emitter
+        data_type: Decimal(76, 9)
+      - name: volume_ssd_statements_as_emitter
+        data_type: Decimal(76, 9)
       - name: num_pnttd_statements_as_emitter
         data_type: uint64
       - name: quantity_pnttd_as_emitter

@@ -27,6 +27,8 @@ models:
         data_type: Array(String)
       - name: processing_operations_as_destination_bsvhu
         data_type: Array(String)
+      - name: waste_codes_as_destination
+        data_type: Array(String)
       - name: num_bsdd_as_emitter
         data_type: uint64
       - name: num_bsdnd_as_emitter

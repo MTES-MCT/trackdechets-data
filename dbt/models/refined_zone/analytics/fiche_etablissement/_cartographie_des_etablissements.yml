@@ -33,22 +33,72 @@ models:
         data_type: array(string)
       - name: bsdd
         data_type: uint8
+      - name: bsdd_emitter
+        data_type: UInt8
+      - name: bsdd_transporter
+        data_type: UInt8
+      - name: bsdd_destination
+        data_type: UInt8
       - name: bsdnd
         data_type: uint8
+      - name: bsdnd_emitter
+        data_type: UInt8
+      - name: bsdnd_transporter
+        data_type: UInt8
+      - name: bsdnd_destination
+        data_type: UInt8
       - name: bsda
         data_type: uint8
+      - name: bsda_emitter
+        data_type: UInt8
+      - name: bsda_transporter
+        data_type: UInt8
+      - name: bsda_destination
+        data_type: UInt8
       - name: bsff
         data_type: uint8
+      - name: bsff_emitter
+        data_type: UInt8
+      - name: bsff_transporter
+        data_type: UInt8
+      - name: bsff_destination
+        data_type: UInt8
       - name: bsdasri
         data_type: uint8
+      - name: bsdasri_emitter
+        data_type: UInt8
+      - name: bsdasri_transporter
+        data_type: UInt8
+      - name: bsdasri_destination
+        data_type: UInt8
       - name: bsvhu
         data_type: uint8
+      - name: bsvhu_emitter
+        data_type: UInt8
+      - name: bsvhu_transporter
+        data_type: UInt8
+      - name: bsvhu_destination
+        data_type: UInt8
       - name: texs_dd
         data_type: uint8
+      - name: texs_dd_emitter
+        data_type: UInt8
+      - name: texs_dd_transporter
+        data_type: UInt8
+      - name: texs_dd_destination
+        data_type: UInt8
       - name: dnd
         data_type: uint8
+      - name: dnd_emitter
+        data_type: UInt8
+      - name: dnd_destination
+        data_type: UInt8
       - name: texs
         data_type: uint8
+      - name: texs_destination
+        data_type: UInt8
+      - name: texs_emitter
+        data_type: UInt8
       - name: ssd
         data_type: uint8
       - name: pnttd
@@ -69,6 +119,14 @@ models:
         data_type: array(string)
       - name: processing_operation_texs
         data_type: array(string)
+      - name: waste_codes_bordereaux
+        data_type: Array(String)
+      - name: waste_codes_dnd_statements
+        data_type: Array(String)
+      - name: waste_codes_texs_statements
+        data_type: Array(String)
+      - name: waste_codes_processed
+        data_type: Array(String)
       - name: code_commune_insee
         description: >-
           Code commune correspondant à celui dans la base géographique des communes de l'INSEE.

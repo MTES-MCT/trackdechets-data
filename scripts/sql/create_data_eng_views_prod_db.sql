@@ -904,3 +904,17 @@ AS SELECT "VhuAgrement".id,
     "VhuAgrement"."agrementNumber",
     "VhuAgrement".department
    FROM "default$default"."VhuAgrement";
+
+
+
+-- data_eng."WorkerCertification" source
+
+CREATE OR REPLACE VIEW data_eng."WorkerCertification"
+AS SELECT
+	id,
+	"hasSubSectionFour",
+	"hasSubSectionThree",
+	"certificationNumber",
+	"validityLimit",
+	organisation
+FROM "default$default"."WorkerCertification";
