@@ -24,6 +24,10 @@ docker network create data_external_network
 docker compose up
 ```
 
+## Dépendances Python
+
+L'image Airflow utilisée installe les dépendances présente dans le fichier `requirements.txt`. Pour que Airflow puisse utiliser de nouvelles dépendances Python, il faut ajouter les bibliothèques Python voulues dans ce fichier.
+
 ## Connections Airflow
 
 Les DAGs contenus dans ce projet nécessitent une connection de type `generic` nommée `td_datawarehouse`. Elle permet de se connecter à la base ClickHouse.
