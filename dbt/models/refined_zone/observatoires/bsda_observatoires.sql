@@ -1,3 +1,13 @@
+{{
+  config(
+    materialized = 'table',
+    query_settings = {
+        "join_algorithm":"'grace_hash'",
+        "grace_hash_join_initial_buckets":8
+    }
+    )
+}}
+
 with transporters as (
     select
         bsda_id,

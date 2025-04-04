@@ -1,6 +1,6 @@
 services:
   clickhouse:
-    image: clickhouse:24.12
+    image: clickhouse:25.3.2
     ports:
       - "127.0.0.1:${HTTP_PORT:-9000}:${HTTP_PORT:-9000}"
       - "127.0.0.1:${PORT:-8123}:${PORT:-8123}"

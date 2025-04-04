@@ -1,3 +1,13 @@
+{{
+  config(
+    materialized = 'table',
+    query_settings = {
+        "join_algorithm":"'grace_hash'",
+        "grace_hash_join_initial_buckets":16
+    }
+    )
+}}
+
 select
     id,
     created_at                                       as date_creation,
