@@ -86,7 +86,7 @@ datagouv_dataset_id = Variable.get("DATAGOUV_STATS_PUBLIQUES_DATASET_ID")
 
 @dag(
     start_date=datetime(2023, 6, 26, 12),
-    schedule_interval=timedelta(days=7),
+    schedule_interval="0 8 * * 1",
     catchup=False,
     on_failure_callback=send_alert_to_mattermost,
 )
