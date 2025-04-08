@@ -54,6 +54,9 @@ with stats as (
             sbs.num_bsda_as_emitter > 0, false
         ) as bsda_emitter,
         coalesce(
+            sbs.num_bsda_as_worker > 0, false
+        ) as bsda_worker,
+        coalesce(
             sbs.num_bsda_as_transporter > 0, false
         ) as bsda_transporter,
         coalesce(
@@ -61,6 +64,7 @@ with stats as (
         ) as bsda_destination,
         coalesce(
             sbs.num_bsda_as_emitter > 0
+            or sbs.num_bsda_as_worker > 0
             or sbs.num_bsda_as_transporter > 0
             or sbs.num_bsda_as_destination > 0, false
         ) as bsda,
@@ -161,6 +165,7 @@ joined as (
         s.bsdnd_destination,
         s.bsda,
         s.bsda_emitter,
+        s.bsda_worker,
         s.bsda_transporter,
         s.bsda_destination,
         s.bsff,
@@ -253,6 +258,7 @@ select
     bsdnd_destination,
     bsda,
     bsda_emitter,
+    bsda_worker,
     bsda_transporter,
     bsda_destination,
     bsff,

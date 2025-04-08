@@ -21,6 +21,7 @@ select
 	bsdnd_destination,
 	bsda,
 	bsda_emitter,
+	bsda_worker,
 	bsda_transporter,
 	bsda_destination,
 	bsff,

@@ -191,11 +191,38 @@ destination_counts AS (
         destination_company_siret
 ),
 
+worker_counts as (
+    SELECT
+        worker_company_siret AS siret,                    
+        countIf(id,
+            _bs_type = 'BSDA'
+        )                         AS num_bsda_as_worker,
+        SUM(quantity_received) FILTER (
+            WHERE
+            _bs_type = 'BSDA'
+        )                         AS quantity_bsda_as_worker,
+        MAX(
+            created_at
+        )                         AS last_bordereau_created_at_as_worker,
+        groupArray(
+            DISTINCT processing_operation
+        ) FILTER (
+            WHERE
+            _bs_type = 'BSDA'
+            AND processing_operation is not null
+        )                         AS processing_operations_as_worker
+    FROM
+        {{ ref('bordereaux_enriched') }}
+    GROUP BY
+        worker_company_siret
+),
+
 full_ AS (
     SELECT
         last_bordereau_created_at_as_emitter,
         last_bordereau_created_at_as_transporter,
         last_bordereau_created_at_as_destination,
+        last_bordereau_created_at_as_worker,
         processing_operations_as_emitter,
         processing_operations_as_transporter,
         processing_operations_as_destination_bsdd,
@@ -204,6 +231,7 @@ full_ AS (
         processing_operations_as_destination_bsff,
         processing_operations_as_destination_bsdasri,
         processing_operations_as_destination_bsvhu,
+        processing_operations_as_worker,
         waste_codes_as_destination,
         COALESCE(
             emitter_counts.siret,
@@ -326,6 +354,9 @@ full_ AS (
             destination_counts.num_bsvhu_as_destination, 0
         ) AS num_bsvhu_as_destination,
         COALESCE(
+            worker_counts.num_bsda_as_worker, 0
+        ) AS num_bsda_as_worker,
+        COALESCE(
             destination_counts.quantity_bsdd_as_destination,
             0
         ) AS quantity_bsdd_as_destination,
@@ -362,13 +393,20 @@ full_ AS (
         ON
             COALESCE(emitter_counts.siret, transporter_counts.siret)
             = destination_counts.siret
+    FULL
+    OUTER JOIN
+        worker_counts
+        ON
+            COALESCE(emitter_counts.siret, transporter_counts.siret, destination_counts.siret)
+            = worker_counts.siret
     FULL OUTER JOIN
         {{ ref('company') }} AS c
         ON
             COALESCE(
                 emitter_counts.siret,
                 transporter_counts.siret,
-                destination_counts.siret
+                destination_counts.siret,
+                worker_counts.siret
             )
             = c.siret
 )
@@ -378,6 +416,7 @@ SELECT
     last_bordereau_created_at_as_emitter,
     last_bordereau_created_at_as_transporter,
     last_bordereau_created_at_as_destination,
+    last_bordereau_created_at_as_worker,
     processing_operations_as_emitter,
     processing_operations_as_transporter,
     processing_operations_as_destination_bsdd,
@@ -386,6 +425,7 @@ SELECT
     processing_operations_as_destination_bsff,
     processing_operations_as_destination_bsdasri,
     processing_operations_as_destination_bsvhu,
+    processing_operations_as_worker,
     waste_codes_as_destination,
     num_bsdd_as_emitter,
     num_bsdnd_as_emitter,
@@ -405,6 +445,7 @@ SELECT
     num_bsff_as_transporter,
     num_bsdasri_as_transporter,
     num_bsvhu_as_transporter,
+    num_bsda_as_worker,
     quantity_bsdd_as_transporter,
     quantity_bsdnd_as_transporter,
     quantity_bsda_as_transporter,
@@ -426,7 +467,8 @@ SELECT
     GREATEST(
         last_bordereau_created_at_as_emitter,
         last_bordereau_created_at_as_transporter,
-        last_bordereau_created_at_as_destination
+        last_bordereau_created_at_as_destination,
+        last_bordereau_created_at_as_worker
     )                          AS last_bordereau_created_at,
     num_bsdd_as_emitter
     + num_bsdnd_as_emitter
