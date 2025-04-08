@@ -19,7 +19,7 @@ from etl_insee.schemas.cog import (
     CODE_REGION_DDL,
     CODE_TERRITOIRES_OUTRE_MER_DDL,
 )
-from utils.alerting import send_alert_to_mattermost
+from dags_utils.alerting import send_alert_to_mattermost
 
 logging.basicConfig()
 logger = logging.getLogger(__name__)

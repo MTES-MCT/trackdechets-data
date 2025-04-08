@@ -12,7 +12,7 @@ from airflow.utils.trigger_rule import TriggerRule
 import clickhouse_connect
 from clickhouse_connect.driver.tools import insert_file
 
-from utils.alerting import send_alert_to_mattermost
+from dags_utils.alerting import send_alert_to_mattermost
 from etl_insee.schemas.stock_etablissement import STOCK_ETABLISSEMENT_DDL
 
 logging.basicConfig()

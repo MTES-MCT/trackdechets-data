@@ -26,7 +26,7 @@ docker compose up
 
 ## Dépendances Python
 
-L'image Airflow utilisée installe les dépendances présente dans le fichier `requirements.txt`. Pour que Airflow puisse utiliser de nouvelles dépendances Python, il faut ajouter les bibliothèques Python voulues dans ce fichier.
+L'image Airflow utilisée installe les dépendances présente dans le fichier `requirements.txt`. Pour que Airflow puisse utiliser de nouvelles dépendances Python, il faut ajouter les bibliothèques Python voulues dans ce fichier. En cas de modification de ces dépendances, il faut faire un nouveau build docker : `docker compose up --build`.
 
 ## Connections Airflow
 
@@ -55,7 +55,11 @@ Ce DAG est utilisé afin de géocoder les établissements présent dans les donn
 
 ### `open_data`
 
-Les deux DAGs de ce dossier sont ceux qui permettent la publication des données open-data sur `data.gouv.fr`
+Les deux DAGs de ce dossier sont ceux qui permettent la publication des données open-data sur `data.gouv.fr`.
+
+### `open_data`
+
+Contient les DAGs qui indexent les données de la base SIRENE (stock-etablissement et unite-legale) dans l'Elastic Search Trackdechets de production dédiée à ces deux bases.
 
 ### `utils`
 

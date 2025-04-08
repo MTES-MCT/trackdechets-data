@@ -5,7 +5,7 @@ import clickhouse_connect
 import requests
 from airflow.decorators import dag, task
 from airflow.models import Connection, Variable
-from utils.alerting import send_alert_to_mattermost
+from dags_utils.alerting import send_alert_to_mattermost
 
 logging.basicConfig(
     level=logging.DEBUG,

@@ -7,7 +7,7 @@ import dlt
 from dlt.common import pendulum
 from dlt.helpers.airflow_helper import PipelineTasksGroup
 
-from utils.alerting import send_alert_to_mattermost
+from dags_utils.alerting import send_alert_to_mattermost
 
 
 # modify the default task arguments - all the tasks created for dlt pipeline will inherit it

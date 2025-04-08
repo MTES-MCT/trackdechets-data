@@ -14,7 +14,7 @@ from airflow.models import Connection
 from airflow.utils.trigger_rule import TriggerRule
 from clickhouse_connect.driver.tools import insert_file
 from pendulum import datetime
-from utils.alerting import send_alert_to_mattermost
+from dags_utils.alerting import send_alert_to_mattermost
 
 from geocoding.schema import COMPANIES_GEOCODED_DDL
 

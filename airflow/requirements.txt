@@ -11,3 +11,4 @@ dlt[clickhouse]==1.5
 astronomer-cosmos==1.8.2
 dbt-core==1.8.8
 dbt-clickhouse==1.8.8
+elasticsearch7~=7.17.12

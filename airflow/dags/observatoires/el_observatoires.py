@@ -7,7 +7,7 @@ from airflow.models import Connection, Variable
 import duckdb
 from airflow.decorators import dag, task
 
-from utils.alerting import send_alert_to_mattermost
+from dags_utils.alerting import send_alert_to_mattermost
 
 logging.basicConfig()
 logger = logging.getLogger(__name__)
