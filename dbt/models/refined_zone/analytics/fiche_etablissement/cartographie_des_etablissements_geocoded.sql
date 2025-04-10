@@ -9,6 +9,7 @@ select
 	profils,
 	profils_collecteur,
 	profils_installation,
+	profils_installation_vhu,
     worker_company_has_sub_section_four,
     worker_company_has_sub_section_three,
 	bsdd,
