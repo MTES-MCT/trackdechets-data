@@ -126,7 +126,7 @@ def tickets(
             response,
             params,
             max_per_page,
-            response_extractor=lambda x: x.get("assets", {}).get("Ticket", {}).values(),
+            response_extractor=lambda x: x,
         ):
             break
 
