@@ -81,4 +81,8 @@ def load_zammad_data():
     )
 
 
-load_zammad_data()
+dlt_zammad_dag = load_zammad_data()
+
+
+if __name__ == "__main__":
+    dlt_zammad_dag.test()

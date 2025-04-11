@@ -112,8 +112,13 @@ def tickets(
 
     while True:
         response = make_request(path, params=params)
-        data = response.json().get("assets", {}).get("Ticket", {})
-        for ticket in data.values():
+        response_json = response.json()
+        if isinstance(response_json, dict):
+            data = response.json().get("assets", {}).get("Ticket", {}).values()
+        else:
+            data = response_json
+
+        for ticket in data:
             ticket = {**ticket, "tags": tags(ticket)}
             yield ticket
 
@@ -222,8 +227,7 @@ if __name__ == "__main__":
     pipeline = dlt.pipeline(
         pipeline_name="zammad_pipeline",
         destination="clickhouse",  # Replace with your destination
-        progress="enlighten",
-        dev=True,
+        progress="tqdm",
     )
 
     # Extract and load data
