@@ -24,3 +24,5 @@ models:
         data_type: String
       - name: commentaires
         data_type: String
+  - name: isdd_capacites_limites_50pct
+    columns: []

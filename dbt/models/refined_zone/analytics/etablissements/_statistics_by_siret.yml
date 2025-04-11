@@ -11,6 +11,8 @@ models:
         data_type: datetime64(6, 'europe/paris')
       - name: last_bordereau_created_at_as_destination
         data_type: datetime64(6, 'europe/paris')
+      - name: last_bordereau_created_at_as_worker
+        data_type: DateTime64(6, 'Europe/Paris')
       - name: processing_operations_as_emitter
         data_type: Array(String)
       - name: processing_operations_as_transporter
@@ -26,6 +28,8 @@ models:
       - name: processing_operations_as_destination_bsdasri
         data_type: Array(String)
       - name: processing_operations_as_destination_bsvhu
+        data_type: Array(String)
+      - name: processing_operations_as_worker
         data_type: Array(String)
       - name: waste_codes_as_destination
         data_type: Array(String)
@@ -65,6 +69,8 @@ models:
         data_type: uint64
       - name: num_bsvhu_as_transporter
         data_type: uint64
+      - name: num_bsda_as_worker
+        data_type: UInt64
       - name: quantity_bsdd_as_transporter
         data_type: decimal(76, 30)
       - name: quantity_bsdnd_as_transporter

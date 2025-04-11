@@ -8,7 +8,7 @@ models:
         data_type: string
       - name: code_dechet
         data_type: string
-      - name: r.created_date
+      - name: created_date
         data_type: DateTime64(6, 'Europe/Paris')
       - name: date_expedition
         data_type: date
@@ -16,7 +16,7 @@ models:
         data_type: string
       - name: identifiant_terrain_sis
         data_type: string
-      - name: r.last_modified_date
+      - name: last_modified_date
         data_type: DateTime64(6, 'Europe/Paris')
       - name: numero_document
         data_type: string
@@ -34,7 +34,7 @@ models:
         data_type: int256
       - name: etablissement_numero_identification
         data_type: string
-      - name: r.created_by_id
+      - name: created_by_id
         data_type: Int256
       - name: r.last_modified_by_id
         data_type: Int256
@@ -42,7 +42,7 @@ models:
         data_type: string
       - name: numero_bordereau
         data_type: string
-      - name: r.public_id
+      - name: public_id
         data_type: String
       - name: coordonnees_geographiques
         data_type: string

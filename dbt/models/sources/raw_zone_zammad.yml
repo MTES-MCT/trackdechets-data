@@ -237,3 +237,5 @@ sources:
             data_type: String
           - name: _dlt_id
             data_type: String
+          - name: parent_id
+            data_type: Int64

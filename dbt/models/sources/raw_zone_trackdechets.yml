@@ -2081,3 +2081,13 @@ sources:
         description: >-
           Table listant les certification détenues les entreprises de travaux.
         columns: []
+      - name: bspaoh
+        identifier: Bspaoh
+        description: >-
+          Table contenant les bordereaux de PAOH.
+        columns: []
+      - name: bspaoh_transporter
+        identifier: BspaohTransporter
+        description: >-
+          Table contenant les données de transport de PAOH.
+        columns: []

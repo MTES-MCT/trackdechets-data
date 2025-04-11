@@ -13,6 +13,12 @@ models:
         data_type: Array(String)
       - name: profils_installation
         data_type: Array(String)
+      - name: profils_installation_vhu
+        data_type: Array(String)
+      - name: worker_company_has_sub_section_four
+        data_type: Bool
+      - name: worker_company_has_sub_section_three
+        data_type: Bool
       - name: bsdd
         data_type: UInt8
       - name: bsdd_emitter
@@ -32,6 +38,8 @@ models:
       - name: bsda
         data_type: UInt8
       - name: bsda_emitter
+        data_type: UInt8
+      - name: bsda_worker
         data_type: UInt8
       - name: bsda_transporter
         data_type: UInt8

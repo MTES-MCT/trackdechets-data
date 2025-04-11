@@ -2,56 +2,55 @@ version: 2
 models:
   - name: tra_14189
     columns:
-      - name: siret
-        description: Code région
-        data_type: text
+      - name: g.siret
+        data_type: String
       - name: nom_etablissement
-        data_type: text
+        data_type: string
       - name: adresse_etablissement
-        data_type: text
+        data_type: string
       - name: numero_gerep
-        data_type: text
+        data_type: string
       - name: inscrit_td
-        data_type: boolean
+        data_type: uint8
       - name: inscrit_gun
-        data_type: boolean
+        data_type: uint8
       - name: codes_installations
-        data_type: text
+        data_type: string
       - name: codes_rubriques
-        data_type: text
+        data_type: string
       - name: num_bsdd_traites
-        data_type: bigint
+        data_type: uint64
       - name: quantite_traitee_bsdd
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: num_bsda_traites
-        data_type: bigint
+        data_type: uint64
       - name: quantite_traitee_bsda
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: num_bsff_traites
-        data_type: bigint
+        data_type: uint64
       - name: quantite_traitee_bsff
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: num_bsdasri_traites
-        data_type: bigint
+        data_type: uint64
       - name: quantite_traitee_bsdasri
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: num_bsdd_envoyes
-        data_type: bigint
+        data_type: uint64
       - name: quantite_envoyee_bsdd
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: num_bsda_envoyes
-        data_type: bigint
+        data_type: uint64
       - name: quantite_envoyee_bsda
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: num_bsff_envoyes
-        data_type: bigint
+        data_type: uint64
       - name: quantite_envoyee_bsff
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: num_bsdasri_envoyes
-        data_type: bigint
+        data_type: uint64
       - name: quantite_envoyee_bsdasri
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: num_bsvhu_envoyes
-        data_type: bigint
+        data_type: uint64
       - name: quantite_envoyee_bsvhu
-        data_type: numeric
+        data_type: decimal(76, 30)

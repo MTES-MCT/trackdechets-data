@@ -918,3 +918,98 @@ AS SELECT
 	"validityLimit",
 	organisation
 FROM "default$default"."WorkerCertification";
+
+-- data_eng."Bspaoh" source
+
+CREATE OR REPLACE VIEW data_eng."Bspaoh"
+AS SELECT
+	id,
+	"createdAt",
+	"updatedAt",
+	"isDeleted",
+	"status",
+	"wasteCode",
+	"wasteAdr",
+	"wasteType",
+	"wastePackagings",
+	"emitterCompanyName",
+	"emitterCompanySiret",
+	"emitterCompanyAddress",
+	"emitterCompanyContact",
+	"emitterCompanyPhone",
+	"emitterCompanyMail",
+	"emitterCustomInfo",
+	"emitterPickupSiteName",
+	"emitterPickupSiteAddress",
+	"emitterPickupSiteCity",
+	"emitterPickupSitePostalCode",
+	"emitterPickupSiteInfos",
+	"emitterWasteQuantityValue",
+	"emitterWasteWeightValue",
+	"emitterWasteWeightIsEstimate",
+	"emitterEmissionSignatureAuthor",
+	"emitterEmissionSignatureDate",
+	"transporterTransportTakenOverAt",
+	"destinationCompanyName",
+	"destinationCompanySiret",
+	"destinationCompanyAddress",
+	"destinationCompanyContact",
+	"destinationCompanyPhone",
+	"destinationCompanyMail",
+	"destinationCustomInfo",
+	"destinationCap",
+	"handedOverToDestinationSignatureDate",
+	"handedOverToDestinationSignatureAuthor",
+	"destinationReceptionWasteQuantityValue",
+	"destinationReceptionAcceptationStatus",
+	"destinationReceptionWasteRefusalReason",
+	"destinationReceptionWastePackagingsAcceptation",
+	"destinationReceptionDate",
+	"destinationReceptionSignatureDate",
+	"destinationReceptionSignatureAuthor",
+	"destinationOperationCode",
+	"destinationOperationDate",
+	"destinationOperationSignatureDate",
+	"destinationOperationSignatureAuthor",
+	"currentTransporterOrgId",
+	"nextTransporterOrgId",
+	"transportersSirets",
+	"canAccessDraftSirets",
+	"rowNumber",
+	"destinationReceptionWasteAcceptedWeightValue",
+	"destinationReceptionWasteReceivedWeightValue",
+	"destinationReceptionWasteRefusedWeightValue",
+	"isDuplicateOf"
+FROM
+	"default$default"."Bspaoh";
+
+-- data_eng."BspaohTransporter" source
+
+create or replace
+view data_eng."BspaohTransporter"
+as
+select
+	id,
+	"createdAt",
+	"updatedAt",
+	"number",
+	"transporterCompanyName",
+	"transporterCompanySiret",
+	"transporterCompanyVatNumber",
+	"transporterCompanyAddress",
+	"transporterCompanyContact",
+	"transporterCompanyPhone",
+	"transporterCompanyMail",
+	"transporterTransportMode",
+	"transporterCustomInfo",
+	"bspaohId",
+	"transporterRecepisseDepartment",
+	"transporterRecepisseIsExempted",
+	"transporterRecepisseNumber",
+	"transporterRecepisseValidityLimit",
+	"transporterTakenOverAt",
+	"transporterTransportPlates",
+	"transporterTransportSignatureAuthor",
+	"transporterTransportSignatureDate"
+from
+	"default$default"."BspaohTransporter";
