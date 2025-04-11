@@ -13,7 +13,7 @@ left join {{ ref('stock_etablissement') }} as se
     on
         b.emitter_company_siret = se.siret
 where
-    replace(
+    replaceAll(
         se.activite_principale_etablissement, '.', '') in (
         '4399C',
         '4399D',
@@ -51,7 +51,7 @@ where
     )
     and not is_draft
     and (
-        waste_code ~* '.*\*$'
+        match(waste_code,'.*\*$')
         or coalesce(waste_pop, false)
         or coalesce(waste_is_dangerous, false)
     )

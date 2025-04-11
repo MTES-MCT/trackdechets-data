@@ -36,20 +36,10 @@ models:
       analytics:
         +materialized: view
         +schema: refined_zone_analytics
-        etablissements_inscrits_par_departements:
-          +materialized: table
-        etablissements_par_departements:
-          +materialized: table
       icpe:
         +schema: refined_zone_icpe
         gerep:
           +materialized: ephemeral
-        icpe_siretise:
-          +materialized: table
-        icpe_stats_rubriques_alinea:
-          +materialized: table
-        reconciliation_exutoires_georisques_td:
-          +materialized: table
       enriched:
         +schema: refined_zone_enriched
       stats_publiques:
