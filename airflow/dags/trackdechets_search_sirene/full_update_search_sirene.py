@@ -124,6 +124,9 @@ def full_update_search_sirene():
 
         while node_process.wait():
             if node_process.returncode != 0:
+                logger.error(node_process.stderr)
+                logger.error(node_process.stdout)
+                logger.error(node_process.stdin)
                 raise Exception(node_process)
 
         return str(tmp_dir)
