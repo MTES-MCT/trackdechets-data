@@ -2094,5 +2094,25 @@ sources:
       - name: registry_incoming_texs
         identifier: RegistryIncomingTexs
         description: >-
-          Table contenant les données du registre entrant Terres et Sédiments.
+          Table contenant les données du registre entrant des Terres et Sédiments.
+        columns: []
+      - name: registry_incoming_waste
+        identifier: RegistryIncomingWaste
+        description: >-
+          Table contenant les données du registre entrant des déchets.
+        columns: []
+      - name: registry_outgoing_waste
+        identifier: RegistryOutgoingWaste
+        description: >-
+          Table contenant les données du registre sortant des déchets.
+        columns: []
+      - name: registry_outgoing_texs
+        identifier: RegistryOutgoingTexs
+        description: >-
+          Table contenant les données du registre sortant des Terres et Sédiments.
+        columns: []
+      - name: registry_ssd
+        identifier: RegistrySsd
+        description: >-
+          Table contenant les données du registre des Sorties de Statut de Déchet.
         columns: []
