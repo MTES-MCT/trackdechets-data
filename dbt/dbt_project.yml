@@ -72,8 +72,7 @@ models:
       referentials:
         +schema: trusted_zone_referentials
 
-  elementary:
-    +schema: "elementary"
+
 
 
 
@@ -81,3 +80,4 @@ seeds:
   trackdechets:
     +schema: raw_zone_referentials
     +dbt-osmosis: "_schema.yml"
+

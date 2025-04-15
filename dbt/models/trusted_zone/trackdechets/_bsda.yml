@@ -1,18 +1,6 @@
 version: 2
 models:
   - name: bsda
-    config:
-      elementary:
-        timestamp_column: created_at
-        seasonality: day_of_week
-    tests:
-      - elementary.volume_anomalies
-      - elementary.dimension_anomalies:
-          dimensions:
-            - status
-            - waste_code
-            - is_deleted
-          timestamp_column: updated_at
     columns:
       - name: id
         tests:
@@ -95,10 +83,6 @@ models:
         data_type: datetime64(6, 'europe/paris')
       - name: destination_reception_weight
         data_type: decimal(76, 30)
-        tests:
-          - elementary.column_anomalies:
-              timestamp_column: updated_at
-
       - name: destination_reception_acceptation_status
         data_type: string
       - name: destination_reception_refusal_reason

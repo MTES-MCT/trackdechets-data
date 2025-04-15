@@ -8,10 +8,6 @@ models:
         description: Clé primaire
         data_type: string
       - name: agrement_number
-        tests:
-          - elementary.column_anomalies
         data_type: string
       - name: department
-        tests:
-          - elementary.column_anomalies
         data_type: string

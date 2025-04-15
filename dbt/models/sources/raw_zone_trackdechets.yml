@@ -9,10 +9,6 @@ sources:
         identifier: Form
         description: >
           Une ligne par BSDD, les BSDD supprimés restent dans la table.
-        tests:
-          - elementary.schema_changes:
-              tags: [elementary]
-
         columns:
           - name: id
             data_type: text
@@ -260,12 +256,6 @@ sources:
         identifier: Bsda
         description: >
           Une ligne par BSDA, les BSDA supprimés restent dans la table.
-        config:
-          elementary:
-            timestamp_column: _sdc_extracted_at
-        tests:
-          - elementary.schema_changes:
-              tags: [elementary]
 
         columns:
           - name: id
@@ -470,12 +460,6 @@ sources:
             data_type: ARRAY
       - name: bsdasri
         identifier: Bsdasri
-        config:
-          elementary:
-            timestamp_column: _sdc_extracted_at
-        tests:
-          - elementary.schema_changes:
-              tags: [elementary]
         description: >
           Une ligne par BSDASRI, les BSDASRI supprimés restent dans la table.
 
@@ -674,12 +658,6 @@ sources:
         identifier: Bsff
         description: >
           Une ligne par BSFF, les BSFF supprimés restent dans la table.
-        config:
-          elementary:
-            timestamp_column: _sdc_extracted_at
-        tests:
-          - elementary.schema_changes:
-              tags: [elementary]
 
         columns:
           - name: id
@@ -806,12 +784,6 @@ sources:
         identifier: Bsvhu
         description: >
           Une ligne par BSVHU, les BSVHU supprimés restent dans la table.
-        config:
-          elementary:
-            timestamp_column: _sdc_extracted_at
-        tests:
-          - elementary.schema_changes:
-              tags: [elementary]
 
         columns:
           - name: id
@@ -984,12 +956,6 @@ sources:
         identifier: User
         description: >
           Une ligne par compte utilisateur.
-        config:
-          elementary:
-            timestamp_column: _sdc_extracted_at
-        tests:
-          - elementary.schema_changes:
-              tags: [elementary]
 
         columns:
           - name: id
@@ -1034,12 +1000,6 @@ sources:
         identifier: Company
         description: >
           Une ligne par compte établissement.
-        config:
-          elementary:
-            timestamp_column: _sdc_extracted_at
-        tests:
-          - elementary.schema_changes:
-              tags: [elementary]
 
         columns:
           - name: id
@@ -1140,12 +1100,6 @@ sources:
         identifier: CompanyAssociation
         description: >
           Une ligne par paire (company,user).
-        config:
-          elementary:
-            timestamp_column: _sdc_extracted_at
-        tests:
-          - elementary.schema_changes:
-              tags: [elementary]
 
         columns:
           - name: id
@@ -1178,12 +1132,6 @@ sources:
         identifier: EcoOrganisme
         description: >
           Table entrée en dur, Eco-Organismes qui nous sont connus.
-        config:
-          elementary:
-            timestamp_column: _sdc_extracted_at
-        tests:
-          - elementary.schema_changes:
-              tags: [elementary]
 
         columns:
           - name: id
@@ -1216,12 +1164,6 @@ sources:
         identifier: BsffPackaging
         description: >
           Table avec les données des contenants BSFF. Une ligne par contenant.
-        config:
-          elementary:
-            timestamp_column: _sdc_extracted_at
-        tests:
-          - elementary.schema_changes:
-              tags: [elementary]
 
         columns:
           - name: id
@@ -1308,12 +1250,6 @@ sources:
         identifier: BrokerReceipt
         description: >
           Table avec les données des récépissés "Courtier". Une ligne par récépissé.
-        config:
-          elementary:
-            timestamp_column: _sdc_extracted_at
-        tests:
-          - elementary.schema_changes:
-              tags: [elementary]
 
         columns:
           - name: id
@@ -1342,12 +1278,6 @@ sources:
         identifier: TraderReceipt
         description: >
           Table avec les données des récépissés "Négociant". Une ligne par récépissé.
-        config:
-          elementary:
-            timestamp_column: _sdc_extracted_at
-        tests:
-          - elementary.schema_changes:
-              tags: [elementary]
 
         columns:
           - name: id
@@ -1376,12 +1306,6 @@ sources:
         identifier: TransporterReceipt
         description: >
           Table avec les données des récépissés "Transporteur". Une ligne par récépissé.
-        config:
-          elementary:
-            timestamp_column: _sdc_extracted_at
-        tests:
-          - elementary.schema_changes:
-              tags: [elementary]
 
         columns:
           - name: id
@@ -1410,12 +1334,6 @@ sources:
         identifier: VhuAgrement
         description: >
           Table avec les données des agréments VHU. Une ligne par agrément.
-        config:
-          elementary:
-            timestamp_column: _sdc_extracted_at
-        tests:
-          - elementary.schema_changes:
-              tags: [elementary]
 
         columns:
           - name: id
@@ -1442,12 +1360,6 @@ sources:
         identifier: BsdaRevisionRequest
         description: >
           Table avec les demande de révision des BSDA. Une ligne par demande de révision.
-        config:
-          elementary:
-            timestamp_column: _sdc_extracted_at
-        tests:
-          - elementary.schema_changes:
-              tags: [elementary]
 
         columns:
           - name: id
@@ -1580,12 +1492,6 @@ sources:
         identifier: BsddRevisionRequest
         description: >
           Table avec les demande de révision des BSDD. Une ligne par demande de révision.
-        config:
-          elementary:
-            timestamp_column: _sdc_extracted_at
-        tests:
-          - elementary.schema_changes:
-              tags: [elementary]
 
         columns:
           - name: id
@@ -1762,12 +1668,6 @@ sources:
         identifier: BsddTransporter
         description: >
           Table permettant d'avoir tous les segments de transports pour chaque BSDD.
-        config:
-          elementary:
-            timestamp_column: _sdc_extracted_at
-        tests:
-          - elementary.schema_changes:
-              tags: [elementary]
 
         columns:
           - name: id
@@ -1834,12 +1734,6 @@ sources:
         identifier: AnonymousCompany
         description: >
           Table permettant de connaitre les établissements non diffusibles.
-        config:
-          elementary:
-            timestamp_column: _sdc_extracted_at
-        tests:
-          - elementary.schema_changes:
-              tags: [elementary]
         columns:
           - name: id
             data_type: text

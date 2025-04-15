@@ -1,20 +1,6 @@
 version: 2
 models:
   - name: accounts_created_by_week
-    tests:
-      - elementary.all_columns_anomalies:
-          exclude_prefix: semaine
-          timestamp_column: semaine
-          training_period:
-            period: week
-            count: 12
-          time_bucket:
-            period: week
-            count: 1
-          detection_period:
-            period: week
-            count: 1
-          tags: [elementary]
     columns:
       - name: comptes_utilisateurs
         data_type: uint64

@@ -1,18 +1,6 @@
 version: 2
 models:
   - name: bsvhu
-    config:
-      elementary:
-        timestamp_column: created_at
-        seasonality: day_of_week
-    tests:
-      - elementary.volume_anomalies
-      - elementary.dimension_anomalies:
-          dimensions:
-            - status
-            - waste_code
-            - is_deleted
-          timestamp_column: updated_at
     columns:
       - name: id
         tests:
@@ -134,9 +122,6 @@ models:
       - name: destination_reception_quantity
         data_type: int256
       - name: destination_reception_weight
-        tests:
-          - elementary.column_anomalies:
-              timestamp_column: updated_at
         data_type: float64
       - name: destination_reception_date
         data_type: datetime64(6, 'europe/paris')

@@ -1,18 +1,6 @@
 version: 2
 models:
   - name: bsdasri
-    config:
-      elementary:
-        timestamp_column: created_at
-        seasonality: day_of_week
-    tests:
-      - elementary.volume_anomalies
-      - elementary.dimension_anomalies:
-          dimensions:
-            - status
-            - waste_code
-            - is_deleted
-          timestamp_column: updated_at
     columns:
       - name: id
         tests:
@@ -133,10 +121,6 @@ models:
         data_type: decimal(76, 30)
       - name: destination_reception_waste_weight_value
         data_type: decimal(76, 30)
-        tests:
-          - elementary.column_anomalies:
-              timestamp_column: updated_at
-
       - name: destination_reception_waste_volume
         data_type: float64
       - name: destination_custom_info

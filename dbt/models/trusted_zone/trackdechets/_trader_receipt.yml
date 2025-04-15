@@ -8,14 +8,8 @@ models:
         description: Clé primaire
         data_type: string
       - name: receipt_number
-        tests:
-          - elementary.column_anomalies
         data_type: string
       - name: validity_limit
-        tests:
-          - elementary.column_anomalies
         data_type: datetime64(6, 'europe/paris')
       - name: department
-        tests:
-          - elementary.column_anomalies
         data_type: string

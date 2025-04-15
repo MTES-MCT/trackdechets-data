@@ -12,16 +12,3 @@ models:
         data_type: string
       - name: quantite_traitee
         data_type: decimal(76, 30)
-        tests:
-          - elementary.column_anomalies:
-              timestamp_column: semaine
-              training_period:
-                period: week
-                count: 12
-              time_bucket:
-                period: week
-                count: 1
-              detection_period:
-                period: week
-                count: 1
-              tags: [elementary]

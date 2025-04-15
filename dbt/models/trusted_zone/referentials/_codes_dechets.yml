@@ -8,3 +8,5 @@ models:
         data_type: String
   - name: codes_dechets
     columns: []
+  - name: codes_dechets
+    columns: []

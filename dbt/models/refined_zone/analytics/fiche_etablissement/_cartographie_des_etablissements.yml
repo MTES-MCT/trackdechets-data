@@ -25,6 +25,8 @@ models:
         data_type: string
       - name: nom_etablissement
         data_type: string
+      - name: date_inscription
+        data_type: DateTime64(6, 'Europe/Paris')
       - name: profils
         data_type: array(string)
       - name: profils_collecteur

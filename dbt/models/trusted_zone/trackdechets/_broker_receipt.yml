@@ -9,16 +9,10 @@ models:
         data_type: String
       - name: receipt_number
         description: Numéro de récépissé
-        tests:
-          - elementary.column_anomalies
         data_type: String
       - name: validity_limit
         description: Date limite de validité du récépisse
-        tests:
-          - elementary.column_anomalies
         data_type: DateTime64(6, 'Europe/Paris')
       - name: department
         description: Département de validité du récépissé
-        tests:
-          - elementary.column_anomalies
         data_type: String

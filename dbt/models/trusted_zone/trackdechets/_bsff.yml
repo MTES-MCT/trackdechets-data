@@ -1,18 +1,6 @@
 version: 2
 models:
   - name: bsff
-    config:
-      elementary:
-        timestamp_column: created_at
-        seasonality: day_of_week
-    tests:
-      - elementary.volume_anomalies
-      - elementary.dimension_anomalies:
-          dimensions:
-            - status
-            - waste_code
-            - is_deleted
-          timestamp_column: updated_at
     columns:
       - name: id
         tests:

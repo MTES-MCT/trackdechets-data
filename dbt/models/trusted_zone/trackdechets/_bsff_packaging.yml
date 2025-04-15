@@ -1,20 +1,6 @@
 version: 2
 models:
   - name: bsff_packaging
-    config:
-      elementary:
-        seasonality: day_of_week
-    tests:
-      - elementary.volume_anomalies:
-          timestamp_column: acceptation_date
-      - elementary.dimension_anomalies:
-          dimensions:
-            - acceptation_status
-          timestamp_column: acceptation_date
-      - elementary.dimension_anomalies:
-          dimensions:
-            - operation_code
-          timestamp_column: operation_date
     columns:
       - name: id
         tests:

@@ -1,20 +1,6 @@
 version: 2
 models:
   - name: bsdd_statistiques_hebdomadaires
-    tests:
-      - elementary.all_columns_anomalies:
-          exclude_prefix: semaine
-          timestamp_column: semaine
-          training_period:
-            period: week
-            count: 12
-          time_bucket:
-            period: week
-            count: 1
-          detection_period:
-            period: week
-            count: 1
-          tags: [elementary]
     columns:
       - name: semaine
         data_type: date

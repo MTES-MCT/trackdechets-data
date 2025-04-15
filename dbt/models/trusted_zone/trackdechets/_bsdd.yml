@@ -4,18 +4,6 @@ models:
     description: >
       Cette table contient les données des BSDD.
       Une ligne par BSDD, les BSDD supprimés restent dans la table.
-    config:
-      elementary:
-        timestamp_column: created_at
-        seasonality: day_of_week
-    tests:
-      - elementary.volume_anomalies
-      - elementary.dimension_anomalies:
-          dimensions:
-            - status
-            - waste_details_code
-            - is_deleted
-          timestamp_column: updated_at
     columns:
       - name: id
         data_type: string
@@ -119,10 +107,6 @@ models:
           Il est possible de l'utiliser pour récupérer l'identifiant unique du bordereau via la query form, utilisé pour le reste des opérations. 
           Cet identifiant possède le format BSDD-yyyyMMdd-XXXXXXXX où yyyyMMdd est la date du jour et XXXXXXXXX une chaîne de 9 caractères alphanumériques. 
           Ex: BSD-20210101-HY87F54D1
-        tests:
-          - elementary.column_anomalies:
-              column_anomalies:
-                - max_length
       - name: status
         data_type: string
         description: "Statut du BSD (brouillon, envoyé, reçu, traité, etc)\n"
@@ -148,9 +132,6 @@ models:
       - name: quantity_received
         data_type: decimal(76, 30)
         description: "Quantité reçue sur l'installation de destination, en tonnes.\n"
-        tests:
-          - elementary.column_anomalies:
-              timestamp_column: updated_at
       - name: processing_operation_done
         data_type: string
         description: "Traitement réalisé (code D/R).\n"

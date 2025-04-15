@@ -7,6 +7,8 @@ models:
         data_type: String
       - name: nom_etablissement
         data_type: String
+      - name: date_inscription
+        data_type: DateTime64(6, 'Europe/Paris')
       - name: profils
         data_type: Array(String)
       - name: profils_collecteur

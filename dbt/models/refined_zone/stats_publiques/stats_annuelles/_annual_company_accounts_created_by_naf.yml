@@ -4,7 +4,8 @@ models:
     columns:
       - name: annee
         data_type: uint16
-      - name: toNullable(code_sous_classe)
+      - name: code_sous_classe
+        description: Clé unique
         data_type: String
       - name: code_section
         data_type: string

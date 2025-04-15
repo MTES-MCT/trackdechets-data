@@ -1,16 +1,6 @@
 version: 2
 models:
   - name: company
-    config:
-      elementary:
-        timestamp_column: created_at
-        seasonality: day_of_week
-    tests:
-      - elementary.volume_anomalies
-      - elementary.dimension_anomalies:
-          dimensions:
-            - code_naf
-            - code_departement
     columns:
       - name: id
         tests:

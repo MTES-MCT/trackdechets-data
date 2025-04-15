@@ -1,10 +1,6 @@
 version: 2
 models:
   - name: bsda_revision_request
-    tests:
-      - elementary.volume_anomalies:
-          timestamp_column: created_at
-          seasonality: day_of_week
     columns:
       - name: id
         tests:
@@ -24,8 +20,6 @@ models:
       - name: status
         data_type: string
       - name: waste_code
-        tests:
-          - elementary.column_anomalies
         data_type: string
       - name: waste_pop
         data_type: bool
@@ -38,8 +32,6 @@ models:
       - name: destination_cap
         data_type: string
       - name: destination_reception_weight
-        tests:
-          - elementary.column_anomalies
         data_type: float64
       - name: destination_operation_code
         data_type: string

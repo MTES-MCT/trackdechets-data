@@ -66,27 +66,6 @@ sources:
             data_type: string
           - name: date_modification
             data_type: string
-      - name: rubriques
-        description: >
-          Rubriques associées à chaque installations
-        columns:
-          - name: code_aiot
-            description: Identifiant de l'installation classée
-            tests:
-              - not_null
-            data_type: text
-          - name: rubrique
-            data_type: text
-          - name: alinea
-            data_type: text
-          - name: quantite_totale
-            data_type: text
-          - name: unite
-            data_type: text
-          - name: nature
-            data_type: text
-          - name: regime
-            data_type: text
       - name: installations_rubriques_2024
         identifier: installations_rubriques_2024
         description: >

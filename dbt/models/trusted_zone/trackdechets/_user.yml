@@ -1,12 +1,6 @@
 version: 2
 models:
   - name: user
-    config:
-      elementary:
-        timestamp_column: created_at
-        seasonality: day_of_week
-    tests:
-      - elementary.volume_anomalies
     columns:
       - name: id
         tests:
