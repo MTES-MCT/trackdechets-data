@@ -200,6 +200,7 @@ joined as (
         s.texs_emitter,
         s.ssd,
         s.pnttd,
+        c.created_at                         as date_inscription,
         c.company_types                      as profils,
         c.collector_types                    as profils_collecteur,
         c.waste_processor_types              as profils_installation,
@@ -244,6 +245,7 @@ joined as (
 select
     siret,
     nom_etablissement,
+    date_inscription,
     profils,
     profils_collecteur,
     profils_installation,

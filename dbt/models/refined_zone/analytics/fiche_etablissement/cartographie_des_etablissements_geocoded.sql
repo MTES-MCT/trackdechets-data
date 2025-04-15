@@ -6,6 +6,7 @@
 select
     c.siret,
 	nom_etablissement,
+	date_inscription,
 	profils,
 	profils_collecteur,
 	profils_installation,

@@ -8,6 +8,8 @@ trackdechets:
       user: "{{ env_var('DBT_USER') }}"
       password: "{{ env_var('DBT_PASSWORD') }}"
       port: "{{ env_var('DBT_PORT','8123') | int }}"
+      custom_settings:
+        join_use_nulls: 1
       threads: 2
     prod:
       type: clickhouse
@@ -15,5 +17,7 @@ trackdechets:
       user: "{{ env_var('DBT_USER_PROD') }}"
       password: "{{ env_var('DBT_PASSWORD_PROD') }}"
       port: "{{ env_var('DBT_PORT_PROD') | int }}"
+      custom_settings:
+        join_use_nulls: 1
       threads: 6
       use_colors: false
