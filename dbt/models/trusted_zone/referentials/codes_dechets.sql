@@ -1,4 +1,4 @@
 SELECT 
     code, 
     description
-FROM {{ ref('codes_dechets') }}
+FROM {{ ref('stg_codes_dechets') }}

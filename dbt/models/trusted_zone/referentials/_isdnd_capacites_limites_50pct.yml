@@ -1,6 +1,6 @@
 version: 2
 models:
-  - name: isdd_capacites_limites_50pct
+  - name: isdnd_capacites_limites_50pct
     columns:
       - name: siret
         data_type: String
@@ -24,7 +24,3 @@ models:
         data_type: String
       - name: commentaires
         data_type: String
-  - name: isdd_capacites_limites_50pct
-    columns: []
-  - name: isdd_capacites_limites_50pct
-    columns: []
