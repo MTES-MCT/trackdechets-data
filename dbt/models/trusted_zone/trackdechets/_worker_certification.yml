@@ -3,6 +3,8 @@ models:
   - name: worker_certification
     columns:
       - name: id
+        tests:
+          - unique
         data_type: String
       - name: has_sub_section_four
         data_type: Bool

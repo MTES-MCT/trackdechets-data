@@ -13,6 +13,8 @@ models:
             - code_departement
     columns:
       - name: id
+        tests:
+          - unique
         description: Clé primaire
         data_type: string
       - name: siret

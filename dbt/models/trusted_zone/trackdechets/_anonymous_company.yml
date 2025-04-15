@@ -3,6 +3,8 @@ models:
   - name: anonymous_company
     columns:
       - name: id
+        tests:
+          - unique
         data_type: string
       - name: siret
         data_type: string

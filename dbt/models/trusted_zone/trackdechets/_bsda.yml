@@ -15,6 +15,8 @@ models:
           timestamp_column: updated_at
     columns:
       - name: id
+        tests:
+          - unique
         data_type: string
         description: Clé primaire
       - name: created_at

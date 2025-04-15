@@ -17,6 +17,8 @@ models:
           timestamp_column: operation_date
     columns:
       - name: id
+        tests:
+          - unique
         description: Clé primaire
         data_type: string
       - name: volume

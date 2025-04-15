@@ -1,6 +1,6 @@
 {{ config(
     materialized = 'incremental',
-    unique_key = 'id',
+    unique_key = ['id'],
     on_schema_change='append_new_columns',
     query_settings = {
         "join_algorithm":"'grace_hash'",

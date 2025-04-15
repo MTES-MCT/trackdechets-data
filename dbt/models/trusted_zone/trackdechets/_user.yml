@@ -9,6 +9,8 @@ models:
       - elementary.volume_anomalies
     columns:
       - name: id
+        tests:
+          - unique
         description: Clé primaire
         data_type: string
       - name: email

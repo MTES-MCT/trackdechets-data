@@ -3,6 +3,8 @@ models:
   - name: transporter_receipt
     columns:
       - name: id
+        tests:
+          - unique
         description: Clé primaire
         data_type: string
       - name: receipt_number

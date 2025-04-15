@@ -2091,3 +2091,8 @@ sources:
         description: >-
           Table contenant les données de transport de PAOH.
         columns: []
+      - name: registry_incoming_texs
+        identifier: RegistryIncomingTexs
+        description: >-
+          Table contenant les données du registre entrant Terres et Sédiments.
+        columns: []

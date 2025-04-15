@@ -3,6 +3,8 @@ models:
   - name: broker_receipt
     columns:
       - name: id
+        tests:
+          - unique
         description: Clé primaire
         data_type: String
       - name: receipt_number

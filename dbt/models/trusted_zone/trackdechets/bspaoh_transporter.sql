@@ -1,8 +1,9 @@
 {{ config(
     materialized = 'incremental',
     incremental_strategy = 'delete+insert',
-    unique_key = 'id',
-    on_schema_change='append_new_columns'
+    unique_key = ['id'],
+    on_schema_change='append_new_columns',
+    enabled=false 
 ) }}
 
 with source as (

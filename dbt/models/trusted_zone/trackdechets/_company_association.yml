@@ -3,6 +3,8 @@ models:
   - name: company_association
     columns:
       - name: id
+        tests:
+          - unique
         description: Clé primaire
         data_type: string
       - name: role
