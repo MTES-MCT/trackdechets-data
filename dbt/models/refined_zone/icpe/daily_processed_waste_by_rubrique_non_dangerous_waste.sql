@@ -7,7 +7,7 @@
 with installations as (
     select
         siret,
-        if(not match(rubrique,'^2791.*'),substring(rubrique,1,6),'2791') as rubrique,-- take into account the 'alineas'
+        if(match(rubrique,'^2791.*'),'2791',substring(rubrique,1,6)) as rubrique,-- take into account the 'alineas'
         max(raison_sociale)           as raison_sociale,
         groupArray(distinct code_aiot) as codes_aiot,
         sum(quantite_totale)          as quantite_autorisee

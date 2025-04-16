@@ -70,10 +70,14 @@ wastes_rubriques as (
 )
 
 select
-    installations.*,
+    i.siret,
+    i.rubrique,
+    i.raison_sociale,
+    i.codes_aiot,
+    i.quantite_autorisee,
     wr.day_of_processing,
     wr.quantite_traitee
 from
-    installations
+    installations i
 left join wastes_rubriques as wr on
     installations.siret = wr.siret and installations.rubrique = wr.rubrique
