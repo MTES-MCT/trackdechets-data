@@ -30,7 +30,10 @@ with installations_data as (
 select
     ii.*,
     toNullable(toDate(idpw.day_of_processing)) as "day_of_processing",
-    idpw.quantite_traitee
+    idpw.quantite_traitee,
+    c.capacite_50pct as quantite_objectif
 from installations_data as ii
 left join {{ ref('daily_processed_waste_by_rubrique') }} as idpw
     on ii.siret = idpw.siret and ii.rubrique = idpw.rubrique
+left join {{ ref('isdnd_capacites_limites_50pct') }} c 
+    on ii.siret=c.siret and match(ii.rubrique,'^2760\-2.*')
