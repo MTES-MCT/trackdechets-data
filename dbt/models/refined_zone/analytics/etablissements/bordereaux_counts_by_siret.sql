@@ -244,7 +244,7 @@ full_ AS (
             0
         ) AS num_bsdd_as_emitter,
         COALESCE(
-            emitter_counts.num_bsdd_as_emitter,
+            emitter_counts.num_bsdnd_as_emitter,
             0
         ) AS num_bsdnd_as_emitter,
         COALESCE(
@@ -268,7 +268,7 @@ full_ AS (
             0
         ) AS quantity_bsdd_as_emitter,
         COALESCE(
-            emitter_counts.quantity_bsdd_as_emitter,
+            emitter_counts.quantity_bsdnd_as_emitter,
             0
         ) AS quantity_bsdnd_as_emitter,
         COALESCE(
@@ -288,11 +288,11 @@ full_ AS (
             0
         ) AS quantity_bsvhu_as_emitter,
         COALESCE(
-            transporter_counts.num_bsdd_as_transporter,
+            transporter_counts.num_bsdnd_as_transporter,
             0
         ) AS num_bsdnd_as_transporter,
         COALESCE(
-            transporter_counts.num_bsdnd_as_transporter,
+            transporter_counts.num_bsdd_as_transporter,
             0
         ) AS num_bsdd_as_transporter,
         COALESCE(
@@ -339,7 +339,7 @@ full_ AS (
             destination_counts.num_bsdd_as_destination, 0
         ) AS num_bsdd_as_destination,
         COALESCE(
-            destination_counts.num_bsdd_as_destination, 0
+            destination_counts.num_bsdnd_as_destination, 0
         ) AS num_bsdnd_as_destination,
         COALESCE(
             destination_counts.num_bsda_as_destination, 0
@@ -361,7 +361,7 @@ full_ AS (
             0
         ) AS quantity_bsdd_as_destination,
         COALESCE(
-            destination_counts.quantity_bsdd_as_destination,
+            destination_counts.quantity_bsdnd_as_destination,
             0
         ) AS quantity_bsdnd_as_destination,
         COALESCE(

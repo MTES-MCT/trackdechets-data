@@ -210,6 +210,7 @@ joined as (
         se.code_commune_etablissement        as code_commune_insee,
         cgc.code_departement                 as code_departement_insee,
         cgc.code_region                      as code_region_insee,
+        cgco.code_collectivite_outre_mer     as code_collectivite_outre_mer_insee,
         c.address                            as adresse_td,
         c.latitude                           as latitude_td,
         c.longitude                          as longitude_td,
@@ -239,6 +240,11 @@ joined as (
         {{ ref("code_geo_communes") }} as cgc
         on
             se.code_commune_etablissement = cgc.code_commune
+            and cgc.type_commune != 'COMD'
+    left join
+        {{ ref("code_geo_territoires_outre_mer") }} as cgco
+        on
+            se.code_commune_etablissement = cgco.code_zonage_outre_mer
             and cgc.type_commune != 'COMD'
 )
 
@@ -304,6 +310,7 @@ select
     code_commune_insee,
     code_departement_insee,
     code_region_insee,
+    code_collectivite_outre_mer_insee,
     adresse_td,
     adresse_insee,
     latitude_td,

@@ -28,7 +28,21 @@ with installations_data as (
 )
 
 select
-    ii.*,
+    ii.code_aiot,
+    ii.rubrique as "rubrique",
+    ii.raison_sociale,
+    ii.siret as "siret",
+    ii.adresse1,
+    ii.adresse2,
+    ii.code_postal,
+    ii.commune as "commune",
+    ii.code_commune_insee,
+    ii.code_departement_insee,
+    ii.code_region_insee,
+    ii.latitude,
+    ii.longitude,
+    ii.quantite_autorisee,
+    ii.unite,
     toNullable(toDate(idpw.day_of_processing)) as "day_of_processing",
     idpw.quantite_traitee,
     c.capacite_50pct as quantite_objectif
