@@ -2,7 +2,27 @@
     materialized = 'table',
 ) }}
 
-WITH emitter_counts AS (
+with bordereaux as (
+    SELECT
+        _bs_type,
+        id,
+        created_at,
+        emitter_company_siret,
+        destination_company_siret,
+        worker_company_siret,
+        accepted_quantity_packagings,
+        quantity_received,
+        waste_code,
+        waste_pop,
+        waste_is_dangerous,
+        processing_operation
+    FROM 
+        {{ ref('bordereaux_enriched') }}
+    WHERE status not in {{ get_non_final_status_bordereaux() }}
+    and not is_draft
+),
+
+emitter_counts AS (
     SELECT
         emitter_company_siret AS siret,
         countIf(id,
@@ -58,7 +78,7 @@ WITH emitter_counts AS (
             DISTINCT processing_operation
         ) filter (where processing_operation is not null)                  AS processing_operations_as_emitter
     FROM
-        {{ ref('bordereaux_enriched') }}
+        bordereaux
     GROUP BY
         emitter_company_siret
 ),
@@ -186,7 +206,7 @@ destination_counts AS (
             DISTINCT waste_code
         ) filter (where waste_code is not null)                         AS waste_codes_as_destination
     FROM
-        {{ ref('bordereaux_enriched') }}
+        bordereaux
     GROUP BY
         destination_company_siret
 ),
@@ -212,7 +232,7 @@ worker_counts as (
             AND processing_operation is not null
         )                         AS processing_operations_as_worker
     FROM
-        {{ ref('bordereaux_enriched') }}
+        bordereaux
     GROUP BY
         worker_company_siret
 ),

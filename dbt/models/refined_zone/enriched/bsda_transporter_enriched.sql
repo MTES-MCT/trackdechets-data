@@ -8,6 +8,8 @@
 select
     bt.*,
     b.created_at as bordereau_created_at,
+    b.status,
+    b.is_draft,
     b.emitter_company_siret,
     b.destination_company_siret,
     b.worker_company_siret,

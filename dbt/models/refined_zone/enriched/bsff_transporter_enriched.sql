@@ -33,6 +33,8 @@ with bsff_transporter_with_bsff as (
         bt.transporter_transport_signature_author,
         bt.transporter_transport_signature_date,
         b.created_at as bordereau_created_at,
+        b.status,
+        b.is_draft,
         b.emitter_company_siret,
         b.destination_company_siret,
         b.waste_code
@@ -85,6 +87,8 @@ select
         b.transporter_transport_signature_date
     )                                 as transporter_transport_signature_date,
     max(b.bordereau_created_at)       as bordereau_created_at,
+    max(b.status)                     as status,
+    max(b.is_draft)                   as is_draft,
     max(b.emitter_company_siret)      as emitter_company_siret,
     max(b.destination_company_siret)  as destination_company_siret,
     max(b.waste_code)                 as waste_code,

@@ -28,6 +28,8 @@ with bsdd_transporter_counts as (
         )                         as processing_operations_as_transporter_bsdd
     from
         {{ ref('bsdd_transporter_enriched') }}
+    where 
+        status not in ('CANCELED','SEALED','DRAFT')
     group by
         transporter_company_siret
 ),
@@ -50,6 +52,9 @@ bsda_transporter_counts as (
         )                         as processing_operations_as_transporter_bsda
     from
         {{ ref('bsda_transporter_enriched') }}
+    where 
+        status not in {{ get_non_final_status_bordereaux() }}
+        and not is_draft
     group by
         transporter_company_siret
 ),
@@ -68,6 +73,9 @@ bsff_transporter_counts as (
         )                         as processing_operations_as_transporter_bsff
     from
         {{ ref('bsff_transporter_enriched') }}
+    where 
+        status not in {{ get_non_final_status_bordereaux() }}
+        and not is_draft    
     group by
         transporter_company_siret
 ),
@@ -100,6 +108,9 @@ transporter_counts_legacy as (
         )                         as processing_operations_as_transporter
     from
         {{ ref('bordereaux_enriched') }}
+    where 
+        status not in {{ get_non_final_status_bordereaux() }}
+        and not is_draft    
     group by
         transporter_company_siret
 ),
