@@ -7,6 +7,6 @@ profile_config = ProfileConfig(
     target_name=Variable.get("DBT_ENV"),
     profile_mapping=ClickhouseUserPasswordProfileMapping(
         conn_id="td_datawarehouse",
-        profile_args={"join_use_nulls": 1},
+        profile_args={"custom_settings": {"join_use_nulls": 1}},
     ),
 )
