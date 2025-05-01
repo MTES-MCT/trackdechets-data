@@ -45,7 +45,7 @@ select
     ii.unite,
     toNullable(toDate(idpw.day_of_processing)) as "day_of_processing",
     idpw.quantite_traitee,
-    c.capacite_50pct as quantite_objectif
+    toNullable(c.capacite_50pct) as quantite_objectif
 from installations_data as ii
 left join {{ ref('daily_processed_waste_by_rubrique') }} as idpw
     on ii.siret = idpw.siret and ii.rubrique = idpw.rubrique
