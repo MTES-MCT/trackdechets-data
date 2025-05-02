@@ -1,7 +1,6 @@
 {{
   config(
-    materialized = 'table',
-    enabled=false
+    materialized = 'table'
     )
 }}
 
@@ -115,5 +114,5 @@ SELECT
     toNullable(toString("transporter5CompanyCity")) as transporter5_company_city,
     toLowCardinality(toNullable(toString("transporter5CompanyCountryCode"))) as transporter5_company_country_code,
     toNullable(toString("gistridNumber")) as gistrid_number
- FROM {{ source('trackdechets', 'registry_outgoing_waste') }}
+ FROM {{ source('trackdechets_production', 'registry_outgoing_waste') }}
 WHERE "isLatest"

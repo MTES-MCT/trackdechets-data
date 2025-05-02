@@ -1,7 +1,6 @@
 {{
   config(
     materialized = 'table',
-    enabled=false
     )
 }}
 
@@ -61,7 +60,6 @@ SELECT
     toLowCardinality(assumeNotNull(toString("operationCode"))) as operation_code,
     toLowCardinality(toNullable(toString("operationMode"))) as operation_mode,
     toNullable(toBool("noTraceability")) as no_traceability,
-    toNullable(toBool("nextDestinationIsAbroad")) as next_destination_is_abroad,
     toNullable(toString("movementNumber")) as movement_number,
     toLowCardinality(toNullable(toString("nextOperationCode"))) as next_operation_code,
     toNullable(toBool("isUpcycled")) as is_upcycled,
@@ -123,5 +121,5 @@ SELECT
     toNullable(toString("ecoOrganismeName")) as eco_organisme_name,
     toNullable(toString("ecoOrganismeSiret")) as eco_organisme_siret,
     toNullable(toString("sisIdentifier")) as sis_identifier,
-    toNullable(toString("gistridNumber")) as gistrid_number
- FROM {{ source('trackdechets', 'registry_incoming_texs') }}
+    toNullable(toString("ttdImportNumber")) as ttd_import_number
+ FROM {{ source('trackdechets_production', 'registry_incoming_texs') }}

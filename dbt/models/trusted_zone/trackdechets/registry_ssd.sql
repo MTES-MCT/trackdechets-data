@@ -1,7 +1,6 @@
 {{
   config(
-    materialized = 'table',
-    enabled=false
+    materialized = 'table'
     )
 }}
 
@@ -42,5 +41,5 @@ SELECT
     toNullable(toString("destinationCompanyCity")) as destination_company_city,
     toLowCardinality(toNullable(toString("destinationCompanyPostalCode"))) as destination_company_postal_code,
     toLowCardinality(toNullable(toString("destinationCompanyCountryCode"))) as destination_company_country_code
-FROM {{ source('trackdechets', 'registry_ssd') }}
+FROM {{ source('trackdechets_production', 'registry_ssd') }}
 WHERE "isLatest"

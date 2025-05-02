@@ -1,7 +1,6 @@
 {{
   config(
-    materialized = 'table',
-    enabled=false
+    materialized = 'table'
     )
 }}
 
@@ -109,12 +108,11 @@ SELECT
     toNullable(toBool("transporter4RecepisseIsExempted")) as transporter4_recepisse_is_exempted,
     toNullable(toBool("transporter5RecepisseIsExempted")) as transporter5_recepisse_is_exempted,
     toNullable(toString("customInfo")) as custom_info,
-    toNullable(toBool("nextDestinationIsAbroad")) as next_destination_is_abroad,
     toLowCardinality(toNullable(toString("nextOperationCode"))) as next_operation_code,
     toNullable(toBool("noTraceability")) as no_traceability,
     toLowCardinality(toNullable(toString("operationMode"))) as operation_mode,
     toNullable(toString("emitterPickupSiteName")) as emitter_pickup_site_name,
     toNullable(toBool("isDirectSupply")) as is_direct_supply,
-    toNullable(toString("gistridNumber")) as gistrid_number
-FROM {{ source('trackdechets', 'registry_incoming_waste') }}
+    toNullable(toString("ttdImportNumber")) as ttd_import_number
+FROM {{ source('trackdechets_production', 'registry_incoming_waste') }}
 WHERE "isLatest"
