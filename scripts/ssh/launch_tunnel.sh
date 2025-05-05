@@ -4,6 +4,7 @@ CONFIG_FILE="/srv/trackdechets-data/scripts/ssh/tunnels.conf"
 SSH_KEY="/srv/ssh_keys/id_td_platform_data"
 SSH_USER="git"
 SSH_HOST="ssh.osc-secnum-fr1.scalingo.com"
+LOG_FILE="/var/log/autossh_tunnels.log"
 
 # Fonction pour lancer un tunnel SSH avec autossh
 launch_tunnel() {
@@ -12,15 +13,14 @@ launch_tunnel() {
     local remote_port=$3
 
     AUTOSSH_PIDFILE="/tmp/autossh-${local_port}.pid"
-    
-    # Check if autossh is already running
+
     if [ -f "$AUTOSSH_PIDFILE" ] && kill -0 "$(cat "$AUTOSSH_PIDFILE")" 2>/dev/null; then
-        echo "Tunnel on port $local_port already running."
+        echo "$(date) - Tunnel on port $local_port already running." >> "$LOG_FILE"
         return
     fi
 
-    echo "Launching autossh tunnel on local port $local_port to $remote_host:$remote_port"
-    
+    echo "$(date) - Launching tunnel: $local_port -> $remote_host:$remote_port" >> "$LOG_FILE"
+
     AUTOSSH_GATETIME=0 \
     AUTOSSH_LOGLEVEL=0 \
     AUTOSSH_PIDFILE="$AUTOSSH_PIDFILE" \
@@ -30,7 +30,9 @@ launch_tunnel() {
         -o "ServerAliveCountMax=3" \
         -i "$SSH_KEY" \
         -L "0.0.0.0:${local_port}:${remote_host}:${remote_port}" \
-        "${SSH_USER}@${SSH_HOST}"
+        "${SSH_USER}@${SSH_HOST}" >> "$LOG_FILE" 2>&1
+
+    echo "$(date) - Tunnel started on port $local_port" >> "$LOG_FILE"
 }
 
 # Lire le fichier de configuration et lancer les tunnels
