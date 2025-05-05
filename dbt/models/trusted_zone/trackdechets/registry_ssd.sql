@@ -1,8 +1,21 @@
 {{
   config(
-    materialized = 'table'
+    materialized = 'incremental',
+    incremental_strategy = 'delete+insert',
+    unique_key = ['id'],
+    on_schema_change='append_new_columns'
     )
 }}
+
+with source as (
+    select * from {{ source('trackdechets_production', 'registry_ssd') }} b
+    {% if is_incremental() %}
+    where b."updatedAt" >= (SELECT toString(toStartOfDay(max(updated_at)))  FROM {{ this }})
+    and is_latest
+    {% else %}
+    where is_latest
+    {% endif %}
+)
 
 SELECT
     assumeNotNull(toString("id")) as id,
@@ -42,4 +55,3 @@ SELECT
     toLowCardinality(toNullable(toString("destinationCompanyPostalCode"))) as destination_company_postal_code,
     toLowCardinality(toNullable(toString("destinationCompanyCountryCode"))) as destination_company_country_code
 FROM {{ source('trackdechets_production', 'registry_ssd') }}
-WHERE "isLatest"

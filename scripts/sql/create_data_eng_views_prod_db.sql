@@ -1020,6 +1020,7 @@ AS
 SELECT
 	id,
 	"createdAt",
+    "updatedAt",
 	"importId",
 	"isLatest",
 	"isCancelled",
@@ -1145,6 +1146,7 @@ as
 select
 	id,
 	"createdAt",
+    "updatedAt",
 	"importId",
 	"isLatest",
 	"isCancelled",
@@ -1262,6 +1264,7 @@ as
 select
 	id,
 	"createdAt",
+    "updatedAt",
 	"importId",
 	"isLatest",
 	"isCancelled",
@@ -1388,6 +1391,7 @@ as
 select
 	id,
 	"createdAt",
+    "updatedAt",
 	"importId",
 	"isLatest",
 	"isCancelled",
@@ -1505,6 +1509,7 @@ as
 select
 	id,
 	"createdAt",
+    "updatedAt",
 	"importId",
 	"isLatest",
 	"isCancelled",

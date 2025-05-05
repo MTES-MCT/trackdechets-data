@@ -46,7 +46,7 @@ environ = {
     "NODE_ENV": "production" if env == "prod" else "recette",
     "NODE_OPTIONS": "--max_old_space_size=10240",  # node.js memory allocation
     "ELASTICSEARCH_CAPEM": Variable.get("ELASTICSEARCH_CAPEM"),
-    "INDEX_CHUNK_SIZE": "10000",
+    "INDEX_CHUNK_SIZE": "2500",
     "INDEX_SIRET_ONLY": False,
     "TD_SIRENE_INDEX_MAX_CONCURRENT_REQUESTS": "4",
     "TD_SIRENE_INDEX_MAX_HIGHWATERMARK": "16384",

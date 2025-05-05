@@ -2010,3 +2010,8 @@ sources:
         description: >-
           Table contenant les données du registre des Sorties de Statut de Déchet.
         columns: []
+      - name: registry_transported
+        identifier: RegistryTransported
+        description: >-
+          Table contenant les données des transporteurs de registre.
+        columns: []

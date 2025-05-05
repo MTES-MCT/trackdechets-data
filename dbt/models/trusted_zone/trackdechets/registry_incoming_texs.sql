@@ -1,12 +1,26 @@
 {{
   config(
-    materialized = 'table',
+    materialized = 'incremental',
+    incremental_strategy = 'delete+insert',
+    unique_key = ['id'],
+    on_schema_change='append_new_columns'
     )
 }}
+
+with source as (
+    select * from {{ source('trackdechets_production', 'registry_incoming_texs') }} b
+    {% if is_incremental() %}
+    where b."updatedAt" >= (SELECT toString(toStartOfDay(max(updated_at)))  FROM {{ this }})
+    and is_latest
+    {% else %}
+    where is_latest
+    {% endif %}
+)
 
 SELECT
     assumeNotNull(toString("id")) as id,
     assumeNotNull(toDateTime64("createdAt", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("createdAt",'Europe/Paris'))) as created_at,
+    assumeNotNull(toDateTime64("updatedAt", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("updatedAt",'Europe/Paris'))) as updated_at,
     toNullable(toString("importId")) as import_id,
     assumeNotNull(toBool("isLatest")) as is_latest,
     assumeNotNull(toBool("isCancelled")) as is_cancelled,
@@ -122,4 +136,4 @@ SELECT
     toNullable(toString("ecoOrganismeSiret")) as eco_organisme_siret,
     toNullable(toString("sisIdentifier")) as sis_identifier,
     toNullable(toString("ttdImportNumber")) as ttd_import_number
- FROM {{ source('trackdechets_production', 'registry_incoming_texs') }}
+ FROM source
