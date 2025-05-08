@@ -1,10 +1,9 @@
 services:
   metabase:
-    image: metabase/metabase:v0.53.7.6
+    image: metabase/metabase:v0.54.5
     container_name: metabase
     hostname: metabase
     volumes:
-      - ./plugins/ch.jar:/plugins/clickhouse.jar:ro
       - metabase-data:/metabase-data
     ports:
       - 3000:3000
