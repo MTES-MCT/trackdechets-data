@@ -6,30 +6,29 @@
 
 select
     toStartOfWeek(
-        date_reception,1
+        reception_date,1
     )                                  as semaine,
-    code_traitement                    as code_operation,
+    operation_code                    as code_operation,
     multiIf(
-            code_traitement like 'R%','Déchet valorisé',
-            code_traitement like 'D%','Déchet éliminé',
+            operation_code like 'R%','Déchet valorisé',
+            operation_code like 'D%','Déchet éliminé',
             'Autre'
     )                     as type_operation,
-    sumIf(
+    sum(
         if(
-            quantite > 60,
-            quantite / 1000,
-            quantite
-        ),code_unite = 'T'
+            weight_value > 60,
+            weight_value / 1000,
+            weight_value
+        )
         
     ) as quantite_traitee,
-    sumIf(
+    sum(
         if(
-             quantite > 60,
-            quantite / 1000,
-            quantite
-        ),
-        code_unite = 'M3'
+             volume > 60,
+            volume / 1000,
+            volume
+        )
     ) as volume_traite
-from {{ ref('dnd_entrant') }}
+from {{ ref('registry_incoming_waste') }}
 group by 1, 2
 order by 1 desc
