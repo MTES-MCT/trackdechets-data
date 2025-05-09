@@ -68,7 +68,7 @@ SELECT
     toNullable(toString("destinationDropSitePostalCode")) as destination_drop_site_postal_code,
     toNullable(toString("destinationDropSiteCity")) as destination_drop_site_city,
     toNullable(toString("destinationDropSiteCountryCode")) as destination_drop_site_country_code,
-    toLowCardinality(assumeNotNull(toString("operationCode"))) as operation_code,
+    toLowCardinality(assumeNotNull(replaceAll(toString("operationCode"),' ',''))) as operation_code,
     toLowCardinality(toNullable(toString("operationMode"))) as operation_mode,
     toNullable(toBool("isUpcycled")) as is_upcycled,
     assumeNotNull(splitByChar(',',COALESCE (substring(toString("destinationParcelInseeCodes"),2,length("destinationParcelInseeCodes")-2),''))) as destination_parcel_insee_codes,

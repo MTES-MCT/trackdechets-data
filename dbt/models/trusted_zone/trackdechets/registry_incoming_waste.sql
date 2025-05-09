@@ -63,7 +63,7 @@ SELECT
     toNullable(toString("traderRecepisseNumber")) as trader_recepisse_number,
     toNullable(toString("ecoOrganismeSiret")) as eco_organisme_siret,
     toNullable(toString("ecoOrganismeName")) as eco_organisme_name,
-    toLowCardinality(assumeNotNull(toString("operationCode"))) as operation_code,
+    toLowCardinality(assumeNotNull(replaceAll(toString("operationCode"),' ',''))) as operation_code,
     toLowCardinality(toNullable(toString("transporter1TransportMode"))) as transporter1_transport_mode,
     toLowCardinality(toNullable(toString("transporter1CompanyType"))) as transporter1_company_type,
     toNullable(toString("transporter1CompanyOrgId")) as transporter1_company_org_id,

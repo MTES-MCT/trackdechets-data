@@ -71,7 +71,7 @@ SELECT
     toNullable(toString("traderCompanySiret")) as trader_company_siret,
     toNullable(toString("traderCompanyName")) as trader_company_name,
     toNullable(toString("traderRecepisseNumber")) as trader_recepisse_number,
-    toLowCardinality(assumeNotNull(toString("operationCode"))) as operation_code,
+    toLowCardinality(assumeNotNull(replaceAll(toString("operationCode"),' ',''))) as operation_code,
     toLowCardinality(toNullable(toString("operationMode"))) as operation_mode,
     toNullable(toBool("noTraceability")) as no_traceability,
     toNullable(toString("movementNumber")) as movement_number,

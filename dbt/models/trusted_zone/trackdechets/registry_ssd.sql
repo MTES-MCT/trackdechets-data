@@ -43,7 +43,7 @@ SELECT
     toNullable(toDateTime64("useDate", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("useDate",'Europe/Paris'))) as use_date,
     assumeNotNull(toDateTime64("processingDate", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("processingDate",'Europe/Paris'))) as processing_date,
     toNullable(toDateTime64("processingEndDate", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("processingEndDate",'Europe/Paris'))) as processing_end_date,
-    toLowCardinality(assumeNotNull(toString("operationCode"))) as operation_code,
+    toLowCardinality(assumeNotNull(replaceAll(toString("operationCode"),' ',''))) as operation_code,
     toLowCardinality(toNullable(toString("operationMode"))) as operation_mode,
     assumeNotNull(toString("product")) as product,
     assumeNotNull(toString("administrativeActReference")) as administrative_act_reference,

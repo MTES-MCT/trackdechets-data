@@ -64,7 +64,7 @@ SELECT
     toNullable(toString("destinationDropSiteCity")) as destination_drop_site_city,
     toNullable(toString("destinationDropSiteCountryCode")) as destination_drop_site_country_code,
     toNullable(toString("movementNumber")) as movement_number,
-    toLowCardinality(assumeNotNull(toString("operationCode"))) as operation_code,
+    toLowCardinality(assumeNotNull(replaceAll(toString("operationCode"),' ',''))) as operation_code,
     toLowCardinality(toNullable(toString("operationMode"))) as operation_mode,
     toNullable(toString("ecoOrganismeSiret")) as eco_organisme_siret,
     toNullable(toString("ecoOrganismeName")) as eco_organisme_name,
