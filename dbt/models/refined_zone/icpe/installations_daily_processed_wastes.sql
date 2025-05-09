@@ -23,5 +23,5 @@ SELECT
   quantite_autorisee,
   objectif_quantite_traitee,
   day_of_processing,
-  quantite_traitee
+  toDecimal256(quantite_traitee,30) as quantite_traitee
 FROM {{ ref('installations_daily_processed_non_dangerous_wastes') }} dnd

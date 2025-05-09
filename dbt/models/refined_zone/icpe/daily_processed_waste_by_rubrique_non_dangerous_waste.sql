@@ -26,15 +26,14 @@ with installations as (
 
 dnd_wastes as (
     select
-        etablissement_numero_identification as siret,
-        date_reception,
-        code_traitement,
-        sum(quantite)                       as quantite
-    from {{ ref('dnd_entrant') }}
+        report_for_company_siret as siret,
+        reception_date as date_reception,
+        operation_code as code_traitement,
+        sum(weight_value)                       as quantite
+    from {{ ref('registry_incoming_waste') }}
     where
-        code_unite = 'T'
-        and date_reception >= '2022-01-01'
-        and etablissement_numero_identification in (
+        reception_date >= '2022-01-01'
+        and report_for_company_siret in (
             select siret
             from
                 installations
@@ -44,15 +43,14 @@ dnd_wastes as (
 
 texs_wastes as (
     select
-        etablissement_numero_identification as siret,
-        date_reception,
-        code_traitement,
-        sum(quantite)                       as quantite
-    from {{ ref('texs_entrant') }}
+        report_for_company_siret as siret,
+        reception_date as date_reception,
+        operation_code as code_traitement,
+        sum(weight_value)                       as quantite
+    from {{ ref('registry_incoming_texs') }}
     where
-        code_unite = 'T'
-        and date_reception >= '2022-01-01'
-        and etablissement_numero_identification in (
+        reception_date >= '2022-01-01'
+        and report_for_company_siret in (
             select siret
             from
                 installations
