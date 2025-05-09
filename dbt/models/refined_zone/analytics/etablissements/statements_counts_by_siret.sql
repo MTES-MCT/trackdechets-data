@@ -5,140 +5,115 @@
 
 with dnd_entrant_stats as (
     select
-        etablissement_numero_identification as siret,
+        report_for_company_siret as siret,
         count(
             distinct id
         )
             as num_dnd_statements_as_destination,
-        sum(quantite) filter (
-            where code_unite = 'T'
-        )
+        sum(weight_value)
             as quantity_dnd_statements_as_destination,
-        sum(quantite) filter (
-            where code_unite = 'M3'
-        )
-            as volume_dnd_statements_as_destination,
+        sum(volume)   as volume_dnd_statements_as_destination,
         array_agg(
-            distinct code_traitement
-        ) filter (where code_traitement is not null)
+            distinct operation_code
+        ) filter (where operation_code is not null)
             as dnd_processing_operations_as_destination,
-        array_agg(distinct code_dechet)     as dnd_waste_codes_as_destination
-    from {{ ref('dnd_entrant') }}
+        array_agg(distinct waste_code)     as dnd_waste_codes_as_destination
+    from {{ ref('registry_incoming_waste') }}
     group by 1
 ),
 
 dnd_sortant_stats as (
     select
-        producteur_numero_identification as siret,
+        report_for_company_siret as siret,
         count(
             distinct id
         )                                as num_dnd_statements_as_emitter,
-        sum(quantite) filter (
-            where code_unite = 'T'
-        )                                as quantity_dnd_statements_as_emitter,
-        sum(quantite) filter (
-            where code_unite = 'M3'
-        )                                as volume_dnd_statements_as_emitter
-    from {{ ref('dnd_sortant') }}
+        sum(weight_value)                                as quantity_dnd_statements_as_emitter,
+        sum(volume)                                as volume_dnd_statements_as_emitter
+    from {{ ref('registry_outgoing_waste') }}
     group by 1
 ),
 
 dnd_transporteur_stats as (
-    select
-        numero_indentification_transporteur as siret,
-        count(
-            distinct id
-        )
-            as num_dnd_statements_as_transporteur,
-        sum(quantite) filter (
-            where code_unite = 'T'
-        )
-            as quantity_dnd_statements_as_transporteur,
-        sum(quantite) filter (
-            where code_unite = 'M3'
-        )
-            as volume_dnd_statements_as_transporteur
-    from {{ ref('dnd_entrant') }}
-    ARRAY JOIN {{ ref('dnd_entrant') }}.numeros_indentification_transporteurs as numero_indentification_transporteur
+    select 
+        transporteur_siret as siret,
+        count(distinct id) as num_dnd_statements_as_transporteur,
+        sum(weight_value)  as quantity_dnd_statements_as_transporteur,
+        sum(volume)        as volume_dnd_statements_as_transporteur
+    from
+        {{ ref('registry_incoming_waste') }}riw 
+    array join array(transporter1_company_org_id,
+        transporter2_company_org_id,
+        transporter3_company_org_id,
+        transporter4_company_org_id,
+        transporter5_company_org_id) as transporteur_siret
+    where
+        transporteur_siret is not null
     group by 1
 ),
 
 texs_entrant_stats as (
     select
-        etablissement_numero_identification as siret,
+        report_for_company_siret as siret,
         count(
             distinct id
         )
             as num_texs_statements_as_destination,
-        sum(quantite) filter (
-            where code_unite = 'T'
-        )
+        sum(weight_value)
             as quantity_texs_statements_as_destination,
-        sum(quantite) filter (
-            where code_unite = 'M3'
-        )
+        sum(volume)
             as volume_texs_statements_as_destination,
         array_agg(
-            distinct code_traitement
+            distinct operation_code
         )
             as texs_processing_operations_as_destination,
-        array_agg(distinct code_dechet)     as texs_waste_codes_as_destination
-    from {{ ref('texs_entrant') }}
+        array_agg(distinct waste_code)     as texs_waste_codes_as_destination
+    from {{ ref('registry_incoming_texs') }}
     group by 1
 ),
 
 texs_sortant_stats as (
     select
-        producteur_numero_identification as siret,
+        report_for_company_siret as siret,
         count(
             distinct id
         )                                as num_texs_statements_as_emitter,
-        sum(quantite) filter (
-            where code_unite = 'T'
-        )                                as quantity_texs_statements_as_emitter,
-        sum(quantite) filter (
-            where code_unite = 'M3'
-        )                                as volume_texs_statements_as_emitter
-    from {{ ref('texs_sortant') }}
+        sum(weight_value)                                as quantity_texs_statements_as_emitter,
+        sum(volume)                                as volume_texs_statements_as_emitter
+    from {{ ref('registry_outgoing_texs') }}
     group by 1
 ),
 
 texs_transporteur_stats as (
-    select
-        numero_indentification_transporteur as siret,
-        count(
-            distinct id
-        )
-            as num_texs_statements_as_transporteur,
-        sum(quantite) filter (
-            where code_unite = 'T'
-        )
-            as quantity_texs_statements_as_transporteur,
-        sum(quantite) filter (
-            where code_unite = 'M3'
-        )
-            as volume_texs_statements_as_transporteur
-    from {{ ref('texs_entrant') }}
-    ARRAY JOIN {{ ref('texs_entrant') }}.numeros_indentification_transporteurs as numero_indentification_transporteur
+    select 
+        transporteur_siret as siret,
+        count(distinct id) as num_texs_statements_as_transporteur,
+        sum(weight_value)  as quantity_texs_statements_as_transporteur,
+        sum(volume)        as volume_texs_statements_as_transporteur
+    from
+        {{ ref('registry_incoming_texs') }}riw 
+    array join array(transporter1_company_org_id,
+        transporter2_company_org_id,
+        transporter3_company_org_id,
+        transporter4_company_org_id,
+        transporter5_company_org_id) as transporteur_siret
+    where
+        transporteur_siret is not null
     group by 1
 ),
 
 ssd_stats as (
     select
-        etablissement_numero_identification as siret,
+        report_for_company_siret as siret,
         count(
             distinct id
         )
             as num_ssd_statements_as_emitter,
-        sum(quantite) filter (
-            where code_unite = 'T'
-        )
+        sum(weight_value)
             as quantity_ssd_statements_as_emitter,
-        sum(quantite) filter (
-            where code_unite = 'M3'
-        )
+        sum(volume)
             as volume_ssd_statements_as_emitter
-    from {{ ref("sortie_statut_dechet") }}
+    from {{ ref("registry_ssd") }}
     group by 1
 )
 
