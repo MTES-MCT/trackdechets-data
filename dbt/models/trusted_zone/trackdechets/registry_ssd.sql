@@ -11,15 +11,16 @@ with source as (
     select * from {{ source('trackdechets_production', 'registry_ssd') }} b
     {% if is_incremental() %}
     where b."updatedAt" >= (SELECT toString(toStartOfDay(max(updated_at)))  FROM {{ this }})
-    and is_latest
+    and isLatest
     {% else %}
-    where is_latest
+    where isLatest
     {% endif %}
 )
 
 SELECT
     assumeNotNull(toString("id")) as id,
     assumeNotNull(toDateTime64("createdAt", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("createdAt",'Europe/Paris'))) as created_at,
+    assumeNotNull(toDateTime64("updatedAt", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("updatedAt",'Europe/Paris'))) as updated_at,
     toNullable(toString("importId")) as import_id,
     assumeNotNull(toBool("isLatest")) as is_latest,
     assumeNotNull(toBool("isCancelled")) as is_cancelled,

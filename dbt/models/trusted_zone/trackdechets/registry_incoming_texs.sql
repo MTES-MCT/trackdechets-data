@@ -11,9 +11,9 @@ with source as (
     select * from {{ source('trackdechets_production', 'registry_incoming_texs') }} b
     {% if is_incremental() %}
     where b."updatedAt" >= (SELECT toString(toStartOfDay(max(updated_at)))  FROM {{ this }})
-    and is_latest
+    and isLatest
     {% else %}
-    where is_latest
+    where isLatest
     {% endif %}
 )
 
