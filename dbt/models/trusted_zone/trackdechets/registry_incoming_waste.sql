@@ -125,5 +125,10 @@ SELECT
     toLowCardinality(toNullable(toString("operationMode"))) as operation_mode,
     toNullable(toString("emitterPickupSiteName")) as emitter_pickup_site_name,
     toNullable(toBool("isDirectSupply")) as is_direct_supply,
-    toNullable(toString("ttdImportNumber")) as ttd_import_number
+    toNullable(toString("ttdImportNumber")) as ttd_import_number,
+    array(transporter1_company_org_id,
+    transporter2_company_org_id,
+    transporter3_company_org_id,
+    transporter4_company_org_id,
+    transporter5_company_org_id) as transporters_org_ids
 FROM {{ source('trackdechets_production', 'registry_incoming_waste') }}

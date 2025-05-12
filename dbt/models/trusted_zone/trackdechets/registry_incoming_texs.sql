@@ -135,5 +135,10 @@ SELECT
     toNullable(toString("ecoOrganismeName")) as eco_organisme_name,
     toNullable(toString("ecoOrganismeSiret")) as eco_organisme_siret,
     toNullable(toString("sisIdentifier")) as sis_identifier,
-    toNullable(toString("ttdImportNumber")) as ttd_import_number
+    toNullable(toString("ttdImportNumber")) as ttd_import_number,
+    array(transporter1_company_org_id,
+    transporter2_company_org_id,
+    transporter3_company_org_id,
+    transporter4_company_org_id,
+    transporter5_company_org_id) as transporters_org_ids
  FROM source

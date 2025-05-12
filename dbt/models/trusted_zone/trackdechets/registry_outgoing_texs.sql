@@ -134,5 +134,10 @@ SELECT
     toLowCardinality(toNullable(toString("transporter5CompanyPostalCode"))) as transporter5_company_postal_code,
     toNullable(toString("transporter5CompanyCity")) as transporter5_company_city,
     toLowCardinality(toNullable(toString("transporter5CompanyCountryCode"))) as transporter5_company_country_code,
-    toNullable(toString("gistridNumber")) as gistrid_number
+    toNullable(toString("gistridNumber")) as gistrid_number,
+    array(transporter1_company_org_id,
+    transporter2_company_org_id,
+    transporter3_company_org_id,
+    transporter4_company_org_id,
+    transporter5_company_org_id) as transporters_org_ids
 FROM {{ source('trackdechets_production', 'registry_outgoing_texs') }}
