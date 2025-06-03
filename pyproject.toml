@@ -17,6 +17,6 @@ dependencies = [
     "polars>=1.21.0",
     "psycopg[binary,pool]>=3.2.4",
     "sqlalchemy>=2.0",
-    "sqlfluff-templater-dbt>=3.2.5",
-    "sqlfluff>=3.2.5",
+    "sqlfluff-templater-dbt>=3.4.0",
+    "sqlfluff>=3.4.0",
 ]
