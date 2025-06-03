@@ -709,7 +709,8 @@ AS SELECT "Company".id,
     "Company"."allowAppendix1SignatureAutomation",
     "Company"."featureFlags"::text AS "featureFlags",
     "Company"."wasteVehiclesTypes"::text AS "wasteVehiclesTypes",
-    "Company"."isDormantSince"
+    "Company"."isDormantSince",
+    "Company"."hasEnabledRegistryDndFromBsdSince"
    FROM "default$default"."Company";
 
 -- data_eng."CompanyAssociation" source
