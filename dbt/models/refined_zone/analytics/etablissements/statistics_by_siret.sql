@@ -1,7 +1,7 @@
 {{
   config(
     materialized = 'table',
-    )}}
+    ) }}
 
 select
     coalesce(b.siret, st.siret)      as siret,

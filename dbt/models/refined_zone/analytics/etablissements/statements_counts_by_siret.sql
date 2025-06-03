@@ -9,10 +9,35 @@ with dnd_entrant_stats as (
         count(
             distinct id
         )
+        filter (
+            where not {{ dangerous_waste_filter('registry') }}
+        )
             as num_dnd_statements_as_destination,
         sum(weight_value)
+        filter (
+            where not {{ dangerous_waste_filter('registry') }}
+        )
             as quantity_dnd_statements_as_destination,
-        sum(volume)   as volume_dnd_statements_as_destination,
+        sum(volume)
+        filter (
+            where not {{ dangerous_waste_filter('registry') }}
+        )   as volume_dnd_statements_as_destination,
+        count(
+            distinct id
+        )
+        filter (
+            where {{ dangerous_waste_filter('registry') }}
+        )
+            as num_dd_statements_as_destination,
+        sum(weight_value)
+        filter (
+            where {{ dangerous_waste_filter('registry') }}
+        )
+            as quantity_dd_statements_as_destination,
+        sum(volume)
+        filter (
+            where {{ dangerous_waste_filter('registry') }}
+        )   as volume_dd_statements_as_destination,
         array_agg(
             distinct operation_code
         ) filter (where operation_code is not null)
@@ -27,9 +52,18 @@ dnd_sortant_stats as (
         report_for_company_siret as siret,
         count(
             distinct id
-        )                                as num_dnd_statements_as_emitter,
-        sum(weight_value)                                as quantity_dnd_statements_as_emitter,
-        sum(volume)                                as volume_dnd_statements_as_emitter
+        )
+        filter (where not {{ dangerous_waste_filter('registry') }})                                as num_dnd_statements_as_emitter,
+        sum(weight_value)
+        filter (where not {{ dangerous_waste_filter('registry') }})                                 as quantity_dnd_statements_as_emitter,
+        sum(volume) filter (where not {{ dangerous_waste_filter('registry') }})                                 as volume_dnd_statements_as_emitter,
+        count(
+            distinct id
+        )
+        filter (where {{ dangerous_waste_filter('registry') }})                                as num_dd_statements_as_emitter,
+        sum(weight_value)
+        filter (where {{ dangerous_waste_filter('registry') }})                                 as quantity_dd_statements_as_emitter,
+        sum(volume) filter (where {{ dangerous_waste_filter('registry') }})                                 as volume_dd_statements_as_emitter
     from {{ ref('registry_outgoing_waste') }}
     group by 1
 ),
@@ -58,11 +92,11 @@ texs_entrant_stats as (
         count(
             distinct id
         )
-            as num_texs_statements_as_destination,
+        filter (where not {{ dangerous_waste_filter('registry') }})    as num_texs_statements_as_destination,
         sum(weight_value)
-            as quantity_texs_statements_as_destination,
+        filter (where not {{ dangerous_waste_filter('registry') }})    as quantity_texs_statements_as_destination,
         sum(volume)
-            as volume_texs_statements_as_destination,
+        filter (where not {{ dangerous_waste_filter('registry') }})    as volume_texs_statements_as_destination,
         array_agg(
             distinct operation_code
         )
@@ -140,6 +174,9 @@ select
     coalesce(
         volume_dnd_statements_as_destination, 0
     ) as volume_dnd_statements_as_destination,
+    coalesce(num_dd_statements_as_destination,0) as num_dd_statements_as_destination,
+    coalesce(quantity_dd_statements_as_destination,0) as quantity_dd_statements_as_destination,
+    coalesce(volume_dd_statements_as_destination,0) as volume_dd_statements_as_destination,
     coalesce(
         num_dnd_statements_as_emitter, 0
     ) as num_dnd_statements_as_emitter,
@@ -149,6 +186,9 @@ select
     coalesce(
         volume_dnd_statements_as_emitter, 0
     ) as volume_dnd_statements_as_emitter,
+    coalesce(num_dd_statements_as_emitter,0) as num_dd_statements_as_emitter,
+    coalesce(quantity_dd_statements_as_emitter,0) as quantity_dd_statements_as_emitter,
+    coalesce(volume_dd_statements_as_emitter,0) as volume_dd_statements_as_emitter,
     coalesce(
         num_dnd_statements_as_transporteur, 0
     ) as num_dnd_statements_as_transporteur,
