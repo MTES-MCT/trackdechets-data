@@ -69,6 +69,9 @@ x-airflow-common: &airflow-common
     # If you want to use it, outcomment it and replace airflow.cfg with the name of your config file
     # AIRFLOW_CONFIG: '/opt/airflow/config/airflow.cfg'
     AIRFLOW__COSMOS__ENABLE_CACHE_PROFILE: ${AIRFLOW__COSMOS__ENABLE_CACHE_PROFILE:-False}
+    ## SENTRY
+    AIRFLOW__SENTRY__SENTRY_ON: ${AIRFLOW__SENTRY__SENTRY_ON:-false}
+    AIRFLOW__SENTRY__SENTRY_DSN: ${AIRFLOW__SENTRY__SENTRY_DSN}
   volumes:
     - ${AIRFLOW_PROJ_DIR:-.}/dags:/opt/airflow/dags
     - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
