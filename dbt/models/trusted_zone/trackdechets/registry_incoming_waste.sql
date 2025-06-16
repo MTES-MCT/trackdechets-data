@@ -18,8 +18,8 @@ with source as (
 )
 SELECT
     assumeNotNull(toString("id")) as id,
-    assumeNotNull(toDateTime64("createdAt", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("createdAt",'Europe/Paris'))) as created_at,
-    assumeNotNull(toDateTime64("updatedAt", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("updatedAt",'Europe/Paris'))) as updated_at,
+    assumeNotNull(toTimezone(toDateTime64("createdAt",6),'Europe/Paris')) as created_at,
+    assumeNotNull(toTimezone(toDateTime64("updatedAt",6),'Europe/Paris')) as updated_at,
     toNullable(toString("importId")) as import_id,
     assumeNotNull(toBool("isLatest")) as is_latest,
     assumeNotNull(toBool("isCancelled")) as is_cancelled,
@@ -34,7 +34,7 @@ SELECT
     toLowCardinality(assumeNotNull(toString("wasteCode"))) as waste_code,
     assumeNotNull(toBool("wastePop")) as waste_pop,
     toNullable(toBool("wasteIsDangerous")) as waste_is_dangerous,
-    assumeNotNull(toDateTime64("receptionDate", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("receptionDate",'Europe/Paris'))) as reception_date,
+    assumeNotNull(toTimezone(toDateTime64("receptionDate",6),'Europe/Paris')) as reception_date,
     toNullable(toString("weighingHour")) as weighing_hour,
     assumeNotNull(toString("wasteDescription")) as waste_description,
     toLowCardinality(toNullable(toString("wasteCodeBale"))) as waste_code_bale,

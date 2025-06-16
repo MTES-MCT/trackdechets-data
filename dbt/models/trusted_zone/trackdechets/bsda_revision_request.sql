@@ -15,8 +15,8 @@ with source as (
 )
 SELECT
     assumeNotNull(toString("id")) as id,
-    assumeNotNull(toDateTime64("createdAt", 6)) as created_at,
-    assumeNotNull(toDateTime64("updatedAt", 6)) as updated_at,
+    assumeNotNull(toTimeZone(toDateTime64("createdAt", 6),'UTC')) as created_at,
+    assumeNotNull(toTimeZone(toDateTime64("updatedAt", 6),'UTC')) as updated_at,
     assumeNotNull(toString("bsdaId")) as bsda_id,
     assumeNotNull(toString("authoringCompanyId")) as authoring_company_id,
     assumeNotNull(toString("comment")) as comment,
@@ -38,7 +38,7 @@ SELECT
     toNullable(toString("brokerCompanyMail")) as broker_company_mail,
     toNullable(toString("brokerRecepisseNumber")) as broker_recepisse_number,
     toLowCardinality(toNullable(toString("brokerRecepisseDepartment"))) as broker_recepisse_department,
-    toNullable(toDateTime64("brokerRecepisseValidityLimit", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("brokerRecepisseValidityLimit",'Europe/Paris'))) as broker_recepisse_validity_limit,
+    toNullable(toTimezone(toDateTime64("brokerRecepisseValidityLimit",6),'Europe/Paris')) as broker_recepisse_validity_limit,
     toNullable(toString("emitterPickupSiteName")) as emitter_pickup_site_name,
     toNullable(toString("emitterPickupSiteAddress")) as emitter_pickup_site_address,
     toNullable(toString("emitterPickupSiteCity")) as emitter_pickup_site_city,
@@ -54,7 +54,7 @@ SELECT
     toNullable(toString("initialBrokerCompanySiret")) as initial_broker_company_siret,
     toLowCardinality(toNullable(toString("initialBrokerRecepisseDepartment"))) as initial_broker_recepisse_department,
     toNullable(toString("initialBrokerRecepisseNumber")) as initial_broker_recepisse_number,
-    toNullable(toDateTime64("initialBrokerRecepisseValidityLimit", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("initialBrokerRecepisseValidityLimit",'Europe/Paris'))) as initial_broker_recepisse_validity_limit,
+    toNullable(toTimezone(toDateTime64("initialBrokerRecepisseValidityLimit",6),'Europe/Paris')) as initial_broker_recepisse_validity_limit,
     toNullable(toString("initialDestinationCap")) as initial_destination_cap,
     toLowCardinality(toNullable(replaceAll(toString("initialDestinationOperationCode"),' ',''))) as initial_destination_operation_code,
     toNullable(toString("initialDestinationOperationDescription")) as initial_destination_operation_description,

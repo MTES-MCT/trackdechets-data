@@ -68,7 +68,6 @@ TRACKDECHETS_SIRENE_SEARCH_GIT_BRANCH = Variable.get(
     schedule_interval="0 0/12 * * *",
     catchup=False,
     start_date=datetime(2025, 4, 5),
-    on_failure_callback=send_alert_to_mattermost,
 )
 def incremental_update_search_sirene():
     """

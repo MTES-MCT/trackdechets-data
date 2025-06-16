@@ -19,7 +19,7 @@ with source as (
 
 SELECT
     assumeNotNull(toString("id")) as id,
-    assumeNotNull(toDateTime64("createdAt", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("createdAt",'Europe/Paris'))) as created_at,
+    assumeNotNull(toTimezone(toDateTime64("createdAt",6),'Europe/Paris')) as created_at,
     toNullable(toString("importId")) as import_id,
     assumeNotNull(toBool("isLatest")) as is_latest,
     assumeNotNull(toBool("isCancelled")) as is_cancelled,
@@ -43,8 +43,8 @@ SELECT
     toLowCardinality(toNullable(toString("wasteCodeBale"))) as waste_code_bale,
     toNullable(toBool("wastePop")) as waste_pop,
     toNullable(toBool("wasteIsDangerous")) as waste_is_dangerous,
-    assumeNotNull(toDateTime64("collectionDate", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("collectionDate",'Europe/Paris'))) as collection_date,
-    assumeNotNull(toDateTime64("unloadingDate", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("unloadingDate",'Europe/Paris'))) as unloading_date,
+    assumeNotNull(toTimezone(toDateTime64("collectionDate",6),'Europe/Paris')) as collection_date,
+    assumeNotNull(toTimezone(toDateTime64("unloadingDate",6),'Europe/Paris')) as unloading_date,
     assumeNotNull(toFloat64("weightValue")) as weight_value,
     assumeNotNull(toBool("weightIsEstimate")) as weight_is_estimate,
     toNullable(toFloat64("volume")) as volume,
@@ -81,5 +81,5 @@ SELECT
     toNullable(toString("traderCompanyName")) as trader_company_name,
     toNullable(toString("traderRecepisseNumber")) as trader_recepisse_number,
     toNullable(toString("gistridNumber")) as gistrid_number,
-    assumeNotNull(toDateTime64("updatedAt", 6, 'Europe/Paris') - timeZoneOffset(toTimeZone("updatedAt",'Europe/Paris'))) as updated_at
+    assumeNotNull(toTimezone(toDateTime64("updatedAt",6),'Europe/Paris')) as updated_at
  FROM source
