@@ -19,7 +19,7 @@ DWH_CON = Connection.get_connection_from_secrets("td_datawarehouse")
 
 @dag(
     start_date=datetime(2022, 2, 7),
-    schedule_interval="0 8 * * 1",
+    schedule_interval="0 8 * * *",
     user_defined_macros={},
     catchup=False,
     on_failure_callback=send_alert_to_mattermost,
