@@ -8,21 +8,28 @@ seeds:
       - name: libelle_section
         data_type: String
       - name: code_division
-        data_type: Int32
+        data_type: String
       - name: libelle_division
         data_type: String
       - name: code_groupe
-        data_type: Float32
+        data_type: String
       - name: libelle_groupe
         data_type: String
       - name: code_classe
-        data_type: Float32
+        data_type: String
       - name: libelle_classe
         data_type: String
       - name: code_sous_classe
         data_type: String
       - name: libelle_sous_classe
         data_type: String
+    config:
+      column_types:
+        code_section: String
+        code_division: String
+        code_groupe: String
+        code_classe: String
+        code_sous_classe: String
   - name: stg_referentiel_codes_operation_rubriques
     description: Référentiel pour la correspondance entre rubrique ICPE et code opération
     columns:

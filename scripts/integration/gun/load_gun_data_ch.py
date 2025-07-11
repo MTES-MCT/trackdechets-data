@@ -32,7 +32,14 @@ CREATE TABLE IF NOT EXISTS raw_zone_icpe.installations_rubriques_2024 (
 	"Unité" Nullable(String),
 	"Etat technique de la rubrique" Nullable(String),
 	"Etat administratif de la rubrique" Nullable(String),
-	inserted_at DateTime64(9, 'Europe/Paris') DEFAULT now('Europe/Paris')
+    "Adresse partie 1" Nullable(String),
+    "Adresse partie 2" Nullable(String),
+    "Code postal" Nullable(String),
+    "Commune" Nullable(String),
+    "Coordonnée X" Nullable(Int64),
+    "Coordonnée Y" Nullable(Int64),
+    "Date de l'archivage de l'AIOT" Nullable(Date32),
+	_inserted_at DateTime64(9, 'Europe/Paris') DEFAULT now('Europe/Paris')
 )
 ENGINE = MergeTree()
 ORDER BY ()
@@ -65,7 +72,11 @@ def load_gun_csv_file_to_dwh(
     gun_df = pl.read_csv(
         filepath,
         null_values="NULL",
-        schema_overrides={"Code AIOT": pl.String, "SIRET": pl.String},
+        schema_overrides={
+            "Code AIOT": pl.String,
+            "SIRET": pl.String,
+            "Code postal": pl.String,
+        },
     )
 
     if "Capacité projet" in gun_df.columns:
