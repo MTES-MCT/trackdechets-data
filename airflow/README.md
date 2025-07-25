@@ -57,7 +57,7 @@ Ce DAG est utilisé afin de géocoder les établissements présent dans les donn
 
 Les deux DAGs de ce dossier sont ceux qui permettent la publication des données open-data sur `data.gouv.fr`.
 
-### `open_data`
+### `trackdechets_search_sirene`
 
 Contient les DAGs qui indexent les données de la base SIRENE (stock-etablissement et unite-legale) dans l'Elastic Search Trackdechets de production dédiée à ces deux bases.
 
