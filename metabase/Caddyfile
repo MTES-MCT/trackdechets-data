@@ -1,3 +1,7 @@
-metabase.trackdechets.beta.gouv.fr
+metabase.trackdechets.beta.gouv.fr {
+	reverse_proxy :3000
 
-reverse_proxy :3000
+	basicauth {
+		{env.HTTP_USERNAME} {env.HTTP_PASSWORD_HASH}
+	}
+}
