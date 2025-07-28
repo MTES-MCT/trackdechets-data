@@ -16,6 +16,20 @@
             "console": "integratedTerminal",
         },
         {
+            "name": "Python Debugger: load_gun_data Clickhouse",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/integration/gun/load_gun_data_ch.py",
+            "args": [
+                "--dwh_username",
+                "${env:DWH_USERNAME}",
+                "--dwh_password",
+                "${env:DWH_PASSWORD}",
+                "${input:filepath}",
+            ],
+            "console": "integratedTerminal",
+        },
+        {
             "name": "Python Debugger: load_gistrid_data",
             "type": "debugpy",
             "request": "launch",
@@ -54,7 +68,7 @@
         {
             "id": "filepath",
             "type": "promptString",
-            "description": "filepath to gun data connection url.",
+            "description": "filepath to gun data.",
         },
         {
             "id": "year",
