@@ -29,24 +29,8 @@ def el_base_sirene():
     """DAG qui met à jour la base SIRENE dans le Data Warehouse Clickhouse Trackdéchets."""
 
     @task
-    def download_stock_etablissement() -> str:
+    def insert_data_to_ch():
         url = Variable.get("BASE_SIRENE_URL")
-
-        tmp_dir = Path(tempfile.mkdtemp(prefix="base_sirene_ETL"))
-
-        logger.info(
-            "Starting downloading stock_etablissement parquet file to path %s.", tmp_dir
-        )
-        urllib.request.urlretrieve(url, tmp_dir / "stock_etablissement.parquet")
-        logger.info(
-            "Finished downloading stock_etablissement parquet file to path %s.", tmp_dir
-        )
-
-        return str(tmp_dir)
-
-    @task
-    def insert_data_to_ch(tmp_dir: str, params: dict[str, Any] = None):
-        tmp_dir = Path(tmp_dir)
 
         DWH_CON = Connection.get_connection_from_secrets("td_datawarehouse").to_dict()
         client = clickhouse_connect.get_client(
@@ -67,11 +51,66 @@ def el_base_sirene():
         logger.info("Finished truncating temporary table if exists.")
 
         logger.info("Starting inserting data into temporary table.")
-        insert_file(
-            client,
-            "stock_etablissement_tmp",
-            str((tmp_dir / "stock_etablissement.parquet").absolute()),
-            fmt="CSVWithNames",
+        client.command(
+            f"""
+            INSERT INTO stock_etablissement_tmp
+            SELECT *
+            FROM url('{url}', 'Parquet', '
+                siren                                           String,
+                nic                                             String,
+                siret                                           String,
+                statutDiffusionEtablissement                    LowCardinality(String),
+                dateCreationEtablissement                       Nullable(String),
+                trancheEffectifsEtablissement                   LowCardinality(Nullable(String)),
+                anneeEffectifsEtablissement                     Nullable(Int16),
+                activitePrincipaleRegistreMetiersEtablissement  Nullable(String),
+                dateDernierTraitementEtablissement              Nullable(DateTime),
+                etablissementSiege                              Bool,
+                nombrePeriodesEtablissement                     UInt8,
+                complementAdresseEtablissement                  Nullable(String),
+                numeroVoieEtablissement                         Nullable(String),
+                indiceRepetitionEtablissement                   Nullable(String),
+                dernierNumeroVoieEtablissement                  Nullable(String),
+                indiceRepetitionDernierNumeroVoieEtablissement  Nullable(String),
+                typeVoieEtablissement                           LowCardinality(Nullable(String)),
+                libelleVoieEtablissement                        Nullable(String),
+                codePostalEtablissement                         Nullable(String),
+                libelleCommuneEtablissement                     Nullable(String),
+                libelleCommuneEtrangerEtablissement             Nullable(String),
+                distributionSpecialeEtablissement               LowCardinality(Nullable(String)),
+                codeCommuneEtablissement                        Nullable(String),
+                codeCedexEtablissement                          Nullable(String),
+                libelleCedexEtablissement                       Nullable(String),
+                codePaysEtrangerEtablissement                   Nullable(String),
+                libellePaysEtrangerEtablissement                Nullable(String),
+                identifiantAdresseEtablissement                 Nullable(String),
+                coordonneeLambertAbscisseEtablissement          Nullable(String),
+                coordonneeLambertOrdonneeEtablissement          Nullable(String),
+                complementAdresse2Etablissement                 Nullable(String),
+                numeroVoie2Etablissement                        Nullable(String),
+                indiceRepetition2Etablissement                  Nullable(String),
+                typeVoie2Etablissement                          LowCardinality(Nullable(String)),
+                libelleVoie2Etablissement                       Nullable(String),
+                codePostal2Etablissement                        Nullable(String),
+                libelleCommune2Etablissement                    Nullable(String),
+                libelleCommuneEtranger2Etablissement            Nullable(String),
+                distributionSpeciale2Etablissement              LowCardinality(Nullable(String)),
+                codeCommune2Etablissement                       Nullable(String),
+                codeCedex2Etablissement                         Nullable(String),
+                libelleCedex2Etablissement                      Nullable(String),
+                codePaysEtranger2Etablissement                  Nullable(String),
+                libellePaysEtranger2Etablissement               Nullable(String),
+                dateDebut                                       Nullable(String),
+                etatAdministratifEtablissement                  LowCardinality(Nullable(String)),
+                enseigne1Etablissement                          Nullable(String),
+                enseigne2Etablissement                          Nullable(String),
+                enseigne3Etablissement                          Nullable(String),
+                denominationUsuelleEtablissement                Nullable(String),
+                activitePrincipaleEtablissement                 LowCardinality(Nullable(String)),
+                nomenclatureActivitePrincipaleEtablissement     LowCardinality(Nullable(String)),
+                caractereEmployeurEtablissement                 LowCardinality(Nullable(String))')
+            """,
+            settings={"max_http_get_redirects": 2},
         )
         logger.info("Finished inserting data into temporary table.")
 
@@ -83,12 +122,7 @@ def el_base_sirene():
         client.command("RENAME TABLE stock_etablissement_tmp TO stock_etablissement")
         logger.info("Finished renaming temporary table.")
 
-    @task(trigger_rule=TriggerRule.ALL_DONE)
-    def cleanup_tmp_files(tmp_dir: str):
-        shutil.rmtree(tmp_dir)
-
-    tmp_dir = download_stock_etablissement()
-    insert_data_to_ch(tmp_dir) >> cleanup_tmp_files(tmp_dir)
+    insert_data_to_ch()
 
 
 el_base_sirene_dag = el_base_sirene()
