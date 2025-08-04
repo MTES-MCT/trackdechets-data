@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS stock_etablissement_tmp
     libelleCedex2Etablissement                      Nullable(String),
     codePaysEtranger2Etablissement                  Nullable(String),
     libellePaysEtranger2Etablissement               Nullable(String),
-    dateDebut                                       Nullable(Date),
+    dateDebut                                       Nullable(String),
     etatAdministratifEtablissement                  LowCardinality(Nullable(String)),
     enseigne1Etablissement                          Nullable(String),
     enseigne2Etablissement                          Nullable(String),

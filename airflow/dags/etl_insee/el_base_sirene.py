@@ -29,22 +29,18 @@ def el_base_sirene():
     """DAG qui met à jour la base SIRENE dans le Data Warehouse Clickhouse Trackdéchets."""
 
     @task
-    def extract_stock_etablissement() -> str:
+    def download_stock_etablissement() -> str:
         url = Variable.get("BASE_SIRENE_URL")
 
         tmp_dir = Path(tempfile.mkdtemp(prefix="base_sirene_ETL"))
 
         logger.info(
-            "Starting downloading stock_etablissement archive to path %s.", tmp_dir
+            "Starting downloading stock_etablissement parquet file to path %s.", tmp_dir
         )
-        urllib.request.urlretrieve(url, tmp_dir / "stock_etablissement.zip")
+        urllib.request.urlretrieve(url, tmp_dir / "stock_etablissement.parquet")
         logger.info(
-            "Finished downloading stock_etablissement archive to path %s.", tmp_dir
+            "Finished downloading stock_etablissement parquet file to path %s.", tmp_dir
         )
-
-        logger.info("Starting extracting stock_etablissement archive.")
-        shutil.unpack_archive(tmp_dir / "stock_etablissement.zip", tmp_dir)
-        logger.info("Finished extracting stock_etablissement archive.")
 
         return str(tmp_dir)
 
@@ -74,7 +70,7 @@ def el_base_sirene():
         insert_file(
             client,
             "stock_etablissement_tmp",
-            str((tmp_dir / "StockEtablissement_utf8.csv").absolute()),
+            str((tmp_dir / "stock_etablissement.parquet").absolute()),
             fmt="CSVWithNames",
         )
         logger.info("Finished inserting data into temporary table.")
@@ -91,7 +87,7 @@ def el_base_sirene():
     def cleanup_tmp_files(tmp_dir: str):
         shutil.rmtree(tmp_dir)
 
-    tmp_dir = extract_stock_etablissement()
+    tmp_dir = download_stock_etablissement()
     insert_data_to_ch(tmp_dir) >> cleanup_tmp_files(tmp_dir)
 
 
