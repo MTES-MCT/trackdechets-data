@@ -3,7 +3,7 @@
     materialized = 'table',
     query_settings = {
         "join_algorithm":"'grace_hash'",
-        "grace_hash_join_initial_buckets":16
+        "grace_hash_join_initial_buckets":64
     }
     )
 }}
