@@ -5,6 +5,8 @@ import clickhouse_connect
 import requests
 from airflow.decorators import dag, task
 from airflow.models import Connection, Variable
+
+from dags_utils.datawarehouse_connection import get_dwh_client
 from dags_utils.alerting import send_alert_to_mattermost
 
 logging.basicConfig(
@@ -31,15 +33,8 @@ def publish_companies_open_data():
 
     @task()
     def extract_transform_and_load_company_data():
-        con = DWH_CON.to_dict()
+        client = get_dwh_client("raw_zone_referentials")
 
-        client = clickhouse_connect.get_client(
-            host=con.get("host"),
-            port=con.get("extra").get("http_port"),
-            username=con.get("login"),
-            password=con.get("password"),
-            database="raw_zone_referentials",
-        )
         df_company = client.query_df(
             query="""  
             SELECT

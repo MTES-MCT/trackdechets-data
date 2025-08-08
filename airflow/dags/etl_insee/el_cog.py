@@ -6,7 +6,6 @@ from datetime import datetime
 from pathlib import Path
 
 from airflow.decorators import dag, task
-from airflow.models import Connection
 from airflow.utils.trigger_rule import TriggerRule
 import clickhouse_connect
 from clickhouse_connect.driver.tools import insert_file
@@ -19,6 +18,7 @@ from etl_insee.schemas.cog import (
     CODE_REGION_DDL,
     CODE_TERRITOIRES_OUTRE_MER_DDL,
 )
+from dags_utils.datawarehouse_connection import get_dwh_client
 from dags_utils.alerting import send_alert_to_mattermost
 
 logging.basicConfig()
@@ -89,14 +89,7 @@ def el_cog():
     def insert_data_to_ch(tmp_dir: str):
         tmp_dir = Path(tmp_dir)
 
-        DWH_CON = Connection.get_connection_from_secrets("td_datawarehouse").to_dict()
-        client = clickhouse_connect.get_client(
-            host=DWH_CON.get("host"),
-            port=DWH_CON.get("extra").get("http_port"),
-            username=DWH_CON.get("login"),
-            password=DWH_CON.get("password"),
-            database="raw_zone_insee",
-        )
+        client = get_dwh_client("raw_zone_insee")
 
         for o in configs:
             table_name = o["name"]

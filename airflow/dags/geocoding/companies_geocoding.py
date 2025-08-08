@@ -10,10 +10,10 @@ import httpx
 import tqdm
 import pandas as pd
 from airflow.decorators import dag, task
-from airflow.models import Connection
 from airflow.utils.trigger_rule import TriggerRule
 from clickhouse_connect.driver.tools import insert_file
 from pendulum import datetime
+from dags_utils.datawarehouse_connection import get_dwh_client
 from dags_utils.alerting import send_alert_to_mattermost
 
 from geocoding.schema import COMPANIES_GEOCODED_DDL
@@ -25,8 +25,6 @@ logging.basicConfig(
 )
 logger = logging.getLogger()
 
-DWH_CON = Connection.get_connection_from_secrets("td_datawarehouse")
-
 
 @dag(
     schedule_interval="0 2 * * *",
@@ -35,6 +33,8 @@ DWH_CON = Connection.get_connection_from_secrets("td_datawarehouse")
     on_failure_callback=send_alert_to_mattermost,
 )
 def companies_geocoding():
+    client = get_dwh_client("raw_zone_referentials")
+
     @task
     def create_tmp_dir() -> str:
         """
@@ -47,15 +47,6 @@ def companies_geocoding():
     def extract_companies_to_geocode(tmp_dir: str):
         logger.info("Retrieving companies to geolocalize.")
 
-        con = DWH_CON.to_dict()
-
-        client = clickhouse_connect.get_client(
-            host=con.get("host"),
-            port=con.get("extra").get("http_port"),
-            username=con.get("login"),
-            password=con.get("password"),
-            database="raw_zone_referentials",
-        )
         companies_df = client.query_df(
             query="""
             select
@@ -126,16 +117,6 @@ def companies_geocoding():
     def insert_companies_geocoded_data_to_database(tmp_dir):
         companies_geocoded_df = pd.read_csv(
             Path(tmp_dir) / "companies_geocoded.csv", dtype=str
-        )
-
-        con = DWH_CON.to_dict()
-
-        client = clickhouse_connect.get_client(
-            host=con.get("host"),
-            port=con.get("extra").get("http_port"),
-            username=con.get("login"),
-            password=con.get("password"),
-            database="raw_zone_referentials",
         )
 
         logger.info("Creating table (if not exists) 'companies_geocoded_by_ban_tmp'.")

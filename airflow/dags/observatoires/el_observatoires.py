@@ -3,10 +3,10 @@ from datetime import datetime
 
 import clickhouse_connect
 
-from airflow.models import Connection, Variable
-import duckdb
+from airflow.models import Variable
 from airflow.decorators import dag, task
 
+from dags_utils.datawarehouse_connection import get_dwh_client
 from dags_utils.alerting import send_alert_to_mattermost
 
 logging.basicConfig()
@@ -37,9 +37,6 @@ configs = {
 }
 
 
-DWH_CON = Connection.get_connection_from_secrets("td_datawarehouse")
-
-
 @dag(
     schedule_interval="30 16 1 * *",
     catchup=False,
@@ -53,16 +50,9 @@ def el_observatoires():
 
     @task
     def extract_from_dwh_and_load_to_s3():
-        con = DWH_CON.to_dict()
         gerico_bucket_name = Variable.get("GERICO_S3_BUCKET_NAME")
 
-        client = clickhouse_connect.get_client(
-            host=con.get("host"),
-            port=con.get("extra").get("http_port"),
-            username=con.get("login"),
-            password=con.get("password"),
-            database="raw_zone_referentials",
-        )
+        client = get_dwh_client("raw_zone_referentials")
 
         for bs_type, config in configs.items():
             date_expr = config["date_expr"]

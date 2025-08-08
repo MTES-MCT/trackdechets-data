@@ -11,6 +11,7 @@ trackdechets:
       custom_settings:
         join_use_nulls: 1
       threads: 2
+      send_receive_timeout: 3600
     prod:
       type: clickhouse
       host: "{{ env_var('DBT_HOST_PROD') }}"
@@ -21,3 +22,4 @@ trackdechets:
         join_use_nulls: 1
       threads: 6
       use_colors: false
+      send_receive_timeout: 600

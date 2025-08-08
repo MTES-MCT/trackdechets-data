@@ -1,8 +1,9 @@
 import logging
-from datetime import datetime, timedelta
+from datetime import datetime
 
 import clickhouse_connect
 import requests
+from dags_utils.datawarehouse_connection import get_dwh_client
 from dags_utils.alerting import send_alert_to_mattermost
 
 from airflow.decorators import dag, task
@@ -14,8 +15,6 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 logger = logging.getLogger()
-
-DWH_CON = Connection.get_connection_from_secrets("td_datawarehouse")
 
 DATA_CONFIG = [
     {
@@ -97,15 +96,7 @@ def publish_stats_publiques_open_data():
 
     @task()
     def extract_and_load_stats_publiques_data():
-        con = DWH_CON.to_dict()
-
-        client = clickhouse_connect.get_client(
-            host=con.get("host"),
-            port=con.get("extra").get("http_port"),
-            username=con.get("login"),
-            password=con.get("password"),
-            database="raw_zone_referentials",
-        )
+        client = get_dwh_client("raw_zone_referentials")
 
         for config in reversed(DATA_CONFIG):
             table_name = config["table_name"]

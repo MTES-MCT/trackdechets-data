@@ -83,6 +83,16 @@ uv run --env-file .env dbt docs serve
 Le différents modèles dans le dossier `models` sont organisés en deux zones : `trusted_zone`et `refined_zone` ayant chacune leur sous-dossier attitré.
 À ceux-ci s'ajoutent un dossier `sources` qui contient les sources de données correspondant aux données dans la `raw_zone`.
 
+## Formatage
+
+[sqlfluff](https://github.com/sqlfluff/sqlfluff) est utilisé comme formateur pour le projet. Les règles personnalisées choisies sont dans le fichier `.sqlfluff`.
+
+Pour formater le projet, il faut utiliser la commande suivante :
+
+```bash
+uv run --env-file .env sqlfluff fix .
+```
+
 ### Resources:
 
 - Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)

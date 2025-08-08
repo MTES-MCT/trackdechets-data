@@ -1,17 +1,10 @@
 import logging
-import shutil
-import tempfile
-from typing import Any
-import urllib
 from datetime import datetime
-from pathlib import Path
 
 from airflow.decorators import dag, task
-from airflow.models import Connection, Variable
-from airflow.utils.trigger_rule import TriggerRule
-import clickhouse_connect
-from clickhouse_connect.driver.tools import insert_file
+from airflow.models import Variable
 
+from dags_utils.datawarehouse_connection import get_dwh_client
 from dags_utils.alerting import send_alert_to_mattermost
 from etl_insee.schemas.stock_etablissement import STOCK_ETABLISSEMENT_DDL
 
@@ -32,14 +25,7 @@ def el_base_sirene():
     def insert_data_to_ch():
         url = Variable.get("BASE_SIRENE_URL")
 
-        DWH_CON = Connection.get_connection_from_secrets("td_datawarehouse").to_dict()
-        client = clickhouse_connect.get_client(
-            host=DWH_CON.get("host"),
-            port=DWH_CON.get("extra").get("http_port"),
-            username=DWH_CON.get("login"),
-            password=DWH_CON.get("password"),
-            database="raw_zone_insee",
-        )
+        client = get_dwh_client("raw_zone_insee")
 
         logger.info("Starting temporary table creation if not exists.")
         create_table_statement = STOCK_ETABLISSEMENT_DDL

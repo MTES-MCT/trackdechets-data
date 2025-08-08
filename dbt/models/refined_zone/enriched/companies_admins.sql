@@ -34,7 +34,8 @@ select
     ce.longitude                                 as company_longitude,
     ce.broker_receipt_id                         as company_broker_receipt_id,
     ce.verification_code                         as company_verification_code,
-    ce.worker_certification_id                   as company_worker_certification_id,
+    ce.worker_certification_id
+        as company_worker_certification_id,
     ce.verification_status
         as company_verification_status,
     ce.verification_mode                         as company_verification_mode,

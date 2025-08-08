@@ -5,36 +5,19 @@ from zoneinfo import ZoneInfo
 
 import boto3
 import clickhouse_connect
+
+from dags_utils.datawarehouse_connection import get_dwh_client
 from dags_utils.alerting import send_alert_to_mattermost
 
 from airflow.decorators import dag, task
-from airflow.models import Connection, Variable
+from airflow.models import Variable
 
 # ──────────────────────────────────────────────────────────────────────────────
 #  Configuration
 # ──────────────────────────────────────────────────────────────────────────────
-DWH_CON = Connection.get_connection_from_secrets("td_datawarehouse")
-
 S3_BUCKET_URL = Variable.get("TRACKDECHETS_CH_BACKUP_BUCKET_URL")
 AWS_ACCESS_KEY_ID = Variable.get("TRACKDECHETS_CH_BACKUP_BUCKET_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = Variable.get("TRACKDECHETS_CH_BACKUP_BUCKET_SECRET_ACCESS_KEY")
-
-
-# ──────────────────────────────────────────────────────────────────────────────
-#  Helper: build a clickhouse client
-# ──────────────────────────────────────────────────────────────────────────────
-def get_clickhouse_client(database="raw_zone_referentials"):
-    con_dict = DWH_CON.to_dict()
-    return clickhouse_connect.get_client(
-        host=con_dict["host"],
-        port=int(con_dict["extra"].get("http_port", 8123)),
-        username=con_dict["login"],
-        password=con_dict["password"],
-        database=database,
-        send_receive_timeout=60
-        * 60
-        * 4,  # Timeout for clickhouse server response (can take long time for initial backup)
-    )
 
 
 # ------------------------------------------------------------------
@@ -135,7 +118,7 @@ def backup_clickhouse_incremental():
         """
         Execute the ClickHouse BACKUP command.
         """
-        client = get_clickhouse_client()
+        client = get_dwh_client(send_receive_timeout=60 * 60 * 4)
         logger.info(f"Target S3 prefix: {target_prefix}")
 
         if is_initial:

@@ -56,5 +56,5 @@ CREATE TABLE IF NOT EXISTS stock_etablissement_tmp
     caractereEmployeurEtablissement                 LowCardinality(Nullable(String))
 )
 ENGINE = MergeTree()
-ORDER BY ()
+ORDER BY (siret)
 """
