@@ -48,6 +48,8 @@ models:
         +schema: refined_zone_gistrid
       observatoires:
         +schema: refined_zone_observatoires
+      vigiedechets:
+        +schema: refined_zone_vigiedechets
 
     trusted_zone:
       +schema: trusted_zone

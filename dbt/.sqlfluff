@@ -1,6 +1,8 @@
 [sqlfluff]
 templater = dbt
 dialect = clickhouse
+# To allow for self-aliasing to avoid Clickhouse adding prefix to ambigous column names
+exclude_rules = AL09 
 
 [sqlfluff:templater:dbt]
 project_dir = ./

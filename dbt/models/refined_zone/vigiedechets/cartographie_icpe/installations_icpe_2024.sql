@@ -49,20 +49,20 @@ installations as (
         (ir.libelle_etat_site = 'Avec titre') -- noqa: LXR
         and (ir.etat_administratif_rubrique in ('En vigueur', 'A l''arrêt'))
         and (ir.etat_technique_rubrique = 'Exploité')
-        and not match(ir.raison_sociale,'illégal|illicite')
+        and not match(ir.raison_sociale, 'illégal|illicite')
 )
 
 select
     i.code_aiot,
     i.raison_sociale,
-    i.siret as "siret",
+    i.siret,
     i.rubrique,
     i.quantite_autorisee,
     i.unite,
     i.libelle_etat_site,
     i.adresse1,
     i.adresse2,
-    i.code_postal as "code_postal",
+    i.code_postal,
     i.commune,
     cgc.code_departement as code_departement_insee,
     cgc.code_region      as code_region_insee,

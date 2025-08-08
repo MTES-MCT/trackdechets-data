@@ -7,9 +7,12 @@
 with stats as (
     select
         code_departement_insee,
-        if(not match(rubrique,'^2791.*'),substring(rubrique,1,6),'2791') as rubrique,
-        count(distinct code_aiot) as nombre_installations,
-        sum(quantite_autorisee)   as quantite_autorisee
+        if(not match(rubrique, '^2791.*'), substring(rubrique, 1, 6), '2791')
+            as rubrique,
+        count(distinct code_aiot)
+            as nombre_installations,
+        sum(quantite_autorisee)
+            as quantite_autorisee
     from
         {{ ref('installations_icpe_2024') }}
     group by
