@@ -31,6 +31,9 @@ def get_clickhouse_client(database="raw_zone_referentials"):
         username=con_dict["login"],
         password=con_dict["password"],
         database=database,
+        send_receive_timeout=60
+        * 60
+        * 4,  # Timeout for clickhouse server response (can take long time for initial backup)
     )
 
 
