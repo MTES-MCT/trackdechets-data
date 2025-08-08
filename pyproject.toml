@@ -5,6 +5,7 @@ description = "Data pipelines for Trackdechets project."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "boto3>=1.35.88",
     "clickhouse-connect>=0.8.7",
     "clickhouse-sqlalchemy>=0.2.9",
     "dbt-clickhouse==1.9.1",
