@@ -83,6 +83,15 @@ uv run --env-file .env dbt docs serve
 Le différents modèles dans le dossier `models` sont organisés en deux zones : `trusted_zone`et `refined_zone` ayant chacune leur sous-dossier attitré.
 À ceux-ci s'ajoutent un dossier `sources` qui contient les sources de données correspondant aux données dans la `raw_zone`.
 
+## Création automatique des fichiers YAML
+
+Chaque modèle est accompagné d'un fichier YAML qui le documente, décrit et dans lequel certaines options peuvent être configurées.
+Ces fichiers peuvent être générés à partir des modèles eux-mêmes (à condition qu'ils aient été déjà matérialisés en base) à l'aide de l'outil [dbt-osmosis](https://github.com/z3z1ma/dbt-osmosis) avec la commande suivante :
+
+```bash
+uv run --env-file .env dbt-osmosis yaml refactor
+```
+
 ## Formatage
 
 [sqlfluff](https://github.com/sqlfluff/sqlfluff) est utilisé comme formateur pour le projet. Les règles personnalisées choisies sont dans le fichier `.sqlfluff`.

@@ -4,48 +4,9 @@
     )
 }}
 
-with companies as (
-    select
-        siret,
-        max(siret_ape_code)              as siret_ape_code,
-        max(first_activity_datetime_min) as first_activity_datetime_min,
-        min(total_events_count)          as total_events_count
-    from
-        {{ ref('producers_produced_wastes_quantities') }}
-    group by
-        1
-    having
-        siret_ape_code is not null
-),
 
-full_grid as (
-    select
-        c.siret,
-        c.first_activity_datetime_min as first_activity_datetime,
-        c.total_events_count,
-        wqpbac.ape_code,
-        wqpbac.waste_code,
-        wqpbac.waste_quantity_share   as waste_quantity_share_ref
-    from
-        {{ ref('waste_quantity_produced_by_ape_code') }} as wqpbac
-    inner join companies as c
-        on
-            wqpbac.ape_code = c.siret_ape_code
-),
 
-full_grid_with_company_data as (
-    select
-        fg.*,
-        cOALESCE(pq.waste_quantity_share, 0) as waste_quantity_share
-    from
-        full_grid as fg
-    left join {{ ref('producers_produced_wastes_quantities') }} as pq
-        on
-            fg.siret = pq.siret
-            and fg.waste_code = pq.waste_code
-),
-
-scores as (
+with scores as (
     select
         fgd.siret,
         max(fgd.first_activity_datetime) as first_activity_datetime,
@@ -68,7 +29,7 @@ scores as (
             * fgd.waste_quantity_share_ref
         )                                as scores
     from
-        full_grid_with_company_data as fgd
+        {{ ref('companies_features') }} as fgd
     group by
         1
 )

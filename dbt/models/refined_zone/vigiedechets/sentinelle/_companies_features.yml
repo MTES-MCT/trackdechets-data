@@ -1,0 +1,19 @@
+version: 2
+models:
+  - name: companies_features
+    columns:
+      - name: siret
+        description: Code région
+        data_type: String
+      - name: first_activity_datetime
+        data_type: DateTime64(6, 'Europe/Paris')
+      - name: total_events_count
+        data_type: UInt64
+      - name: ape_code
+        data_type: String
+      - name: waste_code
+        data_type: String
+      - name: waste_quantity_share_ref
+        data_type: Float64
+      - name: waste_quantity_share
+        data_type: Float64
