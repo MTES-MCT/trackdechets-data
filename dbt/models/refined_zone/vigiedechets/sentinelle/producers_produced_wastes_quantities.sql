@@ -50,6 +50,7 @@ bordereaux_quantities as (
         )
         -- old data can have a quantity that is not reliable
         and be.processed_at >= '2023-07-01'
+        and not empty(be.waste_code)
     group by
         1,
         2
@@ -72,6 +73,7 @@ dnd_registry_ttr as (
         )
         and riw.reception_date is not null
         and not riw.is_cancelled
+        
 ),
 
 dnd_quantities as (
@@ -95,6 +97,7 @@ dnd_quantities as (
         -- old data can have a quantity that is not reliable
         and riw.reception_date >= '2024-01-01'
         and riw.emitter_company_country_code = 'FR'
+        and not empty(riw.waste_code)
     group by
         1,
         2
@@ -140,6 +143,7 @@ texs_quantities as (
         -- old data can have a quantity that is not reliable
         and rtexs.reception_date >= '2024-01-01'
         and rtexs.emitter_company_country_code = 'FR'
+        and not empty(rtexs.waste_code)
     group by
         1,
         2
