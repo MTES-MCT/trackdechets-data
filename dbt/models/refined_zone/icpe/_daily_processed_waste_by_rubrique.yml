@@ -6,7 +6,7 @@ models:
         description: Code région
         data_type: string
       - name: day_of_processing
-        data_type: datetime('europe/paris')
+        data_type: datetime64(6, 'europe/paris')
       - name: rubrique
         data_type: string
       - name: quantite_traitee

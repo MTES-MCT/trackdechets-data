@@ -122,45 +122,57 @@ models:
       - name: num_dnd_statements_as_destination
         data_type: uint64
       - name: quantity_dnd_statements_as_destination
-        data_type: decimal(76, 9)
+        data_type: float64
       - name: volume_dnd_statements_as_destination
-        data_type: decimal(76, 9)
+        data_type: float64
+      - name: num_dd_statements_as_destination
+        data_type: UInt64
+      - name: quantity_dd_statements_as_destination
+        data_type: Float64
+      - name: volume_dd_statements_as_destination
+        data_type: Float64
       - name: num_dnd_statements_as_emitter
         data_type: uint64
       - name: quantity_dnd_statements_as_emitter
-        data_type: decimal(76, 9)
+        data_type: float64
       - name: volume_dnd_statements_as_emitter
-        data_type: decimal(76, 9)
+        data_type: float64
+      - name: num_dd_statements_as_emitter
+        data_type: UInt64
+      - name: quantity_dd_statements_as_emitter
+        data_type: Float64
+      - name: volume_dd_statements_as_emitter
+        data_type: Float64
       - name: num_dnd_statements_as_transporteur
         data_type: uint64
       - name: quantity_dnd_statements_as_transporteur
-        data_type: decimal(76, 9)
+        data_type: float64
       - name: volume_dnd_statements_as_transporteur
-        data_type: decimal(76, 9)
+        data_type: float64
       - name: num_texs_statements_as_destination
         data_type: uint64
       - name: quantity_texs_statements_as_destination
-        data_type: decimal(76, 9)
+        data_type: float64
       - name: volume_texs_statements_as_destination
-        data_type: decimal(76, 9)
+        data_type: float64
       - name: num_texs_statements_as_emitter
         data_type: uint64
       - name: quantity_texs_statements_as_emitter
-        data_type: decimal(76, 9)
+        data_type: float64
       - name: volume_texs_statements_as_emitter
-        data_type: decimal(76, 9)
+        data_type: float64
       - name: num_texs_statements_as_transporteur
         data_type: uint64
       - name: quantity_texs_statements_as_transporteur
-        data_type: decimal(76, 9)
+        data_type: float64
       - name: volume_texs_statements_as_transporteur
-        data_type: decimal(76, 9)
+        data_type: float64
       - name: num_ssd_statements_as_emitter
         data_type: UInt64
       - name: quantity_ssd_statements_as_emitter
-        data_type: Decimal(76, 9)
+        data_type: Float64
       - name: volume_ssd_statements_as_emitter
-        data_type: Decimal(76, 9)
+        data_type: Float64
       - name: num_pnttd_statements_as_emitter
         data_type: uint64
       - name: quantity_pnttd_as_emitter

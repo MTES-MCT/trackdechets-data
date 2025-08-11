@@ -9,6 +9,6 @@ models:
       - name: type_operation
         data_type: string
       - name: quantite_traitee
-        data_type: decimal(76, 9)
+        data_type: float64
       - name: volume_traite
-        data_type: decimal(76, 9)
+        data_type: float64

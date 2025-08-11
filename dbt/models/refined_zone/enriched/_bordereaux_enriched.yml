@@ -37,6 +37,8 @@ models:
       - name: quantity_received
         description: "Quantité reçue sur l'installation de destination, en tonnes.\n"
         data_type: decimal(76, 30)
+      - name: quantity_refused
+        data_type: Decimal(76, 30)
       - name: accepted_quantity_packagings
         data_type: float64
       - name: processing_operation

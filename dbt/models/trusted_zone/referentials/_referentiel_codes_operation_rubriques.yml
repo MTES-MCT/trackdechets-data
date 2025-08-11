@@ -1,0 +1,8 @@
+version: 2
+models:
+  - name: referentiel_codes_operation_rubriques
+    columns:
+      - name: code_operation
+        data_type: String
+      - name: rubrique
+        data_type: String

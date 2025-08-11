@@ -1,6 +1,10 @@
 {{
   config(
     materialized = 'table',
+    query_settings = {
+        "join_algorithm":"'grace_hash'",
+        "grace_hash_join_initial_buckets":16
+    }
     )
 }}
 
@@ -25,6 +29,8 @@ bordereaux_quantities as (
     select
         be.emitter_company_siret as siret,
         be.waste_code,
+        count(distinct be.id)    as processed_bordereaux_count,
+        min(be.processed_at)     as processed_at_min,
         sum(
             if(
                 be._bs_type = 'BSFF',
@@ -72,6 +78,8 @@ dnd_quantities as (
     select
         riw.emitter_company_org_id as siret,
         riw.waste_code,
+        count(distinct riw.id)     as statements_count,
+        min(riw.reception_date)    as received_at_min,
         sum(
             riw.weight_value
         )                          as quantity
@@ -115,6 +123,8 @@ texs_quantities as (
     select
         rtexs.emitter_company_org_id as siret,
         rtexs.waste_code,
+        count(distinct rtexs.id)     as statements_count,
+        min(rtexs.reception_date)    as received_at_min,
         sum(
             rtexs.weight_value
         )                            as quantity
@@ -141,29 +151,52 @@ all_quantities_data as (
     select
         siret,
         waste_code,
+        processed_bordereaux_count as events_count,
+        processed_at_min           as first_activity_datetime,
         quantity
     from bordereaux_quantities
     union all
     select
         siret,
         waste_code,
+        statements_count as events_count,
+        received_at_min  as first_activity_datetime,
         quantity
     from dnd_quantities
     union all
     select
         siret,
         waste_code,
+        statements_count as events_count,
+        received_at_min  as first_activity_datetime,
         quantity
     from texs_quantities
+),
+
+summed as (
+    select
+        d.siret                                   as siret,
+        max(se.activite_principale_etablissement) as siret_ape_code,
+        d.waste_code,
+        min(first_activity_datetime)              as first_activity_datetime,
+        sum(events_count)                         as events_count,
+        sum(d.quantity)                           as waste_quantity
+    from all_quantities_data as d
+    left join {{ ref('stock_etablissement') }} as se
+        on
+            d.siret = se.siret
+    group by 1, 3
 )
 
 select
-    d.siret                                   as siret,
-    max(se.activite_principale_etablissement) as siret_ape_code,
-    d.waste_code,
-    sum(d.quantity)                           as waste_quantity
-from all_quantities_data as d
-left join {{ ref('stock_etablissement') }} as se
-    on
-        d.siret = se.siret
-group by 1, 3
+    s.*,
+    min(s.first_activity_datetime)
+        over (partition by s.siret)
+        as first_activity_datetime_min,
+    sum(s.events_count)
+        over (partition by s.siret)
+        as total_events_count,
+    s.waste_quantity
+    / (sum(s.waste_quantity) over (partition by s.siret))
+        as waste_quantity_share
+from summed as s

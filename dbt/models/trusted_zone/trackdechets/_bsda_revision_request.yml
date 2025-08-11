@@ -8,9 +8,9 @@ models:
         description: Clé primaire
         data_type: string
       - name: created_at
-        data_type: datetime64(6)
+        data_type: datetime64(6, 'utc')
       - name: updated_at
-        data_type: datetime64(6)
+        data_type: datetime64(6, 'utc')
       - name: bsda_id
         data_type: string
       - name: authoring_company_id

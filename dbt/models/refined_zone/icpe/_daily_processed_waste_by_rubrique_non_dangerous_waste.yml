@@ -5,8 +5,8 @@ models:
       - name: siret
         data_type: string
       - name: date_reception
-        data_type: date
+        data_type: datetime64(6, 'europe/paris')
       - name: rubrique
         data_type: string
       - name: quantite
-        data_type: decimal(76, 9)
+        data_type: float64

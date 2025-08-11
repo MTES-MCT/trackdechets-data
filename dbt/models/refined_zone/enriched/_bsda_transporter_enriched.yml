@@ -49,6 +49,10 @@ models:
         data_type: datetime64(6, 'europe/paris')
       - name: bordereau_created_at
         data_type: datetime64(6, 'europe/paris')
+      - name: status
+        data_type: String
+      - name: is_draft
+        data_type: Bool
       - name: emitter_company_siret
         data_type: string
       - name: destination_company_siret

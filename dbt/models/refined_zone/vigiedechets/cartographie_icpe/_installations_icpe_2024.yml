@@ -7,9 +7,8 @@ models:
         data_type: string
       - name: raison_sociale
         data_type: string
-      - name: siret
-        description: Code région
-        data_type: string
+      - name: i.siret
+        data_type: String
       - name: rubrique
         data_type: string
       - name: quantite_autorisee
@@ -22,9 +21,8 @@ models:
         data_type: string
       - name: adresse2
         data_type: string
-      - name: code_postal
-        description: Code postal de la commune
-        data_type: string
+      - name: i.code_postal
+        data_type: String
       - name: commune
         data_type: string
       - name: code_departement_insee

@@ -9,10 +9,10 @@ models:
       - name: nombre_declarations_dnd_sortant
         data_type: uint64
       - name: quantite_dnd_entrant
-        data_type: decimal(76, 9)
+        data_type: float64
       - name: volume_dnd_entrant
-        data_type: decimal(76, 9)
+        data_type: float64
       - name: quantite_dnd_sortant
-        data_type: decimal(76, 9)
+        data_type: float64
       - name: volume_dnd_sortant
-        data_type: decimal(76, 9)
+        data_type: float64

@@ -12,7 +12,9 @@ models:
         data_type: Array(String)
       - name: quantite_autorisee
         data_type: float64
+      - name: objectif_quantite_traitee
+        data_type: Int32
       - name: day_of_processing
-        data_type: date
+        data_type: datetime64(6, 'europe/paris')
       - name: quantite_traitee
-        data_type: decimal(76, 9)
+        data_type: float64

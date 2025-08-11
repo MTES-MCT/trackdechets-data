@@ -107,9 +107,9 @@ models:
         data_type: Array(String)
       - name: processing_operations_bsvhu
         data_type: Array(String)
-      - name: processing_operation_dnd
+      - name: processing_operations_dnd
         data_type: Array(String)
-      - name: processing_operation_texs
+      - name: processing_operations_texs
         data_type: Array(String)
       - name: waste_codes_bordereaux
         data_type: Array(String)

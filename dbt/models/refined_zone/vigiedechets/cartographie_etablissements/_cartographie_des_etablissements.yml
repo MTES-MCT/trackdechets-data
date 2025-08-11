@@ -125,10 +125,10 @@ models:
         data_type: array(string)
       - name: processing_operations_bsvhu
         data_type: array(string)
-      - name: processing_operation_dnd
-        data_type: array(string)
-      - name: processing_operation_texs
-        data_type: array(string)
+      - name: processing_operations_dnd
+        data_type: Array(String)
+      - name: processing_operations_texs
+        data_type: Array(String)
       - name: waste_codes_bordereaux
         data_type: Array(String)
       - name: waste_codes_dnd_statements
@@ -145,6 +145,8 @@ models:
         data_type: string
       - name: code_region_insee
         data_type: string
+      - name: code_collectivite_outre_mer_insee
+        data_type: String
       - name: adresse_td
         data_type: string
       - name: adresse_insee

@@ -9,9 +9,8 @@ models:
         data_type: string
       - name: raison_sociale
         data_type: string
-      - name: siret
-        description: Code région
-        data_type: string
+      - name: ii.siret
+        data_type: String
       - name: adresse1
         data_type: string
       - name: adresse2
@@ -19,8 +18,8 @@ models:
       - name: code_postal
         description: Code postal de la commune
         data_type: string
-      - name: commune
-        data_type: string
+      - name: ii.commune
+        data_type: String
       - name: code_commune_insee
         description: >-
           Code commune correspondant à celui dans la base géographique des communes de l'INSEE.
@@ -37,7 +36,9 @@ models:
         data_type: float64
       - name: unite
         data_type: string
-      - name: day_of_processing
-        data_type: date
       - name: quantite_traitee
         data_type: decimal(76, 30)
+      - name: day_of_processing
+        data_type: date
+      - name: quantite_objectif
+        data_type: Int32
