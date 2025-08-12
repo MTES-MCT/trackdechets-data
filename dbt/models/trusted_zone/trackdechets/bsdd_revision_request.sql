@@ -8,88 +8,270 @@
 }}
 
 with source as (
-    select * from {{ source('trackdechets_production', 'bsdd_revision_request') }} b
+    select *
+    from {{ source('trackdechets_production', 'bsdd_revision_request') }} as b
     {% if is_incremental() %}
-    where b."updatedAt" >= (SELECT toString(toStartOfDay(max(updated_at)))  FROM {{ this }})
+        where
+            b."updatedAt"
+            >= (select toString(toStartOfDay(max(updated_at))) from {{ this }})
     {% endif %}
 )
-SELECT
-    assumeNotNull(toString("id")) as id,
-    assumeNotNull(toTimezone(toDateTime64("createdAt",6),'Europe/Paris')) as created_at,
-    assumeNotNull(toTimezone(toDateTime64("updatedAt",6),'Europe/Paris')) as updated_at,
-    assumeNotNull(toString("bsddId")) as bsdd_id,
-    assumeNotNull(toString("authoringCompanyId")) as authoring_company_id,
-    assumeNotNull(toString("comment")) as comment,
-    toLowCardinality(assumeNotNull(toString("status"))) as status,
-    toNullable(toString("recipientCap")) as recipient_cap,
-    toLowCardinality(toNullable(toString("wasteDetailsCode"))) as waste_details_code,
-    toNullable(toBool("wasteDetailsPop")) as waste_details_pop,
-    toNullable(toFloat64("quantityReceived")) as quantity_received,
-    toLowCardinality(toNullable(replaceAll(toString("processingOperationDone"),' ',''))) as processing_operation_done,
-    toNullable(toString("brokerCompanyName")) as broker_company_name,
-    toNullable(toString("brokerCompanySiret")) as broker_company_siret,
-    toNullable(toString("brokerCompanyAddress")) as broker_company_address,
-    toNullable(toString("brokerCompanyContact")) as broker_company_contact,
-    toNullable(toString("brokerCompanyPhone")) as broker_company_phone,
-    toNullable(toString("brokerCompanyMail")) as broker_company_mail,
-    toNullable(toString("brokerReceipt")) as broker_receipt,
-    toLowCardinality(toNullable(toString("brokerDepartment"))) as broker_department,
-    toNullable(toTimezone(toDateTime64("brokerValidityLimit",6),'Europe/Paris')) as broker_validity_limit,
-    toNullable(toString("traderCompanyAddress")) as trader_company_address,
-    toNullable(toString("traderCompanyContact")) as trader_company_contact,
-    toNullable(toString("traderCompanyPhone")) as trader_company_phone,
-    toNullable(toString("traderCompanyMail")) as trader_company_mail,
-    toNullable(toString("traderReceipt")) as trader_receipt,
-    toLowCardinality(toNullable(toString("traderDepartment"))) as trader_department,
-    toNullable(toTimezone(toDateTime64("traderValidityLimit",6),'Europe/Paris')) as trader_validity_limit,
-    toNullable(toString("temporaryStorageDestinationCap")) as temporary_storage_destination_cap,
-    toLowCardinality(toNullable(replaceAll(toString("temporaryStorageDestinationProcessingOperation"),' ',''))) as temporary_storage_destination_processing_operation,
-    toNullable(toString("traderCompanySiret")) as trader_company_siret,
-    toNullable(toString("traderCompanyName")) as trader_company_name,
-    toNullable(toString("wasteDetailsName")) as waste_details_name,
-    toNullable(toString("wasteDetailsPackagingInfos")) as waste_details_packaging_infos,
-    toNullable(toString("processingOperationDescription")) as processing_operation_description,
-    toNullable(toFloat64("temporaryStorageTemporaryStorerQuantityReceived")) as temporary_storage_temporary_storer_quantity_received,
-    assumeNotNull(toBool("isCanceled")) as is_canceled,
-    toLowCardinality(toNullable(toString("destinationOperationMode"))) as destination_operation_mode,
-    toNullable(toDecimal256("wasteDetailsQuantity", 30)) as waste_details_quantity,
-    toNullable(toString("wasteDetailsSampleNumber")) as waste_details_sample_number,
-    toNullable(toFloat64("quantityRefused")) as quantity_refused,
-    toLowCardinality(toNullable(toString("wasteAcceptationStatus"))) as waste_acceptation_status,
-    toNullable(toString("wasteRefusalReason")) as waste_refusal_reason,
-    toNullable(toString("initialBrokerCompanyAddress")) as initial_broker_company_address,
-    toNullable(toString("initialBrokerCompanyContact")) as initial_broker_company_contact,
-    toNullable(toString("initialBrokerCompanyMail")) as initial_broker_company_mail,
-    toNullable(toString("initialBrokerCompanyName")) as initial_broker_company_name,
-    toNullable(toString("initialBrokerCompanyPhone")) as initial_broker_company_phone,
-    toNullable(toString("initialBrokerCompanySiret")) as initial_broker_company_siret,
-    toNullable(toString("initialBrokerDepartment")) as initial_broker_department,
-    toNullable(toString("initialBrokerReceipt")) as initial_broker_receipt,
-    toNullable(toTimezone(toDateTime64("initialBrokerValidityLimit",6),'Europe/Paris')) as initial_broker_validity_limit,
-    toLowCardinality(toNullable(toString("initialDestinationOperationMode"))) as initial_destination_operation_mode,
-    toNullable(toString("initialProcessingOperationDescription")) as initial_processing_operation_description,
-    toLowCardinality(toNullable(replaceAll(toString("initialProcessingOperationDone"),' ',''))) as initial_processing_operation_done,
-    toNullable(toDecimal256("initialQuantityReceived", 30)) as initial_quantity_received,
-    toNullable(toDecimal256("initialQuantityRefused", 30)) as initial_quantity_refused,
-    toNullable(toString("initialRecipientCap")) as initial_recipient_cap,
-    toNullable(toString("initialTemporaryStorageDestinationCap")) as initial_temporary_storage_destination_cap,
-    toLowCardinality(toNullable(replaceAll(toString("initialTemporaryStorageDestinationProcessingOperation"),' ',''))) as initial_temporary_storage_destination_processing_operation,
-    toNullable(toDecimal256("initialTemporaryStorageTemporaryStorerQuantityReceived", 30)) as initial_temporary_storage_temporary_storer_quantity_received,
-    toNullable(toString("initialTraderCompanyAddress")) as initial_trader_company_address,
-    toNullable(toString("initialTraderCompanyContact")) as initial_trader_company_contact,
-    toNullable(toString("initialTraderCompanyMail")) as initial_trader_company_mail,
-    toNullable(toString("initialTraderCompanyName")) as initial_trader_company_name,
-    toNullable(toString("initialTraderCompanyPhone")) as initial_trader_company_phone,
-    toNullable(toString("initialTraderCompanySiret")) as initial_trader_company_siret,
-    toNullable(toString("initialTraderDepartment")) as initial_trader_department,
-    toNullable(toString("initialTraderReceipt")) as initial_trader_receipt,
-    toNullable(toTimezone(toDateTime64("initialTraderValidityLimit",6),'Europe/Paris')) as initial_trader_validity_limit,
-    toLowCardinality(toNullable(toString("initialWasteAcceptationStatus"))) as initial_waste_acceptation_status,
-    toLowCardinality(toNullable(toString("initialWasteDetailsCode"))) as initial_waste_details_code,
-    toNullable(toString("initialWasteDetailsName")) as initial_waste_details_name,
-    toNullable(toString("initialWasteDetailsPackagingInfos")) as initial_waste_details_packaging_infos,
-    toNullable(toBool("initialWasteDetailsPop")) as initial_waste_details_pop,
-    toNullable(toDecimal256("initialWasteDetailsQuantity", 30)) as initial_waste_details_quantity,
-    toNullable(toString("initialWasteDetailsSampleNumber")) as initial_waste_details_sample_number,
-    toNullable(toString("initialWasteRefusalReason")) as initial_waste_refusal_reason
- FROM source
+
+select
+    assumeNotNull(
+        toString("id")
+    ) as id,
+    assumeNotNull(
+        toTimezone(toDateTime64("createdAt", 6), 'Europe/Paris')
+    ) as created_at,
+    assumeNotNull(
+        toTimezone(toDateTime64("updatedAt", 6), 'Europe/Paris')
+    ) as updated_at,
+    assumeNotNull(
+        toString("bsddId")
+    ) as bsdd_id,
+    assumeNotNull(
+        toString("authoringCompanyId")
+    ) as authoring_company_id,
+    assumeNotNull(
+        toString("comment")
+    ) as comment,
+    toLowCardinality(
+        assumeNotNull(toString("status"))
+    ) as status,
+    toNullable(
+        toString("recipientCap")
+    ) as recipient_cap,
+    toLowCardinality(
+        toNullable(toString("wasteDetailsCode"))
+    ) as waste_details_code,
+    toNullable(
+        toBool("wasteDetailsPop")
+    ) as waste_details_pop,
+    toNullable(
+        toFloat64("quantityReceived")
+    ) as quantity_received,
+    toLowCardinality(
+        toNullable(replaceAll(toString("processingOperationDone"), ' ', ''))
+    ) as processing_operation_done,
+    toNullable(
+        toString("brokerCompanyName")
+    ) as broker_company_name,
+    toNullable(
+        toString("brokerCompanySiret")
+    ) as broker_company_siret,
+    toNullable(
+        toString("brokerCompanyAddress")
+    ) as broker_company_address,
+    toNullable(
+        toString("brokerCompanyContact")
+    ) as broker_company_contact,
+    toNullable(
+        toString("brokerCompanyPhone")
+    ) as broker_company_phone,
+    toNullable(
+        toString("brokerCompanyMail")
+    ) as broker_company_mail,
+    toNullable(
+        toString("brokerReceipt")
+    ) as broker_receipt,
+    toLowCardinality(
+        toNullable(toString("brokerDepartment"))
+    ) as broker_department,
+    toNullable(
+        toTimezone(toDateTime64("brokerValidityLimit", 6), 'Europe/Paris')
+    ) as broker_validity_limit,
+    toNullable(
+        toString("traderCompanyAddress")
+    ) as trader_company_address,
+    toNullable(
+        toString("traderCompanyContact")
+    ) as trader_company_contact,
+    toNullable(
+        toString("traderCompanyPhone")
+    ) as trader_company_phone,
+    toNullable(
+        toString("traderCompanyMail")
+    ) as trader_company_mail,
+    toNullable(
+        toString("traderReceipt")
+    ) as trader_receipt,
+    toLowCardinality(
+        toNullable(toString("traderDepartment"))
+    ) as trader_department,
+    toNullable(
+        toTimezone(toDateTime64("traderValidityLimit", 6), 'Europe/Paris')
+    ) as trader_validity_limit,
+    toNullable(
+        toString("temporaryStorageDestinationCap")
+    ) as temporary_storage_destination_cap,
+    toLowCardinality(
+        toNullable(
+            replaceAll(
+                toString("temporaryStorageDestinationProcessingOperation"),
+                ' ',
+                ''
+            )
+        )
+    ) as temporary_storage_destination_processing_operation,
+    toNullable(
+        toString("traderCompanySiret")
+    ) as trader_company_siret,
+    toNullable(
+        toString("traderCompanyName")
+    ) as trader_company_name,
+    toNullable(
+        toString("wasteDetailsName")
+    ) as waste_details_name,
+    toNullable(
+        toString("wasteDetailsPackagingInfos")
+    ) as waste_details_packaging_infos,
+    toNullable(
+        toString("processingOperationDescription")
+    ) as processing_operation_description,
+    toNullable(
+        toFloat64("temporaryStorageTemporaryStorerQuantityReceived")
+    ) as temporary_storage_temporary_storer_quantity_received,
+    assumeNotNull(
+        toBool("isCanceled")
+    ) as is_canceled,
+    toLowCardinality(
+        toNullable(toString("destinationOperationMode"))
+    ) as destination_operation_mode,
+    toNullable(
+        toDecimal256("wasteDetailsQuantity", 30)
+    ) as waste_details_quantity,
+    toNullable(
+        toString("wasteDetailsSampleNumber")
+    ) as waste_details_sample_number,
+    toNullable(
+        toFloat64("quantityRefused")
+    ) as quantity_refused,
+    toLowCardinality(
+        toNullable(toString("wasteAcceptationStatus"))
+    ) as waste_acceptation_status,
+    toNullable(
+        toString("wasteRefusalReason")
+    ) as waste_refusal_reason,
+    toNullable(
+        toString("initialBrokerCompanyAddress")
+    ) as initial_broker_company_address,
+    toNullable(
+        toString("initialBrokerCompanyContact")
+    ) as initial_broker_company_contact,
+    toNullable(
+        toString("initialBrokerCompanyMail")
+    ) as initial_broker_company_mail,
+    toNullable(
+        toString("initialBrokerCompanyName")
+    ) as initial_broker_company_name,
+    toNullable(
+        toString("initialBrokerCompanyPhone")
+    ) as initial_broker_company_phone,
+    toNullable(
+        toString("initialBrokerCompanySiret")
+    ) as initial_broker_company_siret,
+    toNullable(
+        toString("initialBrokerDepartment")
+    ) as initial_broker_department,
+    toNullable(
+        toString("initialBrokerReceipt")
+    ) as initial_broker_receipt,
+    toNullable(
+        toTimezone(
+            toDateTime64("initialBrokerValidityLimit", 6), 'Europe/Paris'
+        )
+    ) as initial_broker_validity_limit,
+    toLowCardinality(
+        toNullable(toString("initialDestinationOperationMode"))
+    ) as initial_destination_operation_mode,
+    toNullable(
+        toString("initialProcessingOperationDescription")
+    ) as initial_processing_operation_description,
+    toLowCardinality(
+        toNullable(
+            replaceAll(toString("initialProcessingOperationDone"), ' ', '')
+        )
+    ) as initial_processing_operation_done,
+    toNullable(
+        toDecimal256("initialQuantityReceived", 30)
+    ) as initial_quantity_received,
+    toNullable(
+        toDecimal256("initialQuantityRefused", 30)
+    ) as initial_quantity_refused,
+    toNullable(
+        toString("initialRecipientCap")
+    ) as initial_recipient_cap,
+    toNullable(
+        toString("initialTemporaryStorageDestinationCap")
+    ) as initial_temporary_storage_destination_cap,
+    toLowCardinality(
+        toNullable(
+            replaceAll(
+                toString(
+                    "initialTemporaryStorageDestinationProcessingOperation"
+                ),
+                ' ',
+                ''
+            )
+        )
+    ) as initial_temporary_storage_destination_processing_operation,
+    toNullable(
+        toDecimal256(
+            "initialTemporaryStorageTemporaryStorerQuantityReceived", 30
+        )
+    ) as initial_temporary_storage_temporary_storer_quantity_received,
+    toNullable(
+        toString("initialTraderCompanyAddress")
+    ) as initial_trader_company_address,
+    toNullable(
+        toString("initialTraderCompanyContact")
+    ) as initial_trader_company_contact,
+    toNullable(
+        toString("initialTraderCompanyMail")
+    ) as initial_trader_company_mail,
+    toNullable(
+        toString("initialTraderCompanyName")
+    ) as initial_trader_company_name,
+    toNullable(
+        toString("initialTraderCompanyPhone")
+    ) as initial_trader_company_phone,
+    toNullable(
+        toString("initialTraderCompanySiret")
+    ) as initial_trader_company_siret,
+    toNullable(
+        toString("initialTraderDepartment")
+    ) as initial_trader_department,
+    toNullable(
+        toString("initialTraderReceipt")
+    ) as initial_trader_receipt,
+    toNullable(
+        toTimezone(
+            toDateTime64("initialTraderValidityLimit", 6), 'Europe/Paris'
+        )
+    ) as initial_trader_validity_limit,
+    toLowCardinality(
+        toNullable(toString("initialWasteAcceptationStatus"))
+    ) as initial_waste_acceptation_status,
+    toLowCardinality(
+        toNullable(toString("initialWasteDetailsCode"))
+    ) as initial_waste_details_code,
+    toNullable(
+        toString("initialWasteDetailsName")
+    ) as initial_waste_details_name,
+    toNullable(
+        toString("initialWasteDetailsPackagingInfos")
+    ) as initial_waste_details_packaging_infos,
+    toNullable(
+        toBool("initialWasteDetailsPop")
+    ) as initial_waste_details_pop,
+    toNullable(
+        toDecimal256("initialWasteDetailsQuantity", 30)
+    ) as initial_waste_details_quantity,
+    toNullable(
+        toString("initialWasteDetailsSampleNumber")
+    ) as initial_waste_details_sample_number,
+    toNullable(
+        toString("initialWasteRefusalReason")
+    ) as initial_waste_refusal_reason
+from source

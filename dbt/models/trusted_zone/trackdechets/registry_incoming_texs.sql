@@ -8,137 +8,447 @@
 }}
 
 with source as (
-    select * from {{ source('trackdechets_production', 'registry_incoming_texs') }} b
+    select *
+    from {{ source('trackdechets_production', 'registry_incoming_texs') }} as b
     {% if is_incremental() %}
-    where b."updatedAt" >= (SELECT toString(toStartOfDay(max(updated_at)))  FROM {{ this }})
-    and isLatest
+        where
+            b."updatedAt"
+            >= (select toString(toStartOfDay(max(updated_at))) from {{ this }})
+            and b."isLatest"
     {% else %}
-    where isLatest
+    where b."isLatest"
     {% endif %}
 )
 
-SELECT
-    assumeNotNull(toString("id")) as id,
-    assumeNotNull(toTimezone(toDateTime64("createdAt",6),'Europe/Paris')) as created_at,
-    assumeNotNull(toTimezone(toDateTime64("updatedAt",6),'Europe/Paris')) as updated_at,
-    toNullable(toString("importId")) as import_id,
-    assumeNotNull(toBool("isLatest")) as is_latest,
-    assumeNotNull(toBool("isCancelled")) as is_cancelled,
-    assumeNotNull(toString("createdById")) as created_by_id,
-    assumeNotNull(toString("publicId")) as public_id,
-    assumeNotNull(toString("reportForCompanySiret")) as report_for_company_siret,
-    assumeNotNull(toString("reportForCompanyName")) as report_for_company_name,
-    assumeNotNull(toString("reportForCompanyAddress")) as report_for_company_address,
-    assumeNotNull(toString("reportForCompanyCity")) as report_for_company_city,
-    assumeNotNull(toString("reportForCompanyPostalCode")) as report_for_company_postal_code,
-    toNullable(toString("reportAsCompanySiret")) as report_as_company_siret,
-    toNullable(toString("customInfo")) as custom_info,
-    toLowCardinality(toNullable(toString("wasteCode"))) as waste_code,
-    assumeNotNull(toBool("wastePop")) as waste_pop,
-    toNullable(toBool("wasteIsDangerous")) as waste_is_dangerous,
-    assumeNotNull(toTimezone(toDateTime64("receptionDate",6),'Europe/Paris')) as reception_date,
-    assumeNotNull(toString("wasteDescription")) as waste_description,
-    toLowCardinality(toNullable(toString("wasteCodeBale"))) as waste_code_bale,
-    toNullable(toString("wasteDap")) as waste_dap,
-    assumeNotNull(toFloat64("weightValue")) as weight_value,
-    assumeNotNull(toBool("weightIsEstimate")) as weight_is_estimate,
-    toNullable(toFloat64("volume")) as volume,
-    assumeNotNull(splitByChar(',',COALESCE(substring(toString("parcelInseeCodes"),2,length("parcelInseeCodes")-2),''))) as parcel_insee_codes,
-    assumeNotNull(splitByChar(',',COALESCE(substring(toString("parcelNumbers"),2,length("parcelNumbers")-2),''))) as parcel_numbers,
-    assumeNotNull(splitByChar(',',COALESCE(substring(toString("parcelCoordinates"),2,length("parcelCoordinates")-2),''))) as parcel_coordinates,
-    toNullable(toString("initialEmitterCompanyType")) as initial_emitter_company_type,
-    toNullable(toString("initialEmitterCompanyOrgId")) as initial_emitter_company_org_id,
-    toNullable(toString("initialEmitterCompanyName")) as initial_emitter_company_name,
-    toNullable(toString("initialEmitterCompanyAddress")) as initial_emitter_company_address,
-    toLowCardinality(toNullable(toString("initialEmitterCompanyPostalCode"))) as initial_emitter_company_postal_code,
-    toNullable(toString("initialEmitterCompanyCity")) as initial_emitter_company_city,
-    toLowCardinality(toNullable(toString("initialEmitterCompanyCountryCode"))) as initial_emitter_company_country_code,
-    assumeNotNull(splitByChar(',',COALESCE (substring(toString("initialEmitterMunicipalitiesInseeCodes"),2,length("initialEmitterMunicipalitiesInseeCodes")-2),''))) as initial_emitter_municipalities_insee_codes,
-    toLowCardinality(assumeNotNull(toString("emitterCompanyType"))) as emitter_company_type,
-    toNullable(toString("emitterCompanyOrgId")) as emitter_company_org_id,
-    toNullable(toString("emitterCompanyName")) as emitter_company_name,
-    toNullable(toString("emitterPickupSiteAddress")) as emitter_pickup_site_address,
-    toLowCardinality(toNullable(toString("emitterPickupSitePostalCode"))) as emitter_pickup_site_postal_code,
-    toNullable(toString("emitterPickupSiteCity")) as emitter_pickup_site_city,
-    toLowCardinality(toNullable(toString("emitterPickupSiteCountryCode"))) as emitter_pickup_site_country_code,
-    toNullable(toString("emitterCompanyAddress")) as emitter_company_address,
-    toLowCardinality(toNullable(toString("emitterCompanyPostalCode"))) as emitter_company_postal_code,
-    toNullable(toString("emitterCompanyCity")) as emitter_company_city,
-    toLowCardinality(toNullable(toString("emitterCompanyCountryCode"))) as emitter_company_country_code,
-    toNullable(toString("brokerCompanySiret")) as broker_company_siret,
-    toNullable(toString("brokerCompanyName")) as broker_company_name,
-    toNullable(toString("brokerRecepisseNumber")) as broker_recepisse_number,
-    toNullable(toString("traderCompanySiret")) as trader_company_siret,
-    toNullable(toString("traderCompanyName")) as trader_company_name,
-    toNullable(toString("traderRecepisseNumber")) as trader_recepisse_number,
-    toLowCardinality(assumeNotNull(replaceAll(toString("operationCode"),' ',''))) as operation_code,
-    toLowCardinality(toNullable(toString("operationMode"))) as operation_mode,
-    toNullable(toBool("noTraceability")) as no_traceability,
-    toNullable(toString("movementNumber")) as movement_number,
-    toLowCardinality(toNullable(toString("nextOperationCode"))) as next_operation_code,
-    toNullable(toBool("isUpcycled")) as is_upcycled,
-    assumeNotNull(splitByChar(',',COALESCE (substring(toString("destinationParcelInseeCodes"),2,length("destinationParcelInseeCodes")-2),''))) as destination_parcel_insee_codes,
-    assumeNotNull(splitByChar(',',COALESCE (substring(toString("destinationParcelNumbers"),2,length("destinationParcelNumbers")-2),''))) as destination_parcel_numbers,
-    assumeNotNull(splitByChar(',',COALESCE (substring(toString("destinationParcelCoordinates"),2,length("destinationParcelCoordinates")-2),''))) as destination_parcel_coordinates,
-    toLowCardinality(toNullable(toString("transporter1TransportMode"))) as transporter1_transport_mode,
-    toLowCardinality(toNullable(toString("transporter1CompanyType"))) as transporter1_company_type,
-    toNullable(toString("transporter1CompanyOrgId")) as transporter1_company_org_id,
-    toNullable(toBool("transporter1RecepisseIsExempted")) as transporter1_recepisse_is_exempted,
-    toNullable(toString("transporter1RecepisseNumber")) as transporter1_recepisse_number,
-    toNullable(toString("transporter1CompanyName")) as transporter1_company_name,
-    toNullable(toString("transporter1CompanyAddress")) as transporter1_company_address,
-    toLowCardinality(toNullable(toString("transporter1CompanyPostalCode"))) as transporter1_company_postal_code,
-    toNullable(toString("transporter1CompanyCity")) as transporter1_company_city,
-    toLowCardinality(toNullable(toString("transporter1CompanyCountryCode"))) as transporter1_company_country_code,
-    toLowCardinality(toNullable(toString("transporter2TransportMode"))) as transporter2_transport_mode,
-    toLowCardinality(toNullable(toString("transporter2CompanyType"))) as transporter2_company_type,
-    toNullable(toString("transporter2CompanyOrgId")) as transporter2_company_org_id,
-    toNullable(toBool("transporter2RecepisseIsExempted")) as transporter2_recepisse_is_exempted,
-    toNullable(toString("transporter2RecepisseNumber")) as transporter2_recepisse_number,
-    toNullable(toString("transporter2CompanyName")) as transporter2_company_name,
-    toNullable(toString("transporter2CompanyAddress")) as transporter2_company_address,
-    toLowCardinality(toNullable(toString("transporter2CompanyPostalCode"))) as transporter2_company_postal_code,
-    toNullable(toString("transporter2CompanyCity")) as transporter2_company_city,
-    toLowCardinality(toNullable(toString("transporter2CompanyCountryCode"))) as transporter2_company_country_code,
-    toLowCardinality(toNullable(toString("transporter3TransportMode"))) as transporter3_transport_mode,
-    toLowCardinality(toNullable(toString("transporter3CompanyType"))) as transporter3_company_type,
-    toNullable(toString("transporter3CompanyOrgId")) as transporter3_company_org_id,
-    toNullable(toBool("transporter3RecepisseIsExempted")) as transporter3_recepisse_is_exempted,
-    toNullable(toString("transporter3RecepisseNumber")) as transporter3_recepisse_number,
-    toNullable(toString("transporter3CompanyName")) as transporter3_company_name,
-    toNullable(toString("transporter3CompanyAddress")) as transporter3_company_address,
-    toLowCardinality(toNullable(toString("transporter3CompanyPostalCode"))) as transporter3_company_postal_code,
-    toNullable(toString("transporter3CompanyCity")) as transporter3_company_city,
-    toLowCardinality(toNullable(toString("transporter3CompanyCountryCode"))) as transporter3_company_country_code,
-    toLowCardinality(toNullable(toString("transporter4TransportMode"))) as transporter4_transport_mode,
-    toLowCardinality(toNullable(toString("transporter4CompanyType"))) as transporter4_company_type,
-    toNullable(toString("transporter4CompanyOrgId")) as transporter4_company_org_id,
-    toNullable(toBool("transporter4RecepisseIsExempted")) as transporter4_recepisse_is_exempted,
-    toNullable(toString("transporter4RecepisseNumber")) as transporter4_recepisse_number,
-    toNullable(toString("transporter4CompanyName")) as transporter4_company_name,
-    toNullable(toString("transporter4CompanyAddress")) as transporter4_company_address,
-    toLowCardinality(toNullable(toString("transporter4CompanyPostalCode"))) as transporter4_company_postal_code,
-    toNullable(toString("transporter4CompanyCity")) as transporter4_company_city,
-    toLowCardinality(toNullable(toString("transporter4CompanyCountryCode"))) as transporter4_company_country_code,
-    toLowCardinality(toNullable(toString("transporter5TransportMode"))) as transporter5_transport_mode,
-    toLowCardinality(toNullable(toString("transporter5CompanyType"))) as transporter5_company_type,
-    toNullable(toString("transporter5CompanyOrgId")) as transporter5_company_org_id,
-    toNullable(toBool("transporter5RecepisseIsExempted")) as transporter5_recepisse_is_exempted,
-    toNullable(toString("transporter5RecepisseNumber")) as transporter5_recepisse_number,
-    toNullable(toString("transporter5CompanyName")) as transporter5_company_name,
-    toNullable(toString("transporter5CompanyAddress")) as transporter5_company_address,
-    toLowCardinality(toNullable(toString("transporter5CompanyPostalCode"))) as transporter5_company_postal_code,
-    toNullable(toString("transporter5CompanyCity")) as transporter5_company_city,
-    toLowCardinality(toNullable(toString("transporter5CompanyCountryCode"))) as transporter5_company_country_code,
-    toNullable(toString("emitterPickupSiteName")) as emitter_pickup_site_name,
-    toNullable(toBool("isDirectSupply")) as is_direct_supply,
-    toNullable(toString("ecoOrganismeName")) as eco_organisme_name,
-    toNullable(toString("ecoOrganismeSiret")) as eco_organisme_siret,
-    toNullable(toString("sisIdentifier")) as sis_identifier,
-    toNullable(toString("ttdImportNumber")) as ttd_import_number,
-    array(transporter1_company_org_id,
-    transporter2_company_org_id,
-    transporter3_company_org_id,
-    transporter4_company_org_id,
-    transporter5_company_org_id) as transporters_org_ids
- FROM source
+select
+    assumeNotNull(
+        toString("id")
+    ) as id,
+    assumeNotNull(
+        toTimezone(toDateTime64("createdAt", 6), 'Europe/Paris')
+    ) as created_at,
+    assumeNotNull(
+        toTimezone(toDateTime64("updatedAt", 6), 'Europe/Paris')
+    ) as updated_at,
+    toNullable(
+        toString("importId")
+    ) as import_id,
+    assumeNotNull(
+        toBool("isLatest")
+    ) as is_latest,
+    assumeNotNull(
+        toBool("isCancelled")
+    ) as is_cancelled,
+    assumeNotNull(
+        toString("createdById")
+    ) as created_by_id,
+    assumeNotNull(
+        toString("publicId")
+    ) as public_id,
+    assumeNotNull(
+        toString("reportForCompanySiret")
+    ) as report_for_company_siret,
+    assumeNotNull(
+        toString("reportForCompanyName")
+    ) as report_for_company_name,
+    assumeNotNull(
+        toString("reportForCompanyAddress")
+    ) as report_for_company_address,
+    assumeNotNull(
+        toString("reportForCompanyCity")
+    ) as report_for_company_city,
+    assumeNotNull(
+        toString("reportForCompanyPostalCode")
+    ) as report_for_company_postal_code,
+    toNullable(
+        toString("reportAsCompanySiret")
+    ) as report_as_company_siret,
+    toNullable(
+        toString("customInfo")
+    ) as custom_info,
+    toLowCardinality(
+        toNullable(toString("wasteCode"))
+    ) as waste_code,
+    assumeNotNull(
+        toBool("wastePop")
+    ) as waste_pop,
+    toNullable(
+        toBool("wasteIsDangerous")
+    ) as waste_is_dangerous,
+    assumeNotNull(
+        toTimezone(toDateTime64("receptionDate", 6), 'Europe/Paris')
+    ) as reception_date,
+    assumeNotNull(
+        toString("wasteDescription")
+    ) as waste_description,
+    toLowCardinality(
+        toNullable(toString("wasteCodeBale"))
+    ) as waste_code_bale,
+    toNullable(
+        toString("wasteDap")
+    ) as waste_dap,
+    assumeNotNull(
+        toFloat64("weightValue")
+    ) as weight_value,
+    assumeNotNull(
+        toBool("weightIsEstimate")
+    ) as weight_is_estimate,
+    toNullable(
+        toFloat64("volume")
+    ) as volume,
+    assumeNotNull(
+        splitByChar(
+            ',',
+            coalesce(
+                substring(
+                    toString("parcelInseeCodes"),
+                    2,
+                    length("parcelInseeCodes") - 2
+                ),
+                ''
+            )
+        )
+    ) as parcel_insee_codes,
+    assumeNotNull(
+        splitByChar(
+            ',',
+            coalesce(
+                substring(
+                    toString("parcelNumbers"), 2, length("parcelNumbers") - 2
+                ),
+                ''
+            )
+        )
+    ) as parcel_numbers,
+    assumeNotNull(
+        splitByChar(
+            ',',
+            coalesce(
+                substring(
+                    toString("parcelCoordinates"),
+                    2,
+                    length("parcelCoordinates") - 2
+                ),
+                ''
+            )
+        )
+    ) as parcel_coordinates,
+    toNullable(
+        toString("initialEmitterCompanyType")
+    ) as initial_emitter_company_type,
+    toNullable(
+        toString("initialEmitterCompanyOrgId")
+    ) as initial_emitter_company_org_id,
+    toNullable(
+        toString("initialEmitterCompanyName")
+    ) as initial_emitter_company_name,
+    toNullable(
+        toString("initialEmitterCompanyAddress")
+    ) as initial_emitter_company_address,
+    toLowCardinality(
+        toNullable(toString("initialEmitterCompanyPostalCode"))
+    ) as initial_emitter_company_postal_code,
+    toNullable(
+        toString("initialEmitterCompanyCity")
+    ) as initial_emitter_company_city,
+    toLowCardinality(
+        toNullable(toString("initialEmitterCompanyCountryCode"))
+    ) as initial_emitter_company_country_code,
+    assumeNotNull(
+        splitByChar(
+            ',',
+            coalesce(
+                substring(
+                    toString("initialEmitterMunicipalitiesInseeCodes"),
+                    2,
+                    length("initialEmitterMunicipalitiesInseeCodes") - 2
+                ),
+                ''
+            )
+        )
+    ) as initial_emitter_municipalities_insee_codes,
+    toLowCardinality(
+        assumeNotNull(toString("emitterCompanyType"))
+    ) as emitter_company_type,
+    toNullable(
+        toString("emitterCompanyOrgId")
+    ) as emitter_company_org_id,
+    toNullable(
+        toString("emitterCompanyName")
+    ) as emitter_company_name,
+    toNullable(
+        toString("emitterPickupSiteAddress")
+    ) as emitter_pickup_site_address,
+    toLowCardinality(
+        toNullable(toString("emitterPickupSitePostalCode"))
+    ) as emitter_pickup_site_postal_code,
+    toNullable(
+        toString("emitterPickupSiteCity")
+    ) as emitter_pickup_site_city,
+    toLowCardinality(
+        toNullable(toString("emitterPickupSiteCountryCode"))
+    ) as emitter_pickup_site_country_code,
+    toNullable(
+        toString("emitterCompanyAddress")
+    ) as emitter_company_address,
+    toLowCardinality(
+        toNullable(toString("emitterCompanyPostalCode"))
+    ) as emitter_company_postal_code,
+    toNullable(
+        toString("emitterCompanyCity")
+    ) as emitter_company_city,
+    toLowCardinality(
+        toNullable(toString("emitterCompanyCountryCode"))
+    ) as emitter_company_country_code,
+    toNullable(
+        toString("brokerCompanySiret")
+    ) as broker_company_siret,
+    toNullable(
+        toString("brokerCompanyName")
+    ) as broker_company_name,
+    toNullable(
+        toString("brokerRecepisseNumber")
+    ) as broker_recepisse_number,
+    toNullable(
+        toString("traderCompanySiret")
+    ) as trader_company_siret,
+    toNullable(
+        toString("traderCompanyName")
+    ) as trader_company_name,
+    toNullable(
+        toString("traderRecepisseNumber")
+    ) as trader_recepisse_number,
+    toLowCardinality(
+        assumeNotNull(replaceAll(toString("operationCode"), ' ', ''))
+    ) as operation_code,
+    toLowCardinality(
+        toNullable(toString("operationMode"))
+    ) as operation_mode,
+    toNullable(
+        toBool("noTraceability")
+    ) as no_traceability,
+    toNullable(
+        toString("movementNumber")
+    ) as movement_number,
+    toLowCardinality(
+        toNullable(toString("nextOperationCode"))
+    ) as next_operation_code,
+    toNullable(
+        toBool("isUpcycled")
+    ) as is_upcycled,
+    assumeNotNull(
+        splitByChar(
+            ',',
+            coalesce(
+                substring(
+                    toString("destinationParcelInseeCodes"),
+                    2,
+                    length("destinationParcelInseeCodes") - 2
+                ),
+                ''
+            )
+        )
+    ) as destination_parcel_insee_codes,
+    assumeNotNull(
+        splitByChar(
+            ',',
+            coalesce(
+                substring(
+                    toString("destinationParcelNumbers"),
+                    2,
+                    length("destinationParcelNumbers") - 2
+                ),
+                ''
+            )
+        )
+    ) as destination_parcel_numbers,
+    assumeNotNull(
+        splitByChar(
+            ',',
+            coalesce(
+                substring(
+                    toString("destinationParcelCoordinates"),
+                    2,
+                    length("destinationParcelCoordinates") - 2
+                ),
+                ''
+            )
+        )
+    ) as destination_parcel_coordinates,
+    toLowCardinality(
+        toNullable(toString("transporter1TransportMode"))
+    ) as transporter1_transport_mode,
+    toLowCardinality(
+        toNullable(toString("transporter1CompanyType"))
+    ) as transporter1_company_type,
+    toNullable(
+        toString("transporter1CompanyOrgId")
+    ) as transporter1_company_org_id,
+    toNullable(
+        toBool("transporter1RecepisseIsExempted")
+    ) as transporter1_recepisse_is_exempted,
+    toNullable(
+        toString("transporter1RecepisseNumber")
+    ) as transporter1_recepisse_number,
+    toNullable(
+        toString("transporter1CompanyName")
+    ) as transporter1_company_name,
+    toNullable(
+        toString("transporter1CompanyAddress")
+    ) as transporter1_company_address,
+    toLowCardinality(
+        toNullable(toString("transporter1CompanyPostalCode"))
+    ) as transporter1_company_postal_code,
+    toNullable(
+        toString("transporter1CompanyCity")
+    ) as transporter1_company_city,
+    toLowCardinality(
+        toNullable(toString("transporter1CompanyCountryCode"))
+    ) as transporter1_company_country_code,
+    toLowCardinality(
+        toNullable(toString("transporter2TransportMode"))
+    ) as transporter2_transport_mode,
+    toLowCardinality(
+        toNullable(toString("transporter2CompanyType"))
+    ) as transporter2_company_type,
+    toNullable(
+        toString("transporter2CompanyOrgId")
+    ) as transporter2_company_org_id,
+    toNullable(
+        toBool("transporter2RecepisseIsExempted")
+    ) as transporter2_recepisse_is_exempted,
+    toNullable(
+        toString("transporter2RecepisseNumber")
+    ) as transporter2_recepisse_number,
+    toNullable(
+        toString("transporter2CompanyName")
+    ) as transporter2_company_name,
+    toNullable(
+        toString("transporter2CompanyAddress")
+    ) as transporter2_company_address,
+    toLowCardinality(
+        toNullable(toString("transporter2CompanyPostalCode"))
+    ) as transporter2_company_postal_code,
+    toNullable(
+        toString("transporter2CompanyCity")
+    ) as transporter2_company_city,
+    toLowCardinality(
+        toNullable(toString("transporter2CompanyCountryCode"))
+    ) as transporter2_company_country_code,
+    toLowCardinality(
+        toNullable(toString("transporter3TransportMode"))
+    ) as transporter3_transport_mode,
+    toLowCardinality(
+        toNullable(toString("transporter3CompanyType"))
+    ) as transporter3_company_type,
+    toNullable(
+        toString("transporter3CompanyOrgId")
+    ) as transporter3_company_org_id,
+    toNullable(
+        toBool("transporter3RecepisseIsExempted")
+    ) as transporter3_recepisse_is_exempted,
+    toNullable(
+        toString("transporter3RecepisseNumber")
+    ) as transporter3_recepisse_number,
+    toNullable(
+        toString("transporter3CompanyName")
+    ) as transporter3_company_name,
+    toNullable(
+        toString("transporter3CompanyAddress")
+    ) as transporter3_company_address,
+    toLowCardinality(
+        toNullable(toString("transporter3CompanyPostalCode"))
+    ) as transporter3_company_postal_code,
+    toNullable(
+        toString("transporter3CompanyCity")
+    ) as transporter3_company_city,
+    toLowCardinality(
+        toNullable(toString("transporter3CompanyCountryCode"))
+    ) as transporter3_company_country_code,
+    toLowCardinality(
+        toNullable(toString("transporter4TransportMode"))
+    ) as transporter4_transport_mode,
+    toLowCardinality(
+        toNullable(toString("transporter4CompanyType"))
+    ) as transporter4_company_type,
+    toNullable(
+        toString("transporter4CompanyOrgId")
+    ) as transporter4_company_org_id,
+    toNullable(
+        toBool("transporter4RecepisseIsExempted")
+    ) as transporter4_recepisse_is_exempted,
+    toNullable(
+        toString("transporter4RecepisseNumber")
+    ) as transporter4_recepisse_number,
+    toNullable(
+        toString("transporter4CompanyName")
+    ) as transporter4_company_name,
+    toNullable(
+        toString("transporter4CompanyAddress")
+    ) as transporter4_company_address,
+    toLowCardinality(
+        toNullable(toString("transporter4CompanyPostalCode"))
+    ) as transporter4_company_postal_code,
+    toNullable(
+        toString("transporter4CompanyCity")
+    ) as transporter4_company_city,
+    toLowCardinality(
+        toNullable(toString("transporter4CompanyCountryCode"))
+    ) as transporter4_company_country_code,
+    toLowCardinality(
+        toNullable(toString("transporter5TransportMode"))
+    ) as transporter5_transport_mode,
+    toLowCardinality(
+        toNullable(toString("transporter5CompanyType"))
+    ) as transporter5_company_type,
+    toNullable(
+        toString("transporter5CompanyOrgId")
+    ) as transporter5_company_org_id,
+    toNullable(
+        toBool("transporter5RecepisseIsExempted")
+    ) as transporter5_recepisse_is_exempted,
+    toNullable(
+        toString("transporter5RecepisseNumber")
+    ) as transporter5_recepisse_number,
+    toNullable(
+        toString("transporter5CompanyName")
+    ) as transporter5_company_name,
+    toNullable(
+        toString("transporter5CompanyAddress")
+    ) as transporter5_company_address,
+    toLowCardinality(
+        toNullable(toString("transporter5CompanyPostalCode"))
+    ) as transporter5_company_postal_code,
+    toNullable(
+        toString("transporter5CompanyCity")
+    ) as transporter5_company_city,
+    toLowCardinality(
+        toNullable(toString("transporter5CompanyCountryCode"))
+    ) as transporter5_company_country_code,
+    toNullable(
+        toString("emitterPickupSiteName")
+    ) as emitter_pickup_site_name,
+    toNullable(
+        toBool("isDirectSupply")
+    ) as is_direct_supply,
+    toNullable(
+        toString("ecoOrganismeName")
+    ) as eco_organisme_name,
+    toNullable(
+        toString("ecoOrganismeSiret")
+    ) as eco_organisme_siret,
+    toNullable(
+        toString("sisIdentifier")
+    ) as sis_identifier,
+    toNullable(
+        toString("ttdImportNumber")
+    ) as ttd_import_number,
+    array(
+        transporter1_company_org_id,
+        transporter2_company_org_id,
+        transporter3_company_org_id,
+        transporter4_company_org_id,
+        transporter5_company_org_id
+    )
+        as transporters_org_ids
+from source
