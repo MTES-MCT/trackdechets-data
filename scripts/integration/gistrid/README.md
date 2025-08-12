@@ -1,4 +1,4 @@
-# Intégration des données GISTRID
+# Script d'intégration des données GISTRID dans ClickHouse
 
 Ce script, `scripts/integration/gistrid/load_gistrid_data_ch.py`, importe les jeux de données GISTRID (notifications, notifiants, installations) provenant d’un fichier Excel ou CSV vers un entrepôt de données ClickHouse.  
 Il est conçu pour être exécuté en tant qu’outil autonome en ligne de commande.
@@ -49,7 +49,7 @@ python scripts/integration/gistrid/load_gistrid_data_ch.py \
 ### Exemple
 
 ```bash
-python scripts/integration/gistrid/load_gistrid_data_ch.py \
+uv run scripts/integration/gistrid/load_gistrid_data_ch.py \
     --dwh_host 192.168.1.10 \
     --dwh_http_port 8123 \
     --dwh_username admin \
