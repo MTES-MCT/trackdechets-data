@@ -56,7 +56,7 @@ joined_data as (
 )
 
 select
-    jd.siret,
+    jd.siret as siret,
     cgc.code_commune,
     cgc.code_departement,
     jd.present_td,
