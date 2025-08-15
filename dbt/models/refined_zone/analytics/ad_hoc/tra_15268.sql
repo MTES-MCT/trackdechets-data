@@ -51,7 +51,7 @@ where
     )
     and not is_draft
     and (
-        match(waste_code,'.*\*$')
+        match(waste_code, '.*\*$')
         or coalesce(waste_pop, false)
         or coalesce(waste_is_dangerous, false)
     )

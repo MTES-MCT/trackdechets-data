@@ -22,22 +22,22 @@ with bsdd as (
 )
 
 select
-    emitter_company_siret as siret,
-    'emis'                as flux,
-    toStartOfWeek(sent_at,1,'Europe/Paris')                     as semaine,
-    count(id)             as nombre_bordereaux
+    emitter_company_siret                     as siret,
+    'emis'                                    as flux,
+    toStartOfWeek(sent_at, 1, 'Europe/Paris') as semaine,
+    count(id)                                 as nombre_bordereaux
 from bsdd
 group by
-    1,3
+    1, 3
 union all
 select
     recipient_company_siret as siret,
     'reçus'                as flux,
     toStartOfWeek(
-        received_at,1,'Europe/Paris'
+        received_at, 1, 'Europe/Paris'
     )                       as semaine,
     count(*)                as nombre_bordereaux
 from
     bsdd
 group by
-    1,3
+    1, 3

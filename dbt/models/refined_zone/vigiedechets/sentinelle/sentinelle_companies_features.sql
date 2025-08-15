@@ -11,7 +11,7 @@ with companies as (
         max(first_activity_datetime_min) as first_activity_datetime_min,
         min(total_events_count)          as total_events_count
     from
-        {{ ref('sentinelle_waste_quantity_produced_by_siret_ape_code') }}
+        {{ ref('sentinelle_waste_quantity_produced_by_siret') }}
     group by
         1
     having
@@ -39,7 +39,7 @@ select
 from
     full_grid as fg
 left join
-    {{ ref('sentinelle_waste_quantity_produced_by_siret_ape_code') }} as pq
+    {{ ref('sentinelle_waste_quantity_produced_by_siret') }} as pq
     on
         fg.siret = pq.siret
         and fg.waste_code = pq.waste_code
