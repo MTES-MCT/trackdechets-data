@@ -14,7 +14,7 @@ with stats as (
         sum(quantite_autorisee)
             as quantite_autorisee
     from
-        {{ ref('installations_icpe_2024') }}
+        {{ ref('cartographie_icpe_installations') }}
     group by
         1,
         2
@@ -27,7 +27,7 @@ waste_processed_grouped as (
         day_of_processing,
         sum(quantite_traitee) as quantite_traitee
     from
-        {{ ref('icpe_departements_daily_processed_waste') }}
+        {{ ref('cartographie_icpe_departements_daily_processed_waste') }}
     group by
         code_region_insee,
         rubrique,

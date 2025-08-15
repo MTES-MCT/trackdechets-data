@@ -1,38 +1,20 @@
 version: 2
 models:
-  - name: cartographie_des_etablissements
-    config:
-      contract:
-        enforced: false
+  - name: cartographie_etablissements_geocoded
     columns:
       - name: siret
-        constraints:
-          - type: not_null
-            name:
-            expression:
-            warn_unenforced: true
-            warn_unsupported: true
-            to:
-            to_columns: []
-          - type: primary_key
-            name:
-            expression:
-            warn_unenforced: true
-            warn_unsupported: true
-            to:
-            to_columns: []
-        description: SIRET de l'etablissement
-        data_type: string
+        description: Code région
+        data_type: String
       - name: nom_etablissement
-        data_type: string
+        data_type: String
       - name: date_inscription
         data_type: DateTime64(6, 'Europe/Paris')
       - name: profils
-        data_type: array(string)
+        data_type: Array(String)
       - name: profils_collecteur
-        data_type: array(string)
+        data_type: Array(String)
       - name: profils_installation
-        data_type: array(string)
+        data_type: Array(String)
       - name: profils_installation_vhu
         data_type: Array(String)
       - name: worker_company_has_sub_section_four
@@ -40,7 +22,7 @@ models:
       - name: worker_company_has_sub_section_three
         data_type: Bool
       - name: bsdd
-        data_type: uint8
+        data_type: UInt8
       - name: bsdd_emitter
         data_type: UInt8
       - name: bsdd_transporter
@@ -48,7 +30,7 @@ models:
       - name: bsdd_destination
         data_type: UInt8
       - name: bsdnd
-        data_type: uint8
+        data_type: UInt8
       - name: bsdnd_emitter
         data_type: UInt8
       - name: bsdnd_transporter
@@ -56,7 +38,7 @@ models:
       - name: bsdnd_destination
         data_type: UInt8
       - name: bsda
-        data_type: uint8
+        data_type: UInt8
       - name: bsda_emitter
         data_type: UInt8
       - name: bsda_worker
@@ -66,7 +48,7 @@ models:
       - name: bsda_destination
         data_type: UInt8
       - name: bsff
-        data_type: uint8
+        data_type: UInt8
       - name: bsff_emitter
         data_type: UInt8
       - name: bsff_transporter
@@ -74,7 +56,7 @@ models:
       - name: bsff_destination
         data_type: UInt8
       - name: bsdasri
-        data_type: uint8
+        data_type: UInt8
       - name: bsdasri_emitter
         data_type: UInt8
       - name: bsdasri_transporter
@@ -82,7 +64,7 @@ models:
       - name: bsdasri_destination
         data_type: UInt8
       - name: bsvhu
-        data_type: uint8
+        data_type: UInt8
       - name: bsvhu_emitter
         data_type: UInt8
       - name: bsvhu_transporter
@@ -90,7 +72,7 @@ models:
       - name: bsvhu_destination
         data_type: UInt8
       - name: texs_dd
-        data_type: uint8
+        data_type: UInt8
       - name: texs_dd_emitter
         data_type: UInt8
       - name: texs_dd_transporter
@@ -98,33 +80,33 @@ models:
       - name: texs_dd_destination
         data_type: UInt8
       - name: dnd
-        data_type: uint8
+        data_type: UInt8
       - name: dnd_emitter
         data_type: UInt8
       - name: dnd_destination
         data_type: UInt8
       - name: texs
-        data_type: uint8
+        data_type: UInt8
       - name: texs_destination
         data_type: UInt8
       - name: texs_emitter
         data_type: UInt8
       - name: ssd
-        data_type: uint8
+        data_type: UInt8
       - name: pnttd
-        data_type: uint8
+        data_type: UInt8
       - name: processing_operations_bsdd
-        data_type: array(string)
+        data_type: Array(String)
       - name: processing_operations_bsdnd
-        data_type: array(string)
+        data_type: Array(String)
       - name: processing_operations_bsda
-        data_type: array(string)
+        data_type: Array(String)
       - name: processing_operations_bsff
-        data_type: array(string)
+        data_type: Array(String)
       - name: processing_operations_bsdasri
-        data_type: array(string)
+        data_type: Array(String)
       - name: processing_operations_bsvhu
-        data_type: array(string)
+        data_type: Array(String)
       - name: processing_operations_dnd
         data_type: Array(String)
       - name: processing_operations_texs
@@ -140,18 +122,24 @@ models:
       - name: code_commune_insee
         description: >-
           Code commune correspondant à celui dans la base géographique des communes de l'INSEE.
-        data_type: string
+        data_type: String
       - name: code_departement_insee
-        data_type: string
+        data_type: String
       - name: code_region_insee
-        data_type: string
-      - name: code_collectivite_outre_mer_insee
         data_type: String
       - name: adresse_td
-        data_type: string
+        data_type: String
       - name: adresse_insee
-        data_type: string
+        data_type: String
       - name: latitude_td
-        data_type: float64
+        data_type: Float64
       - name: longitude_td
-        data_type: float64
+        data_type: Float64
+      - name: latitude_ban
+        data_type: Float64
+      - name: longitude_ban
+        data_type: Float64
+      - name: coords
+        data_type: String
+      - name: coords_h3_index
+        data_type: UInt64

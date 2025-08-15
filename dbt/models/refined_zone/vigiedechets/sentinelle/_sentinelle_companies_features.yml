@@ -1,6 +1,6 @@
 version: 2
 models:
-  - name: companies_scores
+  - name: sentinelle_companies_features
     columns:
       - name: siret
         description: Code région
@@ -11,7 +11,9 @@ models:
         data_type: UInt64
       - name: ape_code
         data_type: String
-      - name: score_details
-        data_type: Array(String)
-      - name: scores
+      - name: waste_code
+        data_type: String
+      - name: waste_quantity_share_ref
+        data_type: Float64
+      - name: waste_quantity_share
         data_type: Float64

@@ -1,6 +1,6 @@
 version: 2
 models:
-  - name: producers_produced_wastes_quantities
+  - name: sentinelle_waste_quantity_produced_by_siret_ape_code
     columns:
       - name: siret
         description: Code région

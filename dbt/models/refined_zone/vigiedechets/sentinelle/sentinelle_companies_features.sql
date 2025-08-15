@@ -11,7 +11,7 @@ with companies as (
         max(first_activity_datetime_min) as first_activity_datetime_min,
         min(total_events_count)          as total_events_count
     from
-        {{ ref('producers_produced_wastes_quantities') }}
+        {{ ref('sentinelle_waste_quantity_produced_by_siret_ape_code') }}
     group by
         1
     having
@@ -27,7 +27,7 @@ full_grid as (
         wqpbac.waste_code,
         wqpbac.waste_quantity_share   as waste_quantity_share_ref
     from
-        {{ ref('waste_quantity_produced_by_ape_code') }} as wqpbac
+        {{ ref('sentinelle_waste_quantity_produced_by_ape_code') }} as wqpbac
     inner join companies as c
         on
             wqpbac.ape_code = c.siret_ape_code
@@ -38,7 +38,8 @@ select
     cOALESCE(pq.waste_quantity_share, 0) as waste_quantity_share
 from
     full_grid as fg
-left join {{ ref('producers_produced_wastes_quantities') }} as pq
+left join
+    {{ ref('sentinelle_waste_quantity_produced_by_siret_ape_code') }} as pq
     on
         fg.siret = pq.siret
         and fg.waste_code = pq.waste_code

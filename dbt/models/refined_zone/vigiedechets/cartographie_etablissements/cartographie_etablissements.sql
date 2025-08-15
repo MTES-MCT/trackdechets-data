@@ -286,7 +286,9 @@ joined as (
             se.denomination_usuelle_etablissement
         )                                              as nom_etablissement
     from stats as s
-    left join {{ ref('etablissements_texs_dd') }} as et on s.siret = et.siret
+    left join
+        {{ ref('cartographie_etablissements_texs_dd') }} as et
+        on s.siret = et.siret
     left join {{ ref("stock_etablissement") }} as se on s.siret = se.siret
     left join {{ ref("company") }} as c on s.siret = c.siret
     left join

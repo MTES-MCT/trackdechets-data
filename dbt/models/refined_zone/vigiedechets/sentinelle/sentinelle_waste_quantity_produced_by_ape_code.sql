@@ -15,7 +15,7 @@ with quantities_by_ape as (
         q.waste_code,
         sum(q.waste_quantity) as waste_quantity
     from
-        {{ ref('producers_produced_wastes_quantities') }} as q
+        {{ ref('sentinelle_waste_quantity_produced_by_siret_ape_code') }} as q
     where ape_code is not null
     group by 1, 2
 )

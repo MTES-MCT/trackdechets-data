@@ -1,44 +1,45 @@
 version: 2
 models:
-  - name: icpe_installations_daily_processed_waste
+  - name: cartographie_icpe_installations_daily_processed_waste
     columns:
       - name: code_aiot
-        description: Identifiant de l'installation classée
-        data_type: string
+        description: identifiant unique de l'installation classée
+        data_type: String
       - name: rubrique
-        data_type: string
+        data_type: String
       - name: raison_sociale
-        data_type: string
-      - name: ii.siret
+        data_type: String
+      - name: siret
+        description: Code région
         data_type: String
       - name: adresse1
-        data_type: string
+        data_type: String
       - name: adresse2
-        data_type: string
+        data_type: String
       - name: code_postal
         description: Code postal de la commune
-        data_type: string
-      - name: ii.commune
+        data_type: String
+      - name: commune
         data_type: String
       - name: code_commune_insee
         description: >-
           Code commune correspondant à celui dans la base géographique des communes de l'INSEE.
-        data_type: string
+        data_type: String
       - name: code_departement_insee
-        data_type: string
+        data_type: String
       - name: code_region_insee
-        data_type: string
+        data_type: String
       - name: latitude
-        data_type: float64
+        data_type: Float64
       - name: longitude
-        data_type: float64
+        data_type: Float64
       - name: quantite_autorisee
-        data_type: float64
+        data_type: Float64
       - name: unite
-        data_type: string
+        data_type: String
       - name: quantite_traitee
-        data_type: decimal(76, 30)
+        data_type: Decimal(76, 30)
       - name: day_of_processing
-        data_type: date
+        data_type: Date
       - name: quantite_objectif
         data_type: Int32

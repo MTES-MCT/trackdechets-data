@@ -5,7 +5,6 @@
 }}
 
 
-
 with scores as (
     select
         fgd.siret,
@@ -23,13 +22,13 @@ with scores as (
             || ', \'quantity_share_ref\':'
             || toDecimalString(round(fgd.waste_quantity_share_ref, 6), 8)
             || '}')
-            as score_details,
+            as score_details, -- constructs an array of json objects with score details for each waste code
         sum(
             abs(fgd.waste_quantity_share - fgd.waste_quantity_share_ref)
             * fgd.waste_quantity_share_ref
         )                                as scores
     from
-        {{ ref('companies_features') }} as fgd
+        {{ ref('sentinelle_companies_features') }} as fgd
     group by
         1
 )

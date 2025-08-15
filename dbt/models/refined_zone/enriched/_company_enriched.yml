@@ -84,6 +84,14 @@ models:
         data_type: Array(String)
       - name: is_dormant_since
         data_type: DateTime64(6, 'Europe/Paris')
+      - name: etat_administratif_etablissement
+        data_type: string
+      - name: code_commune_insee
+        data_type: string
+      - name: code_departement_insee
+        data_type: string
+      - name: code_region_insee
+        data_type: string
       - name: code_section
         data_type: string
       - name: libelle_section
@@ -104,12 +112,4 @@ models:
         description: Clé unique
         data_type: string
       - name: libelle_sous_classe
-        data_type: string
-      - name: etat_administratif_etablissement
-        data_type: string
-      - name: code_commune_insee
-        data_type: string
-      - name: code_departement_insee
-        data_type: string
-      - name: code_region_insee
         data_type: string

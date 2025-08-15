@@ -1,9 +1,9 @@
 version: 2
 models:
-  - name: cartographie_des_etablissements_geocoded
+  - name: cartographie_etablissements
     columns:
       - name: siret
-        description: SIRET de l'etablissement
+        description: Code région
         data_type: String
       - name: nom_etablissement
         data_type: String
@@ -127,6 +127,8 @@ models:
         data_type: String
       - name: code_region_insee
         data_type: String
+      - name: code_collectivite_outre_mer_insee
+        data_type: String
       - name: adresse_td
         data_type: String
       - name: adresse_insee
@@ -135,11 +137,3 @@ models:
         data_type: Float64
       - name: longitude_td
         data_type: Float64
-      - name: latitude_ban
-        data_type: Float64
-      - name: longitude_ban
-        data_type: Float64
-      - name: coords
-        data_type: String
-      - name: coords_h3_index
-        data_type: UInt64

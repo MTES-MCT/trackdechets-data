@@ -73,7 +73,7 @@ dnd_registry_ttr as (
         )
         and riw.reception_date is not null
         and not riw.is_cancelled
-        
+
 ),
 
 dnd_quantities as (
@@ -193,7 +193,13 @@ summed as (
 )
 
 select
-    s.*,
+    assumeNotNull(s.siret)                                as siret,
+    assumeNotNull(siret_ape_code)                         as siret_ape_code,
+    assumeNotNull(waste_code)                             as waste_code,
+    assumeNotNull(first_activity_datetime)
+        as first_activity_datetime,
+    assumeNotNull(events_count)                           as events_count,
+    assumeNotNull(waste_quantity)                         as waste_quantity,
     min(s.first_activity_datetime)
         over (partition by s.siret)
         as first_activity_datetime_min,
@@ -204,3 +210,4 @@ select
     / (sum(s.waste_quantity) over (partition by s.siret))
         as waste_quantity_share
 from summed as s
+where not empty(s.siret)

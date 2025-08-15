@@ -35,7 +35,7 @@ with installations_data as (
             as quantite_autorisee,
         max(i.unite)
             as unite
-    from {{ ref('installations_icpe_2024') }} as i
+    from {{ ref('cartographie_icpe_installations') }} as i
     group by
         1,
         2
