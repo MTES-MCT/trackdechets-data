@@ -149,13 +149,11 @@ ssd_stats as (
             as volume_ssd_statements_as_emitter
     from {{ ref("registry_ssd") }}
     group by 1
-)
+),
+
+all_data as (
 
 select
-    dnd_processing_operations_as_destination,
-    texs_processing_operations_as_destination,
-    dnd_waste_codes_as_destination,
-    texs_waste_codes_as_destination,
     coalesce(
         dnd1.siret,
         dnd2.siret,
@@ -165,6 +163,10 @@ select
         texs3.siret,
         ssd.siret
     ) as siret,
+    dnd_processing_operations_as_destination,
+    texs_processing_operations_as_destination,
+    dnd_waste_codes_as_destination,
+    texs_waste_codes_as_destination,
     coalesce(
         num_dnd_statements_as_destination, 0
     ) as num_dnd_statements_as_destination,
@@ -262,3 +264,69 @@ full outer join
             texs3.siret
         )
         = ssd.siret
+)
+
+select
+    siret,
+    dnd_processing_operations_as_destination,
+    texs_processing_operations_as_destination,
+    dnd_waste_codes_as_destination,
+    texs_waste_codes_as_destination,
+    num_dnd_statements_as_destination,
+    quantity_dnd_statements_as_destination,
+    volume_dnd_statements_as_destination,
+    num_dd_statements_as_destination,
+    quantity_dd_statements_as_destination,
+    volume_dd_statements_as_destination,
+    num_dnd_statements_as_emitter,
+    quantity_dnd_statements_as_emitter,
+    volume_dnd_statements_as_emitter,
+    num_dd_statements_as_emitter,
+    quantity_dd_statements_as_emitter,
+    volume_dd_statements_as_emitter,
+    num_dnd_statements_as_transporteur,
+    quantity_dnd_statements_as_transporteur,
+    volume_dnd_statements_as_transporteur,
+    num_texs_statements_as_destination,
+    quantity_texs_statements_as_destination,
+    volume_texs_statements_as_destination,
+    num_texs_statements_as_emitter,
+    quantity_texs_statements_as_emitter,
+    volume_texs_statements_as_emitter,
+    num_texs_statements_as_transporteur,
+    quantity_texs_statements_as_transporteur,
+    volume_texs_statements_as_transporteur,
+    num_ssd_statements_as_emitter,
+    quantity_ssd_statements_as_emitter,
+    volume_ssd_statements_as_emitter,
+    num_dnd_statements_as_destination
+    + num_dd_statements_as_destination
+    + num_dnd_statements_as_emitter 
+    + num_dd_statements_as_emitter
+    + num_dnd_statements_as_transporteur
+    + num_texs_statements_as_destination
+    + num_texs_statements_as_emitter
+    + num_texs_statements_as_transporteur
+    + num_ssd_statements_as_emitter
+    as num_statements,
+    quantity_dnd_statements_as_destination
+    + quantity_dd_statements_as_destination
+    + quantity_dnd_statements_as_emitter
+    + quantity_dd_statements_as_emitter
+    + quantity_dnd_statements_as_transporteur
+    + quantity_texs_statements_as_destination
+    + quantity_texs_statements_as_emitter
+    + quantity_texs_statements_as_transporteur
+    + quantity_ssd_statements_as_emitter
+    as quantity_statements,
+    volume_dnd_statements_as_destination
+    + volume_dd_statements_as_destination
+    + volume_dnd_statements_as_emitter
+    + volume_dd_statements_as_emitter
+    + volume_dnd_statements_as_transporteur
+    + volume_texs_statements_as_destination
+    + volume_texs_statements_as_emitter
+    + volume_texs_statements_as_transporteur
+    + volume_ssd_statements_as_emitter
+    as volume_statements
+from all_data

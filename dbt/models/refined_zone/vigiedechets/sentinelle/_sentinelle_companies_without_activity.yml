@@ -1,0 +1,18 @@
+version: 2
+models:
+  - name: sentinelle_companies_without_activity
+    columns:
+      - name: c.siret
+        data_type: String
+      - name: ape_code
+        data_type: String
+      - name: nom_etablissement
+        data_type: String
+      - name: code_commune
+        data_type: String
+      - name: code_departement
+        data_type: String
+      - name: code_region
+        data_type: String
+      - name: adresse_etablissement
+        data_type: String

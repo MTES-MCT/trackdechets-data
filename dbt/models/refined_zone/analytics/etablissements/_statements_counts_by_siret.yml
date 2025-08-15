@@ -2,6 +2,8 @@ version: 2
 models:
   - name: statements_counts_by_siret
     columns:
+      - name: siret
+        data_type: string
       - name: dnd_processing_operations_as_destination
         data_type: Array(String)
       - name: texs_processing_operations_as_destination
@@ -10,8 +12,6 @@ models:
         data_type: Array(String)
       - name: texs_waste_codes_as_destination
         data_type: Array(String)
-      - name: siret
-        data_type: string
       - name: num_dnd_statements_as_destination
         data_type: uint64
       - name: quantity_dnd_statements_as_destination
@@ -65,4 +65,10 @@ models:
       - name: quantity_ssd_statements_as_emitter
         data_type: Float64
       - name: volume_ssd_statements_as_emitter
+        data_type: Float64
+      - name: num_statements
+        data_type: UInt64
+      - name: quantity_statements
+        data_type: Float64
+      - name: volume_statements
         data_type: Float64

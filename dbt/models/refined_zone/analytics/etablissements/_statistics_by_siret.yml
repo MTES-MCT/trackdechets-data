@@ -173,6 +173,14 @@ models:
         data_type: Float64
       - name: volume_ssd_statements_as_emitter
         data_type: Float64
+      - name: num_statements
+        data_type: UInt64
+      - name: quantity_statements
+        data_type: Float64
+      - name: volume_statements
+        data_type: Float64
+      - name: total_mentions
+        data_type: UInt64
       - name: num_pnttd_statements_as_emitter
         data_type: uint64
       - name: quantity_pnttd_as_emitter
