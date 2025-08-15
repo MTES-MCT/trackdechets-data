@@ -9,6 +9,10 @@ models:
         data_type: DateTime64(6, 'Europe/Paris')
       - name: total_events_count
         data_type: UInt64
+      - name: company_name
+        data_type: String
+      - name: code_commune_etablissement
+        data_type: String
       - name: ape_code
         data_type: String
       - name: waste_code

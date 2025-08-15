@@ -8,6 +8,8 @@ with companies as (
     select
         siret,
         max(siret_ape_code)              as siret_ape_code,
+        max(company_name)                as company_name,
+        max(code_commune_etablissement)  as code_commune_etablissement,
         max(first_activity_datetime_min) as first_activity_datetime_min,
         min(total_events_count)          as total_events_count
     from
@@ -23,6 +25,8 @@ full_grid as (
         c.siret,
         c.first_activity_datetime_min as first_activity_datetime,
         c.total_events_count,
+        c.company_name,
+        c.code_commune_etablissement,
         wqpbac.ape_code,
         wqpbac.waste_code,
         wqpbac.waste_quantity_share   as waste_quantity_share_ref
@@ -35,7 +39,7 @@ full_grid as (
 
 select
     fg.*,
-    cOALESCE(pq.waste_quantity_share, 0) as waste_quantity_share
+    coalesce(pq.waste_quantity_share, 0) as waste_quantity_share
 from
     full_grid as fg
 left join

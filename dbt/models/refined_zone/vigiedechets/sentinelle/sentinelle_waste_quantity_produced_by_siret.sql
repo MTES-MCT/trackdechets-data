@@ -27,10 +27,11 @@ with bordereaux_ttr as (
 
 bordereaux_quantities as (
     select
-        be.emitter_company_siret as siret,
+        be.emitter_company_siret     as siret,
         be.waste_code,
-        count(distinct be.id)    as processed_bordereaux_count,
-        min(be.processed_at)     as processed_at_min,
+        max(be.emitter_company_name) as company_name,
+        count(distinct be.id)        as processed_bordereaux_count,
+        min(be.processed_at)         as processed_at_min,
         sum(
             if(
                 be._bs_type = 'BSFF',
@@ -38,7 +39,7 @@ bordereaux_quantities as (
                 toFloat64(be.quantity_received)
             )
             - coalesce(be.quantity_refused, 0)
-        )                        as quantity
+        )                            as quantity
     from
         {{ ref('bordereaux_enriched') }} as be
     where
@@ -78,13 +79,14 @@ dnd_registry_ttr as (
 
 dnd_quantities as (
     select
-        riw.emitter_company_org_id as siret,
+        riw.emitter_company_org_id            as siret,
         riw.waste_code,
-        count(distinct riw.id)     as statements_count,
-        min(riw.reception_date)    as received_at_min,
+        max(riw.initial_emitter_company_name) as company_name,
+        count(distinct riw.id)                as statements_count,
+        min(riw.reception_date)               as received_at_min,
         sum(
             riw.weight_value
-        )                          as quantity
+        )                                     as quantity
     from
         {{ ref('registry_incoming_waste') }} as riw
     where
@@ -124,13 +126,14 @@ texs_registry_ttr as (
 
 texs_quantities as (
     select
-        rtexs.emitter_company_org_id as siret,
+        rtexs.emitter_company_org_id            as siret,
         rtexs.waste_code,
-        count(distinct rtexs.id)     as statements_count,
-        min(rtexs.reception_date)    as received_at_min,
+        max(rtexs.initial_emitter_company_name) as company_name,
+        count(distinct rtexs.id)                as statements_count,
+        min(rtexs.reception_date)               as received_at_min,
         sum(
             rtexs.weight_value
-        )                            as quantity
+        )                                       as quantity
     from
         {{ ref('registry_incoming_texs') }} as rtexs
     where
@@ -155,6 +158,7 @@ all_quantities_data as (
     select
         siret,
         waste_code,
+        company_name,
         processed_bordereaux_count as events_count,
         processed_at_min           as first_activity_datetime,
         quantity
@@ -163,6 +167,7 @@ all_quantities_data as (
     select
         siret,
         waste_code,
+        company_name,
         statements_count as events_count,
         received_at_min  as first_activity_datetime,
         quantity
@@ -171,6 +176,7 @@ all_quantities_data as (
     select
         siret,
         waste_code,
+        company_name,
         statements_count as events_count,
         received_at_min  as first_activity_datetime,
         quantity
@@ -180,19 +186,23 @@ all_quantities_data as (
 summed as (
     select
         d.siret                                   as siret,
-        max(se.activite_principale_etablissement) as siret_ape_code,
         d.waste_code,
+        max(se.activite_principale_etablissement) as siret_ape_code,
+        max(d.company_name)                       as company_name,
         min(first_activity_datetime)              as first_activity_datetime,
         sum(events_count)                         as events_count,
-        sum(d.quantity)                           as waste_quantity
+        sum(d.quantity)                           as waste_quantity,
+        max(se.code_commune_etablissement)        as code_commune_etablissement
     from all_quantities_data as d
     left join {{ ref('stock_etablissement') }} as se
         on
             d.siret = se.siret
-    group by 1, 3
+    group by 1, 2
 )
 
 select
+    s.company_name,
+    s.code_commune_etablissement,
     assumeNotNull(s.siret)                                as siret,
     assumeNotNull(siret_ape_code)                         as siret_ape_code,
     assumeNotNull(waste_code)                             as waste_code,
