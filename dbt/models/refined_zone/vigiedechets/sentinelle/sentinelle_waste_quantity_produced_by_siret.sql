@@ -185,39 +185,87 @@ all_quantities_data as (
 
 summed as (
     select
-        d.siret                                   as siret,
+        d.siret                                     as company_siret,
         d.waste_code,
-        max(se.activite_principale_etablissement) as siret_ape_code,
-        max(d.company_name)                       as company_name,
-        min(first_activity_datetime)              as first_activity_datetime,
-        sum(events_count)                         as events_count,
-        sum(d.quantity)                           as waste_quantity,
-        max(se.code_commune_etablissement)        as code_commune_etablissement
+        max(se.activite_principale_etablissement)   as company_ape_code,
+        max({{ get_address_column_from_stock_etablissement() }})
+            as adresse_etablissement,
+        max(d.company_name)                         as company_name,
+        min(first_activity_datetime)                as first_activity_datetime,
+        sum(events_count)                           as events_count,
+        sum(d.quantity)                             as waste_quantity,
+        max(se.code_commune_etablissement)
+            as code_commune_etablissement
     from all_quantities_data as d
     left join {{ ref('stock_etablissement') }} as se
         on
             d.siret = se.siret
     group by 1, 2
+),
+
+data_with_cog as (
+    select
+        s.company_name,
+        adresse_etablissement
+            as company_address,
+        toLowCardinality(
+            coalesce(cog.code_commune, cog_om.code_zonage_outre_mer)
+        )
+            as company_code_commune,
+        toLowCardinality(
+            coalesce(cog.code_departement, cog_om.code_collectivite_outre_mer)
+        )
+            as company_code_departement,
+        toLowCardinality(
+            coalesce(cog.code_region, cog_om.code_collectivite_outre_mer)
+        )
+            as company_code_region,
+        assumeNotNull(s.company_siret)
+            as company_siret,
+        toLowCardinality(assumeNotNull(company_ape_code))
+            as company_ape_code,
+        toLowCardinality(assumeNotNull(waste_code))
+            as waste_code,
+        assumeNotNull(first_activity_datetime)
+            as waste_first_activity_datetime,
+        assumeNotNull(events_count)
+            as waste_events_count,
+        assumeNotNull(waste_quantity)
+            as waste_quantity,
+        min(s.first_activity_datetime)
+            over (partition by s.company_siret)
+            as first_activity_datetime,
+        sum(s.events_count)
+            over (partition by s.company_siret)
+            as total_events_count,
+        s.waste_quantity
+        / (sum(s.waste_quantity) over (partition by s.company_siret))
+            as waste_quantity_share
+    from summed as s
+    left join {{ ref('code_geo_communes') }} as cog
+        on
+            s.code_commune_etablissement = cog.code_commune
+            and cog.type_commune != 'COMD'
+    left join {{ ref('code_geo_territoires_outre_mer') }} as cog_om
+        on s.code_commune_etablissement = cog_om.code_zonage_outre_mer
+    where
+        not empty(s.company_siret)
+        and waste_quantity > 0
 )
 
 select
-    s.company_name,
-    s.code_commune_etablissement,
-    assumeNotNull(s.siret)                                as siret,
-    assumeNotNull(siret_ape_code)                         as siret_ape_code,
-    assumeNotNull(waste_code)                             as waste_code,
-    assumeNotNull(first_activity_datetime)
-        as first_activity_datetime,
-    assumeNotNull(events_count)                           as events_count,
-    assumeNotNull(waste_quantity)                         as waste_quantity,
-    min(s.first_activity_datetime)
-        over (partition by s.siret)
-        as first_activity_datetime_min,
-    sum(s.events_count)
-        over (partition by s.siret)
-        as total_events_count,
-    s.waste_quantity
-    / (sum(s.waste_quantity) over (partition by s.siret))
-        as waste_quantity_share
-from summed as s
-where not empty(s.siret)
+    company_siret,
+    waste_code,
+    waste_quantity,
+    waste_quantity_share,
+    waste_first_activity_datetime,
+    waste_events_count,
+    first_activity_datetime,
+    total_events_count,
+    company_name,
+    company_address,
+    company_code_commune,
+    company_code_departement,
+    company_code_region,
+    company_ape_code
+from data_with_cog

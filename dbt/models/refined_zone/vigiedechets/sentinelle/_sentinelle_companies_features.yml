@@ -2,8 +2,7 @@ version: 2
 models:
   - name: sentinelle_companies_features
     columns:
-      - name: siret
-        description: Code région
+      - name: company_siret
         data_type: String
       - name: first_activity_datetime
         data_type: DateTime64(6, 'Europe/Paris')
@@ -11,9 +10,15 @@ models:
         data_type: UInt64
       - name: company_name
         data_type: String
-      - name: code_commune_etablissement
+      - name: company_address
         data_type: String
-      - name: ape_code
+      - name: company_code_commune
+        data_type: String
+      - name: company_code_departement
+        data_type: String
+      - name: company_code_region
+        data_type: String
+      - name: company_ape_code
         data_type: String
       - name: waste_code
         data_type: String

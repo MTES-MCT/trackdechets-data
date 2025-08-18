@@ -4,12 +4,13 @@
     query_settings = {
         "join_algorithm":"'grace_hash'",
         "grace_hash_join_initial_buckets":16
-    }
+    },
+    order_by='siret'
     )
 }}
 
 select
-    c.siret as siret,
+    c.siret                                                            as siret,
     se.activite_principale_etablissement
         as ape_code,
     {{ get_company_name_column_from_stock_etablissement() }}

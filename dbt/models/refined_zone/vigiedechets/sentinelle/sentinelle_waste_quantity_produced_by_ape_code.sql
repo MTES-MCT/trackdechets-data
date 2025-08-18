@@ -11,12 +11,13 @@
 
 with quantities_by_ape as (
     select
-        q.siret_ape_code      as ape_code,
+        q.company_ape_code    as ape_code,
         q.waste_code,
         sum(q.waste_quantity) as waste_quantity
     from
-        {{ ref('sentinelle_waste_quantity_produced_by_siret') }} as q
-    where ape_code is not null
+        {{ ref('sentinelle_waste_quantity_produced_by_siret') }}
+            as q
+    where q.company_ape_code is not null
     group by 1, 2
 )
 

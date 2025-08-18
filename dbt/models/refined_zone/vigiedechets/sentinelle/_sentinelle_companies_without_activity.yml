@@ -2,7 +2,8 @@ version: 2
 models:
   - name: sentinelle_companies_without_activity
     columns:
-      - name: c.siret
+      - name: siret
+        description: Code région
         data_type: String
       - name: ape_code
         data_type: String
