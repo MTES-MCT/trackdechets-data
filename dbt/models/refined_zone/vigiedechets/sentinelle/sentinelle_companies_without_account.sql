@@ -1,24 +1,26 @@
 {{
   config(
     materialized = 'table',
-    order_by = 'siret'
+    order_by = '(company_ape_code,company_siret)',
+    settings={"allow_nullable_key":1},
     )
 }}
 
 select
-    se.siret                                                           as siret,
+    se.siret
+        as company_siret,
     se.activite_principale_etablissement
-        as ape_code,
+        as company_ape_code,
     {{ get_company_name_column_from_stock_etablissement() }}
-        as nom_etablissement,
-    coalesce(cog.code_commune, cog_om.code_zonage_outre_mer)
-        as code_commune,
-    coalesce(cog.code_departement, cog_om.code_collectivite_outre_mer)
-        as code_departement,
-    coalesce(cog.code_region, cog_om.code_collectivite_outre_mer)
-        as code_region,
+        as company_name,
     {{ get_address_column_from_stock_etablissement() }}
-        as adresse_etablissement
+        as company_address,
+    coalesce(cog.code_commune, cog_om.code_zonage_outre_mer)
+        as company_code_commune,
+    coalesce(cog.code_departement, cog_om.code_collectivite_outre_mer)
+        as company_code_departement,
+    coalesce(cog.code_region, cog_om.code_collectivite_outre_mer)
+        as company_code_region
 from {{ ref('stock_etablissement') }} as se
 left anti join {{ ref('company') }} as c on se.siret = c.siret
 left join {{ ref('code_geo_communes') }} as cog

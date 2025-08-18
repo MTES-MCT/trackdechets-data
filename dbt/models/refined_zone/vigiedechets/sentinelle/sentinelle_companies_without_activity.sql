@@ -5,26 +5,28 @@
         "join_algorithm":"'grace_hash'",
         "grace_hash_join_initial_buckets":16
     },
-    order_by='siret'
+    settings={"allow_nullable_key":1},
+    order_by = '(company_ape_code,company_siret)'
     )
 }}
 
 select
-    c.siret                                                            as siret,
-    se.activite_principale_etablissement
-        as ape_code,
-    {{ get_company_name_column_from_stock_etablissement() }}
-        as nom_etablissement,
+    c.siret
+        as company_siret,
+    coalesce(se.activite_principale_etablissement, '')
+        as company_ape_code,
+    coalesce(c.name, {{ get_company_name_column_from_stock_etablissement() }})
+        as company_name,
     coalesce(cog.code_commune, cog_om.code_zonage_outre_mer)
-        as code_commune,
+        as company_code_commune,
     coalesce(cog.code_departement, cog_om.code_collectivite_outre_mer)
-        as code_departement,
+        as company_code_departement,
     coalesce(cog.code_region, cog_om.code_collectivite_outre_mer)
-        as code_region,
+        as company_code_region,
     {{ get_address_column_from_stock_etablissement() }}
-        as adresse_etablissement
+        as company_address
 from {{ ref('company') }} as c
-left anti join {{ ref('statistics_by_siret') }} as sbs on c.siret = sbs.siret
+left join {{ ref('statistics_by_siret') }} as sbs on c.siret = sbs.siret
 left join {{ ref('stock_etablissement') }} as se on c.siret = se.siret
 left join {{ ref('code_geo_communes') }} as cog
     on
@@ -32,4 +34,7 @@ left join {{ ref('code_geo_communes') }} as cog
         and cog.type_commune != 'COMD'
 left join {{ ref('code_geo_territoires_outre_mer') }} as cog_om
     on se.code_commune_etablissement = cog_om.code_zonage_outre_mer
-where se.etat_administratif_etablissement = 'A'
+where
+    not empty(c.siret)
+    and se.etat_administratif_etablissement = 'A'
+    and coalesce(sbs.total_bordereaux_statements_references, 0) = 0

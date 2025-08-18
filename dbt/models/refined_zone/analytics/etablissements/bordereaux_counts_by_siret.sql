@@ -547,6 +547,6 @@ select
     + num_bsda_as_destination
     + num_bsff_as_destination
     + num_bsdasri_as_destination
-    + num_bsvhu_as_destination as total_mentions_bordereaux
+    + num_bsvhu_as_destination as num_bordereaux
 from
     full_
