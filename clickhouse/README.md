@@ -37,7 +37,7 @@ Avant le premier démarrage de ClickHouse, il faut créer un fichier `users.d/de
 ```
 
 Ensuite, il faut créer un user "admin" comme précisé dans la doc de clickhouse : https://clickhouse.com/docs/en/operations/access-rights#access-control-usage.
-Puis supprimer le user `default` dans le fichier précdemment créé.
+Puis supprimer le user `default` dans le fichier précédemment créé.
 
 Pour la configuration serveur, il faut créer un fichier `config.d/config.xml` basé sur ce template :
 
@@ -45,7 +45,7 @@ Pour la configuration serveur, il faut créer un fichier `config.d/config.xml` b
 <clickhouse>
     <http_port>8123</http_port>  <!-- En fonction des valeurs dans le .env -->
     <tcp_port>9000</tcp_port> <!-- En fonction des valeurs dans le .env -->
-    <listen_host>0.0.0.0</listen_host> <!-- N'écoute pas les connexions extérieures. -->
+    <listen_host>0.0.0.0</listen_host> <!-- Écoute les connexions extérieures. -->
 </clickhouse>
 ```
 
