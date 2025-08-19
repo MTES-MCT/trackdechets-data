@@ -48,3 +48,4 @@ networks:
     driver: bridge
   data_external_network:
     external: true
+    name: ${DATA_DOCKER_NETWORK_NAME:-data_external_network}
