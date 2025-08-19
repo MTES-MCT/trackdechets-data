@@ -26,6 +26,7 @@ with quantities_by_ape as (
 data_with_quantity_share as (
     select
         q.waste_quantity,
+        q.waste_quantity,
         assumeNotNull(
             q.code_departement
         ) as code_departement,
@@ -35,7 +36,6 @@ data_with_quantity_share as (
         assumeNotNull(
             q.waste_code
         ) as waste_code,
-        q.waste_quantity,
         q.waste_quantity
         / (
             sum(q.waste_quantity)

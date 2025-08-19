@@ -11,7 +11,7 @@
 }}
 
 select
-    c.siret
+    assumeNotNull(c.siret)
         as company_siret,
     coalesce(se.activite_principale_etablissement, '')
         as company_ape_code,
@@ -26,6 +26,9 @@ select
     {{ get_address_column_from_stock_etablissement() }}
         as company_address
 from {{ ref('company') }} as c
+left anti join
+    {{ ref('sentinelle_waste_quantity_produced_by_siret') }} as sw
+    on c.siret = sw.company_siret
 left join {{ ref('statistics_by_siret') }} as sbs on c.siret = sbs.siret
 left join {{ ref('stock_etablissement') }} as se on c.siret = se.siret
 left join {{ ref('code_geo_communes') }} as cog
