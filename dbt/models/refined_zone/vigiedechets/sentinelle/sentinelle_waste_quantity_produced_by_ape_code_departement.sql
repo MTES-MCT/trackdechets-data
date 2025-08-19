@@ -35,6 +35,7 @@ data_with_quantity_share as (
         assumeNotNull(
             q.waste_code
         ) as waste_code,
+        q.waste_quantity,
         q.waste_quantity
         / (
             sum(q.waste_quantity)
@@ -48,5 +49,6 @@ select
     code_departement,
     ape_code,
     waste_code,
+    waste_quantity,
     waste_quantity_share
 from data_with_quantity_share

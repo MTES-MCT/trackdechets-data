@@ -109,8 +109,8 @@ models:
         data_type: decimal(76, 30)
       - name: last_bordereau_created_at
         data_type: datetime64(6, 'europe/paris')
-      - name: total_mentions_bordereaux
-        data_type: uint64
+      - name: num_bordereaux
+        data_type: UInt64
       - name: dnd_processing_operations_as_destination
         data_type: Array(String)
       - name: texs_processing_operations_as_destination
@@ -179,7 +179,7 @@ models:
         data_type: Float64
       - name: volume_statements
         data_type: Float64
-      - name: total_mentions
+      - name: total_bordereaux_statements_references
         data_type: UInt64
       - name: num_pnttd_statements_as_emitter
         data_type: uint64
