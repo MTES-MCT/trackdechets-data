@@ -12,7 +12,7 @@ echo -e "AIRFLOW_UID=$(id -u)" > .env
 
 2. Ajouter dans le fichier `.env` les variables d'environnement nécessaires en utilisant l'exemple dans le fichier `.env.dist`
 
-3. Créer le réseau qui permettra à Clickhouse et Airflow de communiquer :
+3. Créer, si ce n'est pas déjà fait, le réseau qui permettra à Clickhouse et Airflow de communiquer :
 
 ```bash
 docker network create data_external_network
