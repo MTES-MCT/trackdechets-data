@@ -4,20 +4,11 @@ from urllib.parse import urlparse
 from zoneinfo import ZoneInfo
 
 import boto3
-import clickhouse_connect
-
-from dags_utils.datawarehouse_connection import get_dwh_client
 from dags_utils.alerting import send_alert_to_mattermost
+from dags_utils.datawarehouse_connection import get_dwh_client
 
 from airflow.decorators import dag, task
 from airflow.models import Variable
-
-# ──────────────────────────────────────────────────────────────────────────────
-#  Configuration
-# ──────────────────────────────────────────────────────────────────────────────
-S3_BUCKET_URL = Variable.get("TRACKDECHETS_CH_BACKUP_BUCKET_URL")
-AWS_ACCESS_KEY_ID = Variable.get("TRACKDECHETS_CH_BACKUP_BUCKET_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = Variable.get("TRACKDECHETS_CH_BACKUP_BUCKET_SECRET_ACCESS_KEY")
 
 
 # ------------------------------------------------------------------
@@ -39,6 +30,10 @@ def get_s3_bucket_and_prefix(s3_url: str):
 #  Helper: build an S3 client (boto3)
 # ──────────────────────────────────────────────────────────────────────────────
 def get_s3_client():
+    AWS_ACCESS_KEY_ID = Variable.get("TRACKDECHETS_CH_BACKUP_BUCKET_ACCESS_KEY_ID")
+    AWS_SECRET_ACCESS_KEY = Variable.get(
+        "TRACKDECHETS_CH_BACKUP_BUCKET_SECRET_ACCESS_KEY"
+    )
     return boto3.client(
         "s3",
         endpoint_url="https://s3.fr-par.scw.cloud",
@@ -83,6 +78,7 @@ def backup_clickhouse_incremental():
         base_prefix : str | None
             Prefix of the base (initial) backup to reference, or None for a full backup.
         """
+        S3_BUCKET_URL = Variable.get("TRACKDECHETS_CH_BACKUP_BUCKET_URL")
         s3 = get_s3_client()
 
         # Parse bucket name & path from URL
@@ -118,6 +114,12 @@ def backup_clickhouse_incremental():
         """
         Execute the ClickHouse BACKUP command.
         """
+        S3_BUCKET_URL = Variable.get("TRACKDECHETS_CH_BACKUP_BUCKET_URL")
+        AWS_ACCESS_KEY_ID = Variable.get("TRACKDECHETS_CH_BACKUP_BUCKET_ACCESS_KEY_ID")
+        AWS_SECRET_ACCESS_KEY = Variable.get(
+            "TRACKDECHETS_CH_BACKUP_BUCKET_SECRET_ACCESS_KEY"
+        )
+
         client = get_dwh_client(send_receive_timeout=60 * 60 * 4)
         logger.info(f"Target S3 prefix: {target_prefix}")
 
