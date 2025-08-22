@@ -1,5 +1,5 @@
 CODE_ARRONDISSEMENT_DDL = """
-CREATE TABLE IF NOT EXISTS code_arrondissement_tmp
+CREATE TABLE IF NOT EXISTS raw_zone_insee.code_arrondissement_tmp
 (
     ARR                                             LowCardinality(String),
     DEP                                             LowCardinality(String),
@@ -15,7 +15,7 @@ ORDER BY ()
 """
 
 CODE_CANTON_DDL = """
-CREATE TABLE IF NOT EXISTS code_canton_tmp
+CREATE TABLE IF NOT EXISTS raw_zone_insee.code_canton_tmp
 (
     CAN                                             String,
     DEP                                             LowCardinality(String),
@@ -33,7 +33,7 @@ ORDER BY ()
 """
 
 CODE_COMMUNE_DDL = """
-CREATE TABLE IF NOT EXISTS code_commune_tmp
+CREATE TABLE IF NOT EXISTS raw_zone_insee.code_commune_tmp
 (
     TYPECOM                                         LowCardinality(String),
     COM                                             String,
@@ -53,7 +53,7 @@ ORDER BY ()
 """
 
 CODE_DEPARTEMENT_DDL = """
-CREATE TABLE IF NOT EXISTS code_departement_tmp
+CREATE TABLE IF NOT EXISTS raw_zone_insee.code_departement_tmp
 (
     DEP                                         LowCardinality(String),
     REG                                         LowCardinality(String),
@@ -68,7 +68,7 @@ ORDER BY ()
 """
 
 CODE_REGION_DDL = """
-CREATE TABLE IF NOT EXISTS code_region_tmp
+CREATE TABLE IF NOT EXISTS raw_zone_insee.code_region_tmp
 (
     REG                                         LowCardinality(String),
     CHEFLIEU                                    LowCardinality(String),
@@ -82,7 +82,7 @@ ORDER BY ()
 """
 
 CODE_TERRITOIRES_OUTRE_MER_DDL = """
-CREATE TABLE IF NOT EXISTS code_territoires_outre_mer_tmp
+CREATE TABLE IF NOT EXISTS raw_zone_insee.code_territoires_outre_mer_tmp
 (
     COM_COMER                                         LowCardinality(String),
     TNCC                                              UInt8,

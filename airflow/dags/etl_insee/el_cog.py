@@ -88,37 +88,47 @@ def el_cog():
     def insert_data_to_ch(tmp_dir: str):
         tmp_dir = Path(tmp_dir)
 
-        client = get_dwh_client("raw_zone_insee")
+        client = get_dwh_client()
 
+        # Database creation
         logger.info("Starting creation of database raw_zone_insee if not exists.")
         client.command("CREATE DATABASE IF NOT EXISTS raw_zone_insee")
         logger.info("Finished creation of database raw_zone_insee if not exists.")
+
+        client.set_database
         for o in configs:
             table_name = o["name"]
             table_dll = o["ddl"]
+
+            # Create temporary table
             logger.info(
                 "Starting %s temporary table creation if not exists.", table_name
             )
-            client.command(f"DROP TABLE IF EXISTS {table_name}_tmp")
+            client.command(f"DROP TABLE IF EXISTS raw_zone_insee.{table_name}_tmp")
             client.command(table_dll)
             logger.info("Finished %s temporary table creation.", table_name)
 
+            # Insert data into temporary table
             logger.info("Starting inserting data into temporary table.")
             insert_file(
                 client,
-                f"{table_name}_tmp",
+                f"raw_zone_insee.{table_name}_tmp",
                 str((tmp_dir / f"{table_name}.csv").absolute()),
                 fmt="CSVWithNames",
                 settings={"format_csv_null_representation": ""},
             )
             logger.info("Finished inserting data into %s temporary table.", table_name)
 
+            # Remove old table
             logger.info("Removing %s existing table.", table_name)
-            client.command(f"DROP TABLE IF EXISTS {table_name}")
+            client.command(f"DROP TABLE IF EXISTS raw_zone_insee.{table_name}")
             logger.info("Finished %s removing existing table.", table_name)
 
+            # Rename temporary table to promote it as normal table
             logger.info("Renaming %s temporary table.", table_name)
-            client.command(f"RENAME TABLE {table_name}_tmp TO {table_name}")
+            client.command(
+                f"RENAME TABLE raw_zone_insee.{table_name}_tmp TO raw_zone_insee.{table_name}"
+            )
             logger.info("Finished %s renaming temporary table.", table_name)
 
     @task(trigger_rule=TriggerRule.ALL_DONE)
