@@ -14,8 +14,7 @@ from airflow.models import Variable
 # ------------------------------------------------------------------
 def get_s3_bucket_and_prefix(s3_url: str):
     """
-    Return (bucket_name, base_path) from an S3 URL like:
-        https://s3.amazonaws.com/my-bucket/backup-s3
+    Return (bucket_name, base_path) from an S3 URL.
     """
     parsed = urlparse(s3_url)
     # parsed.netloc contains the bucket domain; the path is /my-bucket/backup-s3
@@ -154,6 +153,7 @@ def backup_clickhouse_incremental():
     @task
     def check_aws_credentials():
         """Quick sanity‑check that we can list the bucket."""
+        S3_BUCKET_URL = Variable.get("TRACKDECHETS_CH_BACKUP_BUCKET_URL")
         s3 = get_s3_client()
         bucket, _ = get_s3_bucket_and_prefix(S3_BUCKET_URL)
         try:
