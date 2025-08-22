@@ -1,10 +1,11 @@
 from cosmos import ProfileConfig
 from cosmos.profiles import ClickhouseUserPasswordProfileMapping
+
 from airflow.models import Variable
 
 profile_config = ProfileConfig(
     profile_name="trackdechets",
-    target_name=Variable.get("DBT_ENV"),
+    target_name=Variable.get("DBT_ENV", "dev"),
     profile_mapping=ClickhouseUserPasswordProfileMapping(
         conn_id="td_datawarehouse",
         profile_args={"custom_settings": {"join_use_nulls": 1}},

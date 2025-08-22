@@ -78,9 +78,6 @@ DATA_CONFIG = [
     },
 ]
 
-datagouv_api_key = Variable.get("DATAGOUV_API_KEY")
-datagouv_dataset_id = Variable.get("DATAGOUV_STATS_PUBLIQUES_DATASET_ID")
-
 
 @dag(
     start_date=datetime(2023, 6, 26, 12),
@@ -95,6 +92,9 @@ def publish_stats_publiques_open_data():
 
     @task()
     def extract_and_load_stats_publiques_data():
+        datagouv_api_key = Variable.get("DATAGOUV_API_KEY")
+        datagouv_dataset_id = Variable.get("DATAGOUV_STATS_PUBLIQUES_DATASET_ID")
+
         client = get_dwh_client("raw_zone_referentials")
 
         for config in reversed(DATA_CONFIG):
