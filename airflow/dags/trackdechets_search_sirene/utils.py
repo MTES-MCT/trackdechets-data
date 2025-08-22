@@ -4,11 +4,32 @@ import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 
+from airflow.models import Connection
 from authlib.integrations.httpx_client import OAuth2Client
 from authlib.oauth2.rfc7523 import ClientSecretJWT
 from tqdm.auto import tqdm
 
 logger = logging.getLogger(__name__)
+
+
+def get_es_connection() -> str:
+    es_connection = Connection.get_connection_from_secrets(
+        "trackdechets_search_sirene_elasticsearch_url"
+    )
+
+    es_credentials = ""
+    if es_connection.login and es_connection.password:
+        es_credentials = f"{es_connection.login}:{es_connection.password}@"
+
+    es_schema = "http"
+    if es_connection.schema:
+        es_schema = f"{es_connection.schema}"
+
+    conn_str = (
+        f"{es_schema}://{es_credentials}{es_connection.host}:{es_connection.port}"
+    )
+
+    return conn_str
 
 
 def refresh_token(
