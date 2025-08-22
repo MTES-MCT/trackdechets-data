@@ -27,6 +27,10 @@ def el_base_sirene():
 
         client = get_dwh_client("raw_zone_insee")
 
+        logger.info("Starting creation of database raw_zone_insee if not exists.")
+        client.command("CREATE DATABASE IF NOT EXISTS raw_zone_insee")
+        logger.info("Finished creation of database raw_zone_insee if not exists.")
+
         logger.info("Starting temporary table creation if not exists.")
         create_table_statement = STOCK_ETABLISSEMENT_DDL
         client.command(create_table_statement)
