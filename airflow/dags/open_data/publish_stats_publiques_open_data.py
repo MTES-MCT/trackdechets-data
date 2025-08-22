@@ -1,13 +1,12 @@
 import logging
 from datetime import datetime
 
-import clickhouse_connect
 import requests
-from dags_utils.datawarehouse_connection import get_dwh_client
 from dags_utils.alerting import send_alert_to_mattermost
+from dags_utils.datawarehouse_connection import get_dwh_client
 
 from airflow.decorators import dag, task
-from airflow.models import Connection, Variable
+from airflow.models import Variable
 
 logging.basicConfig(
     level=logging.DEBUG,

@@ -2,20 +2,19 @@ import logging
 import shutil
 import tempfile
 import time
-from pathlib import Path
 from io import StringIO
+from pathlib import Path
 
-import clickhouse_connect
 import httpx
-import tqdm
 import pandas as pd
+import tqdm
+from clickhouse_connect.driver.tools import insert_file
+from dags_utils.alerting import send_alert_to_mattermost
+from dags_utils.datawarehouse_connection import get_dwh_client
+from pendulum import datetime
+
 from airflow.decorators import dag, task
 from airflow.utils.trigger_rule import TriggerRule
-from clickhouse_connect.driver.tools import insert_file
-from pendulum import datetime
-from dags_utils.datawarehouse_connection import get_dwh_client
-from dags_utils.alerting import send_alert_to_mattermost
-
 from geocoding.schema import COMPANIES_GEOCODED_DDL
 
 logging.basicConfig(
@@ -33,8 +32,6 @@ logger = logging.getLogger()
     on_failure_callback=send_alert_to_mattermost,
 )
 def companies_geocoding():
-    client = get_dwh_client("raw_zone_referentials")
-
     @task
     def create_tmp_dir() -> str:
         """
@@ -45,6 +42,7 @@ def companies_geocoding():
 
     @task
     def extract_companies_to_geocode(tmp_dir: str):
+        client = get_dwh_client("raw_zone_referentials")
         logger.info("Retrieving companies to geolocalize.")
 
         companies_df = client.query_df(
@@ -118,6 +116,8 @@ def companies_geocoding():
         companies_geocoded_df = pd.read_csv(
             Path(tmp_dir) / "companies_geocoded.csv", dtype=str
         )
+
+        client = get_dwh_client("raw_zone_referentials")
 
         logger.info("Creating table (if not exists) 'companies_geocoded_by_ban_tmp'.")
         client.command(COMPANIES_GEOCODED_DDL)

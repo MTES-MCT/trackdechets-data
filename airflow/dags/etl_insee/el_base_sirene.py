@@ -1,11 +1,11 @@
 import logging
 from datetime import datetime
 
+from dags_utils.alerting import send_alert_to_mattermost
+from dags_utils.datawarehouse_connection import get_dwh_client
+
 from airflow.decorators import dag, task
 from airflow.models import Variable
-
-from dags_utils.datawarehouse_connection import get_dwh_client
-from dags_utils.alerting import send_alert_to_mattermost
 from etl_insee.schemas.stock_etablissement import STOCK_ETABLISSEMENT_DDL
 
 logging.basicConfig()

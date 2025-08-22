@@ -5,11 +5,12 @@ import urllib
 from datetime import datetime
 from pathlib import Path
 
+from clickhouse_connect.driver.tools import insert_file
+from dags_utils.alerting import send_alert_to_mattermost
+from dags_utils.datawarehouse_connection import get_dwh_client
+
 from airflow.decorators import dag, task
 from airflow.utils.trigger_rule import TriggerRule
-import clickhouse_connect
-from clickhouse_connect.driver.tools import insert_file
-
 from etl_insee.schemas.cog import (
     CODE_ARRONDISSEMENT_DDL,
     CODE_CANTON_DDL,
@@ -18,8 +19,6 @@ from etl_insee.schemas.cog import (
     CODE_REGION_DDL,
     CODE_TERRITOIRES_OUTRE_MER_DDL,
 )
-from dags_utils.datawarehouse_connection import get_dwh_client
-from dags_utils.alerting import send_alert_to_mattermost
 
 logging.basicConfig()
 logger = logging.getLogger(__name__)
