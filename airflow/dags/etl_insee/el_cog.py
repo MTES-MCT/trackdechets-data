@@ -95,7 +95,6 @@ def el_cog():
         client.command("CREATE DATABASE IF NOT EXISTS raw_zone_insee")
         logger.info("Finished creation of database raw_zone_insee if not exists.")
 
-        client.set_database
         for o in configs:
             table_name = o["name"]
             table_dll = o["ddl"]
