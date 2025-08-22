@@ -3,6 +3,7 @@ import re
 import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Any
 
 from airflow.models import Connection
 from authlib.integrations.httpx_client import OAuth2Client
@@ -72,7 +73,7 @@ def refresh_token(
     return token_expiration_timestamp
 
 
-def format_extracted_companies(company_list: list[dict]) -> list[dict]:
+def format_extracted_companies(company_list: list[dict]) -> list[dict[Any, Any]]:
     """
     Formats a list of extracted companies by flattening nested dictionaries and lists.
 
@@ -188,6 +189,7 @@ def extract_companies(
                 )
 
             res = client.get(f"{companies_endpoint}&curseur={cursor}&nombre=1000")
+
             res_json = res.json()
 
             number_of_companies_extracted = res_json["header"]["nombre"]
@@ -218,7 +220,7 @@ def log_message(extracted_level, message):
     )  # Default to 'info' if level is not recognized
 
     # Call the logging function with the message
-    log_func(message)
+    log_func(message.decode("utf-8"))
 
 
 def ensure_str(input_data):

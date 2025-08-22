@@ -5,19 +5,18 @@ import tempfile
 from datetime import datetime
 from pathlib import Path
 
-from elasticsearch7 import Elasticsearch
 import pandas as pd
-import pendulum
+from elasticsearch7 import Elasticsearch
 from requests.exceptions import RequestException
 
-from dags_utils.alerting import send_alert_to_mattermost
 from airflow.decorators import dag, task
-from airflow.models import Connection, Variable
+from airflow.models import Variable
 from airflow.utils.trigger_rule import TriggerRule
 from trackdechets_search_sirene.utils import (
     download_es_ca_pem,
     extract_companies,
     format_extracted_companies,
+    get_es_connection,
     git_clone_trackdechets,
     npm_install_build,
     read_output,
@@ -25,43 +24,6 @@ from trackdechets_search_sirene.utils import (
 
 logging.basicConfig()
 logger = logging.getLogger()
-
-
-es_connection = Connection.get_connection_from_secrets(
-    "trackdechets_search_sirene_elasticsearch_url"
-)
-
-es_credentials = ""
-if es_connection.login and es_connection.password:
-    es_credentials = f"{es_connection.login}:{es_connection.password}@"
-
-es_schema = "http"
-if es_connection.schema:
-    es_schema = f"{es_connection.schema}"
-
-
-env = Variable.get("AIRFLOW_ENV", "dev")
-environ = {
-    "FORCE_LOGGER_CONSOLE": True,
-    "ELASTICSEARCH_URL": f"{es_schema}://{es_credentials}{es_connection.host}:{es_connection.port}",
-    "DD_LOGS_ENABLED": True if env == "prod" else False,
-    "DD_TRACE_ENABLED": True if env == "prod" else False,
-    "DD_API_KEY": Variable.get("DD_API_KEY"),
-    "DD_APP_NAME": Variable.get("DD_APP_NAME"),
-    "DD_ENV": "production" if env == "prod" else "",
-    "NODE_ENV": "production" if env == "prod" else "recette",
-    "ELASTICSEARCH_CAPEM": Variable.get("ELASTICSEARCH_CAPEM"),
-    "INSEE_CLIENT_ID": Variable.get("INSEE_CLIENT_ID"),
-    "INSEE_CLIENT_SECRET": Variable.get("INSEE_CLIENT_SECRET"),
-    "INSEE_USERNAME": Variable.get("INSEE_USERNAME"),
-    "INSEE_PASSWORD": Variable.get("INSEE_PASSWORD"),
-}
-
-# Constant pointing to the node git indexation repo
-TRACKDECHETS_SIRENE_SEARCH_GIT = "trackdechets-sirene-search"
-TRACKDECHETS_SIRENE_SEARCH_GIT_BRANCH = Variable.get(
-    "TRACKDECHETS_SIRENE_SEARCH_GIT_BRANCH", "main"
-)
 
 
 @dag(
@@ -76,6 +38,9 @@ def incremental_update_search_sirene():
     https://api.insee.fr/catalogue/site/themes/wso2/subthemes/insee/pages/item-info.jag?name=Sirene&version=V3&provider=insee
     """
 
+    # Constant pointing to the node git indexation repo
+    TRACKDECHETS_SIRENE_SEARCH_GIT = "trackdechets-sirene-search"
+
     @task
     def create_tmp_dir() -> str:
         """
@@ -89,7 +54,7 @@ def incremental_update_search_sirene():
         return git_clone_trackdechets(
             tmp_dir,
             TRACKDECHETS_SIRENE_SEARCH_GIT,
-            TRACKDECHETS_SIRENE_SEARCH_GIT_BRANCH,
+            Variable.get("TRACKDECHETS_SIRENE_SEARCH_GIT_BRANCH", "main"),
         )
 
     @task
@@ -102,18 +67,19 @@ def incremental_update_search_sirene():
     @task
     def task_download_es_ca_pem(tmp_dir) -> str:
         return download_es_ca_pem(
-            tmp_dir, environ["ELASTICSEARCH_CAPEM"], TRACKDECHETS_SIRENE_SEARCH_GIT
+            tmp_dir, Variable.get("ELASTICSEARCH_CAPEM"), TRACKDECHETS_SIRENE_SEARCH_GIT
         )
 
     @task
-    def task_get_most_recent_document_datetime_from_es_index(tmp_dir) -> str:
+    def task_get_most_recent_document_datetime_from_es_index(tmp_dir) -> datetime:
         capem_path = Path(tmp_dir) / "trackdechets-sirene-search/dist/common/es.cert"
 
+        es_conn_str = get_es_connection()
         # Connexion sécurisée avec certificat et authentification (si nécessaire)
-        es = Elasticsearch(environ["ELASTICSEARCH_URL"], ca_certs=capem_path)
+        es = Elasticsearch(es_conn_str, ca_certs=capem_path)
 
         # Définition du pattern d'index avec wildcard pour le suffixe variable
-        index_pattern = f"stocketablissement-{environ['NODE_ENV']}"
+        index_pattern = f"stocketablissement-{'production' if Variable.get('AIRFLOW_ENV', 'dev') == 'prod' else 'recette'}"
 
         # Recherche avec agrégation sur le champ 'date'
         response = es.search(
@@ -139,6 +105,24 @@ def incremental_update_search_sirene():
         logger.info(
             f"INSEE API query data after : {start_date:%Y-%m-%d}",
         )
+
+        airflow_env = Variable.get("AIRFLOW_ENV", "dev")
+
+        environ = {
+            "FORCE_LOGGER_CONSOLE": True,
+            "ELASTICSEARCH_URL": get_es_connection(),
+            "DD_LOGS_ENABLED": True if airflow_env == "prod" else False,
+            "DD_TRACE_ENABLED": True if airflow_env == "prod" else False,
+            "DD_API_KEY": Variable.get("DD_API_KEY"),
+            "DD_APP_NAME": Variable.get("DD_APP_NAME"),
+            "DD_ENV": "production" if airflow_env == "prod" else "",
+            "NODE_ENV": "production" if airflow_env == "prod" else "recette",
+            "ELASTICSEARCH_CAPEM": Variable.get("ELASTICSEARCH_CAPEM"),
+            "INSEE_CLIENT_ID": Variable.get("INSEE_CLIENT_ID"),
+            "INSEE_CLIENT_SECRET": Variable.get("INSEE_CLIENT_SECRET"),
+            "INSEE_USERNAME": Variable.get("INSEE_USERNAME"),
+            "INSEE_PASSWORD": Variable.get("INSEE_PASSWORD"),
+        }
 
         try:
             companies = extract_companies(

@@ -5,18 +5,18 @@ import tempfile
 from datetime import datetime
 from pathlib import Path
 
-from trackdechets_search_sirene.utils import (
-    download_es_ca_pem,
-    git_clone_trackdechets,
-    npm_install_build,
-    read_output,
-    get_es_connection,
-)
 from dags_utils.alerting import send_alert_to_mattermost
 
 from airflow.decorators import dag, task
 from airflow.models import Variable
 from airflow.utils.trigger_rule import TriggerRule
+from trackdechets_search_sirene.utils import (
+    download_es_ca_pem,
+    get_es_connection,
+    git_clone_trackdechets,
+    npm_install_build,
+    read_output,
+)
 
 logging.basicConfig()
 logger = logging.getLogger()
@@ -81,6 +81,8 @@ def full_update_search_sirene():
             "TD_SIRENE_INDEX_MAX_CONCURRENT_REQUESTS": "4",
             "TD_SIRENE_INDEX_MAX_HIGHWATERMARK": "16384",
             "TD_SIRENE_INDEX_SLEEP_BETWEEN_CHUNKS": "0",
+            "INSEE_SIRENE_URL": "https://object.files.data.gouv.fr/data-pipeline-open/siren/stock/StockUniteLegale_utf8.zip",
+            "INSEE_SIRET_URL": "https://object.files.data.gouv.fr/data-pipeline-open/siren/stock/StockEtablissement_utf8.zip",
         }
 
         if environ["INDEX_SIRET_ONLY"]:
