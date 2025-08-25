@@ -25,7 +25,7 @@ def el_base_sirene():
     def insert_data_to_ch():
         url = Variable.get("BASE_SIRENE_URL")
 
-        client = get_dwh_client("raw_zone_insee")
+        client = get_dwh_client()
 
         logger.info("Starting creation of database raw_zone_insee if not exists.")
         client.command("CREATE DATABASE IF NOT EXISTS raw_zone_insee")
@@ -37,13 +37,15 @@ def el_base_sirene():
         logger.info("Finished temporary table creation.")
 
         logger.info("Truncating temporary table if exists.")
-        client.command("TRUNCATE TABLE IF EXISTS stock_etablissement_tmp")
+        client.command(
+            "TRUNCATE TABLE IF EXISTS raw_zone_insee.stock_etablissement_tmp"
+        )
         logger.info("Finished truncating temporary table if exists.")
 
         logger.info("Starting inserting data into temporary table.")
         client.command(
             f"""
-            INSERT INTO stock_etablissement_tmp
+            INSERT INTO raw_zone_insee.stock_etablissement_tmp
             SELECT *
             FROM url('{url}', 'Parquet', '
                 siren                                           String,
@@ -109,7 +111,9 @@ def el_base_sirene():
         logger.info("Finished removing existing table.")
 
         logger.info("Renaming temporary table.")
-        client.command("RENAME TABLE stock_etablissement_tmp TO stock_etablissement")
+        client.command(
+            "RENAME TABLE raw_zone_insee.stock_etablissement_tmp TO raw_zone_insee.stock_etablissement"
+        )
         logger.info("Finished renaming temporary table.")
 
     insert_data_to_ch()

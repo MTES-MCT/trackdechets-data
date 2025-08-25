@@ -1,5 +1,5 @@
 STOCK_ETABLISSEMENT_DDL = """
-CREATE TABLE IF NOT EXISTS stock_etablissement_tmp
+CREATE TABLE IF NOT EXISTS raw_zone_insee.stock_etablissement_tmp
 (
     siren                                           String,
     nic                                             String,
