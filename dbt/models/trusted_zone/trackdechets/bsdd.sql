@@ -124,6 +124,19 @@ select
     toLowCardinality(
         toNullable(toString("wasteDetailsConsistence"))
     ) as waste_details_consistence,
+    assumeNotNull(
+        splitByChar(
+            ',',
+            cOALESCE(
+                substring(
+                    toString("wasteDetailsConsistence"),
+                    2,
+                    length("wasteDetailsConsistence") - 2
+                ),
+                ''
+            )
+        )
+    ) as waste_details_consistence,
     toNullable(
         toString("processedBy")
     ) as processed_by,
