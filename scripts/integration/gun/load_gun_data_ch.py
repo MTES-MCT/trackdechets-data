@@ -49,7 +49,7 @@ ORDER BY ()
 def load_gun_csv_file_to_dwh(
     filepath: str,
     dwh_host: str,
-    dwh_http_port: str,
+    dwh_http_port: int,
     dwh_username: str,
     dwh_password: str,
 ):
@@ -58,8 +58,13 @@ def load_gun_csv_file_to_dwh(
         port=dwh_http_port,
         username=dwh_username,
         password=dwh_password,
-        database="raw_zone_icpe",
     )
+
+    logger.info(
+        "Creating database raw_zone_icpe if not exists",
+    )
+
+    client.command("CREATE DATABASE IF NOT EXISTS raw_zone_icpe")
 
     logger.info(
         "Creating table raw_zone_icpe.installations_rubriques_2024 if not exists",
@@ -123,7 +128,7 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--dwh_http_port",
-        default="8123",
+        default=8123,
         help="HTTP port to connect to the database. Default to 8123.",
     )
     parser.add_argument(
