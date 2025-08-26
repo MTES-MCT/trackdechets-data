@@ -127,7 +127,7 @@ select
     assumeNotNull(
         splitByChar(
             ',',
-            cOALESCE(
+            coalesce(
                 substring(
                     toString("wasteDetailsConsistence"),
                     2,
@@ -313,7 +313,7 @@ select
     assumeNotNull(
         splitByChar(
             ',',
-            cOALESCE(
+            coalesce(
                 substring(
                     toString("wasteDetailsAnalysisReferences"),
                     2,
@@ -326,7 +326,7 @@ select
     assumeNotNull(
         splitByChar(
             ',',
-            cOALESCE(
+            coalesce(
                 substring(
                     toString("wasteDetailsLandIdentifiers"),
                     2,
@@ -357,7 +357,7 @@ select
     assumeNotNull(
         splitByChar(
             ',',
-            cOALESCE(
+            coalesce(
                 substring(
                     toString("recipientsSirets"),
                     2,
@@ -370,7 +370,7 @@ select
     assumeNotNull(
         splitByChar(
             ',',
-            cOALESCE(
+            coalesce(
                 substring(
                     toString("transportersSirets"),
                     2,
@@ -383,7 +383,7 @@ select
     assumeNotNull(
         splitByChar(
             ',',
-            cOALESCE(
+            coalesce(
                 substring(
                     toString("intermediariesSirets"),
                     2,
@@ -402,7 +402,7 @@ select
     assumeNotNull(
         splitByChar(
             ',',
-            cOALESCE(
+            coalesce(
                 substring(
                     toString("canAccessDraftSirets"),
                     2,
