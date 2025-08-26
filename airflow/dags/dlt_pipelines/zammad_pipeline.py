@@ -226,7 +226,7 @@ if __name__ == "__main__":
     # Initialize the pipeline
     pipeline = dlt.pipeline(
         pipeline_name="zammad_pipeline",
-        destination="clickhouse",  # Replace with your destination
+        destination="clickhouse",
         progress="tqdm",
     )
 
