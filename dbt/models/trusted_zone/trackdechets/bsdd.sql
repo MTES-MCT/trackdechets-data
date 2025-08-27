@@ -121,9 +121,6 @@ select
     toNullable(
         toString("receivedBy")
     ) as received_by,
-    toLowCardinality(
-        toNullable(toString("wasteDetailsConsistence"))
-    ) as waste_details_consistence,
     assumeNotNull(
         splitByChar(
             ',',
