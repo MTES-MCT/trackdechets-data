@@ -12,6 +12,7 @@ def dag_generator(
     return DbtDag(
         project_config=ProjectConfig(
             "/opt/airflow/dbt",
+            seeds_relative_path="seeds",
         ),
         profile_config=profile_config,
         operator_args={
