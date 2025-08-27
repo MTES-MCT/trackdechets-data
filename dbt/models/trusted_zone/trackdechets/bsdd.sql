@@ -124,6 +124,19 @@ select
     toLowCardinality(
         toNullable(toString("wasteDetailsConsistence"))
     ) as waste_details_consistence,
+    assumeNotNull(
+        splitByChar(
+            ',',
+            coalesce(
+                substring(
+                    toString("wasteDetailsConsistence"),
+                    2,
+                    length("wasteDetailsConsistence") - 2
+                ),
+                ''
+            )
+        )
+    ) as waste_details_consistence,
     toNullable(
         toString("processedBy")
     ) as processed_by,
@@ -300,7 +313,7 @@ select
     assumeNotNull(
         splitByChar(
             ',',
-            cOALESCE(
+            coalesce(
                 substring(
                     toString("wasteDetailsAnalysisReferences"),
                     2,
@@ -313,7 +326,7 @@ select
     assumeNotNull(
         splitByChar(
             ',',
-            cOALESCE(
+            coalesce(
                 substring(
                     toString("wasteDetailsLandIdentifiers"),
                     2,
@@ -344,7 +357,7 @@ select
     assumeNotNull(
         splitByChar(
             ',',
-            cOALESCE(
+            coalesce(
                 substring(
                     toString("recipientsSirets"),
                     2,
@@ -357,7 +370,7 @@ select
     assumeNotNull(
         splitByChar(
             ',',
-            cOALESCE(
+            coalesce(
                 substring(
                     toString("transportersSirets"),
                     2,
@@ -370,7 +383,7 @@ select
     assumeNotNull(
         splitByChar(
             ',',
-            cOALESCE(
+            coalesce(
                 substring(
                     toString("intermediariesSirets"),
                     2,
@@ -389,7 +402,7 @@ select
     assumeNotNull(
         splitByChar(
             ',',
-            cOALESCE(
+            coalesce(
                 substring(
                     toString("canAccessDraftSirets"),
                     2,
