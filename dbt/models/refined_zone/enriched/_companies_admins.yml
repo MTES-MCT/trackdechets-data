@@ -79,15 +79,15 @@ models:
       - name: company_libelle_section
         data_type: string
       - name: company_code_division
-        data_type: int32
+        data_type: string
       - name: company_libelle_division
         data_type: string
       - name: company_code_groupe
-        data_type: float32
+        data_type: string
       - name: company_libelle_groupe
         data_type: string
       - name: company_code_classe
-        data_type: float32
+        data_type: string
       - name: company_libelle_classe
         data_type: string
       - name: company_code_sous_classe

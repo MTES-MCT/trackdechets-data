@@ -2,7 +2,8 @@ version: 2
 models:
   - name: liste_des_installations
     columns:
-      - name: jd.siret
+      - name: siret
+        description: Code région
         data_type: String
       - name: code_commune
         data_type: String

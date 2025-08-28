@@ -10,70 +10,258 @@ sources:
           Tables qui contient les données de génération de fiches.
         columns:
           - name: id
-            data_type: text
+            data_type: uuid
           - name: org_id
-            data_type: text
+            data_type: string
           - name: created
-            data_type: timestamp without time zone
+            data_type: datetime64(6)
+          - name: company_address
+            data_type: String
+          - name: company_name
+            data_type: String
+          - name: company_profiles
+            data_type: Array(String)
+          - name: bsdd_created_rectified_data
+            data_type: String
+          - name: bsdd_stats_data
+            data_type: String
+          - name: bsdd_stock_data
+            data_type: String
+          - name: bsda_created_rectified_data
+            data_type: String
+          - name: bsda_stats_data
+            data_type: String
+          - name: bsda_stock_data
+            data_type: String
+          - name: bsdasri_created_rectified_data
+            data_type: String
+          - name: bsdasri_stats_data
+            data_type: String
+          - name: bsdasri_stock_data
+            data_type: String
+          - name: waste_flows_data
+            data_type: String
+          - name: bsff_created_rectified_data
+            data_type: String
+          - name: bsff_stats_data
+            data_type: String
+          - name: bsff_stock_data
+            data_type: String
+          - name: bsvhu_created_rectified_data
+            data_type: String
+          - name: bsvhu_stats_data
+            data_type: String
+          - name: bsvhu_stock_data
+            data_type: String
+          - name: storage_data
+            data_type: String
+          - name: waste_origin_data
+            data_type: String
+          - name: waste_origin_map_data
+            data_type: String
+          - name: agreement_data
+            data_type: String
+          - name: icpe_data
+            data_type: String
+          - name: bsda_created_rectified_graph
+            data_type: String
+          - name: bsda_stock_graph
+            data_type: String
+          - name: bsdasri_created_rectified_graph
+            data_type: String
+          - name: bsdasri_stock_graph
+            data_type: String
+          - name: bsdd_created_rectified_graph
+            data_type: String
+          - name: bsdd_stock_graph
+            data_type: String
+          - name: bsff_created_rectified_graph
+            data_type: String
+          - name: bsff_stock_graph
+            data_type: String
+          - name: bsvhu_created_rectified_graph
+            data_type: String
+          - name: bsvhu_stock_graph
+            data_type: String
+          - name: waste_origin_graph
+            data_type: String
+          - name: waste_origin_map_graph
+            data_type: String
           - name: state
-            data_type: text
+            data_type: string
+          - name: pdf
+            data_type: String
+          - name: traceability_interruptions_data
+            data_type: String
           - name: created_by
-            data_type: text
+            data_type: string
+          - name: waste_is_dangerous_statements_data
+            data_type: String
+          - name: all_bsd_data_empty
+            data_type: UInt8
+          - name: bsd_canceled_data
+            data_type: String
+          - name: same_emitter_recipient_data
+            data_type: String
+          - name: bsdd_non_dangerous_created_rectified_data
+            data_type: String
+          - name: bsdd_non_dangerous_stats_data
+            data_type: String
+          - name: bsdd_non_dangerous_stock_data
+            data_type: String
+          - name: bsdd_non_dangerous_created_rectified_graph
+            data_type: String
+          - name: bsdd_non_dangerous_stock_graph
+            data_type: String
+          - name: private_individuals_collections_data
+            data_type: String
+          - name: quantity_outliers_data
+            data_type: String
           - name: data_end_date
-            data_type: timestamp without time zone
+            data_type: datetime64(6)
           - name: data_start_date
-            data_type: timestamp without time zone
+            data_type: datetime64(6)
+          - name: icpe_2760_1_data
+            data_type: String
+          - name: icpe_2770_data
+            data_type: String
+          - name: icpe_2790_data
+            data_type: String
+          - name: bs_processed_without_icpe_authorization
+            data_type: String
+          - name: linked_companies_data
+            data_type: String
+          - name: company_created_at
+            data_type: DateTime64(6)
+          - name: icpe_2760_1_graph
+            data_type: String
+          - name: icpe_2770_graph
+            data_type: String
+          - name: icpe_2790_graph
+            data_type: String
+          - name: bsda_worker_stats_data
+            data_type: String
+          - name: bsda_worker_quantity_data
+            data_type: String
+          - name: bsda_worker_quantity_graph
+            data_type: String
+          - name: transporter_bordereaux_stats_graph_data
+            data_type: String
+          - name: quantities_transported_stats_graph_data
+            data_type: String
+          - name: quantities_transported_stats_graph
+            data_type: String
+          - name: transporter_bordereaux_stats_graph
+            data_type: String
+          - name: transporter_bordereaux_stats_data
+            data_type: String
+          - name: followed_with_pnttd_data
+            data_type: String
+          - name: gistrid_stats_data
+            data_type: String
+          - name: non_dangerous_waste_quantities_graph
+            data_type: String
+          - name: non_dangerous_waste_quantities_graph_data
+            data_type: String
+          - name: non_dangerous_waste_statements_graph
+            data_type: String
+          - name: non_dangerous_waste_statements_graph_data
+            data_type: String
+          - name: non_dangerous_waste_stats_data
+            data_type: String
+          - name: icpe_2760_2_data
+            data_type: String
+          - name: icpe_2760_2_graph
+            data_type: String
+          - name: icpe_2771_data
+            data_type: String
+          - name: icpe_2771_graph
+            data_type: String
+          - name: icpe_2791_data
+            data_type: String
+          - name: icpe_2791_graph
+            data_type: String
           - name: creation_mode
-            data_type: text
+            data_type: string
           - name: pdf_rendering_end
-            data_type: timestamp without time zone
+            data_type: datetime64(6)
           - name: pdf_rendering_start
-            data_type: timestamp without time zone
+            data_type: datetime64(6)
           - name: processing_end
-            data_type: timestamp without time zone
+            data_type: datetime64(6)
           - name: processing_start
-            data_type: timestamp without time zone
-          - name: _sdc_extracted_at
-            data_type: timestamp without time zone
-          - name: _sdc_received_at
-            data_type: timestamp without time zone
-          - name: _sdc_batched_at
-            data_type: timestamp without time zone
-          - name: _sdc_deleted_at
-            data_type: timestamp without time zone
-          - name: _sdc_sequence
-            data_type: bigint
-          - name: _sdc_table_version
-            data_type: bigint
-          - name: _sdc_sync_started_at
-            data_type: bigint
+            data_type: datetime64(6)
+          - name: eco_organisme_bordereaux_graph
+            data_type: String
+          - name: eco_organisme_bordereaux_graph_data
+            data_type: String
+          - name: eco_organisme_quantities_graph
+            data_type: String
+          - name: eco_organisme_quantities_graph_data
+            data_type: String
+          - name: eco_organisme_bordereaux_stats_data
+            data_type: String
+          - name: incinerator_outgoing_waste_data
+            data_type: String
+          - name: excavated_land_quantities_graph
+            data_type: String
+          - name: excavated_land_quantities_graph_data
+            data_type: String
+          - name: excavated_land_statements_graph
+            data_type: String
+          - name: excavated_land_statements_graph_data
+            data_type: String
+          - name: excavated_land_stats_data
+            data_type: String
+          - name: all_registry_data_empty
+            data_type: UInt8
+          - name: company_collector_profiles
+            data_type: Array(String)
+          - name: company_waste_processor_profiles
+            data_type: Array(String)
+          - name: ssd_quantities_graph
+            data_type: String
+          - name: ssd_quantities_graph_data
+            data_type: String
+          - name: ssd_statements_graph
+            data_type: String
+          - name: ssd_statements_graph_data
+            data_type: String
+          - name: ssd_stats_data
+            data_type: String
+          - name: ssd_table_data
+            data_type: String
+          - name: registry_transporter_quantities_graph
+            data_type: String
+          - name: registry_transporter_quantities_graph_data
+            data_type: String
+          - name: registry_transporter_statement_stats_graph
+            data_type: String
+          - name: registry_transporter_statement_stats_graph_data
+            data_type: String
+          - name: registry_transporter_stats_data
+            data_type: String
+          - name: voided
+            data_type: UInt8
+          - name: data_extraction_end
+            data_type: DateTime64(6)
+          - name: data_extraction_start
+            data_type: DateTime64(6)
+          - name: company_has_enabled_registry_dnd_from_bsd_since
+            data_type: DateTime64(6)
       - name: registry_registrydownload
         description: >
           Tables qui contient les données de téléchargement de registres.
         columns:
           - name: id
-            data_type: bigint
+            data_type: int64
           - name: org_id
-            data_type: text
+            data_type: string
           - name: data_start_date
-            data_type: timestamp without time zone
+            data_type: datetime64(6)
           - name: data_end_date
-            data_type: timestamp without time zone
+            data_type: datetime64(6)
           - name: created
-            data_type: timestamp without time zone
+            data_type: datetime64(6)
           - name: created_by
-            data_type: text
-          - name: _sdc_extracted_at
-            data_type: timestamp without time zone
-          - name: _sdc_received_at
-            data_type: timestamp without time zone
-          - name: _sdc_batched_at
-            data_type: timestamp without time zone
-          - name: _sdc_deleted_at
-            data_type: timestamp without time zone
-          - name: _sdc_sequence
-            data_type: bigint
-          - name: _sdc_table_version
-            data_type: bigint
-          - name: _sdc_sync_started_at
-            data_type: bigint
+            data_type: string

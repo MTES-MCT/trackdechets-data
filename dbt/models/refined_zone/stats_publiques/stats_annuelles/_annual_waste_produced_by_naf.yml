@@ -7,15 +7,15 @@ models:
       - name: libelle_section
         data_type: string
       - name: code_division
-        data_type: int32
+        data_type: string
       - name: libelle_division
         data_type: string
       - name: code_groupe
-        data_type: float32
+        data_type: string
       - name: libelle_groupe
         data_type: string
       - name: code_classe
-        data_type: float32
+        data_type: string
       - name: libelle_classe
         data_type: string
       - name: code_sous_classe
