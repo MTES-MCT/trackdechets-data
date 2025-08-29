@@ -6,7 +6,7 @@
 ) }}
 
 with source as (
-    select * from {{ source('raw_zone_gerico', 'registry_registrydownload') }} a
+    select * from {{ source('raw_zone_vigiedechets', 'registry_registrydownload') }} a
     {% if is_incremental() %}
     where a.created >= (select toString(max(created)) from {{ this }})
     {% endif %}

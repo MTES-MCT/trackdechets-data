@@ -7,7 +7,7 @@
 
 with source as (
     select *
-    from {{ source('raw_zone_gerico', 'sheets_computedinspectiondata') }} a
+    from {{ source('raw_zone_vigiedechets', 'sheets_computedinspectiondata') }} a
     {% if is_incremental() %}
     where a.created >= (select toString(max(created)) from {{ this }})
     {% endif %}
