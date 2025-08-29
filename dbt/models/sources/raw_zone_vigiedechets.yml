@@ -3,7 +3,8 @@ version: 2
 sources:
   - name: raw_zone_vigiedechets
     schema: pg_trackdechets_vigiedechets
-    description: Données brutes issues de l'application Vigiedechets (notamment de la Fiche Établissements).
+    description: >-
+      Données brutes issues de l'application Vigiedechets (notamment de la Fiche Établissements).
     tables:
       - name: sheets_computedinspectiondata
         description: >

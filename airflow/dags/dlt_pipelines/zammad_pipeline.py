@@ -26,7 +26,7 @@ def make_request(path: str, params: Optional[dict] = None) -> requests.Response:
     }
     url = f"{BASE_URL}{path}"
     client = RESTClient(
-        base_url="https://api.example.com",
+        base_url=BASE_URL,
         headers=headers,
         auth=BearerTokenAuth(token=API_TOKEN),
         data_selector="data",
@@ -207,6 +207,37 @@ def organizations(
             break
 
 
+@dlt.resource(
+    write_disposition="merge", primary_key="id", max_table_nesting=0, parallelized=True
+)
+def text_modules(
+    max_per_page: int = 200,
+    updated_at=dlt.sources.incremental(
+        "updated_at", initial_value="1970-01-01T00:00:00Z"
+    ),
+) -> Iterable[dict]:
+    """Fetch organizations from the Zammad API."""
+    path = "/text_modules/search"
+
+    updated_at = datetime.fromisoformat(updated_at.last_value) - timedelta(days=1)
+    params = {
+        "query": f"updated_at:>{updated_at:%Y-%m-%d}",
+        "page": 1,
+        "sort_by": "updated_at",
+        "order_by": "asc",
+        "per_page": max_per_page,
+    }
+
+    while True:
+        response = make_request(path, params=params)
+        data = response.json()
+        for text_module in data:
+            yield text_module
+
+        if not handle_pagination(response, params, max_per_page):
+            break
+
+
 def tags(ticket_item: dict) -> list:
     """Fetch tags for each ticket."""
     path = "/tags"
@@ -218,7 +249,7 @@ def tags(ticket_item: dict) -> list:
 
 @dlt.source
 def zammad_source():
-    return [tickets, users, groups, organizations]
+    return [tickets, users, groups, organizations, text_modules]
 
 
 # Run the pipeline

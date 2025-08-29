@@ -214,3 +214,33 @@ sources:
             data_type: String
           - name: parent_id
             data_type: Int64
+      - name: text_modules
+        description: >-
+          Données des modules de texte enregistrés dans Zammad.
+        columns:
+          - name: id
+            data_type: Int64
+          - name: name
+            data_type: String
+          - name: keywords
+            data_type: String
+          - name: content
+            data_type: String
+          - name: active
+            data_type: Bool
+          - name: updated_by_id
+            data_type: Int64
+          - name: created_by_id
+            data_type: Int64
+          - name: created_at
+            data_type: DateTime64(6, 'UTC')
+          - name: updated_at
+            data_type: DateTime64(6, 'UTC')
+          - name: group_ids
+            data_type: String
+          - name: _dlt_load_id
+            data_type: String
+          - name: _dlt_id
+            data_type: String
+          - name: note
+            data_type: String

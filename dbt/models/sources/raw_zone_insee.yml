@@ -213,7 +213,7 @@ sources:
           - name: libellePaysEtranger2Etablissement
             data_type: string
           - name: dateDebut
-            data_type: string
+            data_type: date
           - name: etatAdministratifEtablissement
             data_type: string
           - name: enseigne1Etablissement
