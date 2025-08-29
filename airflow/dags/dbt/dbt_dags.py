@@ -41,9 +41,9 @@ dbt_trackdechets_dag = dag_generator(
     profile_config=profile_config,
 )
 
-dbt_gerico_dag = dag_generator(
-    dag_id="dbt_gerico",
-    select=["trusted_zone.gerico+"],
+dbt_vigiedechets_dag = dag_generator(
+    dag_id="dbt_vigiedechets",
+    select=["trusted_zone.vigiedechets+"],
     schedule="5 0/4 * * *",
     profile_config=profile_config,
 )

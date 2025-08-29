@@ -69,8 +69,8 @@ models:
         +schema: trusted_zone_gistrid
       rndts:
         +schema: trusted_zone_rndts
-      gerico:
-        +schema: trusted_zone_gerico
+      vigiedechets:
+        +schema: trusted_zone_vigiedechets
       referentials:
         +schema: trusted_zone_referentials
 
