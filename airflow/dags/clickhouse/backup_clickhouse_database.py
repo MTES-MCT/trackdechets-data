@@ -11,7 +11,7 @@ from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 def get_s3_backup_folder_name() -> str:
     airflow_env = Variable.get("AIRFLOW_ENV", "dev")
 
-    return "clickhouse" if airflow_env == "production" else "clickhouse_dev"
+    return "clickhouse" if airflow_env == "prod" else "clickhouse_dev"
 
 
 def get_s3_credentials() -> tuple[str, str]:
