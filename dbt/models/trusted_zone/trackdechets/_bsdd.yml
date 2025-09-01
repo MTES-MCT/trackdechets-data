@@ -145,11 +145,8 @@ models:
         data_type: string
         description: "Nom de la personne en charge de la réception du déchet (case 10).\n"
       - name: waste_details_consistence
-        data_type: array(string)
+        data_type: string
         description: "Consistance du déchet.\n"
-        tests:
-          - accepted_values:
-              values: [SOLID, LIQUID, GASEOUS, DOUGHY]
       - name: processed_by
         data_type: string
         description: "Personne en charge du traitement.\n"
