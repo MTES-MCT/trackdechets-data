@@ -68,7 +68,7 @@ def backup_clickhouse_database():
             logging.info("Creating initial backup...")
             # Execute backup command
             query = f"""
-            BACKUP ALL EXCEPT DATABASES pg_trackdechets_production, pg_trackdechets_gerico, default 
+            BACKUP ALL EXCEPT DATABASES pg_trackdechets_production, pg_trackdechets_vigiedechets, default 
             TO S3('{s3_bucket_url}', '{access_key}', '{access_secret}')
             """
 
