@@ -220,7 +220,7 @@ def log_message(extracted_level, message):
     )  # Default to 'info' if level is not recognized
 
     # Call the logging function with the message
-    log_func(message.decode("utf-8"))
+    log_func(message)
 
 
 def ensure_str(input_data):
