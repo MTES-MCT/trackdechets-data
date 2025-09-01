@@ -14,22 +14,38 @@ with dataset as (
     select
         assumeNotNull(c.siret)
             as company_siret,
-        coalesce(se.activite_principale_etablissement, '')
+        toLowCardinality(coalesce(se.activite_principale_etablissement, ''))
             as company_ape_code,
         coalesce(
             c.name, {{ get_company_name_column_from_stock_etablissement() }}
         )
             as company_name,
-        coalesce(cog.code_commune, cog_om.code_zonage_outre_mer)
+        toLowCardinality(
+            coalesce(cog.code_commune, cog_om.code_zonage_outre_mer)
+        )
             as company_code_commune,
-        coalesce(cog.code_departement, cog_om.code_collectivite_outre_mer)
+        toLowCardinality(
+            coalesce(cog.code_departement, cog_om.code_collectivite_outre_mer)
+        )
             as company_code_departement,
-        coalesce(cog.code_region, cog_om.code_collectivite_outre_mer)
+        toLowCardinality(
+            coalesce(cog.code_region, cog_om.code_collectivite_outre_mer)
+        )
             as company_code_region,
-        {{ get_address_column_from_stock_etablissement() }}
+        coalesce(numero_voie_etablissement || ' ', '')
+        || coalesce(type_voie_etablissement || ' ', '')
+        || coalesce(libelle_voie_etablissement || ' ', '')
             as company_address,
-        se.code_postal_etablissement
-            as company_code_postal
+        toLowCardinality(se.code_postal_etablissement)
+            as company_code_postal,
+        toLowCardinality(
+            coalesce(
+                se.libelle_commune_etablissement,
+                cog.nom_en_clair,
+                cog_om.nom_en_clair
+            )
+        )
+            as company_libelle_commune
     from {{ ref('company') }} as c
     left anti join
         {{ ref('sentinelle_waste_quantity_produced_by_siret') }} as sw
@@ -54,6 +70,7 @@ select
     company_ape_code,
     company_address,
     company_code_postal,
+    company_libelle_commune,
     company_code_commune,
     company_code_departement,
     company_code_region

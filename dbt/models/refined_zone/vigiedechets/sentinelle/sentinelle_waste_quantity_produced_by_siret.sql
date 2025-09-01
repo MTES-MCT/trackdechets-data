@@ -189,16 +189,26 @@ all_quantities_data as (
 
 summed as (
     select
-        d.siret                                     as company_siret,
+        d.siret
+            as company_siret,
         d.waste_code,
-        max(se.activite_principale_etablissement)   as company_ape_code,
-        max({{ get_address_column_from_stock_etablissement() }})
+        max(se.activite_principale_etablissement)
+            as company_ape_code,
+        max(
+            coalesce(numero_voie_etablissement || ' ', '')
+            || coalesce(type_voie_etablissement || ' ', '')
+            || coalesce(libelle_voie_etablissement || ' ', ''))
             as adresse_etablissement,
-        max(se.code_postal_etablissement)           as company_code_postal,
-        max(d.company_name)                         as company_name,
-        min(first_activity_datetime)                as first_activity_datetime,
-        sum(events_count)                           as events_count,
-        sum(d.quantity)                             as waste_quantity,
+        max(se.libelle_commune_etablissement)
+            as company_libelle_commune,
+        max(se.code_postal_etablissement)
+            as company_code_postal,
+        max(d.company_name)                                     as company_name,
+        min(first_activity_datetime)
+            as first_activity_datetime,
+        sum(events_count)                                       as events_count,
+        sum(d.quantity)
+            as waste_quantity,
         max(se.code_commune_etablissement)
             as code_commune_etablissement
     from all_quantities_data as d
@@ -211,9 +221,18 @@ summed as (
 data_with_cog as (
     select
         s.company_name,
-        adresse_etablissement
+        s.adresse_etablissement
             as company_address,
-        company_code_postal,
+        toLowCardinality(
+            s.company_code_postal
+        )
+            as company_code_postal,
+        toLowCardinality(
+            coalesce(
+                s.company_libelle_commune, cog.nom_en_clair, cog_om.nom_en_clair
+            )
+        )
+            as company_libelle_commune,
         toLowCardinality(
             coalesce(cog.code_commune, cog_om.code_zonage_outre_mer)
         )
@@ -271,6 +290,7 @@ select
     company_name,
     company_address,
     company_code_postal,
+    company_libelle_commune,
     company_code_commune,
     company_code_departement,
     company_code_region,
