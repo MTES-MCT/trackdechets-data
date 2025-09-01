@@ -12,6 +12,8 @@ models:
         data_type: String
       - name: company_address
         data_type: String
+      - name: company_code_postal
+        data_type: String
       - name: company_code_commune
         data_type: String
       - name: company_code_departement

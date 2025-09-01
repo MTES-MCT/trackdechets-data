@@ -194,6 +194,7 @@ summed as (
         max(se.activite_principale_etablissement)   as company_ape_code,
         max({{ get_address_column_from_stock_etablissement() }})
             as adresse_etablissement,
+        max(se.code_postal_etablissement)           as company_code_postal,
         max(d.company_name)                         as company_name,
         min(first_activity_datetime)                as first_activity_datetime,
         sum(events_count)                           as events_count,
@@ -212,6 +213,7 @@ data_with_cog as (
         s.company_name,
         adresse_etablissement
             as company_address,
+        company_code_postal,
         toLowCardinality(
             coalesce(cog.code_commune, cog_om.code_zonage_outre_mer)
         )
@@ -268,6 +270,7 @@ select
     total_events_count,
     company_name,
     company_address,
+    company_code_postal,
     company_code_commune,
     company_code_departement,
     company_code_region,

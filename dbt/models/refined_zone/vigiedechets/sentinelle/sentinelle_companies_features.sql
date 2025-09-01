@@ -14,6 +14,7 @@ with companies as (
         max(total_events_count)       as total_events_count,
         max(company_name)             as company_name,
         max(company_address)          as company_address,
+        max(company_code_postal)      as company_code_postal,
         max(company_code_commune)     as company_code_commune,
         max(company_code_departement) as company_code_departement,
         max(company_code_region)      as company_code_region
@@ -32,6 +33,7 @@ full_grid as (
         c.total_events_count,
         c.company_name,
         c.company_address,
+        c.company_code_postal,
         c.company_code_commune,
         c.company_code_departement,
         c.company_code_region,
