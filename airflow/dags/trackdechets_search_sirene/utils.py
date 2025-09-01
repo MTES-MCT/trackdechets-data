@@ -183,7 +183,7 @@ def extract_companies(
     with tqdm(total=number_of_companies_to_extract) as t:
         while cursor != old_cursor:
             ts_now = datetime.now(timezone.utc)
-            if ts_now.timestamp() - 15 > token_expiration_timestamp:
+            if ts_now.timestamp() + 15 > token_expiration_timestamp:
                 token_expiration_timestamp = refresh_token(
                     client, token_endpoint, username, password
                 )
