@@ -59,6 +59,7 @@ bordereaux_quantities as (
         quantity is not null
 ),
 
+/*
 dnd_registry_ttr as (
     select distinct riw.report_for_company_siret as siret
     from
@@ -153,6 +154,7 @@ texs_quantities as (
     having
         quantity is not null
 ),
+*/
 
 all_quantities_data as (
     select
@@ -163,6 +165,7 @@ all_quantities_data as (
         processed_at_min           as first_activity_datetime,
         quantity
     from bordereaux_quantities
+    /*
     union all
     select
         siret,
@@ -181,6 +184,7 @@ all_quantities_data as (
         received_at_min  as first_activity_datetime,
         quantity
     from texs_quantities
+    */
 ),
 
 summed as (
