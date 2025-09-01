@@ -15,6 +15,8 @@ select
         as company_name,
     {{ get_address_column_from_stock_etablissement() }}
         as company_address,
+    se.code_postal_etablissement
+        as company_code_postal,
     coalesce(cog.code_commune, cog_om.code_zonage_outre_mer)
         as company_code_commune,
     coalesce(cog.code_departement, cog_om.code_collectivite_outre_mer)
