@@ -15,8 +15,8 @@ logger.setLevel(logging.INFO)
 logging.getLogger("your_logger_name").setLevel(logging.CRITICAL)
 
 # Retrieve the Zammad API token and base URL from DLT secrets
-API_TOKEN = dlt.secrets["ZAMMAD_API_TOKEN"]
-BASE_URL = dlt.secrets["ZAMMAD_BASE_URL"]
+API_TOKEN = dlt.secrets.get("ZAMMAD_API_TOKEN", str)
+BASE_URL = dlt.secrets.get("ZAMMAD_BASE_URL", str)
 
 
 def make_request(path: str, params: Optional[dict] = None) -> requests.Response:
