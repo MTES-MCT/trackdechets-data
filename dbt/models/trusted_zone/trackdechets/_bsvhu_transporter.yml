@@ -1,0 +1,50 @@
+version: 2
+models:
+  - name: bsvhu_transporter
+    columns:
+      - name: id
+        tests:
+          - unique
+        data_type: string
+      - name: created_at
+        data_type: datetime64(6, 'europe/paris')
+      - name: updated_at
+        data_type: datetime64(6, 'europe/paris')
+      - name: number
+        data_type: int256
+      - name: bsvhu_id
+        data_type: string
+      - name: transporter_company_siret
+        data_type: string
+      - name: transporter_company_name
+        data_type: string
+      - name: transporter_company_vat_number
+        data_type: string
+      - name: transporter_company_address
+        data_type: string
+      - name: transporter_company_contact
+        data_type: string
+      - name: transporter_company_phone
+        data_type: string
+      - name: transporter_company_mail
+        data_type: string
+      - name: transporter_custom_info
+        data_type: string
+      - name: transporter_recepisse_is_exempted
+        data_type: bool
+      - name: transporter_recepisse_number
+        data_type: string
+      - name: transporter_recepisse_department
+        data_type: string
+      - name: transporter_recepisse_validity_limit
+        data_type: datetime64(6, 'europe/paris')
+      - name: transporter_transport_mode
+        data_type: string
+      - name: transporter_transport_plates
+        data_type: String
+      - name: transporter_transport_taken_over_at
+        data_type: datetime64(6, 'europe/paris')
+      - name: transporter_transport_signature_author
+        data_type: string
+      - name: transporter_transport_signature_date
+        data_type: datetime64(6, 'europe/paris')

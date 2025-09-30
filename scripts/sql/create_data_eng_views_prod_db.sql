@@ -664,8 +664,34 @@ AS SELECT "Bsvhu".id,
     "Bsvhu"."traderRecepisseNumber",
     "Bsvhu"."traderRecepisseValidityLimit",
     "Bsvhu"."canAccessDraftOrgIds"::text AS "canAccessDraftOrgIds",
+    "Bsvhu"."transportersOrgIds"::text AS "transportersOrgIds",
     "Bsvhu"."customId"
    FROM "default$default"."Bsvhu";
+
+CREATE OR REPLACE VIEW data_eng."BsvhuTransporter"
+AS SELECT "BsvhuTransporter".id,
+    "BsvhuTransporter"."createdAt",
+    "BsvhuTransporter"."updatedAt",
+    "BsvhuTransporter".number,
+    "BsvhuTransporter"."bsvhuId",
+    "BsvhuTransporter"."transporterCompanySiret",
+    "BsvhuTransporter"."transporterCompanyName",
+    "BsvhuTransporter"."transporterCompanyVatNumber",
+    "BsvhuTransporter"."transporterCompanyAddress",
+    "BsvhuTransporter"."transporterCompanyContact",
+    "BsvhuTransporter"."transporterCompanyPhone",
+    "BsvhuTransporter"."transporterCompanyMail",
+    "BsvhuTransporter"."transporterCustomInfo",
+    "BsvhuTransporter"."transporterRecepisseIsExempted",
+    "BsvhuTransporter"."transporterRecepisseNumber",
+    "BsvhuTransporter"."transporterRecepisseDepartment",
+    "BsvhuTransporter"."transporterRecepisseValidityLimit",
+    "BsvhuTransporter"."transporterTransportMode",
+    "BsvhuTransporter"."transporterTransportPlates"::text AS "transporterTransportPlates",
+    "BsvhuTransporter"."transporterTransportTakenOverAt",
+    "BsvhuTransporter"."transporterTransportSignatureAuthor",
+    "BsvhuTransporter"."transporterTransportSignatureDate"
+   FROM "default$default"."BsvhuTransporter";
 
 -- data_eng."Company" source
 

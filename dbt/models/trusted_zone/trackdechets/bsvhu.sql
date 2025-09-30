@@ -370,6 +370,19 @@ select
             )
         )
     )      as can_access_draft_org_ids,
+    assumeNotNull(
+        splitByChar(
+            ',',
+            cOALESCE(
+                substring(
+                    toString("transportersOrgIds"),
+                    2,
+                    length("transportersOrgIds") - 2
+                ),
+                ''
+            )
+        )
+    )      as transporters_org_ids,
     toNullable(
         toString("customId")
     )      as custom_id
