@@ -94,11 +94,12 @@ plater_wastes as (
             from
                 installations
         )
+        and waste_details_code = '17 08 01*'
     group by 1, 2, 3
 
 ),
 
- wastes as (
+wastes as (
     select
         siret,
         date_reception,
