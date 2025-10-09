@@ -93,3 +93,13 @@ seeds:
         data_type: String
       - name: commentaires
         data_type: String
+  - name: laposte_hexasmal
+    description: Hexasmal de la laposte
+    columns:
+      - name: code_commune_insee
+        data_type: String
+      - name: nom_commune
+        data_type: String
+      - name: code_postal
+        data_type: String
+      - name: ligne_5
