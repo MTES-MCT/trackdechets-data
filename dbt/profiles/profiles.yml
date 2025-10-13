@@ -12,6 +12,19 @@ trackdechets:
         join_use_nulls: 1
       threads: 2
       send_receive_timeout: 3600
+    staging:
+      type: clickhouse
+      host: "{{ env_var('DBT_HOST_PROD') }}"
+      user: "{{ env_var('DBT_USER_PROD') }}"
+      password: "{{ env_var('DBT_PASSWORD_PROD') }}"
+      port: "{{ env_var('DBT_PORT_PROD') | int }}"
+      schema: staging
+      custom_settings:
+        join_use_nulls: 1
+      threads: 2
+      use_colors: false
+      send_receive_timeout: 600
+
     prod:
       type: clickhouse
       host: "{{ env_var('DBT_HOST_PROD') }}"
