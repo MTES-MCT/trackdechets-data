@@ -5,7 +5,7 @@
 }}
 SELECT
     siret,
-    date_reception AS day_of_processing,
+    day_of_processing,
     rubrique,
     toDecimal256(quantite,30)      AS quantite_traitee
 FROM {{ ref('daily_processed_waste_by_rubrique_non_dangerous_waste') }}

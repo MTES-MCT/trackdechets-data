@@ -34,7 +34,7 @@ with installations as (
 dnd_wastes as (
     select
         report_for_company_siret as siret,
-        reception_date           as date_reception,
+        reception_date           as day_of_processing,
         operation_code           as code_traitement,
         sum(weight_value)        as quantite
     from {{ ref('registry_incoming_waste') }}
@@ -51,7 +51,7 @@ dnd_wastes as (
 texs_wastes as (
     select
         report_for_company_siret as siret,
-        reception_date           as date_reception,
+        reception_date           as day_of_processing,
         operation_code           as code_traitement,
         sum(weight_value)        as quantite
     from {{ ref('registry_incoming_texs') }}
@@ -68,7 +68,7 @@ texs_wastes as (
 bsda_wastes as (
     select
         destination_company_siret         as siret,
-        destination_reception_date        as date_reception,
+        destination_reception_date        as day_of_processing,
         destination_operation_code        as code_traitement,
         sum(destination_reception_weight) as quantite
     from {{ ref('bsda') }}
@@ -87,7 +87,7 @@ bsda_wastes as (
 plaster_wastes as (
     select
         recipient_company_siret   as siret,
-        toDate(received_at)       as date_reception,
+        toDate(received_at)       as day_of_processing,
         processing_operation_done as code_traitement,
         sum(quantity_received)    as quantite
     from {{ ref('bsdd') }}
@@ -106,28 +106,28 @@ plaster_wastes as (
 wastes as (
     select
         siret,
-        date_reception,
+        day_of_processing,
         code_traitement,
         quantite
     from dnd_wastes
     union all
     select
         siret,
-        date_reception,
+        day_of_processing,
         code_traitement,
         quantite
     from texs_wastes
     union all
     select
         siret,
-        date_reception,
+        day_of_processing,
         code_traitement,
         toFloat64(quantite) as quantite
     from bsda_wastes
     union all
     select
         siret,
-        date_reception,
+        day_of_processing,
         code_traitement,
         toFloat64(quantite) as quantite
     from plaster_wastes
@@ -136,7 +136,7 @@ wastes as (
 wastes_rubriques as (
     select
         wastes.siret,
-        wastes.date_reception,
+        wastes.day_of_processing,
         mrco.rubrique,
         sum(quantite) as quantite_traitee
     from
@@ -147,7 +147,7 @@ wastes_rubriques as (
             and match(mrco.rubrique, '^2771.*|^2791.*|^2760\-2.*')
     group by
         wastes.siret,
-        wastes.date_reception,
+        wastes.day_of_processing,
         mrco.rubrique
 
 )
@@ -159,7 +159,7 @@ select
     i.codes_aiot,
     i.quantite_autorisee,
     i.objectif_quantite_traitee,
-    wr.date_reception,
+    wr.day_of_processing,
     wr.quantite_traitee
 from installations i
 left join wastes_rubriques as wr on
