@@ -1,6 +1,7 @@
 version: 2
 models:
   - name: installations_daily_processed_wastes
+    description: 
     columns:
       - name: siret
         description: Code région

@@ -1,0 +1,18 @@
+version: 2
+models:
+  - name: liste_des_installations
+    description: >
+      Modèle intermédiaire pour lister les installations de traitement des déchets dangereux
+      Modèle utilisé comme CTE pour les requêtes à destination de la fiche établissement et des cartographies ICPE.
+    columns:
+      - name: siret
+        description: Code région
+        data_type: String
+      - name: rubrique
+        data_type: String
+      - name: cgc.raison_sociale
+        data_type: String
+      - name: codes_aiot
+        data_type: String
+      - name: quantite_autorisee
+        data_type: UInt8
