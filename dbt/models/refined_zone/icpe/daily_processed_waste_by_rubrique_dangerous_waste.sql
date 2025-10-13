@@ -54,7 +54,7 @@ wastes_rubriques as (
         sum(quantite_traitee) as quantite_traitee
     from
         wastes
-    inner join {{ ref('referentiel_codes_operation_rubriques') }} as mrco
+    left join {{ ref('referentiel_codes_operation_rubriques') }} as mrco
         on
             wastes.processing_operation = mrco.code_operation
             and mrco.rubrique in ('2770', '2790', '2760-1')

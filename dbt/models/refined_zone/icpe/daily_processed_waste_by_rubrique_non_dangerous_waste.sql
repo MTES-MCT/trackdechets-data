@@ -6,7 +6,7 @@
 
 with installations as (
     select
-        siret,
+        i.siret,
         -- take into account the 'alineas'
         if(match(rubrique, '^2791.*'), '2791', substring(rubrique, 1, 6))
             as rubrique,
@@ -15,9 +15,11 @@ with installations as (
         groupArray(distinct code_aiot)
             as codes_aiot,
         sum(quantite_totale)
-            as quantite_autorisee
+            as quantite_autorisee,
+        max(c.capacite_50pct)          as objectif_quantite_traitee
     from
-        {{ ref('installations_rubriques_2024') }}
+        {{ ref('installations_rubriques_2024') }} i
+    left join {{ ref('isdnd_capacites_limites_50pct') }} c on i.siret=c.siret and match(rubrique,'^2760\-2.*')        
     where
         siret is not null
         and match(rubrique, '^2771.*|^2791.*|^2760\-2.*')
@@ -77,10 +79,12 @@ bsda_wastes as (
             from
                 installations
         )
+        -- and destination_operation_code in ('D5')
+        -- Actuellement le seul code final pour les BSDA. 
     group by 1, 2, 3
 ),
 
-plater_wastes as (
+plaster_wastes as (
     select
         recipient_company_siret   as siret,
         toDate(received_at)       as date_reception,
@@ -126,7 +130,7 @@ wastes as (
         date_reception,
         code_traitement,
         toFloat64(quantite) as quantite
-    from plater_wastes
+    from plaster_wastes
 ),
 
 wastes_rubriques as (
@@ -134,10 +138,10 @@ wastes_rubriques as (
         wastes.siret,
         wastes.date_reception,
         mrco.rubrique,
-        sum(quantite) as quantite
+        sum(quantite) as quantite_traitee
     from
         wastes
-    inner join {{ ref('referentiel_codes_operation_rubriques') }} as mrco
+    left join {{ ref('referentiel_codes_operation_rubriques') }} as mrco
         on
             wastes.code_traitement = mrco.code_operation
             and match(mrco.rubrique, '^2771.*|^2791.*|^2760\-2.*')
@@ -148,5 +152,16 @@ wastes_rubriques as (
 
 )
 
-select *
-from wastes_rubriques
+select 
+    i.siret,
+    i.rubrique,
+    i.raison_sociale,
+    i.codes_aiot,
+    i.quantite_autorisee,
+    i.objectif_quantite_traitee,
+    wr.date_reception,
+    wr.quantite_traitee
+from installations i
+left join wastes_rubriques as wr on
+    installations.siret = wr.siret and installations.rubrique = wr.rubrique
+
