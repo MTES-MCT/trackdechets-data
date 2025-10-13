@@ -13,7 +13,7 @@ transporter_source as (
         dnd_entrant_id,
         assumeNotNull(ARRAY_AGG(
             transporteur_numero_identification
-        )) as numeros_indentification_transporteurs
+        )) as numeros_identification_transporteurs
     from
         {{ ref("dnd_entrant_transporteur") }}
     group by 1
@@ -125,7 +125,7 @@ select
     r.courtier_numero_identification,
     r.courtier_raison_sociale,
     r.courtier_numero_recepisse,
-    t.numeros_indentification_transporteurs
+    t.numeros_identification_transporteurs
 from renamed r
 left join transporter_source t on r.id = t.dnd_entrant_id
 left join {{ ref('etablissement') }} e on r.etablissement_id = e.id
