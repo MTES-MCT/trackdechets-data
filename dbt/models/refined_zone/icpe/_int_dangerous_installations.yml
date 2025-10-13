@@ -1,6 +1,6 @@
 version: 2
 models:
-  - name: liste_des_installations
+  - name: _int_dangerous_installations
     description: >
       Modèle intermédiaire pour lister les installations de traitement des déchets dangereux
       Modèle utilisé comme CTE pour les requêtes à destination de la fiche établissement et des cartographies ICPE.

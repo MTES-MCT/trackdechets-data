@@ -1,7 +1,9 @@
 version: 2
 models:
   - name: installations_daily_processed_wastes
-    description: 
+    description: >
+      Quantite traitées de déchets dangereux et non dangereux par jour, SIRET et rubrique.
+      Ce modèle est à destination de la Fiche Etablissement.
     columns:
       - name: siret
         description: Code région
