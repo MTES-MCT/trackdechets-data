@@ -1,13 +1,13 @@
 {{
   config(
-    materialized = 'ephemeral',
+    materialized = 'view',
     )
 }}
 
 with installations as (
     select
         siret,
-        substring(rubrique,1,6)     as rubrique,
+        substring(rubrique, 1, 6)     as rubrique,
         max(raison_sociale)           as raison_sociale,
         groupArray(distinct code_aiot) as codes_aiot,
         sum(quantite_totale)          as quantite_autorisee

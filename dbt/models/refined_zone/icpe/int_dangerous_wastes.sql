@@ -1,11 +1,11 @@
 {{
   config(
-    materialized = 'ephemeral',
+    materialized = 'view',
     )
 }}
 
 with installations as (
-    select * from {{ ref('int_non_dangerous_installations') }}
+    select * from {{ ref('int_dangerous_installations') }}
 ),
 
 wastes as (

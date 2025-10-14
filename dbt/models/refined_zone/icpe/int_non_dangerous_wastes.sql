@@ -1,6 +1,6 @@
 {{
   config(
-    materialized = 'ephemeral',
+    materialized = 'view',
     )
 }}
 
@@ -56,7 +56,7 @@ bsda_wastes as (
             from
                 installations
         )
-        -- and destination_operation_code in ('D5')
+        and destination_operation_code in ('D5')
         -- Actuellement le seul code final pour les BSDA. 
     group by 1, 2, 3
 ),
@@ -108,7 +108,7 @@ wastes as (
         code_traitement,
         toFloat64(quantite) as quantite
     from plaster_wastes
-),
+)
 
 select 
     siret,
