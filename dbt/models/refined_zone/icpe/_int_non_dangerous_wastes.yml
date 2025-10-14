@@ -1,0 +1,17 @@
+version: 2
+models:
+  - name: _int_non_dangerous_wastes
+    description: >
+      Quantité de déchets non dangereux par SIRET et par code de traitement.
+      Inclus les déchets des registres non-dangereux et des terres excavées et sédiements ainsi que les bordereaux d'amiante de plâtres.
+    columns:
+      - name: siret
+        description: Code région
+        data_type: String
+      - name: processing_operation
+        data_type: String
+      - name: day_of_processing
+        data_type: datetime64(6, 'europe/paris')
+      - name: quantite
+        data_type: UInt8
+

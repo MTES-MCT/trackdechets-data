@@ -1,6 +1,11 @@
 version: 2
 models:
   - name: daily_processed_waste_by_rubrique
+    description: >
+      Quantite traitées de déchets dangereux et non dangereux par jour, SIRET et rubrique.
+      Ce modèle est à destination des cartographies ICPE.
+      On y filtre les traitements effectués dans des installations n'ayant pas de rubrique correspondant au traitement.
+      Ce filtre s'effectuer avec le INNER JOIN à partir de la table de mapping : referentiel_codes_operation_rubriques
     columns:
       - name: siret
         description: Code région
