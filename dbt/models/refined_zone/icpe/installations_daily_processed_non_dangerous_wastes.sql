@@ -27,7 +27,7 @@ wastes_rubriques as (
             )
     group by
         wastes.siret,
-        wastes.date_reception,
+        wastes.day_of_processing,
         mrco.rubrique
 
 )
