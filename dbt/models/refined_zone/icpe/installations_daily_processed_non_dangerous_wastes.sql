@@ -14,7 +14,7 @@ with
 wastes_rubriques as (
     select
         wastes.siret,
-        wastes.date_reception as day_of_processing,
+        wastes.day_of_processing,
         mrco.rubrique,
         sum(quantite)         as quantite_traitee
     from
