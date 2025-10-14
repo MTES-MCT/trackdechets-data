@@ -31,7 +31,7 @@ wastes_rubriques as (
 
 select 
     siret,
-    day_of_processing as date_reception,
+    day_of_processing,
     rubrique,
     quantite_traitee as quantite
 from wastes_rubriques
