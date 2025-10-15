@@ -1,6 +1,0 @@
-{
-    "python.analysis.extraPaths": [
-        "./airflow/plugins",
-        "./airflow/dags/"
-    ]
-}
