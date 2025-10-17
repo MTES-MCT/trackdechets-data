@@ -3,7 +3,6 @@ import logging
 from pathlib import Path
 import shutil
 import tempfile
-
 import clickhouse_connect
 import polars as pl
 from clickhouse_connect.driver.tools import insert_file
@@ -14,36 +13,6 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-GUN_TABLE_DDL = """
-CREATE TABLE IF NOT EXISTS raw_zone_icpe.installations_rubriques_2024 (
-	"Raison sociale/nom" Nullable(String),
-	"SIRET" Nullable(String),
-	"Code AIOT" String,
-	"X" Nullable(Int256),
-	"Y" Nullable(Int256),
-	"Etat du site (code)" Nullable(String),
-	"Etat du site (libellé)" Nullable(String),
-	"Numéro rubrique" Nullable(String),
-	"Régime" Nullable(String),
-	"Quantité projet" Nullable(Float32),
-	"Quantité totale" Nullable(Float32),
-	"Capacité Projet" Nullable(Float32),
-	"Capacité Totale" Nullable(Float32),
-	"Unité" Nullable(String),
-	"Etat technique de la rubrique" Nullable(String),
-	"Etat administratif de la rubrique" Nullable(String),
-    "Adresse partie 1" Nullable(String),
-    "Adresse partie 2" Nullable(String),
-    "Code postal" Nullable(String),
-    "Commune" Nullable(String),
-    "Coordonnée X" Nullable(Int64),
-    "Coordonnée Y" Nullable(Int64),
-    "Date de l'archivage de l'AIOT" Nullable(Date32),
-	_inserted_at DateTime64(9, 'Europe/Paris') DEFAULT now('Europe/Paris')
-)
-ENGINE = MergeTree()
-ORDER BY ()
-"""
 
 
 def load_gun_csv_file_to_dwh(
@@ -51,8 +20,41 @@ def load_gun_csv_file_to_dwh(
     dwh_host: str,
     dwh_http_port: int,
     dwh_username: str,
-    dwh_password: str,
+    dwh_password: str,    
 ):
+
+    dst_table_name: str = "installations_rubriques_2025"
+
+    GUN_TABLE_DDL = f"""
+    CREATE TABLE IF NOT EXISTS raw_zone_icpe.{dst_table_name} (
+        "Raison sociale/nom" Nullable(String),
+        "SIRET" Nullable(String),
+        "Code AIOT" String,
+        "X" Nullable(Int256),
+        "Y" Nullable(Int256),
+        "Etat du site (code)" Nullable(String),
+        "Etat du site (libellé)" Nullable(String),
+        "Numéro rubrique" Nullable(String),
+        "Régime" Nullable(String),
+        "Quantité projet" Nullable(Float32),
+        "Quantité totale" Nullable(Float32),
+        "Capacité Projet" Nullable(Float32),
+        "Capacité Totale" Nullable(Float32),
+        "Unité" Nullable(String),
+        "Etat technique de la rubrique" Nullable(String),
+        "Etat administratif de la rubrique" Nullable(String),
+        "Adresse partie 1" Nullable(String),
+        "Adresse partie 2" Nullable(String),
+        "Code postal" Nullable(String),
+        "Commune" Nullable(String),
+        "Coordonnée X" Nullable(Int64),
+        "Coordonnée Y" Nullable(Int64),
+        "Date de l'archivage de l'AIOT" Nullable(Date32),
+        _inserted_at DateTime64(9, 'Europe/Paris') DEFAULT now('Europe/Paris')
+    )
+    ENGINE = MergeTree()
+    ORDER BY ()
+    """
     client = clickhouse_connect.get_client(
         host=dwh_host,
         port=dwh_http_port,
@@ -67,7 +69,7 @@ def load_gun_csv_file_to_dwh(
     client.command("CREATE DATABASE IF NOT EXISTS raw_zone_icpe")
 
     logger.info(
-        "Creating table raw_zone_icpe.installations_rubriques_2024 if not exists",
+        f"Creating table raw_zone_icpe.{dst_table_name} if not exists",
     )
 
     client.command(GUN_TABLE_DDL)
@@ -103,7 +105,7 @@ def load_gun_csv_file_to_dwh(
 
     insert_file(
         client=client,
-        table="raw_zone_icpe.installations_rubriques_2024",
+        table=f"raw_zone_icpe.{dst_table_name}",
         file_path=str(tmp_dir / "gun.csv"),
         fmt="CSVWithNames",
         settings={"format_csv_null_representation": "NULL"},
