@@ -26,7 +26,7 @@ gun_installations as (
         groupArray(distinct code_aiot)                  as codes_aiot,
         arraySort(groupArray(distinct rubrique)) as rubriques
     from
-        {{ ref('installations_rubriques_2024') }} ir
+        {{ ref('installations_rubriques_2025') }} ir
     where
         (libelle_etat_site = 'Avec titre') -- noqa: LXR
         and (etat_administratif_rubrique in ('En vigueur', 'A l''arrêt'))

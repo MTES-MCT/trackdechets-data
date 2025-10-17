@@ -12,7 +12,7 @@ with installations as (
         groupArray(distinct code_aiot) as codes_aiot,
         sum(quantite_totale)          as quantite_autorisee
     from
-        {{ ref('installations_rubriques_2024') }}
+        {{ ref('installations_rubriques_2025') }}
     where
         siret is not null
         and rubrique in ('2770', '2790', '2760-1')
