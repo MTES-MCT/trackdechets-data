@@ -119,3 +119,55 @@ sources:
             data_type: Date32
           - name: _inserted_at
             data_type: DateTime64(9, 'Europe/Paris')
+      - name: installations_rubriques_2025
+        identifier: installations_rubriques_2025
+        description: >
+          Nouvelles données sur les installations et les rubriques (mise à jour 2025)
+        columns:
+          - name: Raison sociale/nom
+            data_type: string
+          - name: SIRET
+          - name: Code AIOT
+            data_type: string
+          - name: X
+            data_type: int256
+          - name: Y
+            data_type: int256
+          - name: Etat du site (code)
+            data_type: string
+          - name: Etat du site (libellé)
+            data_type: string
+          - name: Numéro rubrique
+            data_type: string
+          - name: Régime
+            data_type: string
+          - name: Quantité projet
+            data_type: float32
+          - name: Quantité totale
+            data_type: float32
+          - name: Capacité Projet
+            data_type: float32
+          - name: Capacité Totale
+            data_type: float32
+          - name: Unité
+            data_type: string
+          - name: Etat technique de la rubrique
+            data_type: string
+          - name: Etat administratif de la rubrique
+            data_type: string
+          - name: Adresse partie 1
+            data_type: String
+          - name: Adresse partie 2
+            data_type: String
+          - name: Code postal
+            data_type: String
+          - name: Commune
+            data_type: String
+          - name: Coordonnée X
+            data_type: Int64
+          - name: Coordonnée Y
+            data_type: Int64
+          - name: Date de l'archivage de l'AIOT
+            data_type: Date32
+          - name: _inserted_at
+            data_type: DateTime64(9, 'Europe/Paris')
