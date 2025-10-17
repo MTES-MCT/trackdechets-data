@@ -18,7 +18,7 @@ with installations as (
             as quantite_autorisee,
         max(c.capacite_50pct)          as objectif_quantite_traitee
     from
-        {{ ref('installations_rubriques_2024') }} i
+        {{ ref('installations_rubriques_2025') }} i
     left join {{ ref('isdnd_capacites_limites_50pct') }} c on i.siret=c.siret and match(rubrique,'^2760\-2.*')        
     where
         siret is not null
