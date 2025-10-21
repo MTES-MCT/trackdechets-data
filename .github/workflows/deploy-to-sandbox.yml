@@ -1,0 +1,19 @@
+name: Deploy to sandbox data platform
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: executing remote ssh git pull
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST_SANDBOX }}
+          username: ${{ secrets.SSH_USER_SANDBOX }}
+          key: ${{ secrets.SSH_KEY_SANDBOX }}
+          port: ${{ secrets.SSH_PORT_SANDBOX }}
+          script: cd /srv/trackdechets-data && git pull
