@@ -952,6 +952,55 @@ sources:
             data_type: text
           - name: intermediariesOrgIds
             data_type: ARRAY
+      - name: bsvhu_transporter
+        identifier: BsvhuTransporter
+        description: >
+          Une ligne par transporteur BSVHU.
+
+        columns:
+          - name: id
+            data_type: text
+          - name: created_at
+          - name: updated_at
+            data_type: timestamp without time zone
+          - name: number
+            data_type: bigint
+          - name: bsvhu_id
+            data_type: text
+          - name: transporter_company_siret
+            data_type: text
+          - name: transporter_company_name
+            data_type: text
+          - name: transporter_company_vat_number
+            data_type: text
+          - name: transporter_company_address
+            data_type: text
+          - name: transporter_company_contact
+            data_type: text
+          - name: transporter_company_phone
+            data_type: text
+          - name: transporter_company_mail
+            data_type: text
+          - name: transporter_custom_info
+            data_type: text
+          - name: transporter_recepisse_is_exempted
+            data_type: boolean
+          - name: transporter_recepisse_number
+            data_type: text
+          - name: transporter_recepisse_department
+            data_type: text
+          - name: transporter_recepisse_validity_limit
+            data_type: timestamp without time zone
+          - name: transporter_transport_mode
+            data_type: text
+          - name: transporter_transport_plates
+            data_type: text
+          - name: transporter_transport_taken_over_at
+            data_type: timestamp without time zone
+          - name: transporter_transport_signature_author
+            data_type: text
+          - name: transporter_transport_signature_date
+            data_type: timestamp without time zone
       - name: user
         identifier: User
         description: >
