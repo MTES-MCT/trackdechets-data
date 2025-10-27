@@ -46,6 +46,24 @@ SELECT
     "denominationUsuelleEtablissement"               AS denomination_usuelle_etablissement,
     "activitePrincipaleEtablissement"                AS activite_principale_etablissement,
     "nomenclatureActivitePrincipaleEtablissement"    AS nomenclature_activite_principale_etablissement,
-    "caractereEmployeurEtablissement"                AS caractere_employeur_etablissement
+    "caractereEmployeurEtablissement"                AS caractere_employeur_etablissement,
+    
+    nullif(
+            coalesce(complement_adresse_etablissement || ' ', '')
+            || coalesce(numero_voie_etablissement || ' ', '')
+            || coalesce(indice_repetition_etablissement || ' ', '')
+            || coalesce(type_voie_etablissement || ' ', '')
+            || coalesce(libelle_voie_etablissement || ' ', '')
+            || coalesce(code_postal_etablissement || ' ', '')
+            || coalesce(libelle_commune_etablissement || ' ', '')
+            || coalesce(libelle_commune_etranger_etablissement || ' ', '')
+            || coalesce(distribution_speciale_etablissement, ''), ''
+        )                                              as adresse,
+        coalesce(
+            enseigne_1_etablissement,
+            enseigne_2_etablissement,
+            enseigne_3_etablissement,
+            denomination_usuelle_etablissement
+        )                                              as nom_etablissement
 FROM
     {{ source('raw_zone_insee', 'stock_etablissement') }}
