@@ -1,0 +1,31 @@
+"code","description"
+D 1,Dépôt sur ou dans le sol
+D 2,Traitement en milieu terrestre
+D 3,Injection en profondeur
+D 4,Lagunage
+D 5,Mise en décharge spécialement aménagée
+D 6,"Rejet dans le milieu aquatique, sauf l'immersion"
+D 7,"Immersion, y compris enfouissement dans le sous-sol marin"
+D 8,Traitement biologique non spécifié ailleurs aboutissant à des composés ou à des mélanges qui sont éliminés selon un des procédés numérotés D 1 à D 12
+D 9,"Traitement physico-chimique non spécifié ailleurs, aboutissant à des composés ou à des mélanges qui sont éliminés selon l'un des procédés numérotés D 1 à D 12"
+D 9 F,Traitement physico-chimique non spécifié ailleurs
+D 10,Incinération à terre 
+D 11,Incinération en mer
+D 12,Stockage permanent 
+D 13,Regroupement ou mélange préalablement à l'une des opérations numérotées D 1 à D 12 
+D 14,Reconditionnement préalablement à l'une des opérations numérotées D 1 à D 13 
+D 15,"Stockage préalablement à l'une des opérations numérotées D 1 à D 14 (à l'exclusion du stockage temporaire, avant collecte, sur le site de production des déchets) "
+R 1,Utilisation principale comme combustible ou autre moyen de produire de l'énergie 
+R 2,Récupération ou régénération des solvants 
+R 3,Recyclage ou récupération des substances organiques qui ne sont pas utilisées comme solvants 
+R 4,Recyclage ou récupération des métaux et des composés métalliques 
+R 5,Recyclage ou récupération d'autres matières inorganiques 
+R 6,Régénération des acides ou des bases
+R 7,Valorisation des produits servant à capter les polluants 
+R 8,Valorisation des produits provenant des catalyseurs 
+R 9,Régénération ou autres réutilisation des huiles 
+R 10,Épandage sur le sol au profit de l'agriculture ou de l’écologie 
+R 11,Utilisation de déchets résiduels obtenus à partir de l'une des opérations numérotées R 1 à R 10 
+R 12,Échange de déchets en vue de les soumettre à l'une des opérations numérotées R 1 à R 11 
+R 13,"Stockage de déchets préalablement à l'une des opérations numérotées R1 à R 12 (à l'exclusion du stockage temporaire, avant collecte, sur le site de production des déchets) "
+
