@@ -48,17 +48,16 @@ def companies_geocoding():
         companies_df = client.query_df(
             query="""
             select
-                siret,
-                coalesce(adresse_td,
-                adresse_insee) as adresse,
-                code_commune_insee
+                stock_etablissement.siret,
+                coalesce(company.address, stock_etablissement.adresse) as adresse,
+                stock_etablissement.code_commune_etablissement as code_commune_insee
             from
-                refined_zone_analytics.cartographie_des_etablissements
+                trusted_zone_trackdechets.company
+                left join trusted_zone_insee.stock_etablissement on company.siret = stock_etablissement.siret
             where
-                (latitude_td is null
-                    or longitude_td is null)
-                and (coalesce(adresse_td,
-                adresse_insee) is not null)
+                (company.latitude is null
+                    or company.longitude is null)
+                and (coalesce(company.address, stock_etablissement.adresse) is not null)
             """,
         )
 
