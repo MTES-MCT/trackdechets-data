@@ -2,14 +2,8 @@
 CREATE database raw_zone_referentials;
 
 --- codes_operations_traitements
-create table raw_zone_referentials.codes_operations_traitements engine = MergeTree
-ORDER BY
-() as (
-SELECT
-    toLowCardinality(toNullable(toString("code"))) as code,
-    toLowCardinality(toNullable(toString("description"))) as description
-FROM pg_dwh_raw_zone.codes_operations_traitements
-);
+-- pg_dwh_raw_zone does not exist so we use DBT seed instead (/seeds/codes_operations_traitements)
+
 
 --- laposte_hexasmal
 create table raw_zone_referentials.laposte_hexasmal engine = MergeTree
