@@ -16,4 +16,16 @@ jobs:
           username: ${{ secrets.SSH_USER_SANDBOX }}
           key: ${{ secrets.SSH_KEY_SANDBOX }}
           port: ${{ secrets.SSH_PORT_SANDBOX }}
-          script: cd /srv/trackdechets-data && git pull
+          script: |
+            if [ ! -d /srv/trackdechets-data ]; then
+              echo "Repository does not exist, cloning"
+              git clone https://${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY} /srv/trackdechets-data
+            elif [ ! -d /srv/trackdechets-data/.git ]; then
+              echo "Repository is not a git repository, deleting and cloning again"
+              rm -rf /srv/trackdechets-data
+              git clone https://${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY} /srv/trackdechets-data
+            else
+              echo "Repository is a git repository, pulling"
+              cd /srv/trackdechets-data && git pull
+            fi
+            echo "Repository cloned/pulled successfully"
