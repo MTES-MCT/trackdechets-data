@@ -5,6 +5,27 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python: run_migrations.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/sql/run_migrations.py",
+            "args": [
+                "--file",
+                "${input:migration_file}",
+                "--DB_HOST",
+                "${input:DB_HOST}",
+                "--DB_PORT",
+                "${input:DB_PORT}",
+                "--DB_USER",
+                "${input:DB_USER}",
+                "--DB_PASSWORD",
+                "${input:DB_PASSWORD}",
+            ],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "envFile": "${workspaceFolder}/.env",
+        },
+        {
             "name": "Python Debugger: load_gun_data",
             "type": "debugpy",
             "request": "launch",
@@ -48,9 +69,13 @@
             "program": "${workspaceFolder}/scripts/integration/gistrid/load_gistrid_data_ch.py",
             "args": [
                 "--dwh_username",
-                "${env:DWH_USERNAME}",
-                "--dwh_username",
-                "${env:DWH_PASSWORD}",
+                "${input:dwh_username}",
+                "--dwh_password",
+                "${input:dwh_password}",
+                "--dwh_host",
+                "${input:dwh_host}",
+                "--dwh_http_port",
+                "${input:dwh_http_port}",
                 "--year",
                 "${input:year}",
                 "${input:file_type}",
@@ -79,6 +104,51 @@
             "id": "file_type",
             "type": "promptString",
             "description": "File type to load for GISTRID datasets.",
+        },
+        {
+            "id": "dwh_host",
+            "type": "promptString",
+            "description": "Database host to connect to the ClickHouse database.",
+        },
+        {
+            "id": "dwh_http_port",
+            "type": "promptString",
+            "description": "Database HTTP port to connect to the ClickHouse database.",
+        },
+        {
+            "id": "dwh_username",
+            "type": "promptString",
+            "description": "Database username to connect to the ClickHouse database.",
+        },
+        {
+            "id": "dwh_password",
+            "type": "promptString",
+            "description": "Database password to connect to the ClickHouse database.",
+        },
+        {
+            "id": "migration_file",
+            "type": "promptString",
+            "description": "Path to the SQL file to run.",
+        },
+        {
+            "id": "DB_HOST",
+            "type": "promptString",
+            "description": "Database host.",
+        },
+        {
+            "id": "DB_PORT",
+            "type": "promptString",
+            "description": "Database port.",
+        },
+        {
+            "id": "DB_USER",
+            "type": "promptString",
+            "description": "Database user.",
+        },
+        {
+            "id": "DB_PASSWORD",
+            "type": "promptString",
+            "description": "Database password.",
         }
     ]
 }

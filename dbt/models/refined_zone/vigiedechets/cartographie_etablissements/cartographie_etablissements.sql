@@ -268,22 +268,9 @@ joined as (
             or et.num_texs_dd_as_transporter > 0
             or et.num_texs_dd_as_destination > 0, false
         )                                              as texs_dd,
-        nullif(
-            coalesce(se.complement_adresse_etablissement || ' ', '')
-            || coalesce(se.numero_voie_etablissement || ' ', '')
-            || coalesce(se.indice_repetition_etablissement || ' ', '')
-            || coalesce(se.type_voie_etablissement || ' ', '')
-            || coalesce(se.libelle_voie_etablissement || ' ', '')
-            || coalesce(se.code_postal_etablissement || ' ', '')
-            || coalesce(se.libelle_commune_etablissement || ' ', '')
-            || coalesce(se.libelle_commune_etranger_etablissement || ' ', '')
-            || coalesce(se.distribution_speciale_etablissement, ''), ''
-        )                                              as adresse_insee,
+        se.adresse                                     as adresse_insee,
         coalesce(
-            c.name, se.enseigne_1_etablissement,
-            se.enseigne_2_etablissement,
-            se.enseigne_3_etablissement,
-            se.denomination_usuelle_etablissement
+            c.name, nom_etablissement
         )                                              as nom_etablissement
     from stats as s
     left join

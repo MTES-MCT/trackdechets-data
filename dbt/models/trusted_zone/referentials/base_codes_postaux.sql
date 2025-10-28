@@ -1,6 +1,6 @@
 SELECT
     code_commune_insee,
-    code_postal,
+    code_postal::TEXT as code_postal,
     nom_commune,
     ligne_5,
     "libellé_d_acheminement"
