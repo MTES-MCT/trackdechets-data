@@ -48,9 +48,13 @@
             "program": "${workspaceFolder}/scripts/integration/gistrid/load_gistrid_data_ch.py",
             "args": [
                 "--dwh_username",
-                "${env:DWH_USERNAME}",
-                "--dwh_username",
-                "${env:DWH_PASSWORD}",
+                "${input:dwh_username}",
+                "--dwh_password",
+                "${input:dwh_password}",
+                "--dwh_host",
+                "${input:dwh_host}",
+                "--dwh_http_port",
+                "${input:dwh_http_port}",
                 "--year",
                 "${input:year}",
                 "${input:file_type}",
@@ -79,6 +83,26 @@
             "id": "file_type",
             "type": "promptString",
             "description": "File type to load for GISTRID datasets.",
+        },
+        {
+            "id": "dwh_host",
+            "type": "promptString",
+            "description": "Database host to connect to the ClickHouse database.",
+        },
+        {
+            "id": "dwh_http_port",
+            "type": "promptString",
+            "description": "Database HTTP port to connect to the ClickHouse database.",
+        },
+        {
+            "id": "dwh_username",
+            "type": "promptString",
+            "description": "Database username to connect to the ClickHouse database.",
+        },
+        {
+            "id": "dwh_password",
+            "type": "promptString",
+            "description": "Database password to connect to the ClickHouse database.",
         }
     ]
 }
