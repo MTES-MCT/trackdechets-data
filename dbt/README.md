@@ -10,7 +10,7 @@ Ceci est le projet [dbt](https://www.getdbt.com/) de Trackdéchets. Ce projet es
 Pour utiliser ce projet, il est nécessaire d'installer les dépendances à l'aide de [uv](https://github.com/astral-sh/uv) et du fichier `uv.lock` présent à la racine du dépot :
 
 ```bash
-uv sync
+uv sync --frozen
 ```
 
 ## Configuration du profil

@@ -26,7 +26,7 @@ cd trackdechets-data
 2. Installer les dépendances avec uv
 
 ```
-uv sync
+uv sync --frozen
 ```
 
 Python est nécessaire pour utiliser `dbt` et certains des scripts du dossier `scripts`.

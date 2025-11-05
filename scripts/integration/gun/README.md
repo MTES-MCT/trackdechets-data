@@ -9,7 +9,7 @@ Toutes les bibliothèques requises figurent dans le `pyproject.toml` du projet.
 Installez‑les avec **uv** (le gestionnaire de paquets recommandé pour ce dépôt) :
 
 ```bash
-uv sync
+uv sync --frozen
 ```
 
 ## Utilisation
