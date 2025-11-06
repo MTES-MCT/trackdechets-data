@@ -49,7 +49,7 @@ def el_base_sirene():
             INSERT INTO raw_zone_insee.stock_etablissement_tmp
             SELECT *
             FROM url('{url}', 'Parquet', '
-                siren                                           String,
+                 siren                                           String,
                 nic                                             String,
                 siret                                           String,
                 statutDiffusionEtablissement                    LowCardinality(String),
@@ -120,7 +120,7 @@ def el_base_sirene():
     @task
     def insert_unite_legale_data_to_ch():
         """
-        url stable: https://www.data.gouv.fr/api/1/datasets/r/b8e5376c-c158-4d88-91f3-f6bb0d165332
+        Url stable pour le format parquet: https://www.data.gouv.fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/
         """
 
         url = Variable.get("BASE_SIRENE_UNITE_LEGALE_URL")
@@ -146,34 +146,40 @@ def el_base_sirene():
             INSERT INTO raw_zone_insee.unite_legale_tmp
             SELECT *
             FROM url('{url}', 'Parquet', '
-                siren                                           String,
-                siret_siege                                     String,
-                nom_complet                                     String,
-                etat_administratif                              LowCardinality(String),
-                statut_diffusion                                LowCardinality(String),
-                nombre_etablissements                           Int32,
-                nombre_etablissements_ouverts                   Int32,
-                colter_code                                     Nullable(String),
-                colter_code_insee                               Nullable(String),
-                colter_elus                                     Nullable(String),
-                colter_niveau                                   LowCardinality(Nullable(String)),
-                date_mise_a_jour_insee                          Nullable(Date),
-                date_mise_a_jour_rne                            Nullable(Date),
-                egapro_renseignee                               Bool,
-                est_association                                 Bool,
-                est_entrepreneur_individuel                     Bool,
-                est_entrepreneur_spectacle                      Bool,
-                statut_entrepreneur_spectacle                   Nullable(String),
-                est_ess                                         Bool,
-                est_organisme_formation                         Bool,
-                est_qualiopi                                    Bool,
-                est_service_public                              Bool,
-                est_societe_mission                             Bool,
-                liste_elus                                      Nullable(String),
-                liste_id_organisme_formation                    Nullable(String),
-                liste_idcc                                      Nullable(String),
-                est_siae                                        Bool,
-                type_siae                                       Nullable(String)')
+                siren                                        String,
+                statutDiffusionUniteLegale                   LowCardinality(Nullable(String)),
+                unitePurgeeUniteLegale                       Nullable(UInt8),
+                dateCreationUniteLegale                      Nullable(Int64),
+                sigleUniteLegale                             Nullable(String),
+                sexeUniteLegale                              LowCardinality(Nullable(String)),
+                prenom1UniteLegale                           Nullable(String),
+                prenom2UniteLegale                           Nullable(String),
+                prenom3UniteLegale                           Nullable(String),
+                prenom4UniteLegale                           Nullable(String),
+                prenomUsuelUniteLegale                       Nullable(String),
+                pseudonymeUniteLegale                        Nullable(String),
+                identifiantAssociationUniteLegale            Nullable(String),
+                trancheEffectifsUniteLegale                  LowCardinality(Nullable(String)),
+                anneeEffectifsUniteLegale                    Nullable(Int16),
+                dateDernierTraitementUniteLegale             Nullable(DateTime),
+                nombrePeriodesUniteLegale                    Nullable(Int64),
+                categorieEntreprise                          LowCardinality(Nullable(String)),
+                anneeCategorieEntreprise                     Nullable(Int16),
+                dateDebut                                    Nullable(Int64),
+                etatAdministratifUniteLegale                 LowCardinality(Nullable(String)),
+                nomUniteLegale                               Nullable(String),
+                nomUsageUniteLegale                          Nullable(String),
+                denominationUniteLegale                      Nullable(String),
+                denominationUsuelle1UniteLegale              Nullable(String),
+                denominationUsuelle2UniteLegale              Nullable(String),
+                denominationUsuelle3UniteLegale              Nullable(String),
+                categorieJuridiqueUniteLegale                Nullable(Int64),
+                activitePrincipaleUniteLegale                LowCardinality(Nullable(String)),
+                nomenclatureActivitePrincipaleUniteLegale    LowCardinality(Nullable(String)),
+                nicSiegeUniteLegale                          Nullable(Int64),
+                economieSocialeSolidaireUniteLegale          LowCardinality(Nullable(String)),
+                societeMissionUniteLegale                    LowCardinality(Nullable(String)),
+                caractereEmployeurUniteLegale                Nullable(String)')
             """,
             settings={"max_http_get_redirects": 2},
         )
@@ -185,7 +191,7 @@ def el_base_sirene():
 
         logger.info("Renaming temporary table.")
         client.command(
-            "RENAME TABLE raw_zone_insee.stock_etablissement_tmp TO raw_zone_insee.unite_legale"
+            "RENAME TABLE raw_zone_insee.unite_legale_tmp TO raw_zone_insee.unite_legale"
         )
         logger.info("Finished renaming temporary table.")
 
