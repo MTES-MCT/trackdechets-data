@@ -27,29 +27,32 @@ def el_base_sirene():
 
     @task
     def insert_etablissement_data_to_ch():
+        dst_database = "raw_zone_insee"
+        dst_table = "stock_etablissement"
+        tmp_table = f"{dst_table}_tmp"
         url = Variable.get("BASE_SIRENE_ETABLISSEMENT_URL")
 
         client = get_dwh_client()
 
-        logger.info("Starting creation of database raw_zone_insee if not exists.")
-        client.command("CREATE DATABASE IF NOT EXISTS raw_zone_insee")
-        logger.info("Finished creation of database raw_zone_insee if not exists.")
+        logger.info(f"Starting creation of database {dst_database} if not exists.")
+        client.command(f"CREATE DATABASE IF NOT EXISTS {dst_database}")
+        logger.info(f"Finished creation of database {dst_database} if not exists.")
 
         logger.info("Starting temporary table creation if not exists.")
-        create_table_statement = STOCK_ETABLISSEMENT_DDL
+        create_table_statement = STOCK_ETABLISSEMENT_DDL.format(database=dst_database, table=tmp_table)
         client.command(create_table_statement)
-        logger.info("Finished temporary table creation.")
+        logger.info(f"Finished temporary table creation {tmp_table}.")
 
         logger.info("Truncating temporary table if exists.")
         client.command(
-            "TRUNCATE TABLE IF EXISTS raw_zone_insee.stock_etablissement_tmp"
+            f"TRUNCATE TABLE IF EXISTS {dst_database}.{tmp_table}"
         )
         logger.info("Finished truncating temporary table if exists.")
 
-        logger.info("Starting inserting data into temporary table.")
+        logger.info(f"Starting inserting data into temporary table {tmp_table}.")
         client.command(
             f"""
-            INSERT INTO raw_zone_insee.stock_etablissement_tmp
+            INSERT INTO {dst_database}.{tmp_table}
             SELECT *
             FROM url('{url}', 'Parquet', '
                 siren                                           String,
@@ -110,15 +113,15 @@ def el_base_sirene():
         )
         logger.info("Finished inserting data into temporary table.")
 
-        logger.info("Removing existing table.")
-        client.command("DROP TABLE IF EXISTS raw_zone_insee.stock_etablissement")
-        logger.info("Finished removing existing table.")
+        logger.info(f"Removing existing table {dst_database}.{dst_table}.")
+        client.command(f"DROP TABLE IF EXISTS {dst_database}.{dst_table}")
+        logger.info(f"Finished removing existing table {dst_database}.{dst_table}.")
 
-        logger.info("Renaming temporary table.")
+        logger.info(f"Renaming temporary table {tmp_table} to {dst_table}.")
         client.command(
-            "RENAME TABLE raw_zone_insee.stock_etablissement_tmp TO raw_zone_insee.stock_etablissement"
+            f"RENAME TABLE {dst_database}.{tmp_table} TO {dst_database}.{dst_table}"
         )
-        logger.info("Finished renaming temporary table.")
+        logger.info(f"Finished renaming temporary table {tmp_table} to {dst_table}.")
 
     @task
     def insert_unite_legale_annuaire_entreprises_data_to_ch():
