@@ -1,43 +1,38 @@
 UNITE_LEGALE_DDL = """
-CREATE TABLE IF NOT EXISTS raw_zone_insee.unite_legale_tmp
-(
-    siren                                        String,
-    statutDiffusionUniteLegale                   LowCardinality(Nullable(String)),
-    unitePurgeeUniteLegale                       Nullable(UInt8),
-    dateCreationUniteLegale                      Nullable(Int64),
-    sigleUniteLegale                             Nullable(String),
-    sexeUniteLegale                              LowCardinality(Nullable(String)),
-    prenom1UniteLegale                           Nullable(String),
-    prenom2UniteLegale                           Nullable(String),
-    prenom3UniteLegale                           Nullable(String),
-    prenom4UniteLegale                           Nullable(String),
-    prenomUsuelUniteLegale                       Nullable(String),
-    pseudonymeUniteLegale                        Nullable(String),
-    identifiantAssociationUniteLegale            Nullable(String),
-    trancheEffectifsUniteLegale                  LowCardinality(Nullable(String)),
-    anneeEffectifsUniteLegale                    Nullable(Int16),
-    dateDernierTraitementUniteLegale             Nullable(DateTime),
-    nombrePeriodesUniteLegale                    Nullable(Int64),
-    categorieEntreprise                          LowCardinality(Nullable(String)),
-    anneeCategorieEntreprise                     Nullable(Int16),
-    dateDebut                                    Nullable(Int64),
-    etatAdministratifUniteLegale                 LowCardinality(Nullable(String)),
-    nomUniteLegale                               Nullable(String),
-    nomUsageUniteLegale                          Nullable(String),
-    denominationUniteLegale                      Nullable(String),
-    denominationUsuelle1UniteLegale              Nullable(String),
-    denominationUsuelle2UniteLegale              Nullable(String),
-    denominationUsuelle3UniteLegale              Nullable(String),
-    categorieJuridiqueUniteLegale                Nullable(Int64),
-    activitePrincipaleUniteLegale                LowCardinality(Nullable(String)),
-    nomenclatureActivitePrincipaleUniteLegale    LowCardinality(Nullable(String)),
-    nicSiegeUniteLegale                          Nullable(Int64),
-    economieSocialeSolidaireUniteLegale          LowCardinality(Nullable(String)),
-    societeMissionUniteLegale                    LowCardinality(Nullable(String)),
-    caractereEmployeurUniteLegale                Nullable(String)
-
-)
-ENGINE = MergeTree()
-ORDER BY (siren)
+CREATE TABLE IF NOT EXISTS {database}.{table} (
+            siren  Int64,
+            siret_siege  Nullable(String),
+            etat_administratif  String,
+            statut_diffusion  String,
+            nombre_etablissements  Nullable(String),
+            nombre_etablissements_ouverts  Nullable(String),
+            nom_complet  String,
+            nature_juridique  Nullable(String),
+            colter_code  String,
+            colter_code_insee  String,
+            colter_elus  String,
+            colter_niveau  String,
+            date_mise_a_jour_insee  String,
+            date_mise_a_jour_rne  String,
+            egapro_renseignee  String,
+            est_achats_responsables  String,
+            est_alim_confiance  String,
+            est_association  String,
+            est_entrepreneur_individuel  String,
+            est_entrepreneur_spectacle  String,
+            est_patrimoine_vivant  String,
+            statut_entrepreneur_spectacle  String,
+            est_ess  String,
+            est_organisme_formation  String,
+            est_qualiopi  String,
+            est_service_public  String,
+            est_societe_mission  String,
+            liste_elus  String,
+            liste_id_organisme_formation  String,
+            liste_idcc  String,
+            est_siae  String,
+            type_siae  String
+    )
+    ENGINE = MergeTree()
+    ORDER BY `siren`;
 """
-
