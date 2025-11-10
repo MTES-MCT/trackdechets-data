@@ -103,7 +103,44 @@ def _set_dlt_updated_at_filter(context, dlt_updated_at) -> str:
     return updated_at
 
 @dlt.resource(
-    write_disposition="merge", primary_key="id", max_table_nesting=0, parallelized=True
+    write_disposition="merge", primary_key="id", parallelized=True,     
+    # nested_hints={
+    #     "articles": {
+    #         "columns": [
+    #             {"id": {"data_type": "bigint"},
+                
+    #             "ticket_id": {"data_type": "bigint"},
+    #             "type_id": {"data_type": "bigint"},
+    #             "sender_id": {"data_type": "bigint"},
+    #             "from": {"data_type": "text"},
+    #             "to": {"data_type": "text"},
+    #             "cc": {"data_type": "text", "nullable": True},
+    #             "subject": {"data_type": "text", "nullable": True},
+    #             "reply_to": {"data_type": "text", "nullable": True},
+    #             "message_id": {"data_type": "text"},
+    #             "message_id_md5": {"data_type": "text"},
+    #             "in_reply_to": {"data_type": "text", "nullable": True},
+    #             "content_type": {"data_type": "text"},
+    #             "body": {"data_type": "text"},
+    #             "internal": {"data_type": "bool"},
+    #             "preferences": {"data_type": "complex", "nullable": True},  # JSON or STRUCT, depending on destination
+    #             "updated_by_id": {"data_type": "bigint"},
+    #             "created_by_id": {"data_type": "bigint"},
+    #             "origin_by_id": {"data_type": "bigint", "nullable": True},
+    #             "created_at": {"data_type": "timestamp"},
+    #             "updated_at": {"data_type": "timestamp"},
+    #             "detected_language": {"data_type": "text", "nullable": True},
+    #             "attachments": {"data_type": "complex", "nullable": True},  # list of dict objects
+    #             "created_by": {"data_type": "text"},
+    #             "updated_by": {"data_type": "text"},
+    #             "type": {"data_type": "text"},
+    #             "sender": {"data_type": "text"},
+    #             "time_unit": {"data_type": "text", "nullable": True}
+    #             },
+    #         ],
+
+    #     }
+    # },
 )
 def tickets(
     max_per_page: int = 200,
@@ -124,6 +161,8 @@ def tickets(
         "per_page": max_per_page,
     }
 
+    tickets_ids = []
+
     while True:
         response = make_request(path, params=params)
         response_json = response.json()
@@ -134,6 +173,8 @@ def tickets(
 
         for ticket in data:
             ticket = {**ticket, "tags": tags(ticket)}
+            ticket = {**ticket, "articles": articles_by_ticket(ticket)}
+            tickets_ids.append(ticket["id"])
             yield ticket
 
         if not handle_pagination(
@@ -143,6 +184,25 @@ def tickets(
             response_extractor=lambda x: x,
         ):
             break
+
+    return tickets_ids
+
+
+@dlt.resource(
+    write_disposition="merge", primary_key="id", max_table_nesting=0, parallelized=True
+)
+def ticket_articles(
+    tickets
+) -> Iterable[dict]:
+    """Fetch ticket articles for given ticket IDs from the Zammad API."""
+    for ticket in tickets:
+        ticket_id = ticket["id"]
+        path = "ticket_articles/by_ticket/{ticket_id}"
+        response = make_request(path)
+        articles = response.json()
+        for article in articles:
+            article["ticket_id"] = ticket_id
+            yield article
 
 
 @dlt.resource(
@@ -264,9 +324,23 @@ def tags(ticket_item: dict) -> list:
     return response.json().get("tags", [])
 
 
+def articles_by_ticket(ticket_item: dict) -> list:
+    """Fetch ticket articles for each ticket."""
+    path = f"/ticket_articles/by_ticket/{ticket_item["id"]}"
+    
+    response = make_request(path)
+    return response.json()
+
 @dlt.source
 def zammad_source():
-    return [tickets, users, groups, organizations, text_modules]
+    tickets_resource = tickets()
+    return [
+        tickets_resource,
+        users(),
+        groups(),
+        organizations(),
+        text_modules(),
+    ]
 
 
 # Run the pipeline
