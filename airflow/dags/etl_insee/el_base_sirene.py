@@ -7,6 +7,7 @@ from dags_utils.datawarehouse_connection import get_dwh_client
 from airflow.decorators import dag, task
 from airflow.models import Variable
 from etl_insee.schemas.stock_etablissement import STOCK_ETABLISSEMENT_DDL
+from etl_insee.schemas.unite_legale import UNITE_LEGALE_DDL
 
 logging.basicConfig()
 logger = logging.getLogger(__name__)
@@ -22,8 +23,8 @@ def el_base_sirene():
     """DAG qui met à jour la base SIRENE dans le Data Warehouse Clickhouse Trackdéchets."""
 
     @task
-    def insert_data_to_ch():
-        url = Variable.get("BASE_SIRENE_URL")
+    def insert_etablissement_data_to_ch():
+        url = Variable.get("BASE_SIRENE_ETABLISSEMENT_URL")
 
         client = get_dwh_client()
 
@@ -48,7 +49,7 @@ def el_base_sirene():
             INSERT INTO raw_zone_insee.stock_etablissement_tmp
             SELECT *
             FROM url('{url}', 'Parquet', '
-                siren                                           String,
+                 siren                                           String,
                 nic                                             String,
                 siret                                           String,
                 statutDiffusionEtablissement                    LowCardinality(String),
@@ -116,7 +117,86 @@ def el_base_sirene():
         )
         logger.info("Finished renaming temporary table.")
 
-    insert_data_to_ch()
+    @task
+    def insert_unite_legale_data_to_ch():
+        """
+        Url stable pour le format parquet: https://www.data.gouv.fr/datasets/base-sirene-des-entreprises-et-de-leurs-etablissements-siren-siret/
+        """
+
+        url = Variable.get("BASE_SIRENE_UNITE_LEGALE_URL")
+
+        client = get_dwh_client()
+
+        logger.info("Starting creation of database raw_zone_insee if not exists.")
+        client.command("CREATE DATABASE IF NOT EXISTS raw_zone_insee")
+        logger.info("Finished creation of database raw_zone_insee if not exists.")
+
+        logger.info("Starting temporary table creation if not exists.")
+        create_table_statement = UNITE_LEGALE_DDL
+        client.command(create_table_statement)
+        logger.info("Finished temporary table creation.")
+
+        logger.info("Truncating temporary table if exists.")
+        client.command("TRUNCATE TABLE IF EXISTS raw_zone_insee.unite_legale_tmp")
+        logger.info("Finished truncating temporary table if exists.")
+
+        logger.info("Starting inserting data into temporary table.")
+        client.command(
+            f"""
+            INSERT INTO raw_zone_insee.unite_legale_tmp
+            SELECT *
+            FROM url('{url}', 'Parquet', '
+                siren                                        String,
+                statutDiffusionUniteLegale                   LowCardinality(Nullable(String)),
+                unitePurgeeUniteLegale                       Nullable(UInt8),
+                dateCreationUniteLegale                      Nullable(Int64),
+                sigleUniteLegale                             Nullable(String),
+                sexeUniteLegale                              LowCardinality(Nullable(String)),
+                prenom1UniteLegale                           Nullable(String),
+                prenom2UniteLegale                           Nullable(String),
+                prenom3UniteLegale                           Nullable(String),
+                prenom4UniteLegale                           Nullable(String),
+                prenomUsuelUniteLegale                       Nullable(String),
+                pseudonymeUniteLegale                        Nullable(String),
+                identifiantAssociationUniteLegale            Nullable(String),
+                trancheEffectifsUniteLegale                  LowCardinality(Nullable(String)),
+                anneeEffectifsUniteLegale                    Nullable(Int16),
+                dateDernierTraitementUniteLegale             Nullable(DateTime),
+                nombrePeriodesUniteLegale                    Nullable(Int64),
+                categorieEntreprise                          LowCardinality(Nullable(String)),
+                anneeCategorieEntreprise                     Nullable(Int16),
+                dateDebut                                    Nullable(Int64),
+                etatAdministratifUniteLegale                 LowCardinality(Nullable(String)),
+                nomUniteLegale                               Nullable(String),
+                nomUsageUniteLegale                          Nullable(String),
+                denominationUniteLegale                      Nullable(String),
+                denominationUsuelle1UniteLegale              Nullable(String),
+                denominationUsuelle2UniteLegale              Nullable(String),
+                denominationUsuelle3UniteLegale              Nullable(String),
+                categorieJuridiqueUniteLegale                Nullable(Int64),
+                activitePrincipaleUniteLegale                LowCardinality(Nullable(String)),
+                nomenclatureActivitePrincipaleUniteLegale    LowCardinality(Nullable(String)),
+                nicSiegeUniteLegale                          Nullable(Int64),
+                economieSocialeSolidaireUniteLegale          LowCardinality(Nullable(String)),
+                societeMissionUniteLegale                    LowCardinality(Nullable(String)),
+                caractereEmployeurUniteLegale                Nullable(String)')
+            """,
+            settings={"max_http_get_redirects": 2},
+        )
+        logger.info("Finished inserting data into temporary table.")
+
+        logger.info("Removing existing table.")
+        client.command("DROP TABLE IF EXISTS raw_zone_insee.unite_legale")
+        logger.info("Finished removing existing table.")
+
+        logger.info("Renaming temporary table.")
+        client.command(
+            "RENAME TABLE raw_zone_insee.unite_legale_tmp TO raw_zone_insee.unite_legale"
+        )
+        logger.info("Finished renaming temporary table.")
+
+    insert_etablissement_data_to_ch()
+    insert_unite_legale_data_to_ch()
 
 
 el_base_sirene_dag = el_base_sirene()
