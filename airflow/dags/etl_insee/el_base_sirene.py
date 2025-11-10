@@ -147,7 +147,7 @@ def el_base_sirene():
         client.command(f"TRUNCATE TABLE IF EXISTS {dst_database}.{tmp_table}")
         logger.info("Finished truncating temporary table if exists.")
 
-        logger.info("Starting inserting data into temporary table.")
+        logger.info(f"Starting inserting data into temporary table {tmp_table}.")
 
         logger.info("Starting downloading data from URL.")
         response = requests.get(url, stream=True)
@@ -164,21 +164,30 @@ def el_base_sirene():
                 batch.append(row)
                 if len(batch) >= batch_size:
                     batch_number += 1
-                    if batch_number > 0:
-                        client.insert(database=dst_database, table=tmp_table, data=batch, column_names=header)
-                        batch.clear()
-                        print(f"Batch {batch_number} inserted")
+                    client.insert(
+                        database=dst_database,
+                        table=tmp_table,
+                        data=batch,
+                        column_names=header,
+                    )
+                    batch.clear()
+                    logger.info(f"Batch {batch_number} inserted")
 
             if batch:
-                client.insert(database=dst_database, table=tmp_table, data=batch, column_names=header)
-                print(f"Batch {batch_number} inserted")
+                client.insert(
+                    database=dst_database,
+                    table=tmp_table,
+                    data=batch,
+                    column_names=header,
+                )
+                logger.info(f"Batch {batch_number} inserted")
 
-        logger.info("Finished inserting data into temporary table.")
-        logger.info("Removing existing table.")
+        logger.info(f"Finished inserting data into temporary table {tmp_table}.")
+        logger.info(f"Removing existing table {dst_table}.")
         client.command(f"DROP TABLE IF EXISTS {dst_database}.{dst_table}")
-        logger.info("Finished removing existing table.")
+        logger.info(f"Finished removing existing table {dst_table}.")
 
-        logger.info("Renaming temporary table.")
+        logger.info(f"Renaming temporary table {tmp_table} to {dst_table}.")
         client.command(
             f"RENAME TABLE {dst_database}.{tmp_table} TO {dst_database}.{dst_table}"
         )
