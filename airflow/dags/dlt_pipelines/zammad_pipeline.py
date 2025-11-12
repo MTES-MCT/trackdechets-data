@@ -291,7 +291,8 @@ def articles_by_ticket(ticket_item: dict) -> list:
     path = f"/ticket_articles/by_ticket/{ticket_item["id"]}"
     
     response = make_request(path)
-    return response.json()
+    articles = response.json()
+    return articles if isinstance(articles, list) else []
 
 @dlt.source
 def zammad_source():
