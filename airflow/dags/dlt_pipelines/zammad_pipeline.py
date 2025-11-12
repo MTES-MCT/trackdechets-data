@@ -158,8 +158,6 @@ def tickets(
         "per_page": max_per_page,
     }
 
-    tickets_ids = []
-
     while True:
         response = make_request(path, params=params)
         response_json = response.json()
@@ -180,25 +178,6 @@ def tickets(
             response_extractor=lambda x: x,
         ):
             break
-
-    return tickets_ids
-
-
-@dlt.resource(
-    write_disposition="merge", primary_key="id", max_table_nesting=0, parallelized=True
-)
-def ticket_articles(
-    tickets
-) -> Iterable[dict]:
-    """Fetch ticket articles for given ticket IDs from the Zammad API."""
-    for ticket in tickets:
-        ticket_id = ticket["id"]
-        path = "ticket_articles/by_ticket/{ticket_id}"
-        response = make_request(path)
-        articles = response.json()
-        for article in articles:
-            article["ticket_id"] = ticket_id
-            yield article
 
 
 @dlt.resource(
