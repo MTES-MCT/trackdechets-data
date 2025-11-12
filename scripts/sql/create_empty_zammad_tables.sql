@@ -119,7 +119,37 @@ CREATE TABLE raw_zone_zammad.tickets
 `last_close_at` Nullable(DateTime64(6, 'UTC')),
 `pending_time` Nullable(DateTime64(6, 'UTC')),
 `first_response_escalation_at` Nullable(DateTime64(6, 'UTC')),
-`escalation_at` Nullable(DateTime64(6, 'UTC'))
+`escalation_at` Nullable(DateTime64(6, 'UTC')),
+`articles` Array(Struct(
+    `id` Int64,
+    `ticket_id` Int64,
+    `type_id` Int64,
+    `sender_id` Int64,
+    `from` String,
+    `to` String,
+    `cc` String,
+    `subject` String,
+    `reply_to` String,
+    `message_id` String,
+    `message_id_md5` String,
+    `in_reply_to` String,
+    `content_type` String,
+    `body` String,
+    `internal` Bool,
+    `preferences` String,
+    `updated_by_id` Int64,
+    `created_by_id` Int64,
+    `origin_by_id` Int64,
+    `created_at` DateTime64(6, 'UTC'),
+    `updated_at` DateTime64(6, 'UTC'),
+    `detected_language` String,
+    `attachments` String,
+    `created_by` String,
+    `updated_by` String,
+    `type` String,
+    `sender` String,
+    `time_unit` String
+))
 )
 ENGINE = MergeTree
 PRIMARY KEY id
