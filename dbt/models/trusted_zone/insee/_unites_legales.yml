@@ -1,0 +1,68 @@
+version: 2
+models:
+  - name: unites_legales
+    columns:
+      - name: siren
+        data_type: text
+      - name: siret_siege
+        data_type: text
+      - name: etat_administratif
+        data_type: text
+      - name: statut_diffusion
+        data_type: text
+      - name: nombre_etablissements
+        data_type: text
+      - name: nombre_etablissements_ouverts
+        data_type: text
+      - name: nom_complet
+        data_type: text
+      - name: nature_juridique
+        data_type: text
+      - name: colter_code
+        data_type: text
+      - name: colter_code_insee
+        data_type: text
+      - name: colter_elus
+        data_type: text
+      - name: colter_niveau
+        data_type: text
+      - name: date_mise_a_jour_insee
+        data_type: text
+      - name: date_mise_a_jour_rne
+        data_type: text
+      - name: egapro_renseignee
+        data_type: text
+      - name: est_achats_responsables
+        data_type: boolean
+      - name: est_alim_confiance
+        data_type: boolean
+      - name: est_association
+        data_type: boolean
+      - name: est_entrepreneur_individuel
+        data_type: boolean
+      - name: est_entrepreneur_spectacle
+        data_type: boolean
+      - name: est_patrimoine_vivant
+        data_type: boolean
+      - name: statut_entrepreneur_spectacle
+        data_type: text
+      - name: est_ess
+        data_type: booleanring
+      - name: est_organisme_formation
+        data_type: boolean
+      - name: est_qualiopi
+        data_type: boolean
+      - name: est_service_public
+        data_type: boolean
+      - name: est_societe_mission
+        data_type: boolean
+      - name: liste_elus
+        data_type: text
+      - name: liste_id_organisme_formation
+        data_type: text
+      - name: liste_idcc
+        data_type: text
+      - name: est_siae
+        data_type: booleaning
+      - name: type_siae
+        data_type: text
