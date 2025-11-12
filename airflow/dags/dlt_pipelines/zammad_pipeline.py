@@ -6,7 +6,7 @@ from dlt.sources.helpers.rest_client import RESTClient
 from dlt.sources.helpers.rest_client.auth import BearerTokenAuth
 from airflow.operators.python import get_current_context
 from dlt.pipeline.mark import make_nested_hints
-import json
+
 
 # Set up logging
 import logging
@@ -110,31 +110,31 @@ def _set_dlt_updated_at_filter(context, dlt_updated_at) -> str:
     nested_hints={
         "articles": make_nested_hints(
             columns=[
-                {"id": {"data_type": "bigint"}},
-                {"ticket_id": {"data_type": "bigint"}},
-                {"type_id": {"data_type": "bigint"}},
-                {"sender_id": {"data_type": "bigint"}},
-                {"from": {"data_type": "text"}},
-                {"to": {"data_type": "text"}},
-                {"cc": {"data_type": "text", "nullable": True}},
-                {"subject": {"data_type": "text", "nullable": True}},
-                {"reply_to": {"data_type": "text", "nullable": True}},
-                {"message_id": {"data_type": "text"}},
-                {"message_id_md5": {"data_type": "text"}},
-                {"in_reply_to": {"data_type": "text", "nullable": True}},
-                {"content_type": {"data_type": "text"}},
-                {"body": {"data_type": "text"}},
-                {"internal": {"data_type": "bool"}},
-                {"preferences": {"data_type": "complex", "nullable": True}},
-                {"updated_by_id": {"data_type": "bigint"}},
-                {"created_by_id": {"data_type": "bigint"}},
-                {"origin_by_id": {"data_type": "bigint", "nullable": True}},
-                {"created_at": {"data_type": "timestamp"}},
-                {"updated_at": {"data_type": "timestamp"}},
-                {"detected_language": {"data_type": "text", "nullable": True}},
-                {"attachments": {"data_type": "complex", "nullable": True}},
-                {"created_by": {"data_type": "text"}},
-                {"updated_by": {"data_type": "text"}},
+                {"name": "id", "data_type": "bigint"},
+                {"name": "ticket_id", "data_type": "bigint"},
+                {"name": "type_id", "data_type": "bigint"},
+                {"name": "sender_id", "data_type": "bigint"},
+                {"name": "from", "data_type": "text"},
+                {"name": "to", "data_type": "text"},
+                {"name": "cc", "data_type": "text", "nullable": True},
+                {"name": "subject", "data_type": "text", "nullable": True},
+                {"name": "reply_to", "data_type": "text", "nullable": True},
+                {"name": "message_id", "data_type": "text"},
+                {"name": "message_id_md5", "data_type": "text"},
+                {"name": "in_reply_to", "data_type": "text", "nullable": True},
+                {"name": "content_type", "data_type": "text"},
+                {"name": "body", "data_type": "text"},
+                {"name": "internal", "data_type": "bool"},
+                {"name": "preferences", "data_type": "complex", "nullable": True},
+                {"name": "updated_by_id", "data_type": "bigint"},
+                {"name": "created_by_id", "data_type": "bigint"},
+                {"name": "origin_by_id", "data_type": "bigint", "nullable": True},
+                {"name": "created_at", "data_type": "timestamp"},
+                {"name": "updated_at", "data_type": "timestamp"},
+                {"name": "detected_language", "data_type": "text", "nullable": True},
+                {"name": "attachments", "data_type": "complex", "nullable": True},
+                {"name": "created_by", "data_type": "text"},
+                {"name": "updated_by", "data_type": "text"},
             ]
         )
     }
