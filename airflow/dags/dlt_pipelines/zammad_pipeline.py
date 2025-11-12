@@ -5,6 +5,9 @@ from typing import Iterable, Optional
 from dlt.sources.helpers.rest_client import RESTClient
 from dlt.sources.helpers.rest_client.auth import BearerTokenAuth
 from airflow.operators.python import get_current_context
+from dlt.pipeline.mark import make_nested_hints
+import json
+
 # Set up logging
 import logging
 
@@ -103,7 +106,38 @@ def _set_dlt_updated_at_filter(context, dlt_updated_at) -> str:
     return updated_at
 
 @dlt.resource(
-    write_disposition="merge", primary_key="id", parallelized=True,  max_table_nesting=0,    
+    write_disposition="merge", primary_key="id", parallelized=True,  
+    nested_hints={
+        "articles": make_nested_hints(
+            columns=[
+                {"id": {"data_type": "bigint"}},
+                {"ticket_id": {"data_type": "bigint"}},
+                {"type_id": {"data_type": "bigint"}},
+                {"sender_id": {"data_type": "bigint"}},
+                {"from": {"data_type": "text"}},
+                {"to": {"data_type": "text"}},
+                {"cc": {"data_type": "text", "nullable": True}},
+                {"subject": {"data_type": "text", "nullable": True}},
+                {"reply_to": {"data_type": "text", "nullable": True}},
+                {"message_id": {"data_type": "text"}},
+                {"message_id_md5": {"data_type": "text"}},
+                {"in_reply_to": {"data_type": "text", "nullable": True}},
+                {"content_type": {"data_type": "text"}},
+                {"body": {"data_type": "text"}},
+                {"internal": {"data_type": "bool"}},
+                {"preferences": {"data_type": "complex", "nullable": True}},
+                {"updated_by_id": {"data_type": "bigint"}},
+                {"created_by_id": {"data_type": "bigint"}},
+                {"origin_by_id": {"data_type": "bigint", "nullable": True}},
+                {"created_at": {"data_type": "timestamp"}},
+                {"updated_at": {"data_type": "timestamp"}},
+                {"detected_language": {"data_type": "text", "nullable": True}},
+                {"attachments": {"data_type": "complex", "nullable": True}},
+                {"created_by": {"data_type": "text"}},
+                {"updated_by": {"data_type": "text"}},
+            ]
+        )
+    }
 )
 def tickets(
     max_per_page: int = 200,
@@ -292,7 +326,7 @@ def articles_by_ticket(ticket_item: dict) -> list:
     
     response = make_request(path)
     articles = response.json()
-    return json.dumps(articles)
+    return articles
 
 @dlt.source
 def zammad_source():
