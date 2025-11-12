@@ -22,3 +22,8 @@ dependencies = [
     "sqlfluff-templater-dbt>=3.4.0",
     "sqlfluff>=3.4.0",
 ]
+
+[project.optional-dependencies]
+dev = [
+    "python-dotenv>=1.0.0",
+]

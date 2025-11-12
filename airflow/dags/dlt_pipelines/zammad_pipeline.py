@@ -292,7 +292,7 @@ def articles_by_ticket(ticket_item: dict) -> list:
     
     response = make_request(path)
     articles = response.json()
-    return articles if isinstance(articles, list) else []
+    return json.dumps(articles)
 
 @dlt.source
 def zammad_source():
