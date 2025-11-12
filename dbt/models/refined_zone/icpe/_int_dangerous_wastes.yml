@@ -1,6 +1,6 @@
 version: 2
 models:
-  - name: _int_dangerous_wastes
+  - name: int_dangerous_wastes
     description: >
       Quantité de déchets dangereux par SIRET et par code de traitement.
       Inclus les déchets des BSDD.
@@ -14,4 +14,3 @@ models:
         data_type: datetime64(6, 'europe/paris')
       - name: quantite_traitee
         data_type: UInt8
-

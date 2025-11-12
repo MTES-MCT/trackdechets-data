@@ -103,3 +103,5 @@ seeds:
       - name: code_postal
         data_type: String
       - name: ligne_5
+  - name: codes_operations_traitements
+    columns: []
