@@ -4,6 +4,8 @@ from datetime import datetime, timedelta
 from typing import Iterable, Optional
 from dlt.sources.helpers.rest_client import RESTClient
 from dlt.sources.helpers.rest_client.auth import BearerTokenAuth
+from dlt.pipeline.mark import make_nested_hints
+
 
 # Set up logging
 import logging
@@ -90,7 +92,38 @@ def get_last_updated_at_from_response(
 
 
 @dlt.resource(
-    write_disposition="merge", primary_key="id", max_table_nesting=0, parallelized=True
+    write_disposition="merge", primary_key="id", parallelized=True,  
+    nested_hints={
+        "articles": make_nested_hints(
+            columns=[
+                {"name": "id", "data_type": "bigint"},
+                {"name": "ticket_id", "data_type": "bigint"},
+                {"name": "type_id", "data_type": "bigint"},
+                {"name": "sender_id", "data_type": "bigint"},
+                {"name": "from", "data_type": "text"},
+                {"name": "to", "data_type": "text"},
+                {"name": "cc", "data_type": "text", "nullable": True},
+                {"name": "subject", "data_type": "text", "nullable": True},
+                {"name": "reply_to", "data_type": "text", "nullable": True},
+                {"name": "message_id", "data_type": "text"},
+                {"name": "message_id_md5", "data_type": "text"},
+                {"name": "in_reply_to", "data_type": "text", "nullable": True},
+                {"name": "content_type", "data_type": "text"},
+                {"name": "body", "data_type": "text"},
+                {"name": "internal", "data_type": "bool"},
+                {"name": "preferences", "data_type": "complex", "nullable": True},
+                {"name": "updated_by_id", "data_type": "bigint"},
+                {"name": "created_by_id", "data_type": "bigint"},
+                {"name": "origin_by_id", "data_type": "bigint", "nullable": True},
+                {"name": "created_at", "data_type": "timestamp"},
+                {"name": "updated_at", "data_type": "timestamp"},
+                {"name": "detected_language", "data_type": "text", "nullable": True},
+                {"name": "attachments", "data_type": "complex", "nullable": True},
+                {"name": "created_by", "data_type": "text"},
+                {"name": "updated_by", "data_type": "text"},
+            ]
+        )
+    }
 )
 def tickets(
     max_per_page: int = 200,
@@ -120,6 +153,7 @@ def tickets(
 
         for ticket in data:
             ticket = {**ticket, "tags": tags(ticket)}
+            ticket = {**ticket, "articles": articles_by_ticket(ticket)}
             yield ticket
 
         if not handle_pagination(
@@ -247,9 +281,23 @@ def tags(ticket_item: dict) -> list:
     return response.json().get("tags", [])
 
 
+def articles_by_ticket(ticket_item: dict) -> list:
+    """Fetch ticket articles for each ticket."""
+    path = f"/ticket_articles/by_ticket/{ticket_item["id"]}"
+    
+    response = make_request(path)
+    articles = response.json()
+    return articles
+
 @dlt.source
 def zammad_source():
-    return [tickets, users, groups, organizations, text_modules]
+    return [
+        tickets(),
+        users(),
+        groups(),
+        organizations(),
+        text_modules(),
+    ]
 
 
 # Run the pipeline
