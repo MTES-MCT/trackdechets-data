@@ -63,6 +63,11 @@ models:
         data_type: String
       - name: weight_value
         data_type: decimal(76, 30)
+        description: "Quantité en tonnes pesée à l'émission.\n"
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
       - name: destination_company_name
         data_type: string
       - name: destination_company_siret
