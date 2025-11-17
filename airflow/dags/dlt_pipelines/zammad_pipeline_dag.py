@@ -1,8 +1,7 @@
 from datetime import timedelta
 import os
 from airflow.decorators import dag
-from airflow.models import Connection
-
+from airflow.models import Connection, Param
 import dlt
 from dlt.common import pendulum
 from dlt.helpers.airflow_helper import PipelineTasksGroup
@@ -38,6 +37,12 @@ default_task_args = {
     max_active_runs=1,
     default_args=default_task_args,
     on_failure_callback=send_alert_to_mattermost,
+    params={"updated_at": Param(
+            type=["null", "string"],
+            format="date-time",
+            default=None,
+            description="The date and time from which to start loading data from the Zammad API. Format: YYYY-MM-DDTHH:MM:SSZ"
+        )},
 )
 def load_zammad_data():
     # set `use_data_folder` to True to store temporary data on the `data` bucket. Use only when it does not fit on the local storage
