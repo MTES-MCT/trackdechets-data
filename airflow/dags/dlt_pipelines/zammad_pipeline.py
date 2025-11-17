@@ -5,6 +5,9 @@ from typing import Iterable, Optional
 from dlt.sources.helpers.rest_client import RESTClient
 from dlt.sources.helpers.rest_client.auth import BearerTokenAuth
 from airflow.operators.python import get_current_context
+from dlt.pipeline.mark import make_nested_hints
+
+
 # Set up logging
 import logging
 
@@ -95,15 +98,56 @@ def _set_dlt_updated_at_filter(context, dlt_updated_at) -> str:
     If the updated_at is provided in the context, use it to set the updated_at filter.
     Otherwise, use the last value of the DLT pipeline.
     """
-    try:        
-        updated_at = datetime.fromisoformat(context["dag_run"].conf.get("updated_at")) if context and context.get("dag_run") else None
+    try:
+        updated_at = (
+            datetime.fromisoformat(context["dag_run"].conf.get("updated_at"))
+            if context and context.get("dag_run")
+            else None
+        )
         logger.info(f"Force updated at: {updated_at} from context")
     except Exception:
-        updated_at = datetime.fromisoformat(dlt_updated_at.last_value) - timedelta(days=1)
+        updated_at = datetime.fromisoformat(dlt_updated_at.last_value) - timedelta(
+            days=1
+        )
     return updated_at
 
+
 @dlt.resource(
-    write_disposition="merge", primary_key="id", max_table_nesting=0, parallelized=True
+    write_disposition="merge",
+    primary_key="id",
+    parallelized=True,
+    max_table_nesting=1,
+    nested_hints={
+        "articles": make_nested_hints(
+            columns=[
+                {"name": "id", "data_type": "bigint"},
+                {"name": "ticket_id", "data_type": "bigint"},
+                {"name": "type_id", "data_type": "bigint"},
+                {"name": "sender_id", "data_type": "bigint"},
+                {"name": "from", "data_type": "text"},
+                {"name": "to", "data_type": "text"},
+                {"name": "cc", "data_type": "text", "nullable": True},
+                {"name": "subject", "data_type": "text", "nullable": True},
+                {"name": "reply_to", "data_type": "text", "nullable": True},
+                {"name": "message_id", "data_type": "text"},
+                {"name": "message_id_md5", "data_type": "text"},
+                {"name": "in_reply_to", "data_type": "text", "nullable": True},
+                {"name": "content_type", "data_type": "text"},
+                {"name": "body", "data_type": "text"},
+                {"name": "internal", "data_type": "bool"},
+                {"name": "preferences", "data_type": "complex", "nullable": True},
+                {"name": "updated_by_id", "data_type": "bigint"},
+                {"name": "created_by_id", "data_type": "bigint"},
+                {"name": "origin_by_id", "data_type": "bigint", "nullable": True},
+                {"name": "created_at", "data_type": "timestamp"},
+                {"name": "updated_at", "data_type": "timestamp"},
+                {"name": "detected_language", "data_type": "text", "nullable": True},
+                {"name": "attachments", "data_type": "complex", "nullable": True},
+                {"name": "created_by", "data_type": "text"},
+                {"name": "updated_by", "data_type": "text"},
+            ]
+        )
+    },
 )
 def tickets(
     max_per_page: int = 200,
@@ -114,7 +158,9 @@ def tickets(
     """Fetch tickets from the Zammad API."""
     path = "/tickets/search"
 
-    updated_at = _set_dlt_updated_at_filter(context=get_current_context(), dlt_updated_at=updated_at)
+    updated_at = _set_dlt_updated_at_filter(
+        context=get_current_context(), dlt_updated_at=updated_at
+    )
 
     params = {
         "query": f"updated_at:>{updated_at:%Y-%m-%d}",
@@ -133,7 +179,11 @@ def tickets(
             data = response_json
 
         for ticket in data:
-            ticket = {**ticket, "tags": tags(ticket)}
+            ticket = {
+                **ticket,
+                "tags": tags(ticket),
+                "articles": articles_by_ticket(ticket),
+            }
             yield ticket
 
         if not handle_pagination(
@@ -157,7 +207,9 @@ def users(
     """Fetch users from the Zammad API."""
     path = "/users/search"
 
-    updated_at = _set_dlt_updated_at_filter(context=get_current_context(), dlt_updated_at=updated_at)
+    updated_at = _set_dlt_updated_at_filter(
+        context=get_current_context(), dlt_updated_at=updated_at
+    )
 
     params = {
         "query": f"updated_at:>{updated_at:%Y-%m-%d}",
@@ -203,7 +255,9 @@ def organizations(
     """Fetch organizations from the Zammad API."""
     path = "/organizations/search"
 
-    updated_at = _set_dlt_updated_at_filter(context=get_current_context(), dlt_updated_at=updated_at)
+    updated_at = _set_dlt_updated_at_filter(
+        context=get_current_context(), dlt_updated_at=updated_at
+    )
 
     params = {
         "query": f"updated_at:>{updated_at:%Y-%m-%d}",
@@ -235,7 +289,9 @@ def text_modules(
     """Fetch organizations from the Zammad API."""
     path = "/text_modules/search"
 
-    updated_at = _set_dlt_updated_at_filter(context=get_current_context(), dlt_updated_at=updated_at)
+    updated_at = _set_dlt_updated_at_filter(
+        context=get_current_context(), dlt_updated_at=updated_at
+    )
 
     params = {
         "query": f"updated_at:>{updated_at:%Y-%m-%d}",
@@ -264,9 +320,24 @@ def tags(ticket_item: dict) -> list:
     return response.json().get("tags", [])
 
 
+def articles_by_ticket(ticket_item: dict) -> list:
+    """Fetch ticket articles for each ticket."""
+    path = f"/ticket_articles/by_ticket/{ticket_item['id']}"
+
+    response = make_request(path)
+    articles = response.json()
+    return articles
+
+
 @dlt.source
 def zammad_source():
-    return [tickets, users, groups, organizations, text_modules]
+    return [
+        tickets(),
+        users(),
+        groups(),
+        organizations(),
+        text_modules(),
+    ]
 
 
 # Run the pipeline
