@@ -107,6 +107,7 @@ def _set_dlt_updated_at_filter(context, dlt_updated_at) -> str:
 
 @dlt.resource(
     write_disposition="merge", primary_key="id", parallelized=True,  
+    max_table_nesting=1,
     nested_hints={
         "articles": make_nested_hints(
             columns=[
