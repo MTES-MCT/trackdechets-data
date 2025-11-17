@@ -37,12 +37,14 @@ default_task_args = {
     max_active_runs=1,
     default_args=default_task_args,
     on_failure_callback=send_alert_to_mattermost,
-    params={"updated_at": Param(
+    params={
+        "updated_at": Param(
             type=["null", "string"],
             format="date-time",
             default=None,
-            description="The date and time from which to start loading data from the Zammad API. Format: YYYY-MM-DDTHH:MM:SSZ"
-        )},
+            description="The date and time from which to start loading data from the Zammad API. Format: YYYY-MM-DDTHH:MM:SSZ",
+        )
+    },
 )
 def load_zammad_data():
     # set `use_data_folder` to True to store temporary data on the `data` bucket. Use only when it does not fit on the local storage
@@ -57,7 +59,9 @@ def load_zammad_data():
     # what you can do is reassign env variables:
     DWH_CON = Connection.get_connection_from_secrets("td_datawarehouse").to_dict()
 
-    os.environ["DESTINATION__CLICKHOUSE__CREDENTIALS__DATABASE"] = "raw_zone_zammad_new" #TODO: change to raw_zone_zammad when migration is done
+    os.environ["DESTINATION__CLICKHOUSE__CREDENTIALS__DATABASE"] = (
+        "raw_zone_zammad_new"  # TODO: change to raw_zone_zammad when migration is done
+    )
     os.environ["DESTINATION__CLICKHOUSE__CREDENTIALS__HOST"] = DWH_CON.get("host")
     os.environ["DESTINATION__CLICKHOUSE__CREDENTIALS__PASSWORD"] = DWH_CON.get(
         "password"
