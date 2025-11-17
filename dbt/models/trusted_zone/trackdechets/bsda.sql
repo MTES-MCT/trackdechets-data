@@ -150,6 +150,9 @@ select
     toNullable(
         toString("destinationReceptionRefusalReason")
     )      as destination_reception_refusal_reason,
+    toNullable(
+        toDecimal256("destinationReceptionRefusedWeight", 30))
+    / 1000 as destination_reception_refused_weight,
     toLowCardinality(
         toNullable(replaceAll(toString("destinationOperationCode"), ' ', ''))
     )      as destination_operation_code,
