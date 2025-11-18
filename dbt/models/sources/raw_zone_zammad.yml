@@ -29,11 +29,11 @@ sources:
           - name: customer_id
             data_type: int64
           - name: close_at
-            data_type: datetime64(6, 'utc')
+            data_type: datetime64(8, 'utc')
           - name: last_contact_at
-            data_type: datetime64(6, 'utc')
+            data_type: datetime64(8, 'utc')
           - name: last_contact_customer_at
-            data_type: datetime64(6, 'utc')
+            data_type: datetime64(8, 'utc')
           - name: create_article_type_id
             data_type: int64
           - name: create_article_sender_id
@@ -47,9 +47,9 @@ sources:
           - name: created_by_id
             data_type: int64
           - name: created_at
-            data_type: datetime64(6, 'utc')
+            data_type: datetime64(8, 'utc')
           - name: updated_at
-            data_type: datetime64(6, 'utc')
+            data_type: datetime64(8, 'utc')
           - name: referencing_checklist_ids
             data_type: String
           - name: article_ids
@@ -63,11 +63,11 @@ sources:
           - name: _dlt_id
             data_type: String
           - name: first_response_at
-            data_type: datetime64(6, 'utc')
+            data_type: datetime64(8, 'utc')
           - name: last_contact_agent_at
-            data_type: datetime64(6, 'utc')
+            data_type: datetime64(8, 'utc')
           - name: last_owner_update_at
-            data_type: datetime64(6, 'utc')
+            data_type: datetime64(8, 'utc')
           - name: time_unit
             data_type: string
           - name: organization_id
@@ -77,13 +77,13 @@ sources:
           - name: first_response_diff_in_min
             data_type: int64
           - name: last_close_at
-            data_type: datetime64(6, 'utc')
+            data_type: datetime64(8, 'utc')
           - name: pending_time
-            data_type: datetime64(6, 'utc')
+            data_type: datetime64(8, 'utc')
           - name: first_response_escalation_at
-            data_type: datetime64(6, 'utc')
+            data_type: datetime64(8, 'utc')
           - name: escalation_at
-            data_type: datetime64(6, 'utc')
+            data_type: datetime64(8, 'utc')
       - name: users
         description: >
           Données des utilisateurs Zammad. Un utilisateur peut être aussi bien un utilisateur interne
@@ -244,3 +244,202 @@ sources:
             data_type: String
           - name: note
             data_type: String
+
+  - name: raw_zone_zammad_new
+    description: Données extraites de Zammad
+    tables:
+      - name: tickets      
+        description: >
+          Données sur les tickets Zammad.
+        columns:
+          - name: id
+            description: identifiant unique du ticket
+            tests:
+              - not_null
+              - unique
+            data_type: int64
+          - name: group_id
+            data_type: int64
+          - name: priority_id
+            data_type: int64
+          - name: state_id
+            data_type: int64
+          - name: number
+            data_type: string
+          - name: title
+            data_type: string
+          - name: owner_id
+            data_type: int64
+          - name: customer_id
+            data_type: int64
+          - name: first_response_at
+            data_type: datetime64(8, 'utc')
+          - name: close_at
+            data_type: datetime64(8, 'utc')
+          - name: last_contact_at
+            data_type: datetime64(8, 'utc')
+          - name: last_contact_agent_at
+            data_type: datetime64(8, 'utc')
+          - name: last_contact_customer_at
+            data_type: datetime64(8, 'utc')
+          - name: last_owner_update_at
+            data_type: datetime64(8, 'utc')
+          - name: create_article_type_id
+            data_type: int64
+          - name: create_article_sender_id
+            data_type: int64
+          - name: article_count
+            data_type: int64
+          - name: preferences__channel_id
+            data_type: int64
+          - name: preferences__escalation_calculation
+            data_type: string
+          - name: updated_by_id
+            data_type: int64
+          - name: created_by_id
+            data_type: int64
+          - name: created_at
+            data_type: datetime64(8, 'utc')
+          - name: updated_at
+            data_type: datetime64(8, 'utc')
+          - name: last_close_at
+            data_type: datetime64(8, 'utc')
+          - name: _dlt_load_id
+            data_type: string
+          - name: _dlt_id
+            data_type: string
+          - name: first_response_in_min
+            data_type: int64
+          - name: first_response_diff_in_min
+            data_type: int64
+          - name: pending_time
+            data_type: datetime64(8, 'utc')
+      - name: tickets__tags
+        description: >
+          Données des tags associés aux tickets Zammad.
+        columns:
+          - name: value
+            description: libellé du tag
+            data_type: string
+          - name: _dlt_root_id
+            description: identifiant racine DLT
+            data_type: string
+          - name: _dlt_parent_id
+            description: identifiant parent DLT
+            data_type: string
+          - name: _dlt_list_idx
+            description: index de la liste DLT
+            data_type: int64
+          - name: _dlt_id
+            description: identifiant unique DLT
+            data_type: string            
+      - name: tickets__article_ids
+        description: >
+          Identifiants des articles associés aux tickets Zammad.
+        columns:
+          - name: value
+            description: identifiant de l'article lié au ticket
+            data_type: int64
+          - name: _dlt_root_id
+            description: identifiant racine DLT
+            data_type: string
+          - name: _dlt_parent_id
+            description: identifiant parent DLT
+            data_type: string
+          - name: _dlt_list_idx
+            description: index de la liste DLT
+            data_type: int64
+          - name: _dlt_id
+            description: identifiant unique DLT
+            data_type: string            
+      - name: tickets__articles
+        description: >
+          Articles associés aux tickets Zammad, incluant métadonnées
+          d'envoi, contenu et préférences.
+        columns:
+          - name: id
+            description: identifiant unique de l'article
+            tests:
+              - unique
+            data_type: int64
+          - name: ticket_id
+            description: identifiant du ticket parent
+            data_type: int64
+          - name: type_id
+            data_type: int64
+          - name: sender_id
+            data_type: int64
+          - name: from
+            description: adresse expéditrice
+            data_type: string
+          - name: to
+            description: destinataires principaux
+            data_type: string
+          - name: cc
+            description: destinataires en copie
+            data_type: string
+          - name: subject
+            description: sujet de l'article
+            data_type: string
+          - name: reply_to
+            data_type: string
+          - name: message_id
+            data_type: string
+          - name: message_id_md5
+            data_type: string
+          - name: in_reply_to
+            data_type: string
+          - name: content_type
+            description: type de contenu MIME
+            data_type: string
+          - name: body
+            description: contenu de l'article
+            data_type: string
+          - name: internal
+            description: indique si l'article est interne
+            data_type: bool
+          - name: preferences
+            description: préférences sérialisées
+            data_type: string
+          - name: updated_by_id
+            data_type: int64
+          - name: created_by_id
+            data_type: int64
+          - name: origin_by_id
+            data_type: int64
+          - name: created_at
+            description: date de création
+            data_type: datetime64(6, 'utc')
+          - name: updated_at
+            description: date de mise à jour
+            data_type: datetime64(6, 'utc')
+          - name: detected_language
+            description: langue détectée du contenu
+            data_type: string
+          - name: attachments
+            description: pièces jointes sérialisées
+            data_type: string
+          - name: created_by
+            description: créateur textuel
+            data_type: string
+          - name: updated_by
+            description: auteur de la mise à jour
+            data_type: string
+          - name: type
+            description: libellé du type d'article
+            data_type: string
+          - name: sender
+            description: libellé de l'expéditeur
+            data_type: string
+          - name: _dlt_root_id
+            description: identifiant racine DLT
+            data_type: string
+          - name: _dlt_parent_id
+            description: identifiant parent DLT
+            data_type: string
+          - name: _dlt_list_idx
+            description: index de la liste DLT
+            data_type: int64
+          - name: _dlt_id
+            description: identifiant unique DLT
+            data_type: string            
