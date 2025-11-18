@@ -38,11 +38,17 @@ default_task_args = {
     default_args=default_task_args,
     on_failure_callback=send_alert_to_mattermost,
     params={
-        "updated_at": Param(
+        "start_date": Param(
             type=["null", "string"],
-            format="date-time",
+            format="date",
             default=None,
-            description="The date and time from which to start loading data from the Zammad API. Format: YYYY-MM-DDTHH:MM:SSZ",
+            description="The date from which to start loading data from the Zammad API. Format: YYYY-MM-DD",
+        ),
+        "end_date": Param(
+            type=["null", "string"],
+            format="date",
+            default=None,
+            description="The date to which to end loading data from the Zammad API. Format: YYYY-MM-DD",
         )
     },
 )
