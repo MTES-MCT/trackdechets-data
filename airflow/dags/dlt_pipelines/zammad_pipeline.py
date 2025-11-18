@@ -1,6 +1,6 @@
 import dlt
 import requests
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Iterable, Optional
 from dlt.sources.helpers.rest_client import RESTClient
 from dlt.sources.helpers.rest_client.auth import BearerTokenAuth
@@ -42,8 +42,8 @@ def handle_pagination(
     response: requests.Response,
     params: dict,
     max_per_page: int,
-    response_extractor: callable = lambda x: x,
-) -> bool:
+    response_extractor: callable = lambda x: x
+    ) -> bool:
     """Handles pagination and adjusts for 10k limit. Returns true if there is more pages to fetch and updates params dictionary inplace."""
     current_page = params["page"]
 
@@ -100,17 +100,32 @@ def _set_dlt_updated_at_filter(context, dlt_updated_at) -> str:
     """
     try:
         updated_at = (
-            datetime.fromisoformat(context["dag_run"].conf.get("updated_at"))
+            datetime.fromisoformat(context["dag_run"].conf.get("start_date"))
             if context and context.get("dag_run")
             else None
         )
         logger.info(f"Force updated at: {updated_at} from context")
     except Exception:
-        updated_at = datetime.fromisoformat(dlt_updated_at.last_value) - timedelta(
-            days=1
-        )
+        updated_at = datetime.fromisoformat(dlt_updated_at.last_value) - timedelta(days=1)
     return updated_at
 
+
+def _set_dlt_end_date_filter(context) -> datetime:
+    """
+    Set the end_date filter for the DLT pipeline.
+    If the end_date is provided in the context, use it to set the end_date filter.
+    Otherwise, use the last value of the DLT pipeline.
+    """
+    try:
+        end_date = (
+            datetime.fromisoformat(context["dag_run"].conf.get("end_date"))
+            if context and context.get("dag_run")
+            else None
+        )
+        logger.info(f"Force end date: {end_date} from context")
+    except Exception:
+        end_date = None
+    return end_date
 
 @dlt.resource(
     write_disposition="merge",
@@ -161,6 +176,8 @@ def tickets(
     updated_at = _set_dlt_updated_at_filter(
         context=get_current_context(), dlt_updated_at=updated_at
     )
+    last_updated_at = updated_at
+    end_date = _set_dlt_end_date_filter(context=get_current_context())
 
     params = {
         "query": f"updated_at:>{updated_at:%Y-%m-%d}",
@@ -171,6 +188,10 @@ def tickets(
     }
 
     while True:
+        logger.info(f"Last updated at: {last_updated_at.date()}, End date: {end_date.date()}")
+        if end_date and last_updated_at.date() > end_date.date():
+            logger.info("Reached end date, stopping the pipeline")
+            break
         response = make_request(path, params=params)
         response_json = response.json()
         if isinstance(response_json, dict):
@@ -184,6 +205,7 @@ def tickets(
                 "tags": tags(ticket),
                 "articles": articles_by_ticket(ticket),
             }
+            last_updated_at = datetime.fromisoformat(ticket["updated_at"]).replace(tzinfo=timezone.utc)
             yield ticket
 
         if not handle_pagination(
