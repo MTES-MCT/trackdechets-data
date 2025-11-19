@@ -3,11 +3,11 @@
         use_recipient
     ) -%}
 
-    {% if use_recipient %}
+{% if use_recipient %}
     {% set destination_prefix = 'recipient' %}
 {% else %}
-        {% set destination_prefix = 'destination' %}
-    {% endif %}
+    {% set destination_prefix = 'destination' %}
+{% endif %}
 
 
 with filtered_form as (
@@ -34,15 +34,15 @@ first_join as (
 )
 SELECT
     b.*,
-    etabs.code_commune                      AS "{{ destination_prefix }}_commune",
-    etabs.code_departement                  AS "{{ destination_prefix }}_departement",
-    etabs.code_region                       AS "{{ destination_prefix }}_region",
-    etabs.latitude                       AS "{{ destination_prefix }}_latitude",
-    etabs.longitude                       AS "{{ destination_prefix }}_longitude",
-    toNullable(etabs.activite_principale_etablissement) AS "{{ destination_prefix }}_naf"
+    etabs.code_commune                      AS "{{destination_prefix}}_commune",
+    etabs.code_departement                  AS "{{destination_prefix}}_departement",
+    etabs.code_region                       AS "{{destination_prefix}}_region",
+    etabs.latitude                       AS "{{destination_prefix}}_latitude",
+    etabs.longitude                       AS "{{destination_prefix}}_longitude",
+    toNullable(etabs.activite_principale_etablissement) AS "{{destination_prefix}}_naf"
 FROM
     first_join
     AS b
 LEFT JOIN {{ ref('stock_etablissement_enriched') }} etabs
-    ON b.{{ destination_prefix }}_company_siret = etabs.siret
+    ON b.{{destination_prefix}}_company_siret = etabs.siret
 {%- endmacro %}

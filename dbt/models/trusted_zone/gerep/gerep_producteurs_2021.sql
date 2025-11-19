@@ -1,11 +1,11 @@
 select
     "Numero Siret"              as siret,
     "Code établissement"        as code_etablissement,
-    annee                       as annee,
+    Annee as "annee",
     "Nom Etablissement"         as nom_etablissement,
     "Adresse Site Exploitation" as adresse_site_exploitation,
     "Code Postal Etablissement" as code_postal_etablissement,
-    commune                     as commune,
+    Commune as "commune",
     "Code Insee"                as code_commune_insee,
     "Code APE"                  as code_ape,
     "Nom Contact"               as nom_contact,

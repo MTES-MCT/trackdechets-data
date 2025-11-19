@@ -256,7 +256,6 @@ joined as (
         c.address                                      as adresse_td,
         c.latitude                                     as latitude_td,
         c.longitude                                    as longitude_td,
-        se.adresse                                     as adresse_insee,
         coalesce(et.num_texs_dd_as_emitter > 0, false) as texs_dd_emitter,
         coalesce(
             et.num_texs_dd_as_transporter > 0, false
@@ -269,6 +268,7 @@ joined as (
             or et.num_texs_dd_as_transporter > 0
             or et.num_texs_dd_as_destination > 0, false
         )                                              as texs_dd,
+        se.adresse                                     as adresse_insee,
         coalesce(
             c.name, nom_etablissement
         )                                              as nom_etablissement

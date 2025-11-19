@@ -3,11 +3,8 @@ import sys
 import os
 import time
 
-
 def main():
-    parser = argparse.ArgumentParser(
-        description="Run a SQL file on a ClickHouse-compatible database with confirmation."
-    )
+    parser = argparse.ArgumentParser(description="Run a SQL file on a ClickHouse-compatible database with confirmation.")
     parser.add_argument("--file", required=True, help="Path to the SQL file to run.")
     parser.add_argument("--DB_HOST", required=True, help="Database host.")
     parser.add_argument("--DB_PORT", required=True, type=int, help="Database port.")
@@ -25,6 +22,7 @@ def main():
         print(f"Error reading SQL file: {e}")
         sys.exit(1)
 
+
     try:
         import clickhouse_connect
 
@@ -36,7 +34,7 @@ def main():
             database="default",
             send_receive_timeout=300,
         )
-
+    
     except Exception as e:
         print(f"Error connecting to ClickHouse: {e}")
         sys.exit(2)
@@ -49,10 +47,8 @@ def main():
         if not cleaned_statement:
             continue  # skip empty statements
 
-        print(f"\nStatement {i}:\n{'-' * 40}\n{cleaned_statement}\n{'-' * 40}")
-        confirm = (
-            input("Do you want to execute this statement? (y/N): ").strip().lower()
-        )
+        print(f"\nStatement {i}:\n{'-'*40}\n{cleaned_statement}\n{'-'*40}")
+        confirm = input("Do you want to execute this statement? (y/N): ").strip().lower()
         if confirm != "y":
             print("Skipped.")
             continue
@@ -64,6 +60,9 @@ def main():
         except Exception as e:
             print(f"Error executing statement {i}: {e}")
             sys.exit(3)
+
+
+
 
 
 if __name__ == "__main__":

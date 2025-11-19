@@ -36,7 +36,7 @@
         count(distinct bordereau_id) as {{ count_name }}_bordereaux,
         count(distinct packaging_id) as {{ count_name }}_contenants,
         sum("quantity") as {{ quantity_name }}
-    {% if count_name=="traitements" %}
+        {% if count_name=="traitements"  %}
         ,COUNT(distinct bordereau_id) FILTER (WHERE operation_code in {{ non_final_operation_codes }}) AS {{ count_name }}_bordereaux_operations_non_finales,
         COUNT(distinct packaging_id) FILTER (WHERE operation_code in {{ non_final_operation_codes }}) AS {{ count_name }}_contenants_operations_non_finales, 
         sum(quantity) FILTER (WHERE operation_code in {{ non_final_operation_codes }}) AS {{ quantity_name }}_operations_non_finales,   

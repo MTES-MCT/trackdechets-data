@@ -13,13 +13,16 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
+
+
 def load_gun_csv_file_to_dwh(
     filepath: str,
     dwh_host: str,
     dwh_http_port: int,
     dwh_username: str,
-    dwh_password: str,
+    dwh_password: str,    
 ):
+
     dst_table_name: str = "installations_rubriques_2025"
 
     GUN_TABLE_DDL = f"""

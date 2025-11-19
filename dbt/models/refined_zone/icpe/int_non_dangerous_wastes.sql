@@ -110,7 +110,7 @@ wastes as (
     from plaster_wastes
 )
 
-select
+select 
     siret,
     day_of_processing,
     code_traitement,

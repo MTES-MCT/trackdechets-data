@@ -5,13 +5,13 @@
         "join_algorithm":"'grace_hash'",
         "grace_hash_join_initial_buckets":32
     }
-) }}
+)}}
 
 with td_installations as (
     select
-        destination_company_siret                 as siret,
-        max(destination_company_name)             as company_name,
-        max(destination_company_address)          as company_address,
+        destination_company_siret                as siret,
+        max(destination_company_name)            as company_name,
+        max(destination_company_address)         as company_address,
         groupArray(distinct processing_operation) as codes_operation,
         groupArray(distinct _bs_type)             as types_bordereaux
     from
@@ -21,17 +21,17 @@ with td_installations as (
 
 gun_installations as (
     select
-        ir.siret,
-        max(ir.raison_sociale)                      as raison_sociale,
-        groupArray(distinct ir.code_aiot)           as codes_aiot,
-        arraySort(groupArray(distinct ir.rubrique)) as rubriques
+        siret,
+        max(ir.raison_sociale) as "raison_sociale",
+        groupArray(distinct code_aiot)                  as codes_aiot,
+        arraySort(groupArray(distinct rubrique)) as rubriques
     from
-        {{ ref('installations_rubriques_2025') }} as ir
+        {{ ref('installations_rubriques_2025') }} ir
     where
-        (ir.libelle_etat_site = 'Avec titre') -- noqa: LXR
-        and (ir.etat_administratif_rubrique in ('En vigueur', 'A l''arrêt'))
-        and (ir.etat_technique_rubrique = 'Exploité')
-        and (match(ir.raison_sociale, '(?i)illégal|illicite'))
+        (libelle_etat_site = 'Avec titre') -- noqa: LXR
+        and (etat_administratif_rubrique in ('En vigueur', 'A l''arrêt'))
+        and (etat_technique_rubrique = 'Exploité')
+        and (match(ir.raison_sociale,'(?i)illégal|illicite'))
     group by 1
 ),
 
@@ -73,7 +73,7 @@ select
         se.enseigne_2_etablissement,
         se.enseigne_3_etablissement,
         se.denomination_usuelle_etablissement
-    )        as nom_etablissement,
+    ) as nom_etablissement,
     coalesce(
         c.address,
         jd.company_address,
@@ -86,7 +86,7 @@ select
         || coalesce(se.libelle_commune_etablissement || ' ', '')
         || coalesce(se.libelle_commune_etranger_etablissement || ' ', '')
         || coalesce(se.distribution_speciale_etablissement, '')
-    )        as adresse
+    ) as adresse
 from joined_data as jd
 left join {{ ref('company') }} as c on jd.siret = c.siret
 left join {{ ref('stock_etablissement') }} as se on jd.siret = se.siret

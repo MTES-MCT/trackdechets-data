@@ -5,10 +5,10 @@
     ) }}
 
 select
-    assumeNotNull(coalesce(b.siret, st.siret, ps.siret)) as siret,
+    assumeNotNull(coalesce(b.siret, st.siret, ps.siret))                     as siret,
     {% set column_names = dbt_utils.get_filtered_columns_in_relation(from=ref('bordereaux_counts_by_siret'), except=["siret"]) %}
     {% for column_name in column_names %}
-        {% if 'num' in column_name or 'quantity' in column_name %}
+        {% if 'num' in column_name or 'quantity' in column_name%}
             coalesce({{ column_name }}, 0) as {{ column_name }},
         {% else %}
             {{ column_name }},
@@ -22,9 +22,7 @@ select
             {{ column_name }},
         {% endif %}
     {% endfor %}
-    coalesce(st.num_statements, 0)
-    + coalesce(b.num_bordereaux, 0)
-        as total_bordereaux_statements_references,
+    coalesce(st.num_statements,0) + coalesce(b.num_bordereaux,0) as total_bordereaux_statements_references,
     ps.num_statements_as_emitter
         as num_pnttd_statements_as_emitter,
     ps.quantity_as_emitter

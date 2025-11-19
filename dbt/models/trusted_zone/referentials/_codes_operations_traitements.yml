@@ -1,12 +1,12 @@
 version: 2
 models:
   - name: codes_operations_traitements
-    columns: []
-  - name: codes_operations_traitements
-    columns: []
-  - name: codes_operations_traitements
-    columns: []
-  - name: codes_operations_traitements
-    columns: []
+    columns:
+      - name: description
+        description: Description de l'opération de traitement.
+        data_type: String
+      - name: code
+        description: Code opération traitement.
+        data_type: String
   - name: codes_operations_traitements
     columns: []

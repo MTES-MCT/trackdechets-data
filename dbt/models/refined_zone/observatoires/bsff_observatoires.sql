@@ -13,15 +13,15 @@ with transporters as (
         bsff_id,
         array_agg(
             transporter_company_siret
-
+            
         ) as transporters_company_siret,
         array_agg(
             transporter_company_name
-
+            
         ) as transporters_company_name,
         array_agg(
             transporter_company_address
-
+            
         ) as transporters_company_address,
         min(
             transporter_transport_taken_over_at
@@ -46,10 +46,8 @@ select
     emitter_naf                           as emetteur_code_naf,
     emitter_emission_signature_date       as emetteur_date_signature_emission,
     t.transporters_company_name           as transporteurs_noms_etablissements,
-    t.transporters_company_siret
-        as transporteurs_sirets_etablissements,
-    t.transporters_company_address
-        as transporteurs_adresses_etablissements,
+    t.transporters_company_siret          as transporteurs_sirets_etablissements,
+    t.transporters_company_address        as transporteurs_adresses_etablissements,
     t.transporter_transport_taken_over_at as transporteur_date_prise_en_charge,
     transporter_transport_signature_date  as transporteur_date_signature,
     destination_company_name              as destinataire_nom_etablissement,
@@ -60,15 +58,11 @@ select
     destination_region                    as destinataire_code_region,
     destination_naf                       as destinataire_code_naf,
     destination_cap                       as destinataire_cap_etablissement,
-    destination_reception_signature_date
-        as destinataire_date_signature_reception,
+    destination_reception_signature_date  as destinataire_date_signature_reception,
     destination_reception_date            as destinataire_date_reception,
-    destination_planned_operation_code
-        as destinataire_operation_traitement_prevue_code,
-    last_operation_date_packagings
-        as destinataire_date_derniere_operation_traitement_contenants,
-    operations_codes_packagings
-        as destinataire_operations_traitements_realisees_codes_contenants,
+    destination_planned_operation_code    as destinataire_operation_traitement_prevue_code,
+    last_operation_date_packagings        as destinataire_date_derniere_operation_traitement_contenants,
+    operations_codes_packagings           as destinataire_operations_traitements_realisees_codes_contenants,
     num_accepted_packagings               as contenants_nombre_acceptes,
     num_processed_packagings              as contenants_nombre_traites,
     num_packagings                        as contenants_nombre,

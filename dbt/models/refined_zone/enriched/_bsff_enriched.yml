@@ -35,7 +35,6 @@ models:
         data_type: decimal(76, 30)
       - name: weight_is_estimate
         data_type: bool
-        description: "Indique si la quantité de déchet à l'émission est estimée ou réelle.\n"
       - name: transporter_transport_signature_date
         data_type: datetime64(6, 'europe/paris')
       - name: destination_company_name

@@ -49,7 +49,7 @@ default_task_args = {
             format="date",
             default=None,
             description="The date to which to end loading data from the Zammad API. Format: YYYY-MM-DD",
-        ),
+        )
     },
 )
 def load_zammad_data():

@@ -4,7 +4,6 @@ models:
     columns:
       - name: siret
         data_type: string
-        description: Code région
       - name: date_reception
         data_type: datetime64(6, 'europe/paris')
       - name: rubrique
