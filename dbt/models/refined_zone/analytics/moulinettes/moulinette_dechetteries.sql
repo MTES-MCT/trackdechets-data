@@ -6,16 +6,16 @@ WITH decheteries AS (
 
     SELECT
         c.siret,
-        MAX(
+        mAX(
             c.name
         ) AS company_name,
-        MAX(
+        mAX(
             c.contact_email
         ) AS contact_email,
-        MAX(
+        mAX(
             c.company_types::text
         ) AS company_types,
-        MAX(
+        mAX(
             u.email
         ) AS email_admin
     FROM
@@ -29,7 +29,7 @@ WITH decheteries AS (
             AS u
         ON ca.user_id = u.id
     WHERE
-        has(c.company_types,'WASTE_CENTER')
+        has(c.company_types, 'WASTE_CENTER')
         AND ca.role = 'ADMIN'
     GROUP BY
         siret
@@ -68,11 +68,11 @@ joined AS (
 joined_2 AS (
     SELECT
         decheteries.siret,
-        countIf(be._bs_type = 'BSDD') AS num_bsdd_emetteur,
-        countIf(be._bs_type = 'BSDA') AS num_bsda_emetteur,
-        countIf(be._bs_type = 'BSFF') AS num_bsff_emetteur,
+        countIf(be._bs_type = 'BSDD')    AS num_bsdd_emetteur,
+        countIf(be._bs_type = 'BSDA')    AS num_bsda_emetteur,
+        countIf(be._bs_type = 'BSFF')    AS num_bsff_emetteur,
         countIf(be._bs_type = 'BSDASRI') AS num_bsdasri_emetteur,
-        countIf(be._bs_type = 'BSVHU') AS num_bsvhu_emetteur
+        countIf(be._bs_type = 'BSVHU')   AS num_bsvhu_emetteur
     FROM
         decheteries
     LEFT JOIN
@@ -87,51 +87,51 @@ joined_2 AS (
 
 final_ AS (
     SELECT
-        COALESCE(joined.siret, joined_2.siret)     AS siret,
-        COALESCE(joined.num_bsdd_destinataire, 0)  AS num_bsdd_destinataire,
-        COALESCE(joined.num_bsda_destinataire, 0)  AS num_bsda_destinataire,
-        COALESCE(joined.num_bsff_destinataire, 0)  AS num_bsff_destinataire,
-        COALESCE(
+        cOALESCE(joined.siret, joined_2.siret)     AS siret,
+        cOALESCE(joined.num_bsdd_destinataire, 0)  AS num_bsdd_destinataire,
+        cOALESCE(joined.num_bsda_destinataire, 0)  AS num_bsda_destinataire,
+        cOALESCE(joined.num_bsff_destinataire, 0)  AS num_bsff_destinataire,
+        cOALESCE(
             joined.num_bsdasri_destinataire, 0
         )                                          AS num_bsdasri_destinataire,
-        COALESCE(joined.num_bsvhu_destinataire, 0) AS num_bsvhu_destinataire,
-        COALESCE(joined_2.num_bsdd_emetteur, 0)    AS num_bsdd_emetteur,
-        COALESCE(joined_2.num_bsda_emetteur, 0)    AS num_bsda_emetteur,
-        COALESCE(joined_2.num_bsff_emetteur, 0)    AS num_bsff_emetteur,
-        COALESCE(joined_2.num_bsdasri_emetteur, 0) AS num_bsdasri_emetteur,
-        COALESCE(joined_2.num_bsvhu_emetteur, 0)   AS num_bsvhu_emetteur,
-        COALESCE(
+        cOALESCE(joined.num_bsvhu_destinataire, 0) AS num_bsvhu_destinataire,
+        cOALESCE(joined_2.num_bsdd_emetteur, 0)    AS num_bsdd_emetteur,
+        cOALESCE(joined_2.num_bsda_emetteur, 0)    AS num_bsda_emetteur,
+        cOALESCE(joined_2.num_bsff_emetteur, 0)    AS num_bsff_emetteur,
+        cOALESCE(joined_2.num_bsdasri_emetteur, 0) AS num_bsdasri_emetteur,
+        cOALESCE(joined_2.num_bsvhu_emetteur, 0)   AS num_bsvhu_emetteur,
+        cOALESCE(
             num_bsdd_destinataire,
             0
-        ) + COALESCE(
+        ) + cOALESCE(
             num_bsdd_emetteur,
             0
         )                                          AS num_bsdd,
-        COALESCE(
+        cOALESCE(
             num_bsda_destinataire,
             0
-        ) + COALESCE(
+        ) + cOALESCE(
             num_bsda_emetteur,
             0
         )                                          AS num_bsda,
-        COALESCE(
+        cOALESCE(
             num_bsff_destinataire,
             0
-        ) + COALESCE(
+        ) + cOALESCE(
             num_bsff_emetteur,
             0
         )                                          AS num_bsff,
-        COALESCE(
+        cOALESCE(
             num_bsdasri_destinataire,
             0
-        ) + COALESCE(
+        ) + cOALESCE(
             num_bsdasri_emetteur,
             0
         )                                          AS num_bsdasri,
-        COALESCE(
+        cOALESCE(
             num_bsvhu_destinataire,
             0
-        ) + COALESCE(
+        ) + cOALESCE(
             num_bsvhu_emetteur,
             0
         )                                          AS num_bsvhu

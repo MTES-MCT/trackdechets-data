@@ -39,14 +39,14 @@ def el_base_sirene():
         logger.info(f"Finished creation of database {dst_database} if not exists.")
 
         logger.info("Starting temporary table creation if not exists.")
-        create_table_statement = STOCK_ETABLISSEMENT_DDL.format(database=dst_database, table=tmp_table)
+        create_table_statement = STOCK_ETABLISSEMENT_DDL.format(
+            database=dst_database, table=tmp_table
+        )
         client.command(create_table_statement)
         logger.info(f"Finished temporary table creation {tmp_table}.")
 
         logger.info("Truncating temporary table if exists.")
-        client.command(
-            f"TRUNCATE TABLE IF EXISTS {dst_database}.{tmp_table}"
-        )
+        client.command(f"TRUNCATE TABLE IF EXISTS {dst_database}.{tmp_table}")
         logger.info("Finished truncating temporary table if exists.")
 
         logger.info(f"Starting inserting data into temporary table {tmp_table}.")

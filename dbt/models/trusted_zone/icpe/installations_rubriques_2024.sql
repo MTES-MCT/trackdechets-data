@@ -2,9 +2,9 @@ with source as (
     select *
     from {{ source('raw_zone_icpe', 'installations_rubriques_2024') }}
     where
-        "_inserted_at"
+        _inserted_at
         = (
-            select max("_inserted_at")
+            select max(_inserted_at)
             from
                 {{ source('raw_zone_icpe', 'installations_rubriques_2024') }}
         )
@@ -13,10 +13,10 @@ with source as (
 renamed as (
     select
         "Raison sociale/nom"                as raison_sociale,
-        "SIRET" as siret,
+        siret                               as siret,
         "Code AIOT"                         as code_aiot,
-        "X" as x,
-        "Y" as y,
+        x                                   as x,
+        y                                   as y,
         "Etat du site (code)"               as code_etat_site,
         "Etat du site (libellé)"            as libelle_etat_site,
         "Numéro rubrique"                   as rubrique,

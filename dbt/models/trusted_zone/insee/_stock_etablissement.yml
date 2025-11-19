@@ -82,7 +82,7 @@ models:
       - name: libelle_pays_etranger_2_etablissement
         data_type: string
       - name: date_debut
-        data_type: date
+        data_type: string
       - name: etat_administratif_etablissement
         data_type: string
       - name: enseigne_1_etablissement

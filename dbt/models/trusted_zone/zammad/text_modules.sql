@@ -20,7 +20,7 @@ with source as (
                 ),
                 ''
             )
-        ) as group_ids,
+        )                            as group_ids,
         extractTextFromHTML(content) as content_text
     from
         {{ source("raw_zone_zammad", "text_modules") }}

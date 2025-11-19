@@ -199,7 +199,5 @@ models:
         data_type: DateTime64(6, 'Europe/Paris')
       - name: can_access_draft_org_ids
         data_type: Array(String)
-      - name: transporters_org_ids
-        data_type: Array(String)
       - name: custom_id
         data_type: String

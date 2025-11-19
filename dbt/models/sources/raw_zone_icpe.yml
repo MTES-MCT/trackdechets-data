@@ -127,6 +127,7 @@ sources:
           - name: Raison sociale/nom
             data_type: string
           - name: SIRET
+            data_type: String
           - name: Code AIOT
             data_type: string
           - name: X

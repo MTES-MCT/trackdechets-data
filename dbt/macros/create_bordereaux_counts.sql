@@ -18,7 +18,7 @@
     {% endset %}
 
     {% set quantity_column_name %}
-       {% if model_name == "bsdd" %}
+        {% if model_name == "bsdd" %}
             quantity_received
         {% elif model_name == "bsff_packaging"%}
             acceptation_weight
@@ -70,7 +70,7 @@
             {{ ref(model_name) }}
         WHERE
             {{ date_column_name }} < toStartOfWeek(now('Europe/Paris'), 1, 'Europe/Paris')
-            {% if not model_name == "bsff_packaging"%}
+            {% if not model_name == "bsff_packaging" %}
                 AND not is_deleted
                 AND ({{ draft_filter }})
                 {% if filter_dangerous_waste %}
@@ -88,12 +88,14 @@
         toDate(toStartOfWeek({{ date_column_name }}, 1, 'Europe/Paris')) AS "semaine",
         COUNT(id) AS {{ count_name }},
         sum(quantity) as {{ quantity_name }}
-        {% if ("traitements" in count_name) or ("contenants_traites" in count_name)  %}
+    {% if ("traitements" in count_name) or ("contenants_traites" in count_name) %}
+        
         ,COUNT(id) FILTER (WHERE processing_operation_code in {{ non_final_processing_operation_codes }}) AS {{ count_name }}_operations_non_finales, 
         sum(quantity) FILTER (WHERE processing_operation_code in {{ non_final_processing_operation_codes }}) AS {{ quantity_name }}_operations_non_finales,   
         COUNT(id) FILTER (WHERE processing_operation_code not in {{ non_final_processing_operation_codes }}) AS {{ count_name }}_operations_finales,
         sum(quantity) FILTER (WHERE processing_operation_code not in {{ non_final_processing_operation_codes }}) AS {{ quantity_name }}_operations_finales
-        {% endif %}
+        
+    {% endif %}
     FROM
         bordereaux
     GROUP BY
