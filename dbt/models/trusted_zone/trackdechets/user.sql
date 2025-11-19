@@ -51,9 +51,6 @@ select
         toBool("isAdmin")
     ) as is_admin,
     toNullable(
-        toInt256("passwordVersion")
-    ) as password_version,
-    toNullable(
         toString("governmentAccountId")
     ) as government_account_id
 from source
