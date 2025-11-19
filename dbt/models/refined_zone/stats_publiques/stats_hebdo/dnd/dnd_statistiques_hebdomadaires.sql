@@ -6,27 +6,39 @@
 
 with entrants as (
     select
-        toStartOfWeek(toDateTime(reception_date),1,'Europe/Paris')                                    as semaine,
+        toStartOfWeek(toDateTime(reception_date), 1, 'Europe/Paris')
+            as semaine,
         count(
             distinct id
-        )                                    as nombre_declarations_dnd_entrant,
-        sum(if(weight_value > 60, weight_value / 1000,weight_value)) as quantite_dnd_entrant,
-        sum(volume)                                       as volume_dnd_entrant
+        )
+            as nombre_declarations_dnd_entrant,
+        sum(if(weight_value > 60, weight_value / 1000, weight_value))
+            as quantite_dnd_entrant,
+        sum(volume)
+            as volume_dnd_entrant
     from {{ ref("registry_incoming_waste") }}
-    where toStartOfWeek(toDateTime(reception_date),1,'Europe/Paris') < toStartOfWeek(now('Europe/Paris'),1,'Europe/Paris')
+    where
+        toStartOfWeek(toDateTime(reception_date), 1, 'Europe/Paris')
+        < toStartOfWeek(now('Europe/Paris'), 1, 'Europe/Paris')
     group by 1
 ),
 
 sortants as (
     select
-        toStartOfWeek(toDateTime(dispatch_date),1,'Europe/Paris')             as semaine,
+        toStartOfWeek(toDateTime(dispatch_date), 1, 'Europe/Paris')
+            as semaine,
         count(
             distinct id
-        )                                    as nombre_declarations_dnd_sortant,
-        sum(if(weight_value > 60, weight_value / 1000,weight_value)) as quantite_dnd_sortant,
-        sum(volume)                              as volume_dnd_sortant
+        )
+            as nombre_declarations_dnd_sortant,
+        sum(if(weight_value > 60, weight_value / 1000, weight_value))
+            as quantite_dnd_sortant,
+        sum(volume)
+            as volume_dnd_sortant
     from {{ ref("registry_outgoing_waste") }}
-    where toStartOfWeek(toDateTime(dispatch_date),1,'Europe/Paris') < toStartOfWeek(now('Europe/Paris'),1,'Europe/Paris')
+    where
+        toStartOfWeek(toDateTime(dispatch_date), 1, 'Europe/Paris')
+        < toStartOfWeek(now('Europe/Paris'), 1, 'Europe/Paris')
     group by 1
 )
 

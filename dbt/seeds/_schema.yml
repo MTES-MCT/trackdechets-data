@@ -8,15 +8,15 @@ seeds:
       - name: libelle_section
         data_type: String
       - name: code_division
-        data_type: Int32
+        data_type: String
       - name: libelle_division
         data_type: String
       - name: code_groupe
-        data_type: Float32
+        data_type: String
       - name: libelle_groupe
         data_type: String
       - name: code_classe
-        data_type: Float32
+        data_type: String
       - name: libelle_classe
         data_type: String
       - name: code_sous_classe
@@ -101,7 +101,16 @@ seeds:
       - name: nom_commune
         data_type: String
       - name: code_postal
-        data_type: String
+        data_type: Int32
       - name: ligne_5
+        data_type: String
+      - name: libellé_d_acheminement
+        data_type: String
+      - name: coordonnees_gps
+        data_type: String
   - name: codes_operations_traitements
-    columns: []
+    columns:
+      - name: code
+        data_type: String
+      - name: description
+        data_type: String

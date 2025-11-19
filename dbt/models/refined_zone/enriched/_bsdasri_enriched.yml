@@ -153,8 +153,10 @@ models:
         data_type: string
       - name: emitter_waste_weight_is_estimate
         data_type: bool
+        description: "Indique si la quantité de déchet à l'émission est estimée ou réelle.\n"
       - name: transporter_waste_weight_is_estimate
         data_type: bool
+        description: "Indique si la quantité de déchet remplie par letransporteur est estimée ou réelle.\n"
       - name: eco_organisme_name
         data_type: string
       - name: eco_organisme_siret

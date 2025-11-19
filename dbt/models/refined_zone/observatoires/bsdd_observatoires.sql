@@ -50,8 +50,10 @@ select
     emitted_at                            as emetteur_date_signature_emission,
     quantity_grouped                      as emetteur_quantite_groupee,
     t.transporters_company_name           as transporteurs_noms_etablissements,
-    t.transporters_company_siret          as transporteurs_sirets_etablissements,
-    t.transporters_company_address        as transporteurs_adresses_etablissements,
+    t.transporters_company_siret
+        as transporteurs_sirets_etablissements,
+    t.transporters_company_address
+        as transporteurs_adresses_etablissements,
     t.taken_over_at                       as transporteur_date_prise_en_charge,
     recipient_company_name                as destinataire_nom_etablissement,
     recipient_company_siret               as destinataire_siret_etablissement,
@@ -61,19 +63,27 @@ select
     recipient_region                      as destinataire_code_region,
     recipient_naf                         as destinataire_code_naf,
     recipient_cap                         as destinataire_cap_etablissement,
-    recipient_is_temp_storage             as destinataire_entreposage_provisoire,
+    recipient_is_temp_storage
+        as destinataire_entreposage_provisoire,
     received_at                           as destinataire_date_reception,
-    signed_at                             as destinataire_date_signature_acceptation,
+    signed_at
+        as destinataire_date_signature_acceptation,
     quantity_received                     as destinataire_quantite_recue,
     quantity_received_type                as destinataire_quantite_recue_type,
-    waste_acceptation_status              as destinataire_dechet_statut_acceptation,
+    waste_acceptation_status
+        as destinataire_dechet_statut_acceptation,
     waste_refusal_reason                  as destinataire_dechet_raison_refus,
     quantity_refused                      as destinataire_quantite_refusee,
-    recipient_processing_operation        as destinataire_operation_traitement_prevue_code,
-    processed_at                          as destinataire_date_operation_traitement,
-    processing_operation_done             as destinataire_operation_traitement_realisee_code,
-    processing_operation_description      as destinataire_operation_traitement_realisee_description,
-    destination_operation_mode            as destinataire_operation_traitement_realisee_mode,
+    recipient_processing_operation
+        as destinataire_operation_traitement_prevue_code,
+    processed_at
+        as destinataire_date_operation_traitement,
+    processing_operation_done
+        as destinataire_operation_traitement_realisee_code,
+    processing_operation_description
+        as destinataire_operation_traitement_realisee_description,
+    destination_operation_mode
+        as destinataire_operation_traitement_realisee_mode,
     waste_details_code                    as dechet_code,
     waste_details_onu_code                as dechet_code_onu,
     waste_details_pop                     as dechet_pop,
@@ -86,22 +96,30 @@ select
     waste_details_parcel_numbers          as dechet_identifiants_parcelles,
     waste_details_land_identifiers        as dechet_identifiants_terrains,
     no_traceability                       as rupture_tracabilite,
-    next_destination_company_vat_number   as destinataire_ulterieur_numero_tva_etablissement,
-    next_destination_company_name         as destinataire_ulterieur_nom_etablissement,
-    next_destination_company_siret        as destinataire_ulterieur_siret_etablissement,
-    next_destination_company_address      as destinataire_ulterieur_adresse_etablissement,
-    next_destination_company_country      as destinataire_ulterieur_pays_etablissement,
-    next_destination_processing_operation as destinataire_ulterieur_operation_prevue_code,
+    next_destination_company_vat_number
+        as destinataire_ulterieur_numero_tva_etablissement,
+    next_destination_company_name
+        as destinataire_ulterieur_nom_etablissement,
+    next_destination_company_siret
+        as destinataire_ulterieur_siret_etablissement,
+    next_destination_company_address
+        as destinataire_ulterieur_adresse_etablissement,
+    next_destination_company_country
+        as destinataire_ulterieur_pays_etablissement,
+    next_destination_processing_operation
+        as destinataire_ulterieur_operation_prevue_code,
     eco_organisme_name                    as eco_organisme_nom,
     eco_organisme_siret,
     trader_company_name                   as negociant_nom_etablissement,
     trader_company_siret                  as negociant_siret_etablissement,
     trader_company_address                as negociant_adresse_etablissement,
-    trader_department                     as negociant_code_departement_etablissement,
+    trader_department
+        as negociant_code_departement_etablissement,
     broker_company_name                   as courtier_nom_etablissement,
     broker_company_siret                  as courtier_siret_etablissement,
     broker_company_address                as courtier_adresse_etablissement,
-    broker_department                     as courtier_code_departement_etablissement
+    broker_department
+        as courtier_code_departement_etablissement
 from
     {{ ref('bsdd_enriched') }} as b
 left join transporters as t on b.id = t.form_id

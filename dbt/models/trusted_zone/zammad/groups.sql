@@ -1,6 +1,6 @@
 SELECT
     id,
-    "name",
+    name,
     name_last,
     created_at,
     created_by_id,

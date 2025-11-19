@@ -8,7 +8,7 @@ models:
         data_type: string
       - name: code_postal
         description: Code postal de la commune
-        data_type: string
+        data_type: int32
       - name: nom_commune
         data_type: string
       - name: ligne_5

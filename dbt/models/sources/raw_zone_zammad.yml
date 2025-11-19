@@ -29,11 +29,11 @@ sources:
           - name: customer_id
             data_type: int64
           - name: close_at
-            data_type: datetime64(8, 'utc')
+            data_type: datetime64(6, 'utc')
           - name: last_contact_at
-            data_type: datetime64(8, 'utc')
+            data_type: datetime64(6, 'utc')
           - name: last_contact_customer_at
-            data_type: datetime64(8, 'utc')
+            data_type: datetime64(6, 'utc')
           - name: create_article_type_id
             data_type: int64
           - name: create_article_sender_id
@@ -47,9 +47,11 @@ sources:
           - name: created_by_id
             data_type: int64
           - name: created_at
-            data_type: datetime64(8, 'utc')
+            data_type: datetime64(6, 'utc')
           - name: updated_at
-            data_type: datetime64(8, 'utc')
+            data_type: datetime64(6, 'utc')
+          - name: last_close_at
+            data_type: datetime64(6, 'utc')
           - name: referencing_checklist_ids
             data_type: String
           - name: article_ids
@@ -62,28 +64,6 @@ sources:
             data_type: String
           - name: _dlt_id
             data_type: String
-          - name: first_response_at
-            data_type: datetime64(8, 'utc')
-          - name: last_contact_agent_at
-            data_type: datetime64(8, 'utc')
-          - name: last_owner_update_at
-            data_type: datetime64(8, 'utc')
-          - name: time_unit
-            data_type: string
-          - name: organization_id
-            data_type: int64
-          - name: first_response_in_min
-            data_type: int64
-          - name: first_response_diff_in_min
-            data_type: int64
-          - name: last_close_at
-            data_type: datetime64(8, 'utc')
-          - name: pending_time
-            data_type: datetime64(8, 'utc')
-          - name: first_response_escalation_at
-            data_type: datetime64(8, 'utc')
-          - name: escalation_at
-            data_type: datetime64(8, 'utc')
       - name: users
         description: >
           Données des utilisateurs Zammad. Un utilisateur peut être aussi bien un utilisateur interne
@@ -180,17 +160,25 @@ sources:
               - unique
               - not_null
             data_type: int64
+          - name: name
+            data_type: string
+          - name: name_last
+            data_type: String
+          - name: follow_up_possible
+            data_type: string
+          - name: active
+            data_type: bool
+          - name: _dlt_load_id
+            data_type: String
+          - name: _dlt_id
+            data_type: String
+          - name: parent_id
+            data_type: Int64
           - name: signature_id
             data_type: int64
           - name: email_address_id
             data_type: int64
-          - name: name
-            data_type: string
-          - name: follow_up_possible
-            data_type: string
           - name: follow_up_assignment
-            data_type: bool
-          - name: active
             data_type: bool
           - name: note
             data_type: string
@@ -204,16 +192,8 @@ sources:
             data_type: datetime64(6, 'utc')
           - name: shared_drafts
             data_type: bool
-          - name: name_last
-            data_type: String
           - name: user_ids
             data_type: String
-          - name: _dlt_load_id
-            data_type: String
-          - name: _dlt_id
-            data_type: String
-          - name: parent_id
-            data_type: Int64
       - name: text_modules
         description: >-
           Données des modules de texte enregistrés dans Zammad.
@@ -244,11 +224,10 @@ sources:
             data_type: String
           - name: note
             data_type: String
-
   - name: raw_zone_zammad_new
     description: Données extraites de Zammad
     tables:
-      - name: tickets      
+      - name: tickets
         description: >
           Données sur les tickets Zammad.
         columns:
@@ -332,7 +311,7 @@ sources:
             data_type: int64
           - name: _dlt_id
             description: identifiant unique DLT
-            data_type: string            
+            data_type: string
       - name: tickets__article_ids
         description: >
           Identifiants des articles associés aux tickets Zammad.
@@ -351,7 +330,7 @@ sources:
             data_type: int64
           - name: _dlt_id
             description: identifiant unique DLT
-            data_type: string            
+            data_type: string
       - name: tickets__articles
         description: >
           Articles associés aux tickets Zammad, incluant métadonnées
@@ -442,4 +421,4 @@ sources:
             data_type: int64
           - name: _dlt_id
             description: identifiant unique DLT
-            data_type: string            
+            data_type: string

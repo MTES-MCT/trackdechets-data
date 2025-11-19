@@ -11,11 +11,11 @@ models:
         data_type: String
       - name: rubrique
         data_type: String
-      - name: cgc.raison_sociale
+      - name: raison_sociale
         data_type: String
       - name: codes_aiot
-        data_type: String
+        data_type: Array(String)
       - name: quantite_autorisee
-        data_type: UInt8
+        data_type: Float64
       - name: objectif_quantite_traitee
-        data_type: UInt8
+        data_type: Int32

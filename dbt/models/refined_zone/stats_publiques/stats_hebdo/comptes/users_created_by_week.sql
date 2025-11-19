@@ -1,10 +1,10 @@
 select
-    toStartOfWeek(created_at,1,'Europe/Paris') as semaine,
-    count(id)                      as creations
+    toStartOfWeek(created_at, 1, 'Europe/Paris') as semaine,
+    count(id)                                    as creations
 from
     {{ ref('user') }}
 where
-    created_at < toStartOfWeek( now(),1,'Europe/Paris')
+    created_at < toStartOfWeek(now(), 1, 'Europe/Paris')
     and is_active
 group by
     1
