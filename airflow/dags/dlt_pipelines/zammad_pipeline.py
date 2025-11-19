@@ -42,8 +42,8 @@ def handle_pagination(
     response: requests.Response,
     params: dict,
     max_per_page: int,
-    response_extractor: callable = lambda x: x
-    ) -> bool:
+    response_extractor: callable = lambda x: x,
+) -> bool:
     """Handles pagination and adjusts for 10k limit. Returns true if there is more pages to fetch and updates params dictionary inplace."""
     current_page = params["page"]
 
@@ -106,7 +106,9 @@ def _set_dlt_updated_at_filter(context, dlt_updated_at) -> str:
         )
         logger.info(f"Force updated at: {updated_at} from context")
     except Exception:
-        updated_at = datetime.fromisoformat(dlt_updated_at.last_value) - timedelta(days=1)
+        updated_at = datetime.fromisoformat(dlt_updated_at.last_value) - timedelta(
+            days=1
+        )
     return updated_at
 
 
@@ -126,6 +128,7 @@ def _set_dlt_end_date_filter(context) -> datetime:
     except Exception:
         end_date = None
     return end_date
+
 
 @dlt.resource(
     write_disposition="merge",
@@ -188,7 +191,9 @@ def tickets(
     }
 
     while True:
-        logger.info(f"Last updated at: {last_updated_at.date()}, End date: {end_date.date()}")
+        logger.info(
+            f"Last updated at: {last_updated_at.date()}, End date: {end_date.date() if end_date else 'None'}"
+        )
         if end_date and last_updated_at.date() > end_date.date():
             logger.info("Reached end date, stopping the pipeline")
             break
@@ -205,7 +210,9 @@ def tickets(
                 "tags": tags(ticket),
                 "articles": articles_by_ticket(ticket),
             }
-            last_updated_at = datetime.fromisoformat(ticket["updated_at"]).replace(tzinfo=timezone.utc)
+            last_updated_at = datetime.fromisoformat(ticket["updated_at"]).replace(
+                tzinfo=timezone.utc
+            )
             yield ticket
 
         if not handle_pagination(
