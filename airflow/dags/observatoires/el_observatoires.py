@@ -32,6 +32,22 @@ configs = {
         "table_name": "refined_zone_observatoires.bsvhu_observatoires",
         "date_expr": "toYear(coalesce(emetteur_date_signature_emission,date_creation))",
     },
+    "dnd_entrant": {
+        "table_name": "refined_zone_observatoires.dnd_entrant_observatoires",
+        "date_expr": "toYear(coalesce(destinataire_date_reception,date_creation))",
+    },
+    "dnd_sortant": {
+        "table_name": "refined_zone_observatoires.dnd_sortant_observatoires",
+        "date_expr": "toYear(coalesce(date_expedition,date_creation))",
+    },
+    "texs_entrant": {
+        "table_name": "refined_zone_observatoires.texs_entrant_observatoires",
+        "date_expr": "toYear(coalesce(destinataire_date_reception,date_creation))",
+    },
+    "texs_sortant": {
+        "table_name": "refined_zone_observatoires.texs_sortant_observatoires",
+        "date_expr": "toYear(coalesce(date_expedition,date_creation))",
+    },
 }
 
 
