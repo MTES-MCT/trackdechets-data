@@ -1,0 +1,192 @@
+version: 2
+models:
+  - name: texs_sortant_observatoires
+    columns:
+    - name: id
+      description: >
+        Identifiant technique de la déclaration
+    - name: date_creation
+      description: >
+        Date de création de la déclaration
+    - name: date_mise_a_jour
+      description: >
+        Date de la dernière modification de la déclaration
+    - name: declaration_annulee
+      description: >
+        Indique si la déclaration a été annulée
+    - name: id_public
+      description: >
+        Identifiant choisi par le déclarant
+    - name: expediteur_siret_etablissement
+      description: >
+        SIRET de l'établissement expéditeur
+    - name: expediteur_nom_etablissement
+      description: >
+        Nom de l'établissement expéditeur
+    - name: expediteur_adresse_etablissement
+      description: >
+        Adresse de l'établissement expéditeur
+    - name: expediteur_ville_etablissement
+      description: >
+        Ville de l'établissement expéditeur
+    - name: expediteur_code_postal_etablissement
+      description: >
+        Code postal de l'établissement expéditeur
+    - name: declarant_siret_etablissement
+      description: >
+        Établissement pour lequel la déclaration est effectuée, soit ici l'expéditeur ou détenteur des terres excavées et sédiments ou des déchets sortants.
+    - name: expediteur_nom_lieu_de_collecte
+      description: >
+        Référence du chantier ou du lieu de collecte de l'expéditeur ou du détenteur
+    - name: expediteur_adresse_lieu_de_collecte
+      description: >
+        Adresse du chantier ou du lieu de collecte de l'expéditeur ou du détenteur
+    - name: expediteur_code_postal_lieu_de_collecte
+      description: >
+        Code postal du chantier ou du lieu de collecte de l'expéditeur ou du détenteur
+    - name: expediteur_ville_lieu_de_collecte
+      description: >
+        Commune du chantier ou du lieu de collecte de l'expéditeur ou du détenteur
+    - name: expediteur_code_pays_lieu_de_collecte
+      description: >
+        Code pays du chantier ou du lieu de collecte de l'expéditeur ou du détenteur
+    - name: dechet_denomination
+      description: >
+        Dénomination du déchet
+    - name: dechet_code
+      description: >
+        Code déchet (https://aida.ineris.fr/reglementation/liste-codification-dechets-annexe-ii-larticle-r-541-8)
+    - name: dechet_code_bale
+      description: >
+        Code déchet Bâle
+    - name: dechet_pop
+      description: >
+        Contient des Polluants Organiques Persistants (POP) vrai / faux
+    - name: dechet_declare_dangereux
+      description: >
+        Indiquer si le déchet avec un code sans * est qualifié de dangereux.
+    - name: expedition_date
+      description: >
+        Date d'expédition des terres excavées et sédiments
+    - name: dechet_quantite
+      description: >
+        Poids en tonnes des terres excavées et sédiments
+    - name: dechet_quantite_type
+      description: >
+        Indiquer ici si le poids des terres excavées et sédiments est estimé ou réel.
+    - name: dechet_volume
+      description: >
+        Volume en M3 des terres excavées et sédiments
+    - name: emetteur_initial_profil_etablissement
+      description: >
+        Type d'acteur correspondant au producteur des terres excavées et sédiments, parmi ETABLISSEMENT_FR, ENTREPRISE_UE, ENTREPRISE_HORS_UE, ASSOCIATION, PERSONNE_PHYSIQUE, COMMUNES
+    - name: emetteur_initial_siret_etablissement
+      description: >
+        Numéro d'identification du producteur, selon son type de profil
+    - name: emetteur_initial_nom_etablissement
+      description: >
+        Raison sociale du producteur des terres excavées et sédiments
+    - name: emetteur_initial_adresse_etablissement
+      description: >
+        Libellé de l'adresse (n° de voie et voie, complément, lieu-dit etc) du producteur des terres excavées et sédiments
+    - name: emetteur_initial_code_postal_etablissement
+      description: >
+        Code postal du producteur des terres excavées et sédiments
+    - name: emetteur_initial_ville_etablissement
+      description: >
+        Commune du producteur des terres excavées et sédiments
+    - name: emetteur_initial_code_pays_etablissement
+      description: >
+        Code pays du producteur des terres excavées et sédiments
+    - name: emetteur_initial_municipalites_codes_insee_etablissement
+      description: >
+        Le ou les codes INSEE de la ou des commune(s) de collecte des terres excavées et sédiments
+    - name: parcelles_codes_insee
+      description: >
+        Le ou les codes INSEE des communes des parcelles cadastrales du site de production, plusieurs numéros peuvent être renseignés
+    - name: parcelles_numeros
+      description: >
+        Le ou les numéros des parcelles cadastrales du site de production, numéro composé d'un préfixe, d'une section et d'un numéro de parcelle
+    - name: parcelles_coordonnees
+      description: >
+        Coordonnées de la ou des parcelles cadastrales du site de production par exemple : 48.894258 2.240027
+    - name: destinataire_profil_etablissement
+      description: >
+        Type d'acteur correspondant au destinataire des terres excavées et sédiments, parmi ETABLISSEMENT_FR, ENTREPRISE_UE, ENTREPRISE_HORS_UE, ASSOCIATION, PERSONNE_PHYSIQUE, COMMUNES
+    - name: destinataire_id_etablissement
+      description: >
+        Numéro d'identification du destinataire, selon son type de profil
+    - name: destinataire_nom_etablissement
+      description: >
+        Raison sociale du destinataire des terres excavées et sédiments
+    - name: destinataire_adresse_etablissement
+      description: >
+        Libellé de l'adresse (n° de voie et voie, complément, lieu-dit etc) du destinataire des terres excavées et sédiments
+    - name: destinataire_ville_etablissement
+      description: >
+        Code postal du destinataire des terres excavées et sédiments
+    - name: destinataire_code_postal_etablissement
+      description: >
+        Commune du destinataire des terres excavées et sédiments
+    - name: destinataire_code_pays_etablissement
+      description: >
+        Code pays du destinataire des terres excavées et sédiments
+    - name: destinataire_adresse_lieu_de_depot
+      description: >
+        Libellé de l'adresse de dépôt (n° de voie et voie, complément, lieu-dit etc) du destinataire des terres excavées et sédiments
+    - name: destinataire_code_postal_lieu_de_depot
+      description: >
+        Code postal de l'adresse de dépôt du destinataire des terres excavées et sédiments
+    - name: destinataire_ville_lieu_de_depot
+      description: >
+        Commune de l'adresse de dépôt du destinataire des terres excavées et sédiments
+    - name: destinataire_code_pays_lieu_de_depot
+      description: >
+        Code pays de l'adresse de dépôt du destinataire des terres excavées et sédiments
+    - name: traitement_realise_code
+      description: >
+        Code de traitement prévu qui va être opéré dans l'installation vers laquelle le déchet est expédié
+    - name: traitement_realise_mode
+      description: |
+        Qualification du traitement correspondant au code de traitement prévu des terres excavées et sédiments parmi les valeurs suivantes :
+        REUTILISATION
+        RECYCLAGE
+        VALORISATION ENERGETIQUE
+        AUTRES VALORISATIONS 
+        ELIMINATION
+    - name: destination_parcelles_codes_insee
+      description: >
+        Le ou les codes INSEE des communes des parcelles cadastrales du site de valorisation, plusieurs numéros peuvent être renseignés
+    - name: destination_parcelles_numeros
+      description: >
+        Le ou les numéros des parcelles cadastrales du site de valorisation, numéro composé d'un préfixe, d'une section et d'un numéro de parcelle
+    - name: destination_parcelles_coordonnees
+      description: >
+        Coordonnées de la ou des parcelles cadastrales du site de valorisation, par exemple : 48.894258 2.240027
+    - name: eco_organisme_siret
+      description: >
+        SIRET de l'éco-organisme
+    - name: eco_organisme_nom
+      description: >
+        Raison sociale de l'éco-organisme
+    - name: courtier_siret_etablissement
+      description: >
+        SIRET du courtier
+    - name: courtier_nom_etablissement
+      description: >
+        Raison sociale du courtier
+    - name: courtier_numero_recepisse
+      description: >
+        Numéro de récépissé du courtier
+    - name: negociant_siret_etablissement
+      description: >
+        SIRET du négociant
+    - name: negociant_nom_etablissement
+      description: >
+        Raison sociale du négociant
+    - name: negociant_numero_recepisse
+      description: >
+        Numéro de récépissé du négociant
+    - name: numeros_identification_transporteurs
+      description: >
+        Numéro d'identification des transporteurs selon leur type
