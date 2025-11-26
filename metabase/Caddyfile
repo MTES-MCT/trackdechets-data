@@ -1,7 +1,11 @@
-metabase.trackdechets.beta.gouv.fr {
-	reverse_proxy :3000
-
-	basic_auth {
-		{$HTTP_USERNAME} {$HTTP_PASSWORD_HASH}
-	}
+{$TAILSCALE_METABASE_DNS} {
+        @tailscale {
+                remote_ip {$TAILSCALE_REMOTE_IP}
+        }
+        handle @tailscale {
+            reverse_proxy :3000
+        }
+        handle {
+                respond "Access denied" 403
+        }
 }

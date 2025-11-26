@@ -19,8 +19,8 @@ docker compose up
 
 [Caddy](https://caddyserver.com/) est utilisé comme reverse proxy sur l'instance de production.
 Caddy est configuré à l'aide du `Caddyfile` présent dans ce dossier.
-
-Une authentification HHTP basique est mise en place est nécessite que les variables d'environnement `HTTP_USERNAME` et `HTTP_PASSWORD_HASH` soient accessibles au lancement de Caddy.
+Caddy pointe vers le DNS du VPN Tailscale pour la connexion à Metabase.
+Les variables d'environnement TAILSCALE_METABASE_DNS et TAILSCALE_REMOTE_IP sont nécessaire pour la configuration.
 
 Pour lancer Caddy, il suffit de lancer cette commande dans le même dossier que le `Caddyfile` :
 
