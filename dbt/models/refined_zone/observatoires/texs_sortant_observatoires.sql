@@ -35,7 +35,7 @@ select
     weight_value as dechet_quantite,
     multiIf(weight_is_estimate, 'estimee', 'reelle') as dechet_quantite_type,
     volume as dechet_volume,
-    initial_emitter_company_type as emetteur_inital_profil_etablissement,
+    initial_emitter_company_type as emetteur_initial_profil_etablissement,
     initial_emitter_company_org_id as emetteur_initial_siret_etablissement,
     initial_emitter_company_name as emetteur_initial_nom_etablissement,
     initial_emitter_company_address as emetteur_initial_adresse_etablissement,

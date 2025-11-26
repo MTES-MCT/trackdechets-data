@@ -31,7 +31,7 @@ select
     parcel_insee_codes as parcelles_codes_insee,
     parcel_numbers as parcelles_numeros,
     parcel_coordinates as parcelles_coordonnees,
-    initial_emitter_company_type as emetteur_inital_profil_etablissement,
+    initial_emitter_company_type as emetteur_initial_profil_etablissement,
     initial_emitter_company_org_id as emetteur_initial_siret_etablissement,
     initial_emitter_company_name as emetteur_initial_nom_etablissement,
     initial_emitter_company_address as emetteur_initial_adresse_etablissement,
