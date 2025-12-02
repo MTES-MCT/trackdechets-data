@@ -28,9 +28,5 @@ dev = [
     "python-dotenv>=1.0.0",
     "ruff>=0.8.0",
     "pre-commit>=3.0.0",
-]
-
-[dependency-groups]
-dev = [
     "pip-audit>=2.10.0",
 ]
