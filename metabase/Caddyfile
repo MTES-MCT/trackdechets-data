@@ -9,3 +9,16 @@
                 respond "Access denied" 403
         }
 }
+
+{$TAILSCALE_METABASE_DNS}:{AIRFLOW_EXPOSED_PORT} {
+	@tailscale {
+		remote_ip {$TAILSCALE_REMOTE_IP}
+	}
+	handle @tailscale {
+		reverse_proxy localhost:{AIRFLOW_INTERNAL_PORT}
+	}
+
+	handle {
+		respond "Access denied" 403
+	}
+}
