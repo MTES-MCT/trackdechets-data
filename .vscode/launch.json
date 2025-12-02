@@ -82,9 +82,32 @@
                 "${input:filepath}",
             ],
             "console": "integratedTerminal",
-        }
+        },
+        {
+            "name": "Python Debugger: clean_obsolete_relations",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/dbt/clean_obsolete_relations.py",
+            "args": [
+                "--environment",
+                "${input:environment}",
+                "--dry-run",
+                "${input:dry_run}",
+            ],
+            "console": "integratedTerminal"
+        },
     ],
     "inputs": [
+        {
+            "id": "environment",
+            "type": "promptString",
+            "description": "Environment to clean obsolete relations from.",
+        },
+        {
+            "id": "dry_run",
+            "type": "promptString",
+            "description": "If true, no deletion will be performed, only the deprecated objects will be listed.",
+        },
         {
             "id": "conUrl",
             "type": "promptString",
