@@ -1,0 +1,40 @@
+---
+alwaysApply: false
+---
+
+# Write Favro Issue
+
+## Issue description template
+
+``markdown
+# Context
+
+Explain why we want to do this, what is the current state and why we need this new feature / fix this bug + make that whange
+
+# What
+Description on the expected outcome.
+
+
+# How
+Detail  description of the task. Include any subtask; requiremnts, constraint and step by step breakdown if necessary.
+
+# DoD (Definiton of Done)
+- [ ] The changes are made, requirements are met and QA has been done
+- [ ] Quality checkes are performed
+- [ ] Comprehensive documentation ave been writen
+````
+
+
+## Title format
+- Format: `[scope]` Description in imperative form (e.g "Add", "Update", "Fix")
+- Description should start with a capital letter
+
+
+## Notes
+### For creating issue
+- Fill in each section: Why, What, Gow, DoD
+if you miss some information, ask me then create issue.
+- Write the issue in french
+- Render results in chat as RichText (not markdown), do not write in a file or create a new file.
+-> It must be to copy/paste the result
+
