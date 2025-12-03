@@ -9,6 +9,20 @@
     )
 }}
 
+with bsvhu_enriched as (select * from {{ ref('bsvhu_enriched') }}),
+    
+    transporters as (
+        select
+            bsvhu_id,
+            first_value(transporter_company_name) OVER (PARTITION BY bsvhu_id ORDER BY transporter_transport_taken_over_at ASC) AS first_transporter_company_name,
+            first_value(transporter_company_siret) OVER (PARTITION BY bsvhu_id ORDER BY transporter_transport_taken_over_at ASC) AS first_transporter_company_siret,
+            first_value(transporter_company_address) OVER (PARTITION BY bsvhu_id ORDER BY transporter_transport_taken_over_at ASC) AS first_transporter_company_address,
+            first_value(transporter_transport_signature_date) OVER (PARTITION BY bsvhu_id ORDER BY transporter_transport_taken_over_at ASC) AS first_transporter_transport_signature_date,
+            first_value(transporter_transport_taken_over_at) OVER (PARTITION BY bsvhu_id ORDER BY transporter_transport_taken_over_at ASC) AS first_transporter_transport_taken_over_at
+        from
+            {{ ref('bsvhu_transporter') }}
+    )
+
 select
     id,
     created_at                                                as date_creation,
@@ -22,11 +36,11 @@ select
     emitter_region                                            as emetteur_code_region,
     emitter_naf                                               as emetteur_code_naf,
     emitter_emission_signature_date                           as emetteur_date_signature_emission,
-    transporter_company_name                                  as transporteur_nom_etablissement,
-    transporter_company_siret                                 as transporteur_siret_etablissement,
-    transporter_company_address                               as transporteur_adresse_etablissement,
-    transporter_transport_signature_date                      as transporteur_date_signature,
-    transporter_transport_taken_over_at                       as transporteur_date_prise_en_charge,
+    transporters.first_transporter_company_name               as transporteur_nom_etablissement,
+    transporters.first_transporter_company_siret              as transporteur_siret_etablissement,
+    transporters.first_transporter_company_address            as transporteur_adresse_etablissement,
+    transporters.first_transporter_transport_signature_date   as transporteur_date_signature,
+    transporters.first_transporter_transport_taken_over_at    as transporteur_date_prise_en_charge,
     destination_type                                          as destinataire_type,
     destination_company_name                                  as destinataire_nom_etablissement,
     destination_company_siret                                 as destinataire_siret_etablissement,
@@ -55,3 +69,4 @@ select
     weight_is_estimate                                        as dechet_type_quantite,
     packaging                                                 as contenants
 from {{ ref('bsvhu_enriched') }}
+join transporters on bsvhu_enriched.id = transporters.bsvhu_id
