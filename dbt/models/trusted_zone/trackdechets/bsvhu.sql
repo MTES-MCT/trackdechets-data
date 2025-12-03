@@ -117,47 +117,7 @@ select
         toTimezone(
             toDateTime64("emitterEmissionSignatureDate", 6), 'Europe/Paris'
         )
-    )      as emitter_emission_signature_date,
-    toNullable(
-        toString("transporterCompanyName")
-    )      as transporter_company_name,
-    toNullable(
-        toString("transporterCompanySiret")
-    )      as transporter_company_siret,
-    toNullable(
-        toString("transporterCompanyAddress")
-    )      as transporter_company_address,
-    toNullable(
-        toString("transporterCompanyContact")
-    )      as transporter_company_contact,
-    toNullable(
-        toString("transporterCompanyPhone")
-    )      as transporter_company_phone,
-    toNullable(
-        toString("transporterCompanyMail")
-    )      as transporter_company_mail,
-    toNullable(
-        toString("transporterRecepisseNumber")
-    )      as transporter_recepisse_number,
-    toLowCardinality(
-        toNullable(toString("transporterRecepisseDepartment"))
-    )      as transporter_recepisse_department,
-    toNullable(
-        toTimezone(
-            toDateTime64("transporterRecepisseValidityLimit", 6), 'Europe/Paris'
-        )
-    )      as transporter_recepisse_validity_limit,
-    toNullable(
-        toString("transporterCompanyVatNumber")
-    )      as transporter_company_vat_number,
-    toNullable(
-        toString("transporterTransportSignatureAuthor")
-    )      as transporter_transport_signature_author,
-    toNullable(
-        toTimezone(
-            toDateTime64("transporterTransportSignatureDate", 6), 'Europe/Paris'
-        )
-    )      as transporter_transport_signature_date,
+    )      as emitter_emission_signature_date,    
     toLowCardinality(
         toNullable(toString("destinationReceptionAcceptationStatus"))
     )      as destination_reception_acceptation_status,
@@ -208,12 +168,7 @@ select
         toTimezone(
             toDateTime64("destinationOperationSignatureDate", 6), 'Europe/Paris'
         )
-    )      as destination_operation_signature_date,
-    toNullable(
-        toTimezone(
-            toDateTime64("transporterTransportTakenOverAt", 6), 'Europe/Paris'
-        )
-    )      as transporter_transport_taken_over_at,
+    )      as destination_operation_signature_date,    
     toNullable(
         toTimezone(toDateTime64("destinationOperationDate", 6), 'Europe/Paris')
     )      as destination_operation_date,
@@ -236,26 +191,7 @@ select
     )      as emitter_custom_info,
     toNullable(
         toString("destinationCustomInfo")
-    )      as destination_custom_info,
-    toNullable(
-        toString("transporterCustomInfo")
-    )      as transporter_custom_info,
-    assumeNotNull(
-        splitByChar(
-            ',',
-            cOALESCE(
-                substring(
-                    toString("transporterTransportPlates"),
-                    2,
-                    length("transporterTransportPlates") - 2
-                ),
-                ''
-            )
-        )
-    )      as transporter_transport_plates,
-    toNullable(
-        toBool("transporterRecepisseIsExempted")
-    )      as transporter_recepisse_is_exempted,
+    )      as destination_custom_info,    
     toLowCardinality(
         toNullable(toString("destinationOperationMode"))
     )      as destination_operation_mode,
