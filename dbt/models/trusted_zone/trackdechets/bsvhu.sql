@@ -12,6 +12,20 @@ with source as (
             b."updatedAt"
             >= (select toString(toStartOfDay(max(updated_at))) from {{ this }})
     {% endif %}
+),
+
+first_transporter as (
+    select 
+        "bsvhuId" as bsvhu_id,
+        min(
+            toNullable(
+                toTimezone(
+                    toDateTime64("transporterTransportTakenOverAt", 6), 'Europe/Paris'
+                )
+            )
+        ) as transporter_transport_taken_over_at
+    from {{ source('trackdechets_production', 'bsvhu_transporter') }} as bsvhu
+    group by "bsvhuId"
 )
 
 select
@@ -321,5 +335,8 @@ select
     )      as transporters_org_ids,
     toNullable(
         toString("customId")
-    )      as custom_id
+    )      as custom_id,
+
+    first_transporter.transporter_transport_taken_over_at as first_transporter_transport_taken_over_at
 from source
+join first_transporter on source.id = first_transporter.bsvhu_id

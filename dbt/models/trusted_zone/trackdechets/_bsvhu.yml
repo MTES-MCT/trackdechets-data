@@ -171,3 +171,6 @@ models:
         data_type: Array(String)
       - name: custom_id
         data_type: String
+      - name: first_transporter_transport_taken_over_at
+        data_type: DateTime64(6, 'Europe/Paris')
+        description: "Date à laquelle le premier transporteur a pris le contrôle du BSVHU."
