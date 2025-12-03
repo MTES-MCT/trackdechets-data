@@ -1,6 +1,10 @@
 {{
   config(
     materialized = 'table',
+    query_settings = {
+        "join_algorithm":"'grace_hash'",
+        "grace_hash_join_initial_buckets":32
+    }
     )
 }}
 with destinataires as (
@@ -49,7 +53,7 @@ with destinataires as (
     from
         {{ ref('bordereaux_enriched') }} as be
     where
-        be.destination_region = 11
+        be.destination_region = '11'
         and be.processed_at >= '2023-01-01'
     group by
         be.destination_company_siret
@@ -102,7 +106,7 @@ emetteurs as (
         {{ ref('bordereaux_enriched') }} as be
     where
         be.taken_over_at >= '2023-01-01'
-        and be.emitter_region = 11
+        and be.emitter_region = '11'
     group by
         siret
 ),
@@ -170,10 +174,10 @@ select
     max(
         ir.code_aiot
     ) is not null as inscrit_gun,
-    array_to_string(
+    arrayStringConcat(
         array_agg(distinct ir.code_aiot), ', '
     )             as codes_installations,
-    array_to_string(
+    arrayStringConcat(
         array_agg(distinct ir.rubrique), ', '
     )             as codes_rubriques,
     max(

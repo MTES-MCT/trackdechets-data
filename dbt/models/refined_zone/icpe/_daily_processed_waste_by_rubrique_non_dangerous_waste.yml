@@ -3,14 +3,10 @@ models:
   - name: daily_processed_waste_by_rubrique_non_dangerous_waste
     columns:
       - name: siret
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: date_reception
-        description: ''
-        data_type: date
+        data_type: datetime64(6, 'europe/paris')
       - name: rubrique
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: quantite
-        description: ''
-        data_type: numeric
+        data_type: float64

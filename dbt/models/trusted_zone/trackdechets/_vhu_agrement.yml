@@ -3,16 +3,11 @@ models:
   - name: vhu_agrement
     columns:
       - name: id
-        description: "Clé primaire"
-        data_type: text
+        tests:
+          - unique
+        description: Clé primaire
+        data_type: string
       - name: agrement_number
-        description: ""
-        tests:
-          - elementary.column_anomalies
-        data_type: text
+        data_type: string
       - name: department
-        description: ""
-        tests:
-          - elementary.column_anomalies
-        data_type: text
-sources: []
+        data_type: string

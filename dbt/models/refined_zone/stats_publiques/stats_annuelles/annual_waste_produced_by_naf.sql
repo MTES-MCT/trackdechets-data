@@ -22,7 +22,7 @@ with ttr_list as (
 grouped_data as (
     select
         toYear(be.taken_over_at)        as annee,
-        be.emitter_naf as naf,
+        toNullable(be.emitter_naf) as naf,
         sum(if(be.quantity_received > 60,be.quantity_received / 1000,be.quantity_received))              as quantite_traitee
     from
         {{ ref('bordereaux_enriched') }} as be
@@ -44,7 +44,7 @@ grouped_data as (
 bsff_data as (
     select
         toYear(beff.transporter_transport_signature_date)   as annee,
-        beff.emitter_naf as naf,
+        toNullable(beff.emitter_naf) as naf,
         sum(if(acceptation_weight > 60,acceptation_weight / 1000,acceptation_weight))                as quantite_traitee
     from
         {{ ref('bsff_packaging') }} as bp
@@ -73,20 +73,20 @@ merged_data as (
 )
 
 select
-    naf.code_section,
-    naf.libelle_section,
-    naf.code_division,
-    naf.libelle_division,
-    naf.code_groupe,
-    naf.libelle_groupe,
-    naf.code_classe,
-    naf.libelle_classe,
-    naf.code_sous_classe,
-    naf.libelle_sous_classe,
+    toNullable(naf.code_section) as code_section,
+    toNullable(naf.libelle_section) as libelle_section,
+    toNullable(naf.code_division) as code_division,
+    toNullable(naf.libelle_division) as libelle_division,
+    toNullable(naf.code_groupe) as code_groupe,
+    toNullable(naf.libelle_groupe) as libelle_groupe,
+    toNullable(naf.code_classe) as code_classe,
+    toNullable(naf.libelle_classe) as libelle_classe,
+    toNullable(naf.code_sous_classe) as code_sous_classe,
+    toNullable(naf.libelle_sous_classe) as libelle_sous_classe,
     annee,
     quantite_produite
 from merged_data
 left join {{ ref('nomenclature_activites_francaises') }} as naf
     on merged_data.naf = naf.code_sous_classe
-where not ((naf.code_sous_classe is null) and (merged_data.naf is not null))
+where not empty(naf.libelle_sous_classe)
 order by annee desc, code_sous_classe asc

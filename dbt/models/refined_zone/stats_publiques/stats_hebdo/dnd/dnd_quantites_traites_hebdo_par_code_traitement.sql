@@ -5,30 +5,30 @@
 }}
 
 select
-    date_trunc(
-        'week',
-        date_reception
+    toStartOfWeek(
+        reception_date,1
     )                                  as semaine,
-    code_traitement                    as code_operation,
-    case
-        when code_traitement like 'R%' then 'Déchet valorisé'
-        when code_traitement like 'D%' then 'Déchet éliminé'
-        else 'Autre'
-    end                                as type_operation,
+    operation_code                    as code_operation,
+    multiIf(
+            operation_code like 'R%','Déchet valorisé',
+            operation_code like 'D%','Déchet éliminé',
+            'Autre'
+    )                     as type_operation,
     sum(
-        case
-            when quantite > 60
-                then quantite / 1000
-            else quantite
-        end
-    ) filter (where code_unite = 'T')  as quantite_traitee,
+        if(
+            weight_value > 60,
+            weight_value / 1000,
+            weight_value
+        )
+        
+    ) as quantite_traitee,
     sum(
-        case
-            when quantite > 60
-                then quantite / 1000
-            else quantite
-        end
-    ) filter (where code_unite = 'M3') as volume_traite
-from {{ ref('dnd_entrant') }}
+        if(
+             volume > 60,
+            volume / 1000,
+            volume
+        )
+    ) as volume_traite
+from {{ ref('registry_incoming_waste') }}
 group by 1, 2
 order by 1 desc

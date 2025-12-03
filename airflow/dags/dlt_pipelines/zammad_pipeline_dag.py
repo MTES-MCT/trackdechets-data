@@ -1,13 +1,12 @@
 from datetime import timedelta
 import os
 from airflow.decorators import dag
-from airflow.models import Variable
-
+from airflow.models import Connection, Param
 import dlt
 from dlt.common import pendulum
 from dlt.helpers.airflow_helper import PipelineTasksGroup
 
-from utils.alerting import send_alert_to_mattermost
+from dags_utils.alerting import send_alert_to_mattermost
 
 
 # modify the default task arguments - all the tasks created for dlt pipeline will inherit it
@@ -38,6 +37,20 @@ default_task_args = {
     max_active_runs=1,
     default_args=default_task_args,
     on_failure_callback=send_alert_to_mattermost,
+    params={
+        "start_date": Param(
+            type=["null", "string"],
+            format="date",
+            default=None,
+            description="The date from which to start loading data from the Zammad API. Format: YYYY-MM-DD",
+        ),
+        "end_date": Param(
+            type=["null", "string"],
+            format="date",
+            default=None,
+            description="The date to which to end loading data from the Zammad API. Format: YYYY-MM-DD",
+        ),
+    },
 )
 def load_zammad_data():
     # set `use_data_folder` to True to store temporary data on the `data` bucket. Use only when it does not fit on the local storage
@@ -50,18 +63,20 @@ def load_zammad_data():
 
     # secrets
     # what you can do is reassign env variables:
-    os.environ["DESTINATION__CLICKHOUSE__CREDENTIALS__DATABASE"] = "raw_zone_zammad"
-    os.environ["DESTINATION__CLICKHOUSE__CREDENTIALS__PASSWORD"] = Variable.get(
-        "DWH_PASSWORD"
+    DWH_CON = Connection.get_connection_from_secrets("td_datawarehouse").to_dict()
+
+    os.environ["DESTINATION__CLICKHOUSE__CREDENTIALS__DATABASE"] = (
+        "raw_zone_zammad_new"  # TODO: change to raw_zone_zammad when migration is done
     )
-    os.environ["DESTINATION__CLICKHOUSE__CREDENTIALS__USERNAME"] = Variable.get(
-        "DWH_USERNAME"
+    os.environ["DESTINATION__CLICKHOUSE__CREDENTIALS__HOST"] = DWH_CON.get("host")
+    os.environ["DESTINATION__CLICKHOUSE__CREDENTIALS__PASSWORD"] = DWH_CON.get(
+        "password"
     )
-    os.environ["DESTINATION__CLICKHOUSE__CREDENTIALS__PORT"] = Variable.get("DWH_PORT")
-    os.environ["DESTINATION__CLICKHOUSE__CREDENTIALS__HTTP_PORT"] = Variable.get(
-        "DWH_HTTP_PORT"
+    os.environ["DESTINATION__CLICKHOUSE__CREDENTIALS__USERNAME"] = DWH_CON.get("login")
+    os.environ["DESTINATION__CLICKHOUSE__CREDENTIALS__PORT"] = str(DWH_CON.get("port"))
+    os.environ["DESTINATION__CLICKHOUSE__CREDENTIALS__HTTP_PORT"] = str(
+        DWH_CON.get("extra").get("http_port")
     )
-    os.environ["DESTINATION__CLICKHOUSE__CREDENTIALS__HOST"] = Variable.get("DWH_HOST")
     os.environ["DESTINATION__CLICKHOUSE__CREDENTIALS__SECURE"] = "0"
 
     # modify the pipeline parameters
@@ -81,4 +96,8 @@ def load_zammad_data():
     )
 
 
-load_zammad_data()
+dlt_zammad_dag = load_zammad_data()
+
+
+if __name__ == "__main__":
+    dlt_zammad_dag.test()

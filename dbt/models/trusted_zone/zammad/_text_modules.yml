@@ -1,0 +1,28 @@
+version: 2
+models:
+  - name: text_modules
+    columns:
+      - name: id
+        data_type: Int64
+      - name: created_at
+        data_type: DateTime64(6, 'UTC')
+      - name: created_by_id
+        data_type: Int64
+      - name: updated_at
+        data_type: DateTime64(6, 'UTC')
+      - name: updated_by_id
+        data_type: Int64
+      - name: name
+        data_type: String
+      - name: content_html
+        data_type: String
+      - name: content_text
+        data_type: String
+      - name: note
+        data_type: String
+      - name: keywords
+        data_type: String
+      - name: active
+        data_type: Bool
+      - name: group_ids
+        data_type: String

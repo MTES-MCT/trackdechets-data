@@ -1,0 +1,16 @@
+version: 2
+models:
+  - name: registres
+    columns:
+      - name: id
+        data_type: int64
+      - name: org_id
+        data_type: string
+      - name: data_start_date
+        data_type: datetime64(6)
+      - name: data_end_date
+        data_type: datetime64(6)
+      - name: created
+        data_type: datetime64(6)
+      - name: created_by
+        data_type: string

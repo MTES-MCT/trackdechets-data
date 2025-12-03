@@ -3,51 +3,33 @@ models:
   - name: groups
     columns:
       - name: id
-        description: 'identifiant unique du groupe'
-        data_type: bigint
+        description: identifiant unique du groupe
+        data_type: int64
       - name: name
-        description: ''
-        data_type: text
+        data_type: string
+      - name: name_last
+        data_type: String
       - name: created_at
-        description: ''
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'utc')
       - name: created_by_id
-        description: ''
-        data_type: bigint
+        data_type: int64
       - name: updated_at
-        description: ''
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'utc')
       - name: updated_by_id
-        description: ''
-        data_type: bigint
+        data_type: int64
       - name: active
-        description: ''
-        data_type: boolean
-      - name: assignment_timeout
-        description: ''
-        data_type: bigint
+        data_type: bool
       - name: email_address_id
-        description: ''
-        data_type: bigint
+        data_type: int64
       - name: follow_up_assignment
-        description: ''
-        data_type: boolean
+        data_type: bool
       - name: follow_up_possible
-        description: ''
-        data_type: text
+        data_type: string
       - name: note
-        description: ''
-        data_type: text
-      - name: reopen_time_in_days
-        description: ''
-        data_type: bigint
+        data_type: string
       - name: shared_drafts
-        description: ''
-        data_type: boolean
+        data_type: bool
       - name: signature_id
-        description: ''
-        data_type: bigint
+        data_type: int64
       - name: user_ids
-        description: ''
-        data_type: ARRAY
-sources: []
+        data_type: String

@@ -1,295 +1,206 @@
 version: 2
 models:
   - name: bsda
-    config:
-      elementary:
-        timestamp_column: created_at
-        seasonality: day_of_week
-    tests:
-      - elementary.volume_anomalies
-      - elementary.dimension_anomalies:
-          dimensions:
-            - status
-            - waste_code
-            - is_deleted
-          timestamp_column: updated_at
     columns:
       - name: id
-        data_type: text
-
+        tests:
+          - unique
+        data_type: string
         description: Clé primaire
       - name: created_at
-        data_type: timestamp without time zone
-
+        data_type: datetime64(6, 'europe/paris')
       - name: updated_at
-        data_type: timestamp without time zone
-
+        data_type: datetime64(6, 'europe/paris')
       - name: is_draft
-        data_type: boolean
-
+        data_type: bool
       - name: is_deleted
-        data_type: boolean
-
+        data_type: bool
       - name: status
-        data_type: text
-
+        data_type: string
       - name: type
-        data_type: text
-
+        data_type: string
       - name: emitter_is_private_individual
-        description: ""
-
-        data_type: boolean
+        data_type: bool
       - name: emitter_company_name
-        data_type: text
-
+        data_type: string
       - name: emitter_company_siret
-        data_type: text
-
+        data_type: string
       - name: emitter_company_address
-        data_type: text
-
+        data_type: string
       - name: emitter_company_contact
-        data_type: text
-
+        data_type: string
       - name: emitter_company_phone
-        data_type: text
-
+        data_type: string
       - name: emitter_company_mail
-        data_type: text
-
+        data_type: string
       - name: emitter_pickup_site_name
-        data_type: text
-
+        data_type: string
       - name: emitter_pickup_site_address
-        data_type: text
-
+        data_type: string
       - name: emitter_pickup_site_city
-        data_type: text
-
+        data_type: string
       - name: emitter_pickup_site_postal_code
-        data_type: text
-
+        data_type: string
       - name: emitter_pickup_site_infos
-        data_type: text
-
+        data_type: string
       - name: emitter_emission_signature_author
-        data_type: text
-
+        data_type: string
       - name: emitter_emission_signature_date
-        data_type: timestamp with time zone
-
+        data_type: datetime64(6, 'europe/paris')
       - name: waste_code
-        data_type: text
-
+        data_type: string
       - name: waste_family_code
-        data_type: text
-
+        data_type: string
       - name: waste_material_name
-        data_type: text
-
+        data_type: string
       - name: waste_consistence
-        data_type: text
-
+        data_type: string
       - name: waste_seal_numbers
-        data_type: ARRAY
-
+        data_type: Array(String)
       - name: waste_adr
-        data_type: text
-
+        data_type: string
       - name: packagings
-        data_type: ARRAY
-
+        data_type: String
       - name: weight_value
-        data_type: numeric
-
-      - name: destination_company_name
-        data_type: text
-
-      - name: destination_company_siret
-        data_type: text
-
-      - name: destination_company_address
-        data_type: text
-
-      - name: destination_company_contact
-        data_type: text
-
-      - name: destination_company_phone
-        data_type: text
-
-      - name: destination_company_mail
-        data_type: text
-
-      - name: destination_cap
-        data_type: text
-
-      - name: destination_planned_operation_code
-        data_type: text
-
-      - name: destination_reception_date
-        data_type: timestamp without time zone
-
-      - name: destination_reception_weight
-        data_type: numeric
+        data_type: decimal(76, 30)
+        description: "Quantité en tonnes pesée à l'émission.\n"
         tests:
-          - elementary.column_anomalies:
-              timestamp_column: updated_at
-
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
+      - name: destination_company_name
+        data_type: string
+      - name: destination_company_siret
+        data_type: string
+      - name: destination_company_address
+        data_type: string
+      - name: destination_company_contact
+        data_type: string
+      - name: destination_company_phone
+        data_type: string
+      - name: destination_company_mail
+        data_type: string
+      - name: destination_cap
+        data_type: string
+      - name: destination_planned_operation_code
+        data_type: string
+      - name: destination_reception_date
+        data_type: datetime64(6, 'europe/paris')
+      - name: destination_reception_weight
+        data_type: decimal(76, 30)
       - name: destination_reception_acceptation_status
-        data_type: text
-
+        data_type: string
       - name: destination_reception_refusal_reason
-        data_type: text
-
+        data_type: string
+      - name: destination_reception_refused_weight
+        data_type: string        
+        data_type: decimal(76, 30)
+        description: "Quantité en tonnes refusée à l'acceptation.\n"
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+              inclusive: true
       - name: destination_operation_code
-        data_type: text
-
+        data_type: string
       - name: destination_operation_date
-        data_type: timestamp without time zone
-
+        data_type: datetime64(6, 'europe/paris')
       - name: destination_operation_signature_author
-        data_type: text
-
+        data_type: string
       - name: destination_operation_signature_date
-        data_type: timestamp without time zone
-
+        data_type: datetime64(6, 'europe/paris')
       - name: transporter_transport_signature_date
-        data_type: timestamp with time zone
-
+        data_type: datetime64(6, 'europe/paris')
       - name: worker_company_name
-        data_type: text
-
+        data_type: string
       - name: worker_company_siret
-        data_type: text
-
+        data_type: string
       - name: worker_company_address
-        data_type: text
-
+        data_type: string
       - name: worker_company_contact
-        data_type: text
-
+        data_type: string
       - name: worker_company_phone
-        data_type: text
-
+        data_type: string
       - name: worker_company_mail
-        data_type: text
-
+        data_type: string
       - name: worker_work_has_emitter_paper_signature
-        data_type: boolean
-
+        data_type: bool
       - name: worker_work_signature_author
-        data_type: text
-
+        data_type: string
       - name: worker_work_signature_date
-        data_type: timestamp without time zone
-
+        data_type: datetime64(6, 'europe/paris')
       - name: broker_company_name
-        data_type: text
-
+        data_type: string
       - name: broker_company_siret
-        data_type: text
-
+        data_type: string
       - name: broker_company_address
-        data_type: text
-
+        data_type: string
       - name: broker_company_contact
-        data_type: text
-
+        data_type: string
       - name: broker_company_phone
-        data_type: text
-
+        data_type: string
       - name: broker_company_mail
-        data_type: text
-
+        data_type: string
       - name: broker_recepisse_number
-        data_type: text
-
+        data_type: string
       - name: broker_recepisse_department
-        data_type: text
-
+        data_type: string
       - name: broker_recepisse_validity_limit
-        data_type: timestamp with time zone
-
+        data_type: datetime64(6, 'europe/paris')
       - name: destination_operation_next_destination_company_name
-        data_type: text
-
+        data_type: string
       - name: destination_operation_next_destination_company_siret
-        data_type: text
-
+        data_type: string
       - name: destination_operation_next_destination_company_vat_number
-        data_type: text
-
+        data_type: string
       - name: destination_operation_next_destination_company_address
-        data_type: text
-
+        data_type: string
       - name: destination_operation_next_destination_company_contact
-        data_type: text
-
+        data_type: string
       - name: destination_operation_next_destination_company_phone
-        data_type: text
-
+        data_type: string
       - name: destination_operation_next_destination_company_mail
-        data_type: text
-
+        data_type: string
       - name: destination_operation_next_destination_cap
-        data_type: text
-
+        data_type: string
       - name: destination_operation_next_destination_planned_operation_code
-        data_type: text
-
+        data_type: string
       - name: weight_is_estimate
-        data_type: boolean
-
+        data_type: bool
       - name: emitter_custom_info
-        data_type: text
-
+        data_type: string
       - name: destination_custom_info
-        data_type: text
-
+        data_type: string
       - name: eco_organisme_name
-        data_type: text
-
+        data_type: string
       - name: eco_organisme_siret
-        data_type: text
-
+        data_type: string
       - name: forwarding_id
-        data_type: text
-
+        data_type: string
       - name: grouped_in_id
-        data_type: text
-
+        data_type: string
       - name: waste_pop
-        data_type: boolean
-
+        data_type: bool
       - name: destination_operation_description
-        data_type: text
-
+        data_type: string
       - name: worker_is_disabled
-        data_type: boolean
-
+        data_type: bool
       - name: worker_certification_has_sub_section_four
-        description: ''
-        data_type: boolean
+        data_type: bool
       - name: worker_certification_has_sub_section_three
-        description: ''
-        data_type: boolean
+        data_type: bool
       - name: worker_certification_certification_number
-        data_type: text
-
+        data_type: string
       - name: worker_certification_validity_limit
-        description: ''
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: worker_certification_organisation
-        data_type: text
-
+        data_type: string
       - name: intermediaries_org_ids
-        description: ''
-        data_type: ARRAY
+        data_type: Array(String)
       - name: destination_operation_mode
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporters_org_ids
-        description: ''
-        data_type: ARRAY
-sources: []
+        data_type: Array(String)
+      - name: row_number
+        data_type: Int256
+      - name: can_access_draft_org_ids
+        data_type: Array(String)

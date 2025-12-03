@@ -1,0 +1,145 @@
+version: 2
+models:
+  - name: cartographie_etablissements_geocoded
+    columns:
+      - name: siret
+        description: Code région
+        data_type: String
+      - name: nom_etablissement
+        data_type: String
+      - name: date_inscription
+        data_type: DateTime64(6, 'Europe/Paris')
+      - name: profils
+        data_type: Array(String)
+      - name: profils_collecteur
+        data_type: Array(String)
+      - name: profils_installation
+        data_type: Array(String)
+      - name: profils_installation_vhu
+        data_type: Array(String)
+      - name: worker_company_has_sub_section_four
+        data_type: Bool
+      - name: worker_company_has_sub_section_three
+        data_type: Bool
+      - name: bsdd
+        data_type: UInt8
+      - name: bsdd_emitter
+        data_type: UInt8
+      - name: bsdd_transporter
+        data_type: UInt8
+      - name: bsdd_destination
+        data_type: UInt8
+      - name: bsdnd
+        data_type: UInt8
+      - name: bsdnd_emitter
+        data_type: UInt8
+      - name: bsdnd_transporter
+        data_type: UInt8
+      - name: bsdnd_destination
+        data_type: UInt8
+      - name: bsda
+        data_type: UInt8
+      - name: bsda_emitter
+        data_type: UInt8
+      - name: bsda_worker
+        data_type: UInt8
+      - name: bsda_transporter
+        data_type: UInt8
+      - name: bsda_destination
+        data_type: UInt8
+      - name: bsff
+        data_type: UInt8
+      - name: bsff_emitter
+        data_type: UInt8
+      - name: bsff_transporter
+        data_type: UInt8
+      - name: bsff_destination
+        data_type: UInt8
+      - name: bsdasri
+        data_type: UInt8
+      - name: bsdasri_emitter
+        data_type: UInt8
+      - name: bsdasri_transporter
+        data_type: UInt8
+      - name: bsdasri_destination
+        data_type: UInt8
+      - name: bsvhu
+        data_type: UInt8
+      - name: bsvhu_emitter
+        data_type: UInt8
+      - name: bsvhu_transporter
+        data_type: UInt8
+      - name: bsvhu_destination
+        data_type: UInt8
+      - name: texs_dd
+        data_type: UInt8
+      - name: texs_dd_emitter
+        data_type: UInt8
+      - name: texs_dd_transporter
+        data_type: UInt8
+      - name: texs_dd_destination
+        data_type: UInt8
+      - name: dnd
+        data_type: UInt8
+      - name: dnd_emitter
+        data_type: UInt8
+      - name: dnd_destination
+        data_type: UInt8
+      - name: texs
+        data_type: UInt8
+      - name: texs_destination
+        data_type: UInt8
+      - name: texs_emitter
+        data_type: UInt8
+      - name: ssd
+        data_type: UInt8
+      - name: pnttd
+        data_type: UInt8
+      - name: processing_operations_bsdd
+        data_type: Array(String)
+      - name: processing_operations_bsdnd
+        data_type: Array(String)
+      - name: processing_operations_bsda
+        data_type: Array(String)
+      - name: processing_operations_bsff
+        data_type: Array(String)
+      - name: processing_operations_bsdasri
+        data_type: Array(String)
+      - name: processing_operations_bsvhu
+        data_type: Array(String)
+      - name: processing_operations_dnd
+        data_type: Array(String)
+      - name: processing_operations_texs
+        data_type: Array(String)
+      - name: waste_codes_bordereaux
+        data_type: Array(String)
+      - name: waste_codes_dnd_statements
+        data_type: Array(String)
+      - name: waste_codes_texs_statements
+        data_type: Array(String)
+      - name: waste_codes_processed
+        data_type: Array(String)
+      - name: code_commune_insee
+        description: >-
+          Code commune correspondant à celui dans la base géographique des communes de l'INSEE.
+        data_type: String
+      - name: code_departement_insee
+        data_type: String
+      - name: code_region_insee
+        data_type: String
+      - name: adresse_td
+        data_type: String
+      - name: adresse_insee
+        data_type: String
+      - name: latitude_td
+        data_type: Float64
+      - name: longitude_td
+        data_type: Float64
+      - name: latitude_ban
+        data_type: Float64
+      - name: longitude_ban
+        data_type: Float64
+      - name: coords
+        data_type: String
+      - name: coords_h3_index
+        data_type: UInt64

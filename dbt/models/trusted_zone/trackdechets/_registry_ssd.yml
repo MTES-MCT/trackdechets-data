@@ -1,0 +1,78 @@
+version: 2
+models:
+  - name: registry_ssd
+    columns:
+      - name: id
+        data_type: String
+      - name: created_at
+        data_type: DateTime64(6, 'Europe/Paris')
+      - name: updated_at
+        data_type: DateTime64(6, 'Europe/Paris')
+      - name: import_id
+        data_type: String
+      - name: is_latest
+        data_type: Bool
+      - name: is_cancelled
+        data_type: Bool
+      - name: created_by_id
+        data_type: String
+      - name: public_id
+        data_type: String
+      - name: report_for_company_siret
+        data_type: String
+      - name: report_for_company_name
+        data_type: String
+      - name: report_for_company_address
+        data_type: String
+      - name: report_for_company_city
+        data_type: String
+      - name: report_for_company_postal_code
+        data_type: String
+      - name: report_as_company_siret
+        data_type: String
+      - name: weight_value
+        data_type: Float64
+      - name: weight_is_estimate
+        data_type: Bool
+      - name: volume
+        data_type: Float64
+      - name: waste_code
+        data_type: String
+      - name: waste_code_bale
+        data_type: String
+      - name: waste_description
+        data_type: String
+      - name: secondary_waste_codes
+        data_type: Array(String)
+      - name: secondary_waste_descriptions
+        data_type: Array(String)
+      - name: dispatch_date
+        data_type: DateTime64(6, 'Europe/Paris')
+      - name: use_date
+        data_type: DateTime64(6, 'Europe/Paris')
+      - name: processing_date
+        data_type: DateTime64(6, 'Europe/Paris')
+      - name: processing_end_date
+        data_type: DateTime64(6, 'Europe/Paris')
+      - name: operation_code
+        data_type: String
+      - name: operation_mode
+        data_type: String
+      - name: product
+        data_type: String
+      - name: administrative_act_reference
+        data_type: String
+      - name: destination_company_type
+        data_type: String
+      - name: destination_company_org_id
+        data_type: String
+      - name: destination_company_name
+        data_type: String
+      - name: destination_company_address
+        data_type: String
+      - name: destination_company_city
+        data_type: String
+      - name: destination_company_postal_code
+        data_type: String
+      - name: destination_company_country_code
+        data_type: String

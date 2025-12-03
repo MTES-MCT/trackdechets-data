@@ -10,1422 +10,884 @@ sources:
           Registre des déchets entrants suivis dans le RNDTS
         columns:
           - name: dd_entrant_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: created_year_utc
-            description: ""
-            data_type: text
+            data_type: string
           - name: public_id
-            description: ''
-            data_type: text
+            data_type: string
           - name: code_dechet
-            description: ""
-            data_type: text
+            data_type: string
           - name: code_dechet_bale
-            description: ''
-            data_type: text
+            data_type: string
           - name: created_date
-            description: ""
-            data_type: timestamp without time zone
+            data_type: datetime64(6, 'europe/paris')
           - name: date_reception
-            description: ""
-            data_type: text
+            data_type: date
           - name: delegation_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: is_dechet_pop
-            description: ""
-            data_type: boolean
+            data_type: bool
           - name: denomination_usuelle
-            description: ""
-            data_type: text
+            data_type: string
           - name: heure_pesee
-            description: ""
-            data_type: text
+            data_type: string
           - name: last_modified_date
-            description: ""
-            data_type: timestamp without time zone
+            data_type: datetime64(6, 'europe/paris')
           - name: numero_document
-            description: ''
-            data_type: text
+            data_type: string
           - name: numero_notification
-            description: ''
-            data_type: text
+            data_type: string
           - name: numero_saisie
-            description: ''
-            data_type: text
+            data_type: string
           - name: origine
-            description: ''
-            data_type: text
+            data_type: string
           - name: quantite
-            description: ""
-            data_type: numeric
+            data_type: decimal(76, 9)
           - name: code_traitement
-            description: ''
-            data_type: text
+            data_type: string
           - name: etablissement_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: created_by_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: last_modified_by_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: unite_code
-            description: ''
-            data_type: text
+            data_type: string
           - name: identifiant_metier
-            description: ''
-            data_type: text
+            data_type: string
           - name: canceled_by_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: canceled_comment
-            description: ''
-            data_type: text
+            data_type: string
           - name: canceled_date
-            description: ''
-            data_type: timestamp without time zone
+            data_type: datetime64(6, 'europe/paris')
           - name: import_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: producteur_type
-            description: ''
-            data_type: text
+            data_type: string
           - name: producteur_numero_identification
-            description: ''
-            data_type: text
+            data_type: string
           - name: producteur_raison_sociale
-            description: ''
-            data_type: text
+            data_type: string
           - name: producteur_adresse_libelle
-            description: ''
-            data_type: text
+            data_type: string
           - name: producteur_adresse_commune
-            description: ''
-            data_type: text
+            data_type: string
           - name: producteur_adresse_code_postal
-            description: ''
-            data_type: text
+            data_type: string
           - name: producteur_adresse_pays
-            description: ''
-            data_type: text
+            data_type: string
           - name: expediteur_type
-            description: ''
-            data_type: text
+            data_type: string
           - name: expediteur_numero_identification
-            description: ''
-            data_type: text
+            data_type: string
           - name: expediteur_raison_sociale
-            description: ''
-            data_type: text
+            data_type: string
           - name: expediteur_adresse_prise_en_charge
-            description: ''
-            data_type: text
+            data_type: string
           - name: expediteur_adresse_libelle
-            description: ''
-            data_type: text
+            data_type: string
           - name: expediteur_adresse_commune
-            description: ''
-            data_type: text
+            data_type: string
           - name: expediteur_adresse_code_postal
-            description: ''
-            data_type: text
+            data_type: string
           - name: expediteur_adresse_pays
-            description: ''
-            data_type: text
+            data_type: string
           - name: eco_organisme_type
-            description: ''
-            data_type: text
+            data_type: string
           - name: eco_organisme_numero_identification
-            description: ''
-            data_type: text
+            data_type: string
           - name: eco_organisme_raison_sociale
-            description: ''
-            data_type: text
+            data_type: string
           - name: courtier_type
-            description: ''
-            data_type: text
+            data_type: string
           - name: courtier_numero_identification
-            description: ''
-            data_type: text
+            data_type: string
           - name: courtier_raison_sociale
-            description: ''
-            data_type: text
+            data_type: string
           - name: courtier_numero_recepisse
-            description: ''
-            data_type: text
-          - name: _sdc_extracted_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_received_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_batched_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_deleted_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_sequence
-            description: ''
-            data_type: bigint
-          - name: _sdc_table_version
-            description: ''
-            data_type: bigint
-          - name: _sdc_sync_started_at
-            description: ''
-            data_type: bigint
+            data_type: string
       - name: dd_entrant_transporteur
         description: >
           Données de transport liées au registre des déchets entrants suivis dans le RNDTS.
         columns:
           - name: dd_entrant_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: dd_entrant_created_year_utc
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_type
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_numero_identification
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_raison_sociale
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_numero_recepisse
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_adresse_libelle
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_adresse_commune
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_adresse_code_postal
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_adresse_pays
-            description: ''
-            data_type: text
-          - name: _sdc_extracted_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_received_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_batched_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_deleted_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_sequence
-            description: ''
-            data_type: bigint
-          - name: _sdc_table_version
-            description: ''
-            data_type: bigint
-          - name: _sdc_sync_started_at
-            description: ''
-            data_type: bigint
+            data_type: string
       - name: dd_sortant
         description: >
           Registre des déchets sortants suivis dans le RNDTS
         columns:
           - name: dd_sortant_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: created_year_utc
-            description: ""
-            data_type: text
+            data_type: string
           - name: public_id
-            description: ''
-            data_type: text
+            data_type: string
           - name: code_dechet
-            description: ""
-            data_type: text
+            data_type: string
           - name: code_dechet_bale
-            description: ''
-            data_type: text
+            data_type: string
           - name: created_date
-            description: ""
-            data_type: timestamp without time zone
+            data_type: datetime64(6, 'europe/paris')
           - name: date_expedition
-            description: ''
-            data_type: text
+            data_type: date
           - name: delegation_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: is_dechet_pop
-            description: ""
-            data_type: boolean
+            data_type: bool
           - name: denomination_usuelle
-            description: ""
-            data_type: text
+            data_type: string
           - name: last_modified_date
-            description: ""
-            data_type: timestamp without time zone
+            data_type: datetime64(6, 'europe/paris')
           - name: numero_document
-            description: ''
-            data_type: text
+            data_type: string
           - name: numero_notification
-            description: ''
-            data_type: text
+            data_type: string
           - name: numero_saisie
-            description: ''
-            data_type: text
+            data_type: string
           - name: origine
-            description: ''
-            data_type: text
+            data_type: string
           - name: quantite
-            description: ""
-            data_type: numeric
+            data_type: decimal(76, 9)
           - name: qualification_code
-            description: ''
-            data_type: text
+            data_type: string
           - name: code_traitement
-            description: ''
-            data_type: text
+            data_type: string
           - name: etablissement_origine_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: etablissement_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: created_by_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: last_modified_by_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: unite_code
-            description: ''
-            data_type: text
+            data_type: string
           - name: identifiant_metier
-            description: ''
-            data_type: text
+            data_type: string
           - name: canceled_by_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: canceled_comment
-            description: ''
-            data_type: text
+            data_type: string
           - name: canceled_date
-            description: ''
-            data_type: timestamp without time zone
+            data_type: datetime64(6, 'europe/paris')
           - name: import_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: producteur_type
-            description: ''
-            data_type: text
+            data_type: string
           - name: producteur_numero_identification
-            description: ''
-            data_type: text
+            data_type: string
           - name: producteur_raison_sociale
-            description: ''
-            data_type: text
+            data_type: string
           - name: producteur_adresse_libelle
-            description: ''
-            data_type: text
+            data_type: string
           - name: producteur_adresse_commune
-            description: ''
-            data_type: text
+            data_type: string
           - name: producteur_adresse_code_postal
-            description: ''
-            data_type: text
+            data_type: string
           - name: producteur_adresse_pays
-            description: ''
-            data_type: text
+            data_type: string
           - name: destinataire_type
-            description: ''
-            data_type: text
+            data_type: string
           - name: destinataire_numero_identification
-            description: ''
-            data_type: text
+            data_type: string
           - name: destinataire_raison_sociale
-            description: ''
-            data_type: text
+            data_type: string
           - name: destinataire_adresse_destination
-            description: ''
-            data_type: text
+            data_type: string
           - name: destinataire_adresse_libelle
-            description: ''
-            data_type: text
+            data_type: string
           - name: destinataire_adresse_commune
-            description: ''
-            data_type: text
+            data_type: string
           - name: destinataire_adresse_code_postal
-            description: ''
-            data_type: text
+            data_type: string
           - name: destinataire_adresse_pays
-            description: ''
-            data_type: text
+            data_type: string
           - name: etablissement_origine_adresse_prise_en_charge
-            description: ''
-            data_type: text
+            data_type: string
           - name: etablissement_origine_adresse_libelle
-            description: ''
-            data_type: text
+            data_type: string
           - name: etablissement_origine_adresse_commune
-            description: ''
-            data_type: text
+            data_type: string
           - name: etablissement_origine_adresse_code_postal
-            description: ''
-            data_type: text
+            data_type: string
           - name: etablissement_origine_adresse_pays
-            description: ''
-            data_type: text
+            data_type: string
           - name: eco_organisme_type
-            description: ''
-            data_type: text
+            data_type: string
           - name: eco_organisme_numero_identification
-            description: ''
-            data_type: text
+            data_type: string
           - name: eco_organisme_raison_sociale
-            description: ''
-            data_type: text
+            data_type: string
           - name: courtier_type
-            description: ''
-            data_type: text
+            data_type: string
           - name: courtier_numero_identification
-            description: ''
-            data_type: text
+            data_type: string
           - name: courtier_raison_sociale
-            description: ''
-            data_type: text
+            data_type: string
           - name: courtier_numero_recepisse
-            description: ''
-            data_type: text
-          - name: _sdc_extracted_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_received_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_batched_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_deleted_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_sequence
-            description: ''
-            data_type: bigint
-          - name: _sdc_table_version
-            description: ''
-            data_type: bigint
-          - name: _sdc_sync_started_at
-            description: ''
-            data_type: bigint
+            data_type: string
       - name: dd_sortant_transporteur
         description: >
           Données de transport liées au registre des déchets sortants suivis dans le RNDTS.
         columns:
           - name: dd_sortant_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: dd_sortant_created_year_utc
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_type
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_numero_identification
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_raison_sociale
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_numero_recepisse
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_adresse_libelle
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_adresse_commune
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_adresse_code_postal
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_adresse_pays
-            description: ''
-            data_type: text
-          - name: _sdc_extracted_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_received_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_batched_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_deleted_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_sequence
-            description: ''
-            data_type: bigint
-          - name: _sdc_table_version
-            description: ''
-            data_type: bigint
-          - name: _sdc_sync_started_at
-            description: ''
-            data_type: bigint
+            data_type: string
       - name: dnd_entrant
         description: >
           Registre des déchets dangereux entrants suivis dans la RNDTS.
         columns:
           - name: dnd_entrant_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: created_year_utc
-            description: ""
-            data_type: text
+            data_type: string
           - name: code_dechet
-            description: ""
-            data_type: text
+            data_type: string
           - name: created_date
-            description: ""
-            data_type: timestamp without time zone
+            data_type: datetime64(6, 'europe/paris')
           - name: date_reception
-            description: ""
-            data_type: text
+            data_type: date
           - name: is_dechet_pop
-            description: ""
-            data_type: boolean
+            data_type: bool
           - name: denomination_usuelle
-            description: ""
-            data_type: text
+            data_type: string
           - name: heure_pesee
-            description: ""
-            data_type: text
+            data_type: string
           - name: last_modified_date
-            description: ""
-            data_type: timestamp without time zone
+            data_type: datetime64(6, 'europe/paris')
           - name: numero_document
-            description: ''
-            data_type: text
+            data_type: string
           - name: numero_notification
-            description: ''
-            data_type: text
+            data_type: string
           - name: numero_saisie
-            description: ''
-            data_type: text
+            data_type: string
           - name: quantite
-            description: ""
-            data_type: numeric
+            data_type: decimal(76, 9)
           - name: code_traitement
-            description: ''
-            data_type: text
+            data_type: string
           - name: etablissement_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: created_by_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: last_modified_by_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: unite_code
-            description: ''
-            data_type: text
+            data_type: string
           - name: public_id
-            description: ''
-            data_type: text
+            data_type: string
           - name: delegation_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: origine
-            description: ''
-            data_type: text
+            data_type: string
           - name: code_dechet_bale
-            description: ''
-            data_type: text
+            data_type: string
           - name: identifiant_metier
-            description: ''
-            data_type: text
+            data_type: string
           - name: canceled_by_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: canceled_comment
-            description: ''
-            data_type: text
+            data_type: string
           - name: canceled_date
-            description: ''
-            data_type: timestamp without time zone
+            data_type: datetime64(6, 'europe/paris')
           - name: import_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: producteur_type
-            description: ''
-            data_type: text
+            data_type: string
           - name: producteur_numero_identification
-            description: ''
-            data_type: text
+            data_type: string
           - name: producteur_raison_sociale
-            description: ''
-            data_type: text
+            data_type: string
           - name: producteur_adresse_libelle
-            description: ''
-            data_type: text
+            data_type: string
           - name: producteur_adresse_commune
-            description: ''
-            data_type: text
+            data_type: string
           - name: producteur_adresse_code_postal
-            description: ''
-            data_type: text
+            data_type: string
           - name: producteur_adresse_pays
-            description: ''
-            data_type: text
+            data_type: string
           - name: expediteur_type
-            description: ''
-            data_type: text
+            data_type: string
           - name: expediteur_numero_identification
-            description: ''
-            data_type: text
+            data_type: string
           - name: expediteur_raison_sociale
-            description: ''
-            data_type: text
+            data_type: string
           - name: expediteur_adresse_prise_en_charge
-            description: ''
-            data_type: text
+            data_type: string
           - name: expediteur_adresse_libelle
-            description: ''
-            data_type: text
+            data_type: string
           - name: expediteur_adresse_commune
-            description: ''
-            data_type: text
+            data_type: string
           - name: expediteur_adresse_code_postal
-            description: ''
-            data_type: text
+            data_type: string
           - name: expediteur_adresse_pays
-            description: ''
-            data_type: text
+            data_type: string
           - name: eco_organisme_type
-            description: ''
-            data_type: text
+            data_type: string
           - name: eco_organisme_numero_identification
-            description: ''
-            data_type: text
+            data_type: string
           - name: eco_organisme_raison_sociale
-            description: ''
-            data_type: text
+            data_type: string
           - name: courtier_type
-            description: ''
-            data_type: text
+            data_type: string
           - name: courtier_numero_identification
-            description: ''
-            data_type: text
+            data_type: string
           - name: courtier_raison_sociale
-            description: ''
-            data_type: text
+            data_type: string
           - name: courtier_numero_recepisse
-            description: ''
-            data_type: text
-          - name: _sdc_extracted_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_received_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_batched_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_deleted_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_sequence
-            description: ''
-            data_type: bigint
-          - name: _sdc_table_version
-            description: ''
-            data_type: bigint
-          - name: _sdc_sync_started_at
-            description: ''
-            data_type: bigint
+            data_type: string
       - name: dnd_entrant_transporteur
         description: >
           Données de transport liées au registre des déchets non dangereux entrants suivis dans le RNDTS.
         columns:
           - name: dnd_entrant_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: dnd_entrant_created_year_utc
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_type
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_numero_identification
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_raison_sociale
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_numero_recepisse
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_adresse_libelle
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_adresse_commune
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_adresse_code_postal
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_adresse_pays
-            description: ''
-            data_type: text
-          - name: _sdc_extracted_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_received_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_batched_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_deleted_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_sequence
-            description: ''
-            data_type: bigint
-          - name: _sdc_table_version
-            description: ''
-            data_type: bigint
-          - name: _sdc_sync_started_at
-            description: ''
-            data_type: bigint
+            data_type: string
       - name: dnd_sortant
         description: >
           Registre des déchets dangereux sortants suivis dans la RNDTS
         columns:
           - name: dnd_sortant_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: created_year_utc
-            description: ""
-            data_type: text
+            data_type: string
           - name: code_dechet
-            description: ""
-            data_type: text
+            data_type: string
           - name: created_date
-            description: ""
-            data_type: timestamp without time zone
+            data_type: datetime64(6, 'europe/paris')
           - name: date_expedition
-            description: ""
-            data_type: text
+            data_type: date
           - name: is_dechet_pop
-            description: ""
-            data_type: boolean
+            data_type: bool
           - name: denomination_usuelle
-            description: ""
-            data_type: text
+            data_type: string
           - name: last_modified_date
-            description: ""
-            data_type: timestamp without time zone
+            data_type: datetime64(6, 'europe/paris')
           - name: numero_document
-            description: ''
-            data_type: text
+            data_type: string
           - name: numero_notification
-            description: ''
-            data_type: text
+            data_type: string
           - name: numero_saisie
-            description: ''
-            data_type: text
+            data_type: string
           - name: quantite
-            description: ""
-            data_type: numeric
+            data_type: decimal(76, 9)
           - name: code_traitement
-            description: ''
-            data_type: text
+            data_type: string
           - name: etablissement_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: created_by_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: last_modified_by_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: unite_code
-            description: ''
-            data_type: text
+            data_type: string
           - name: public_id
-            description: ''
-            data_type: text
+            data_type: string
           - name: qualification_code
-            description: ''
-            data_type: text
+            data_type: string
           - name: delegation_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: origine
-            description: ''
-            data_type: text
+            data_type: string
           - name: code_dechet_bale
-            description: ''
-            data_type: text
+            data_type: string
           - name: identifiant_metier
-            description: ''
-            data_type: text
+            data_type: string
           - name: canceled_by_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: canceled_comment
-            description: ''
-            data_type: text
+            data_type: string
           - name: canceled_date
-            description: ''
-            data_type: timestamp without time zone
+            data_type: datetime64(6, 'europe/paris')
           - name: import_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: producteur_type
-            description: ''
-            data_type: text
+            data_type: string
           - name: producteur_numero_identification
-            description: ''
-            data_type: text
+            data_type: string
           - name: producteur_raison_sociale
-            description: ''
-            data_type: text
+            data_type: string
           - name: producteur_adresse_libelle
-            description: ''
-            data_type: text
+            data_type: string
           - name: producteur_adresse_commune
-            description: ''
-            data_type: text
+            data_type: string
           - name: producteur_adresse_code_postal
-            description: ''
-            data_type: text
+            data_type: string
           - name: producteur_adresse_pays
-            description: ''
-            data_type: text
+            data_type: string
           - name: destinataire_type
-            description: ''
-            data_type: text
+            data_type: string
           - name: destinataire_numero_identification
-            description: ''
-            data_type: text
+            data_type: string
           - name: destinataire_raison_sociale
-            description: ''
-            data_type: text
+            data_type: string
           - name: destinataire_adresse_destination
-            description: ''
-            data_type: text
+            data_type: string
           - name: destinataire_adresse_libelle
-            description: ''
-            data_type: text
+            data_type: string
           - name: destinataire_adresse_commune
-            description: ''
-            data_type: text
+            data_type: string
           - name: destinataire_adresse_code_postal
-            description: ''
-            data_type: text
+            data_type: string
           - name: destinataire_adresse_pays
-            description: ''
-            data_type: text
+            data_type: string
           - name: etablissement_origine_adresse_prise_en_charge
-            description: ''
-            data_type: text
+            data_type: string
           - name: etablissement_origine_adresse_libelle
-            description: ''
-            data_type: text
+            data_type: string
           - name: etablissement_origine_adresse_commune
-            description: ''
-            data_type: text
+            data_type: string
           - name: etablissement_origine_adresse_code_postal
-            description: ''
-            data_type: text
+            data_type: string
           - name: etablissement_origine_adresse_pays
-            description: ''
-            data_type: text
+            data_type: string
           - name: eco_organisme_type
-            description: ''
-            data_type: text
+            data_type: string
           - name: eco_organisme_numero_identification
-            description: ''
-            data_type: text
+            data_type: string
           - name: eco_organisme_raison_sociale
-            description: ''
-            data_type: text
+            data_type: string
           - name: courtier_type
-            description: ''
-            data_type: text
+            data_type: string
           - name: courtier_numero_identification
-            description: ''
-            data_type: text
+            data_type: string
           - name: courtier_raison_sociale
-            description: ''
-            data_type: text
+            data_type: string
           - name: courtier_numero_recepisse
-            description: ''
-            data_type: text
-          - name: _sdc_extracted_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_received_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_batched_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_deleted_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_sequence
-            description: ''
-            data_type: bigint
-          - name: _sdc_table_version
-            description: ''
-            data_type: bigint
-          - name: _sdc_sync_started_at
-            description: ''
-            data_type: bigint
+            data_type: string
       - name: dnd_sortant_transporteur
         description: >
           Données de transport liées au registre des déchets non dangereux sortants suivis dans le RNDTS.
         columns:
           - name: dnd_sortant_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: dnd_sortant_created_year_utc
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_type
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_numero_identification
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_raison_sociale
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_numero_recepisse
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_adresse_libelle
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_adresse_commune
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_adresse_code_postal
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_adresse_pays
-            description: ''
-            data_type: text
-          - name: _sdc_extracted_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_received_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_batched_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_deleted_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_sequence
-            description: ''
-            data_type: bigint
-          - name: _sdc_table_version
-            description: ''
-            data_type: bigint
-          - name: _sdc_sync_started_at
-            description: ''
-            data_type: bigint
+            data_type: string
       - name: sortie_statut_dechet
         description: >
           Registre des sorties de statut de déchet suivies dans la RNDTS
         columns:
           - name: sortie_statut_dechet_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: created_year_utc
-            description: ''
-            data_type: text
+            data_type: string
           - name: public_id
-            description: ''
-            data_type: text
+            data_type: string
           - name: identifiant_metier
-            description: ''
-            data_type: text
+            data_type: string
           - name: etablissement_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: created_by_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: created_date
-            description: ''
-            data_type: timestamp without time zone
+            data_type: datetime64(6, 'europe/paris')
           - name: last_modified_by_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: last_modified_date
-            description: ''
-            data_type: timestamp without time zone
+            data_type: datetime64(6, 'europe/paris')
           - name: delegation_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: denomination_usuelle
-            description: ''
-            data_type: text
+            data_type: string
           - name: code_dechet
-            description: ''
-            data_type: text
+            data_type: string
           - name: code_dechet_bale
-            description: ''
-            data_type: text
+            data_type: string
           - name: date_utilisation
-            description: ''
-            data_type: text
+            data_type: date
           - name: date_expedition
-            description: ''
-            data_type: text
+            data_type: date
           - name: nature
-            description: ''
-            data_type: text
+            data_type: string
           - name: quantite
-            description: ''
-            data_type: numeric
+            data_type: decimal(76, 9)
           - name: unite_code
-            description: ''
-            data_type: text
+            data_type: string
           - name: date_traitement
-            description: ''
-            data_type: text
+            data_type: date
           - name: date_fin_traitement
-            description: ''
-            data_type: text
+            data_type: date
           - name: code_traitement
-            description: ''
-            data_type: text
+            data_type: string
           - name: qualification_code
-            description: ''
-            data_type: text
+            data_type: string
           - name: reference_acte_administratif
-            description: ''
-            data_type: text
+            data_type: string
           - name: origine
-            description: ''
-            data_type: text
+            data_type: string
           - name: canceled_by_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: canceled_comment
-            description: ''
-            data_type: text
+            data_type: string
           - name: canceled_date
-            description: ''
-            data_type: timestamp without time zone
+            data_type: datetime64(6, 'europe/paris')
           - name: import_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: destinataire_type
-            description: ''
-            data_type: text
+            data_type: string
           - name: destinataire_numero_identification
-            description: ''
-            data_type: text
+            data_type: string
           - name: destinataire_raison_sociale
-            description: ''
-            data_type: text
+            data_type: string
           - name: destinataire_adresse_destination
-            description: ''
-            data_type: text
+            data_type: string
           - name: destinataire_adresse_libelle
-            description: ''
-            data_type: text
+            data_type: string
           - name: destinataire_adresse_commune
-            description: ''
-            data_type: text
+            data_type: string
           - name: destinataire_adresse_code_postal
-            description: ''
-            data_type: text
+            data_type: string
           - name: destinataire_adresse_pays
-            description: ''
-            data_type: text
-          - name: _sdc_extracted_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_received_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_batched_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_deleted_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_sequence
-            description: ''
-            data_type: bigint
-          - name: _sdc_table_version
-            description: ''
-            data_type: bigint
-          - name: _sdc_sync_started_at
-            description: ''
-            data_type: bigint
+            data_type: string
       - name: texs_sortant
         description: >
           Registre sortant des terres excavées suivies dans la RNDTS.
         columns:
           - name: texs_sortant_id
-            description: ''
-            data_type: bigint
-          - name: texs_sortant_created_year_utc
-            description: ''
-            data_type: character varying
-          - name: version_id
-            description: ''
-            data_type: smallint
+            data_type: int256
+          - name: created_year_utc
+            data_type: String
+          - name: code_dechet
+            data_type: String
+          - name: created_date
+            data_type: DateTime64(6, 'Europe/Paris')
+          - name: date_expedition
+            data_type: Date
+          - name: denomination_usuelle
+            data_type: String
+          - name: identifiant_terrain_sis
+            data_type: String
+          - name: last_modified_date
+            data_type: DateTime64(6, 'Europe/Paris')
+          - name: numero_document
+            data_type: String
+          - name: numero_notification
+            data_type: String
+          - name: numero_saisie
+            data_type: String
+          - name: quantite
+            data_type: Decimal(76, 9)
+          - name: is_tex_pop
+            data_type: Bool
+          - name: code_traitement
+            data_type: String
+          - name: etablissement_id
+            data_type: Int256
           - name: created_by_id
-            description: ''
-            data_type: bigint
-          - name: version_date
-            description: ''
-            data_type: timestamp with time zone
+            data_type: int256
+          - name: last_modified_by_id
+            data_type: Int256
+          - name: unite_code
+            data_type: String
+          - name: numero_bordereau
+            data_type: String
+          - name: public_id
+            data_type: String
+          - name: coordonnees_geographiques
+            data_type: String
+          - name: coordonnees_geographiques_valorisee
+            data_type: String
+          - name: qualification_code
+            data_type: String
           - name: delegation_id
-            description: ''
-            data_type: bigint
-          - name: version
-            description: ''
-            data_type: jsonb
+            data_type: int256
+          - name: origine
+            data_type: String
+          - name: code_dechet_bale
+            data_type: String
+          - name: identifiant_metier
+            data_type: String
+          - name: canceled_by_id
+            data_type: Int256
+          - name: canceled_comment
+            data_type: String
+          - name: canceled_date
+            data_type: DateTime64(6, 'Europe/Paris')
+          - name: import_id
+            data_type: Int256
+          - name: producteur_type
+            data_type: String
+          - name: producteur_numero_identification
+            data_type: String
+          - name: producteur_raison_sociale
+            data_type: String
+          - name: producteur_adresse_libelle
+            data_type: String
+          - name: producteur_adresse_commune
+            data_type: String
+          - name: producteur_adresse_code_postal
+            data_type: String
+          - name: producteur_adresse_pays
+            data_type: String
+          - name: destinataire_type
+            data_type: String
+          - name: destinataire_numero_identification
+            data_type: String
+          - name: destinataire_raison_sociale
+            data_type: String
+          - name: destinataire_adresse_destination
+            data_type: String
+          - name: destinataire_adresse_libelle
+            data_type: String
+          - name: destinataire_adresse_commune
+            data_type: String
+          - name: destinataire_adresse_code_postal
+            data_type: String
+          - name: destinataire_adresse_pays
+            data_type: String
+          - name: courtier_type
+            data_type: String
+          - name: courtier_numero_identification
+            data_type: String
+          - name: courtier_raison_sociale
+            data_type: String
+          - name: courtier_numero_recepisse
+            data_type: String
       - name: texs_sortant_transporteur
         description: >
           Données de transport liées au registre sortant des des terres excavées suivis dans le RNDTS.
         columns:
           - name: texs_sortant_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: texs_sortant_created_year_utc
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_type
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_numero_identification
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_raison_sociale
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_numero_recepisse
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_adresse_libelle
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_adresse_commune
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_adresse_code_postal
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_adresse_pays
-            description: ''
-            data_type: text
-          - name: _sdc_extracted_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_received_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_batched_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_deleted_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_sequence
-            description: ''
-            data_type: bigint
-          - name: _sdc_table_version
-            description: ''
-            data_type: bigint
-          - name: _sdc_sync_started_at
-            description: ''
-            data_type: bigint
+            data_type: string
       - name: texs_entrant
         description: >-
           Registre entrant des terres excavées suivies dans la RNDTS
         columns:
           - name: texs_entrant_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: created_year_utc
-            description: ''
-            data_type: text
+            data_type: string
           - name: code_dechet
-            description: ''
-            data_type: text
+            data_type: string
           - name: created_date
-            description: ''
-            data_type: timestamp without time zone
+            data_type: datetime64(6, 'europe/paris')
           - name: date_reception
-            description: ''
             data_type: date
           - name: denomination_usuelle
-            description: ''
-            data_type: text
+            data_type: string
           - name: identifiant_terrain_sis
-            description: ''
-            data_type: text
+            data_type: string
           - name: last_modified_date
-            description: ''
-            data_type: timestamp without time zone
+            data_type: datetime64(6, 'europe/paris')
           - name: numero_document
-            description: ''
-            data_type: text
+            data_type: string
           - name: numero_notification
-            description: ''
-            data_type: text
+            data_type: string
           - name: numero_saisie
-            description: ''
-            data_type: text
+            data_type: string
           - name: quantite
-            description: ''
-            data_type: numeric
+            data_type: decimal(76, 9)
           - name: is_tex_pop
-            description: ''
-            data_type: boolean
+            data_type: bool
           - name: code_traitement
-            description: ''
-            data_type: text
+            data_type: string
           - name: etablissement_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: created_by_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: last_modified_by_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: unite_code
-            description: ''
-            data_type: text
+            data_type: string
           - name: numero_bordereau
-            description: ''
-            data_type: text
+            data_type: string
           - name: public_id
-            description: ''
-            data_type: text
+            data_type: string
           - name: coordonnees_geographiques
-            description: ''
-            data_type: text
+            data_type: string
           - name: coordonnees_geographiques_valorisee
-            description: ''
-            data_type: text
+            data_type: string
           - name: delegation_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: origine
-            description: ''
-            data_type: text
+            data_type: string
           - name: code_dechet_bale
-            description: ''
-            data_type: text
+            data_type: string
           - name: identifiant_metier
-            description: ''
-            data_type: text
+            data_type: string
           - name: canceled_by_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: canceled_comment
-            description: ''
-            data_type: text
+            data_type: string
           - name: canceled_date
-            description: ''
-            data_type: timestamp without time zone
+            data_type: datetime64(6, 'europe/paris')
           - name: import_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: producteur_type
-            description: ''
-            data_type: text
+            data_type: string
           - name: producteur_numero_identification
-            description: ''
-            data_type: text
+            data_type: string
           - name: producteur_raison_sociale
-            description: ''
-            data_type: text
+            data_type: string
           - name: producteur_adresse_libelle
-            description: ''
-            data_type: text
+            data_type: string
           - name: producteur_adresse_commune
-            description: ''
-            data_type: text
+            data_type: string
           - name: producteur_adresse_code_postal
-            description: ''
-            data_type: text
+            data_type: string
           - name: producteur_adresse_pays
-            description: ''
-            data_type: text
+            data_type: string
           - name: expediteur_type
-            description: ''
-            data_type: text
+            data_type: string
           - name: expediteur_numero_identification
-            description: ''
-            data_type: text
+            data_type: string
           - name: expediteur_raison_sociale
-            description: ''
-            data_type: text
+            data_type: string
           - name: expediteur_adresse_prise_en_charge
-            description: ''
-            data_type: text
+            data_type: string
           - name: expediteur_adresse_libelle
-            description: ''
-            data_type: text
+            data_type: string
           - name: expediteur_adresse_commune
-            description: ''
-            data_type: text
+            data_type: string
           - name: expediteur_adresse_code_postal
-            description: ''
-            data_type: text
+            data_type: string
           - name: expediteur_adresse_pays
-            description: ''
-            data_type: text
+            data_type: string
           - name: courtier_type
-            description: ''
-            data_type: text
+            data_type: string
           - name: courtier_numero_identification
-            description: ''
-            data_type: text
+            data_type: string
           - name: courtier_raison_sociale
-            description: ''
-            data_type: text
+            data_type: string
           - name: courtier_numero_recepisse
-            description: ''
-            data_type: text
-          - name: _sdc_extracted_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_received_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_batched_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_deleted_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_sequence
-            description: ''
-            data_type: bigint
-          - name: _sdc_table_version
-            description: ''
-            data_type: bigint
-          - name: _sdc_sync_started_at
-            description: ''
-            data_type: bigint
+            data_type: string
       - name: texs_entrant_transporteur
         description: >-
           Données de transport liées au registre entrant des des terres excavées suivis dans le RNDTS.
         columns:
           - name: texs_entrant_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: texs_entrant_created_year_utc
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_type
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_numero_identification
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_raison_sociale
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_numero_recepisse
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_adresse_libelle
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_adresse_commune
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_adresse_code_postal
-            description: ''
-            data_type: text
+            data_type: string
           - name: transporteur_adresse_pays
-            description: ''
-            data_type: text
-          - name: _sdc_extracted_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_received_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_batched_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_deleted_at
-            description: ''
-            data_type: timestamp without time zone
-          - name: _sdc_sequence
-            description: ''
-            data_type: bigint
-          - name: _sdc_table_version
-            description: ''
-            data_type: bigint
-          - name: _sdc_sync_started_at
-            description: ''
-            data_type: bigint
+            data_type: string
       - name: etablissement
         description: >-
           Données des établissements du RNDTS.
         columns:
           - name: etablissement_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: numero_identification
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: raison_sociale
-            description: ''
-            data_type: text
+            data_type: string
           - name: created_date
-            description: ''
-            data_type: timestamp with time zone
+            data_type: datetime64(6, 'europe/paris')
           - name: last_modified_date
-            description: ''
-            data_type: timestamp with time zone
+            data_type: datetime64(6, 'europe/paris')
           - name: type_code
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: timezone_code
-            description: ''
-            data_type: text
+            data_type: string
           - name: public_id
-            description: ''
-            data_type: uuid
+            data_type: string
           - name: created_by_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: last_modified_by_id
-            description: ''
-            data_type: bigint
+            data_type: int256
           - name: disabled_date
-            description: ''
-            data_type: timestamp with time zone
+            data_type: datetime64(6, 'europe/paris')
           - name: disabled_reason_code
-            description: ''
-            data_type: character varying
+            data_type: string
           - name: etablissement_validateur_id
-            description: ''
-            data_type: bigint
+            data_type: int256

@@ -1,5 +1,5 @@
 STOCK_ETABLISSEMENT_DDL = """
-CREATE TABLE IF NOT EXISTS stock_etablissement_tmp
+CREATE TABLE IF NOT EXISTS {database}.{table}
 (
     siren                                           String,
     nic                                             String,
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS stock_etablissement_tmp
     libelleCedex2Etablissement                      Nullable(String),
     codePaysEtranger2Etablissement                  Nullable(String),
     libellePaysEtranger2Etablissement               Nullable(String),
-    dateDebut                                       Nullable(Date),
+    dateDebut                                       Nullable(String),
     etatAdministratifEtablissement                  LowCardinality(Nullable(String)),
     enseigne1Etablissement                          Nullable(String),
     enseigne2Etablissement                          Nullable(String),
@@ -56,5 +56,5 @@ CREATE TABLE IF NOT EXISTS stock_etablissement_tmp
     caractereEmployeurEtablissement                 LowCardinality(Nullable(String))
 )
 ENGINE = MergeTree()
-ORDER BY ()
+ORDER BY (siret)
 """

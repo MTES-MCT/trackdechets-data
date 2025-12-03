@@ -1,109 +1,119 @@
 version: 2
 models:
   - name: bsda_revision_request
-    tests:
-      - elementary.volume_anomalies:
-          timestamp_column: created_at
-          seasonality: day_of_week
     columns:
       - name: id
-        description: "Clé primaire"
-        data_type: text
+        tests:
+          - unique
+        description: Clé primaire
+        data_type: string
       - name: created_at
-        description: ""
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'utc')
       - name: updated_at
-        description: ""
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'utc')
       - name: bsda_id
-        description: ""
-        data_type: text
+        data_type: string
       - name: authoring_company_id
-        description: ""
-        data_type: text
+        data_type: string
       - name: comment
-        description: ""
-        data_type: text
+        data_type: string
       - name: status
-        description: ""
-        data_type: text
+        data_type: string
       - name: waste_code
-        description: ""
-        tests:
-          - elementary.column_anomalies
-        data_type: text
+        data_type: string
       - name: waste_pop
-        description: ""
-        data_type: boolean
+        data_type: bool
       - name: packagings
-        description: ""
-        data_type: ARRAY
+        data_type: String
       - name: waste_seal_numbers
-        description: ""
-        data_type: ARRAY
+        data_type: Array(String)
       - name: waste_material_name
-        description: ""
-        data_type: text
+        data_type: string
       - name: destination_cap
-        description: ""
-        data_type: text
+        data_type: string
       - name: destination_reception_weight
-        description: ""
-        tests:
-          - elementary.column_anomalies
-        data_type: numeric
+        data_type: float64
       - name: destination_operation_code
-        description: ""
-        data_type: text
+        data_type: string
       - name: destination_operation_description
-        description: ""
-        data_type: text
+        data_type: string
       - name: broker_company_name
-        description: ""
-        data_type: text
+        data_type: string
       - name: broker_company_siret
-        description: ""
-        data_type: text
+        data_type: string
       - name: broker_company_address
-        description: ""
-        data_type: text
+        data_type: string
       - name: broker_company_contact
-        description: ""
-        data_type: text
+        data_type: string
       - name: broker_company_phone
-        description: ""
-        data_type: text
+        data_type: string
       - name: broker_company_mail
-        description: ""
-        data_type: text
+        data_type: string
       - name: broker_recepisse_number
-        description: ""
-        data_type: text
+        data_type: string
       - name: broker_recepisse_department
-        description: ""
-        data_type: text
+        data_type: string
       - name: broker_recepisse_validity_limit
-        description: ""
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: emitter_pickup_site_name
-        description: ''
-        data_type: text
+        data_type: string
       - name: emitter_pickup_site_address
-        description: ""
-        data_type: text
+        data_type: string
       - name: emitter_pickup_site_city
-        description: ""
-        data_type: text
+        data_type: string
       - name: emitter_pickup_site_postal_code
-        description: ""
-        data_type: text
+        data_type: string
       - name: emitter_pickup_site_infos
-        description: ""
-        data_type: text
+        data_type: string
       - name: is_canceled
-        description: ""
-        data_type: boolean
+        data_type: bool
       - name: destination_operation_mode
-        description: ''
-        data_type: text
-sources: []
+        data_type: string
+      - name: initial_broker_company_address
+        data_type: String
+      - name: initial_broker_company_contact
+        data_type: String
+      - name: initial_broker_company_mail
+        data_type: String
+      - name: initial_broker_company_name
+        data_type: String
+      - name: initial_broker_company_phone
+        data_type: String
+      - name: initial_broker_company_siret
+        data_type: String
+      - name: initial_broker_recepisse_department
+        data_type: String
+      - name: initial_broker_recepisse_number
+        data_type: String
+      - name: initial_broker_recepisse_validity_limit
+        data_type: DateTime64(6, 'Europe/Paris')
+      - name: initial_destination_cap
+        data_type: String
+      - name: initial_destination_operation_code
+        data_type: String
+      - name: initial_destination_operation_description
+        data_type: String
+      - name: initial_destination_operation_mode
+        data_type: String
+      - name: initial_destination_reception_weight
+        data_type: Decimal(76, 30)
+      - name: initial_emitter_pickup_site_address
+        data_type: String
+      - name: initial_emitter_pickup_site_city
+        data_type: String
+      - name: initial_emitter_pickup_site_infos
+        data_type: String
+      - name: initial_emitter_pickup_site_name
+        data_type: String
+      - name: initial_emitter_pickup_site_postal_code
+        data_type: String
+      - name: initial_packagings
+        data_type: String
+      - name: initial_waste_code
+        data_type: String
+      - name: initial_waste_material_name
+        data_type: String
+      - name: initial_waste_pop
+        data_type: Bool
+      - name: initial_waste_seal_numbers
+        data_type: Array(String)

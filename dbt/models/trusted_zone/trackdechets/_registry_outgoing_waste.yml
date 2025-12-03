@@ -1,0 +1,226 @@
+version: 2
+models:
+  - name: registry_outgoing_waste
+    columns:
+      - name: id
+        data_type: String
+      - name: created_at
+        data_type: DateTime64(6, 'Europe/Paris')
+      - name: updated_at
+        data_type: DateTime64(6, 'Europe/Paris')
+      - name: import_id
+        data_type: String
+      - name: is_latest
+        data_type: Bool
+      - name: is_cancelled
+        data_type: Bool
+      - name: created_by_id
+        data_type: String
+      - name: public_id
+        data_type: String
+      - name: report_for_company_siret
+        data_type: String
+      - name: report_for_company_name
+        data_type: String
+      - name: report_for_company_address
+        data_type: String
+      - name: report_for_company_city
+        data_type: String
+      - name: report_for_company_postal_code
+        data_type: String
+      - name: report_for_pickup_site_name
+        data_type: String
+      - name: report_for_pickup_site_address
+        data_type: String
+      - name: report_for_pickup_site_postal_code
+        data_type: String
+      - name: report_for_pickup_site_city
+        data_type: String
+      - name: report_for_pickup_site_country_code
+        data_type: String
+      - name: report_as_company_siret
+        data_type: String
+      - name: waste_description
+        data_type: String
+      - name: waste_code
+        data_type: String
+      - name: waste_code_bale
+        data_type: String
+      - name: waste_pop
+        data_type: Bool
+      - name: waste_is_dangerous
+        data_type: Bool
+      - name: dispatch_date
+        data_type: DateTime64(6, 'Europe/Paris')
+      - name: weight_value
+        data_type: Float64
+      - name: weight_is_estimate
+        data_type: Bool
+      - name: volume
+        data_type: Float64
+      - name: initial_emitter_company_type
+        data_type: String
+      - name: initial_emitter_company_org_id
+        data_type: String
+      - name: initial_emitter_company_name
+        data_type: String
+      - name: initial_emitter_company_address
+        data_type: String
+      - name: initial_emitter_company_postal_code
+        data_type: String
+      - name: initial_emitter_company_city
+        data_type: String
+      - name: initial_emitter_company_country_code
+        data_type: String
+      - name: initial_emitter_municipalities_insee_codes
+        data_type: Array(String)
+      - name: destination_company_type
+        data_type: String
+      - name: destination_company_org_id
+        data_type: String
+      - name: destination_company_name
+        data_type: String
+      - name: destination_company_address
+        data_type: String
+      - name: destination_company_city
+        data_type: String
+      - name: destination_company_postal_code
+        data_type: String
+      - name: destination_company_country_code
+        data_type: String
+      - name: destination_drop_site_address
+        data_type: String
+      - name: destination_drop_site_postal_code
+        data_type: String
+      - name: destination_drop_site_city
+        data_type: String
+      - name: destination_drop_site_country_code
+        data_type: String
+      - name: movement_number
+        data_type: String
+      - name: operation_code
+        data_type: String
+      - name: operation_mode
+        data_type: String
+      - name: eco_organisme_siret
+        data_type: String
+      - name: eco_organisme_name
+        data_type: String
+      - name: broker_company_siret
+        data_type: String
+      - name: broker_company_name
+        data_type: String
+      - name: broker_recepisse_number
+        data_type: String
+      - name: trader_company_siret
+        data_type: String
+      - name: trader_company_name
+        data_type: String
+      - name: trader_recepisse_number
+        data_type: String
+      - name: is_direct_supply
+        data_type: Bool
+      - name: transporter1_transport_mode
+        data_type: String
+      - name: transporter1_company_type
+        data_type: String
+      - name: transporter1_company_org_id
+        data_type: String
+      - name: transporter1_recepisse_is_exempted
+        data_type: Bool
+      - name: transporter1_recepisse_number
+        data_type: String
+      - name: transporter1_company_name
+        data_type: String
+      - name: transporter1_company_address
+        data_type: String
+      - name: transporter1_company_postal_code
+        data_type: String
+      - name: transporter1_company_city
+        data_type: String
+      - name: transporter1_company_country_code
+        data_type: String
+      - name: transporter2_transport_mode
+        data_type: String
+      - name: transporter2_company_type
+        data_type: String
+      - name: transporter2_company_org_id
+        data_type: String
+      - name: transporter2_recepisse_is_exempted
+        data_type: Bool
+      - name: transporter2_recepisse_number
+        data_type: String
+      - name: transporter2_company_name
+        data_type: String
+      - name: transporter2_company_address
+        data_type: String
+      - name: transporter2_company_postal_code
+        data_type: String
+      - name: transporter2_company_city
+        data_type: String
+      - name: transporter2_company_country_code
+        data_type: String
+      - name: transporter3_transport_mode
+        data_type: String
+      - name: transporter3_company_type
+        data_type: String
+      - name: transporter3_company_org_id
+        data_type: String
+      - name: transporter3_recepisse_is_exempted
+        data_type: Bool
+      - name: transporter3_recepisse_number
+        data_type: String
+      - name: transporter3_company_name
+        data_type: String
+      - name: transporter3_company_address
+        data_type: String
+      - name: transporter3_company_postal_code
+        data_type: String
+      - name: transporter3_company_city
+        data_type: String
+      - name: transporter3_company_country_code
+        data_type: String
+      - name: transporter4_transport_mode
+        data_type: String
+      - name: transporter4_company_type
+        data_type: String
+      - name: transporter4_company_org_id
+        data_type: String
+      - name: transporter4_recepisse_is_exempted
+        data_type: Bool
+      - name: transporter4_recepisse_number
+        data_type: String
+      - name: transporter4_company_name
+        data_type: String
+      - name: transporter4_company_address
+        data_type: String
+      - name: transporter4_company_postal_code
+        data_type: String
+      - name: transporter4_company_city
+        data_type: String
+      - name: transporter4_company_country_code
+        data_type: String
+      - name: transporter5_transport_mode
+        data_type: String
+      - name: transporter5_company_type
+        data_type: String
+      - name: transporter5_company_org_id
+        data_type: String
+      - name: transporter5_recepisse_is_exempted
+        data_type: Bool
+      - name: transporter5_recepisse_number
+        data_type: String
+      - name: transporter5_company_name
+        data_type: String
+      - name: transporter5_company_address
+        data_type: String
+      - name: transporter5_company_postal_code
+        data_type: String
+      - name: transporter5_company_city
+        data_type: String
+      - name: transporter5_company_country_code
+        data_type: String
+      - name: gistrid_number
+        data_type: String
+      - name: transporters_org_ids
+        data_type: Array(Nullable(String))

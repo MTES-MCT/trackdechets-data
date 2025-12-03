@@ -1,0 +1,174 @@
+version: 2
+models:
+  - name: dnd_sortant_observatoires
+    columns:
+    - name: id
+      description: >
+        Identifiant technique de la déclaration
+    - name: date_creation
+      description: >
+        Date de création de la déclaration
+    - name: date_mise_a_jour
+      description: >
+        Date de la dernière modification de la déclaration
+    - name: declaration_annulee
+      description: >
+        Indique si la déclaration a été annulée
+    - name: id_public
+      description: >
+        Identifiant choisi par le déclarant
+    - name: expediteur_siret_etablissement
+      description: >
+        SIRET de l'établissement expediteur
+    - name: expediteur_nom_etablissement
+      description: >
+        Nom de l'établissement expediteur
+    - name: expediteur_adresse_etablissement
+      description: >
+        Adresse de l'établissement expediteur
+    - name: expediteur_ville_etablissement
+      description: >
+        Ville de l'établissement expediteur
+    - name: expediteur_code_postal_etablissement
+      description: >
+        Code postal de l'établissement expediteur
+    - name: lieu_de_collecte_nom_etablissement
+      description: >
+        Référence du chantier ou du lieu de collecte de l'expéditeur ou du détenteur
+    - name: lieu_de_collecte_adresse_etablissement
+      description: >
+        Adresse du chantier ou du lieu de collecte de l'expéditeur ou du détenteur
+    - name: lieu_de_collecte_code_postal_etablissement
+      description: >
+        Code postal du chantier ou du lieu de collecte de l'expéditeur ou du détenteur
+    - name: lieu_de_collecte_ville_etablissement
+      description: >
+        Commune du chantier ou du lieu de collecte de l'expéditeur ou du détenteur
+    - name: lieu_de_collecte_code_pays_etablissement
+      description: >
+        Code pays du chantier ou du lieu de collecte de l'expéditeur ou du détenteur
+    - name: declarant_siret_etablissement
+      description: >
+        Établissement pour lequel la déclaration est effectuée, soit ici l'expéditeur ou détenteur des déchets sortants.
+    - name: dechet_denomination
+      description: >
+        Dénomination du déchet
+    - name: dechet_code
+      description: >
+        Code déchet (https://aida.ineris.fr/reglementation/liste-codification-dechets-annexe-ii-larticle-r-541-8)
+    - name: dechet_code_bale
+      description: >
+        Code déchet Bâle
+    - name: dechet_pop
+      description: >
+        Contient des Polluants Organiques Persistants (POP) vrai / faux
+    - name: dechet_declare_dangereux
+      description: >
+        Indiquer si le déchet avec un code sans * est qualifié de dangereux.
+    - name: expedition_date
+      description: >
+        Date d'expédition des déchets sortants
+    - name: dechet_quantite
+      description: >
+        Poids en tonnes des déchets sortants
+    - name: dechet_quantite_type
+      description: >
+        Indiquer ici si le poids des déchets sortants est estimé ou réel.
+    - name: dechet_volume
+      description: >
+        Volume en M3 des déchets sortants
+    - name: emetteur_initial_profil_etablissement
+      description: >
+        Type d'acteur correspondant au producteur des déchets sortants, parmi ETABLISSEMENT_FR, ENTREPRISE_UE, ENTREPRISE_HORS_UE, ASSOCIATION, PERSONNE_PHYSIQUE, COMMUNES
+    - name: emetteur_initial_id_etablissement
+      description: >
+        Numéro d'identification du producteur, selon son type de profil
+    - name: emetteur_initial_nom_etablissement
+      description: >
+        Raison sociale du producteur des déchets sortants
+    - name: emetteur_initial_adresse_etablissement
+      description: >
+        Libellé de l'adresse (n° de voie et voie, complément, lieu-dit etc) du producteur des déchets sortants
+    - name: emetteur_initial_code_postal_etablissement
+      description: >
+        Code postal du producteur des déchets sortants
+    - name: emetteur_initial_ville_etablissement
+      description: >
+        Commune du producteur des déchets sortants
+    - name: emetteur_initial_code_pays_etablissement
+      description: >
+        Code pays du producteur des déchets sortants
+    - name: emetteur_initial_municipalites_codes_insee_etablissement
+      description: >
+        Le ou les codes INSEE de la ou des commune(s) de collecte des déchets sortants
+    - name: destinataire_profil_etablissement
+      description: >
+        Type d'acteur correspondant au destinataire des déchets sortants, parmi ETABLISSEMENT_FR, ENTREPRISE_UE, ENTREPRISE_HORS_UE, ASSOCIATION
+    - name: destinataire_siret_etablissement
+      description: >
+        Numéro d'identification du destinataire, selon son type de profil
+    - name: destinataire_nom_etablissement
+      description: >
+        Raison sociale du destinataire des déchets sortants
+    - name: destinataire_adresse_etablissement
+      description: >
+        Libellé de l'adresse (n° de voie et voie, complément, lieu-dit etc) du destinataire des déchets sortants
+    - name: destinataire_code_postal_etablissement
+      description: >
+        Code postal du destinataire des déchets sortants
+    - name: destinataire_ville_etablissement
+      description: >
+        Commune du destinataire des déchets sortants
+    - name: destinataire_code_pays_etablissement
+      description: >
+        Code pays du destinataire des déchets sortants
+    - name: destinataire_adresse_lieu_de_depot
+      description: >
+        Libellé de l'adresse de dépôt (n° de voie et voie, complément, lieu-dit etc) du destinataire des déchets sortants
+    - name: destinataire_code_postal_lieu_de_depot
+      description: >
+        Code postal de l'adresse de dépôt du destinataire des déchets sortants
+    - name: destinataire_ville_lieu_de_depot
+      description: >
+        Commune de l'adresse de dépôt du destinataire des déchets sortants
+    - name: destinataire_code_pays_lieu_de_depot
+      description: >
+        Code pays de l'adresse de dépôt du destinataire des déchets sortants
+    - name: traitement_realise_code
+      description: >
+        Code de traitement prévu qui va être opéré dans l'installation vers laquelle le déchet est expédié
+    - name: traitement_realise_mode
+      description: |
+        Qualification du traitement correspondant au code de traitement prévu des déchets sortants parmi les valeurs suivantes :
+        REUTILISATION
+        RECYCLAGE
+        VALORISATION ENERGETIQUE
+        AUTRES VALORISATIONS 
+        ELIMINATION
+    - name: eco_organisme_siret
+      description: >
+        SIRET de l'éco-organisme
+    - name: eco_organisme_nom
+      description: >
+        Raison sociale de l’éco-organisme 
+    - name: courtier_siret_etablissement
+      description: >
+        SIRET du courtier
+    - name: courtier_nom_etablissement
+      description: >
+        Raison sociale du courtier
+    - name: courtier_numero_recepisse
+      description: >
+        Numéro de récépissé du courtier
+    - name: negociant_siret_etablissement
+      description: >
+        SIRET du négociant
+    - name: negociant_nom_etablissement
+      description: >
+        Raison sociale du négociant
+    - name: negociant_numero_recepisse
+      description: >
+        Numéro de récépissé du négociant
+    - name: numeros_identification_transporteurs
+      description: >
+        Numéro d'identification des transporteurs selon leur type

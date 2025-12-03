@@ -4,351 +4,275 @@ models:
     description: >
       Cette table contient les données des BSDD.
       Une ligne par BSDD, les BSDD supprimés restent dans la table.
-    config:
-      elementary:
-        timestamp_column: created_at
-        seasonality: day_of_week
-    tests:
-      - elementary.volume_anomalies
-      - elementary.dimension_anomalies:
-          dimensions:
-            - status
-            - waste_details_code
-            - is_deleted
-          timestamp_column: updated_at
     columns:
       - name: id
-        data_type: text
+        data_type: string
         description: Identifiant unique du BSDD en base.
         tests:
           - unique
           - not_null
       - name: created_at
-        data_type: timestamp without time zone
-        description: |
-          Date de création du BSDD.
+        data_type: datetime64(6, 'europe/paris')
+        description: "Date de création du BSDD.\n"
       - name: updated_at
-        data_type: timestamp without time zone
-        description: |
-          Date de la dernière modification du BSDD.
+        data_type: datetime64(6, 'europe/paris')
+        description: "Date de la dernière modification du BSDD.\n"
       - name: emitter_type
-        data_type: text
-        description: >
-          Type d'émetteur.
+        data_type: string
+        description: "Type d'émetteur.\n"
       - name: emitter_pickup_site
-        data_type: text
+        data_type: string
         description: |
           Adresse chantier. 
           **Ce champ n'est plus censé être utilisé, il est marqué dans la documentation API comme DEPRECATED**
       - name: emitter_company_name
-        data_type: text
-        description: >
-          Nom de l'établissement émetteur du déchet.
+        data_type: string
+        description: "Nom de l'établissement émetteur du déchet.\n"
       - name: emitter_company_siret
-        data_type: text
-        description: >
-          SIRET de l'établissement émetteur du déchet.
+        data_type: string
+        description: "SIRET de l'établissement émetteur du déchet.\n"
       - name: emitter_company_address
-        data_type: text
-        description: >
-          Adresse postale de l'établissement émetteur du déchet.
+        data_type: string
+        description: "Adresse postale de l'établissement émetteur du déchet.\n"
       - name: emitter_company_contact
-        data_type: text
-        description: >
-          Nom du contact dans l'établissement émetteur du déchet.
+        data_type: string
+        description: "Nom du contact dans l'établissement émetteur du déchet.\n"
       - name: emitter_company_phone
-        data_type: text
-        description: >
-          Numéro de téléphone de contact dans l'établissement émetteur du déchet.
+        data_type: string
+        description: "Numéro de téléphone de contact dans l'établissement émetteur du déchet.\n"
       - name: emitter_company_mail
-        data_type: text
-        description: >
-          Email du contact dans l'établissement émetteur du déchet.
+        data_type: string
+        description: "Email du contact dans l'établissement émetteur du déchet.\n"
       - name: recipient_cap
-        data_type: text
-        description: |
-          N° de CAP (le cas échéant).
+        data_type: string
+        description: "N° de CAP (le cas échéant).\n"
       - name: recipient_processing_operation
-        data_type: text
-        description: |
-          Opération d'élimination / valorisation prévue (code D/R).
+        data_type: string
+        description: "Opération d'élimination / valorisation prévue (code D/R).\n"
       - name: recipient_company_name
-        data_type: text
-        description: |
+        data_type: string
+        description: >
           Nom de l'installation de destination ou d’entreposage ou de reconditionnement prévue (case 2).
       - name: recipient_company_siret
-        data_type: text
-        description: |
-          SIRET de l'installation de destination ou d’entreposage ou de reconditionnement prévue (case 2).
+        data_type: string
+        description: >
+          SIRET de l'installation de destination ou d’entreposage ou de reconditionnement prévue (case
+          2).
       - name: recipient_company_address
-        data_type: text
-        description: |
-          Adresse de l'installation de destination ou d’entreposage ou de reconditionnement prévue (case 2).
+        data_type: string
+        description: >
+          Adresse de l'installation de destination ou d’entreposage ou de reconditionnement prévue (case
+          2).
       - name: recipient_company_contact
-        data_type: text
-        description: |
-          Nom du contact de l'installation de destination ou d’entreposage ou de reconditionnement prévue (case 2).
+        data_type: string
+        description: >
+          Nom du contact de l'installation de destination ou d’entreposage ou de reconditionnement prévue
+          (case 2).
       - name: recipient_company_phone
-        data_type: text
-        description: |
-          Numéro de téléphone du contact de l'installation de destination ou d’entreposage ou de reconditionnement prévue (case 2).
+        data_type: string
+        description: >
+          Numéro de téléphone du contact de l'installation de destination ou d’entreposage ou de reconditionnement
+          prévue (case 2).
       - name: recipient_company_mail
-        data_type: text
-        description: |
-          E-mail du contact de l'installation de destination ou d’entreposage ou de reconditionnement prévue (case 2).
+        data_type: string
+        description: >
+          E-mail du contact de l'installation de destination ou d’entreposage ou de reconditionnement
+          prévue (case 2).
       - name: waste_details_code
-        data_type: text
+        data_type: string
         description: |
           Rubrique déchet au format "00 00 00*". 
           Le symbole * permet d'identifier si le déchet est dangereux.
           La nomenclature complète des codes déchets peut être retrouvée sur [ce lien](https://aida.ineris.fr/reglementation/liste-codification-dechets-annexe-ii-larticle-r-541-8).
       - name: waste_details_onu_code
-        data_type: text
-        description: |
-          Code ONU du déchet.
+        data_type: string
+        description: "Code ONU du déchet.\n"
       - name: waste_details_quantity
-        data_type: numeric
-        description: |
-          Quantité en tonnes pesée au départ.
+        data_type: decimal(76, 30)
+        description: "Quantité en tonnes pesée au départ.\n"
         tests:
           - dbt_utils.accepted_range:
               min_value: 0
               inclusive: true
       - name: waste_details_quantity_type
-        data_type: text
-        description: |
-          Permet de déterminer si la quantité est réelle ou estimée.
+        data_type: string
+        description: "Permet de déterminer si la quantité est réelle ou estimée.\n"
         tests:
           - accepted_values:
-              values: ["REAL", "ESTIMATED"]
+              values: [REAL, ESTIMATED]
       - name: readable_id
-        data_type: text
+        data_type: string
         description: |
           Identifiant lisible utilisé comme numéro sur le CERFA (case "Bordereau n°****"). 
           Il est possible de l'utiliser pour récupérer l'identifiant unique du bordereau via la query form, utilisé pour le reste des opérations. 
           Cet identifiant possède le format BSDD-yyyyMMdd-XXXXXXXX où yyyyMMdd est la date du jour et XXXXXXXXX une chaîne de 9 caractères alphanumériques. 
           Ex: BSD-20210101-HY87F54D1
-        tests:
-          - elementary.column_anomalies:
-              column_anomalies:
-                - max_length
       - name: status
-        data_type: text
-        description: |
-          Statut du BSD (brouillon, envoyé, reçu, traité, etc)
+        data_type: string
+        description: "Statut du BSD (brouillon, envoyé, reçu, traité, etc)\n"
         tests:
           - accepted_values:
-              values: ["SIGNED_BY_PRODUCER", "REFUSED", "GROUPED", "RECEIVED", "FOLLOWED_WITH_PNTTD", "TEMP_STORED", "PROCESSED", "RESEALED", "DRAFT", "SIGNED_BY_TEMP_STORER", "ACCEPTED", "TEMP_STORER_ACCEPTED", "AWAITING_GROUP", "SEALED", "NO_TRACEABILITY", "SENT", "RESENT", "CANCELED"]
+              values: [SIGNED_BY_PRODUCER, REFUSED, GROUPED, RECEIVED, FOLLOWED_WITH_PNTTD, TEMP_STORED,
+                PROCESSED, RESEALED, DRAFT, SIGNED_BY_TEMP_STORER, ACCEPTED, TEMP_STORER_ACCEPTED, AWAITING_GROUP,
+                SEALED, NO_TRACEABILITY, SENT, RESENT, CANCELED]
       - name: sent_at
-        data_type: timestamp with time zone
+        data_type: datetime64(6, 'europe/paris')
         description: |
           Date de l'envoi du déchet par l'émetteur et de prise en charge du déchet par le transporteurs.
           **Deprecated: Remplacé par takenOverAt**
       - name: sent_by
-        data_type: text
-        description: |
-          Nom de la personne responsable de l'envoi du déchet (case 9).
+        data_type: string
+        description: "Nom de la personne responsable de l'envoi du déchet (case 9).\n"
       - name: is_accepted
-        data_type: boolean
-        description: |
-          Indique si le déchet a été accepté.
+        data_type: bool
+        description: "Indique si le déchet a été accepté.\n"
       - name: received_at
-        data_type: timestamp with time zone
-        description: |
-          Date à laquelle le déchet a été reçu (case 10).
+        data_type: datetime64(6, 'europe/paris')
+        description: "Date à laquelle le déchet a été reçu (case 10).\n"
       - name: quantity_received
-        data_type: numeric
-        description: |
-          Quantité reçue sur l'installation de destination, en tonnes.
-        tests:
-          - elementary.column_anomalies:
-              timestamp_column: updated_at
-      - name: quantity_refused
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 30)
+        description: "Quantité reçue sur l'installation de destination, en tonnes.\n"
       - name: processing_operation_done
-        data_type: text
-        description: |
-          Traitement réalisé (code D/R).
+        data_type: string
+        description: "Traitement réalisé (code D/R).\n"
       - name: waste_details_name
-        data_type: text
-        description: |
-          Dénomination usuelle du déchet associée à la rubrique déchet.
+        data_type: string
+        description: "Dénomination usuelle du déchet associée à la rubrique déchet.\n"
       - name: is_deleted
-        data_type: boolean
-        description: |
-          Permet de savoir si le BSDD a été supprimé.
+        data_type: bool
+        description: "Permet de savoir si le BSDD a été supprimé.\n"
       - name: received_by
-        data_type: text
-        description: |
-          Nom de la personne en charge de la réception du déchet (case 10).
+        data_type: string
+        description: "Nom de la personne en charge de la réception du déchet (case 10).\n"
       - name: waste_details_consistence
-        data_type: text
-        description: |
-          Consistance du déchet.
-        tests:
-          - accepted_values:
-              values: ["SOLID", "LIQUID", "GASEOUS", "DOUGHY"]
+        data_type: string
+        description: "Consistance du déchet.\n"
       - name: processed_by
-        data_type: text
-        description: |
-          Personne en charge du traitement.
+        data_type: string
+        description: "Personne en charge du traitement.\n"
       - name: processed_at
-        data_type: timestamp with time zone
-        description: |
-          Date à laquelle le déchet a été traité.
+        data_type: datetime64(6, 'europe/paris')
+        description: "Date à laquelle le déchet a été traité.\n"
       - name: next_destination_processing_operation
-        data_type: text
-        description: |
+        data_type: string
+        description: >
           Traitement prévue (code D/R) par l'établissement de la destination ultérieure prévue (case 12).
       - name: trader_company_name
-        data_type: text
-        description: |
-          Nom de l'établissement négociant (case 7).
+        data_type: string
+        description: "Nom de l'établissement négociant (case 7).\n"
       - name: trader_company_siret
-        data_type: text
-        description: |
-          SIRET de l'établissement négociant (case 7).
+        data_type: string
+        description: "SIRET de l'établissement négociant (case 7).\n"
       - name: trader_company_address
-        data_type: text
-        description: |
-          Adresse de l'établissement négociant (case 7).
+        data_type: string
+        description: "Adresse de l'établissement négociant (case 7).\n"
       - name: trader_company_contact
-        data_type: text
-        description: |
-          Nom du contact dans l'établissement négociant (case 7).
+        data_type: string
+        description: "Nom du contact dans l'établissement négociant (case 7).\n"
       - name: trader_company_phone
-        data_type: text
-        description: |
-          Numéro de téléphone dans l'établissement négociant (case 7).
+        data_type: string
+        description: "Numéro de téléphone dans l'établissement négociant (case 7).\n"
       - name: trader_company_mail
-        data_type: text
-        description: |
-          Email du contact dans l'établissement négociant (case 7).
+        data_type: string
+        description: "Email du contact dans l'établissement négociant (case 7).\n"
       - name: trader_receipt
-        data_type: text
-        description: |
-          Numéro de récépissé de l'établissement négociant (case 7).
+        data_type: string
+        description: "Numéro de récépissé de l'établissement négociant (case 7).\n"
       - name: trader_department
-        data_type: text
-        description: |
-          Département de l'établissement négociant (case 7).
+        data_type: string
+        description: "Département de l'établissement négociant (case 7).\n"
       - name: trader_validity_limit
-        data_type: text
-        description: |
-          Limite de validité du récépissé de l'établissement négociant (case 7).
+        data_type: datetime64(6, 'europe/paris')
+        description: "Limite de validité du récépissé de l'établissement négociant (case 7).\n"
       - name: processing_operation_description
-        data_type: text
-        description: |
-          Description de l'opération d’élimination / valorisation réalisée.
+        data_type: string
+        description: "Description de l'opération d’élimination / valorisation réalisée.\n"
       - name: no_traceability
-        data_type: boolean
-        description: |
-          Indique s'il y a eu rupture de traçabilité.
+        data_type: bool
+        description: "Indique s'il y a eu rupture de traçabilité.\n"
       - name: signed_by_transporter
-        data_type: boolean
+        data_type: bool
         description: |
           Si oui ou non le BSD a été signé par un transporteur.
           **Deprecated: Ce champ est redondant avec status et takenOverAt**
       - name: custom_id
-        data_type: text
+        data_type: string
         description: >
-          Identifiant personnalisé, choisi par l'utilisateur,
-          permettant par exemple de faire le lien entre le BSDD et un système d'information tierce.
+          Identifiant personnalisé, choisi par l'utilisateur, permettant par exemple de faire le lien
+          entre le BSDD et un système d'information tierce.
       - name: waste_acceptation_status
-        data_type: text
-        description: >
-          Statut d'acceptation du déchet (case 10).
+        data_type: string
+        description: "Statut d'acceptation du déchet (case 10).\n"
       - name: waste_refusal_reason
-        data_type: text
-        description: >
-          Raison du refus (case 10).
+        data_type: string
+        description: "Raison du refus (case 10).\n"
       - name: next_destination_company_name
-        data_type: text
-        description: |
-          Nom de l'établissement de la destination ultérieure prévue (case 12).
+        data_type: string
+        description: "Nom de l'établissement de la destination ultérieure prévue (case 12).\n"
       - name: next_destination_company_siret
-        data_type: text
-        description: |
-          SIRET de l'établissement de la destination ultérieure prévue (case 12).
+        data_type: string
+        description: "SIRET de l'établissement de la destination ultérieure prévue (case 12).\n"
       - name: next_destination_company_address
-        data_type: text
-        description: |
-          Adresse de l'établissement de la destination ultérieure prévue (case 12).
+        data_type: string
+        description: "Adresse de l'établissement de la destination ultérieure prévue (case 12).\n"
       - name: next_destination_company_contact
-        data_type: text
-        description: |
-          Nom du contact de l'établissement de la destination ultérieure prévue (case 12).
+        data_type: string
+        description: "Nom du contact de l'établissement de la destination ultérieure prévue (case 12).\n"
       - name: next_destination_company_phone
-        data_type: text
-        description: |
-          Téléphone de l'établissement de la destination ultérieure prévue (case 12).
+        data_type: string
+        description: "Téléphone de l'établissement de la destination ultérieure prévue (case 12).\n"
       - name: next_destination_company_mail
-        data_type: text
-        description: |
-          E-mail de l'établissement de la destination ultérieure prévue (case 12).
+        data_type: string
+        description: "E-mail de l'établissement de la destination ultérieure prévue (case 12).\n"
       - name: emitter_work_site_name
-        description: ''
-        data_type: text
+        data_type: string
       - name: emitter_work_site_address
-        description: ''
-        data_type: text
+        data_type: string
       - name: emitter_work_site_city
-        description: ''
-        data_type: text
+        data_type: string
       - name: emitter_work_site_postal_code
-        description: ''
-        data_type: text
+        data_type: string
       - name: emitter_work_site_infos
-        description: ''
-        data_type: text
+        data_type: string
       - name: recipient_is_temp_storage
-        data_type: boolean
-        description: |
+        data_type: bool
+        description: >
           Indique si c'est un établissement d'entreposage temporaire ou de reconditionnement.
       - name: signed_at
-        data_type: timestamp with time zone
+        data_type: datetime64(6, 'europe/paris')
         description: |
           Date de signature du BSD suite (case 19).
           **Deprecated: Remplacé par takenOverAt**
       - name: current_transporter_org_id
-        description: ''
-        data_type: text
+        data_type: string
       - name: next_transporter_org_id
-        description: ''
-        data_type: text
+        data_type: string
       - name: next_destination_company_country
-        data_type: text
-        description: |
-          Pays de l'établissement de la destination ultérieure prévue (case 12).
+        data_type: string
+        description: "Pays de l'établissement de la destination ultérieure prévue (case 12).\n"
       - name: is_imported_from_paper
-        data_type: boolean
-        description: |
-          Permet de savoir si les données du BSD ont été importées depuis un bordereau signé papier (via la mutation `importPaperForm``).
+        data_type: bool
+        description: >
+          Permet de savoir si les données du BSD ont été importées depuis un bordereau signé papier (via
+          la mutation `importPaperForm``).
       - name: eco_organisme_name
-        data_type: text
-        description: |
-          Nom de l'éco-organisme responsable du BSDD.
+        data_type: string
+        description: "Nom de l'éco-organisme responsable du BSDD.\n"
       - name: eco_organisme_siret
-        data_type: text
-        description: |
-          SIRET de l'éco-organisme responsable du BSDD.
+        data_type: string
+        description: "SIRET de l'éco-organisme responsable du BSDD.\n"
       - name: waste_details_packaging_infos
-        data_type: ARRAY
-        description: |
-          Détail de conditionnements.
+        data_type: String
+        description: "Détail de conditionnements.\n"
       - name: signed_by
-        data_type: text
-        description: |
-          Nom du signataire du BSD suite (case 19).
+        data_type: string
+        description: "Nom du signataire du BSD suite (case 19).\n"
       - name: waste_details_pop
-        data_type: boolean
-        description: |
-          Est `true` si le déchet contient des Polluants Organiques Persistants (POP).
+        data_type: bool
+        description: "Est `true` si le déchet contient des Polluants Organiques Persistants (POP).\n"
       - name: owner_id
-        data_type: text
-        description: |
-          Identifiant du user qui est owner du BSDD.
+        data_type: string
+        description: "Identifiant du user qui est owner du BSDD.\n"
         tests:
           - dbt_utils.relationships_where:
               to: ref('user')
@@ -359,126 +283,117 @@ models:
           metabase.fk_target_table: trusted_zone_trackdechets.users
           metabase.fk_target_field: id
       - name: broker_company_name
-        data_type: text
-        description: |
-          Nom de l'établissement courtier.
+        data_type: string
+        description: "Nom de l'établissement courtier.\n"
       - name: broker_company_siret
-        data_type: text
-        description: |
-          SIRET de l'établissement courtier.
+        data_type: string
+        description: "SIRET de l'établissement courtier.\n"
       - name: broker_company_address
-        data_type: text
-        description: |
-          Adresse de l'établissement courtier.
+        data_type: string
+        description: "Adresse de l'établissement courtier.\n"
       - name: broker_company_contact
-        data_type: text
-        description: |
-          Nom du contact de l'établissement courtier.
+        data_type: string
+        description: "Nom du contact de l'établissement courtier.\n"
       - name: broker_company_phone
-        data_type: text
-        description: |
-          Numéro de téléphone de contact dans l'établissement courtier.
+        data_type: string
+        description: "Numéro de téléphone de contact dans l'établissement courtier.\n"
       - name: broker_company_mail
-        data_type: text
-        description: |
-          E-mail du contact de l'établissement courtier.
+        data_type: string
+        description: "E-mail du contact de l'établissement courtier.\n"
       - name: broker_receipt
-        data_type: text
-        description: |
-          Récépissé de l'établissement courtier.
+        data_type: string
+        description: "Récépissé de l'établissement courtier.\n"
       - name: broker_department
-        data_type: text
-        description: |
-          Département de l'établissement courtier.
+        data_type: string
+        description: "Département de l'établissement courtier.\n"
       - name: broker_validity_limit
-        data_type: text
-        description: |
-          Limite de validité de l'établissement courtier.
+        data_type: datetime64(6, 'europe/paris')
+        description: "Limite de validité de l'établissement courtier.\n"
       - name: waste_details_is_dangerous
-        data_type: boolean
-        description: |
+        data_type: bool
+        description: >
           Caractère dangereux du déchet au sens de l’article R541-8 du code de l’environnement.
       - name: emitted_at
-        data_type: timestamp with time zone
-        description: |
-          Date à laquelle l'émetteur a signé l'enlèvement initial.
+        data_type: datetime64(6, 'europe/paris')
+        description: "Date à laquelle l'émetteur a signé l'enlèvement initial.\n"
       - name: emitted_by
-        data_type: text
-        description: |
-          Nom de la personne qui a signé l'enlèvement initial pour l'émetteur.
+        data_type: string
+        description: "Nom de la personne qui a signé l'enlèvement initial pour l'émetteur.\n"
       - name: emitted_by_eco_organisme
-        data_type: boolean
-        description: |
-          Indique si l'enlèvement a été signé par l'éco-organisme en charge du déchet.
+        data_type: bool
+        description: "Indique si l'enlèvement a été signé par l'éco-organisme en charge du déchet.\n"
       - name: taken_over_at
-        data_type: timestamp with time zone
-        description: >
-          Date à laquelle le transporteur a signé l'enlèvement initial.
+        data_type: datetime64(6, 'europe/paris')
+        description: "Date à laquelle le transporteur a signé l'enlèvement initial.\n"
       - name: taken_over_by
-        data_type: text
-        description: >
-          Nom de la personne qui a signé l'enlèvement initial pour le transporteur.
+        data_type: string
+        description: "Nom de la personne qui a signé l'enlèvement initial pour le transporteur.\n"
       - name: waste_details_parcel_numbers
-        data_type: ARRAY
+        data_type: String
         description: >
-          Identifiants des parcelles cadastrales concernées, ou, en cas de domaine non cadastré,  l'identification précise des lieux géographiques de production.
+          Identifiants des parcelles cadastrales concernées, ou, en cas de domaine non cadastré,  l'identification
+          précise des lieux géographiques de production.
       - name: waste_details_analysis_references
-        data_type: ARRAY
-        description: |
-          Numéros de référence(s) d'analyse(s).
+        data_type: Array(String)
+        description: "Numéros de référence(s) d'analyse(s).\n"
       - name: waste_details_land_identifiers
-        data_type: ARRAY
+        data_type: Array(String)
         description: >
-          Identifiant(s) du ou des terrains lorsque les terres ont été extraites  d'un terrain placé en secteur d'information sur les sols au titre de l'article L. 125-6.
+          Identifiant(s) du ou des terrains lorsque les terres ont été extraites  d'un terrain placé en
+          secteur d'information sur les sols au titre de l'article L. 125-6.
       - name: forwarded_in_id
-        data_type: text
-        description: |
-          Identifiant du bordereau qui a ré-expédié celui-ci.
+        data_type: string
+        description: "Identifiant du bordereau qui a ré-expédié celui-ci.\n"
       - name: quantity_received_type
-        data_type: text
-        description: |
-          Type de quantité reçue.
+        data_type: string
+        description: "Type de quantité reçue.\n"
         tests:
           - accepted_values:
-              values: ["REAL", "ESTIMATED"]
+              values: [REAL, ESTIMATED]
       - name: emitter_is_foreign_ship
-        description: ''
-        data_type: boolean
+        data_type: bool
       - name: emitter_is_private_individual
-        data_type: boolean
-        description: |
-          Indique si le détenteur est un particulier ou une entreprise.
+        data_type: bool
+        description: "Indique si le détenteur est un particulier ou une entreprise.\n"
       - name: emitter_company_omi_number
-        data_type: text
+        data_type: string
         description: |
           Numéro OMI ou IMO (International Maritime Organization) pour les navires étrangers (sans SIRET). 
           Il est composé des trois lettres IMO suivi d'un nombre de sept chiffres (ex: IMO 1234567).
       - name: next_destination_company_vat_number
-        data_type: text
-        description: |
-          Numéro de TVA intracommunautaire de l'établissement de la destination ultérieure prévue (case 12).
+        data_type: string
+        description: >
+          Numéro de TVA intracommunautaire de l'établissement de la destination ultérieure prévue (case
+          12).
       - name: recipients_sirets
-        data_type: ARRAY
-        description: ''
+        data_type: Array(String)
       - name: transporters_sirets
-        description: ''
-        data_type: ARRAY
+        data_type: Array(String)
       - name: intermediaries_sirets
-        description: ''
-        data_type: ARRAY
+        data_type: Array(String)
       - name: next_destination_notification_number
-        description: ''
-        data_type: text
+        data_type: string
       - name: waste_details_sample_number
-        description: ''
-        data_type: text
+        data_type: string
       - name: can_access_draft_sirets
-        description: ''
-        data_type: ARRAY
+        data_type: Array(String)
       - name: destination_operation_mode
-        description: ''
-        data_type: text
+        data_type: string
       - name: quantity_grouped
-        description: ''
-        data_type: numeric
-sources: []
+        data_type: float64
+      - name: next_destination_company_extra_european_id
+        data_type: String
+      - name: row_number
+        data_type: Int256
+      - name: quantity_refused
+        data_type: decimal(76, 30)
+      - name: citerne_not_washed_out_reason
+        data_type: String
+      - name: has_citerne_been_washed_out
+        data_type: Bool
+      - name: empty_return_adr
+        data_type: String
+      - name: waste_details_non_road_regulation_mention
+        data_type: String
+      - name: waste_details_is_subject_to_adr
+        data_type: Bool

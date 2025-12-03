@@ -3,233 +3,189 @@ models:
   - name: statistics_by_siret
     columns:
       - name: siret
-        description: 'Code région'
-        data_type: text
+        description: Code région
+        data_type: string
       - name: last_bordereau_created_at_as_emitter
-        description: ''
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: last_bordereau_created_at_as_transporter
-        description: ''
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: last_bordereau_created_at_as_destination
-        description: ''
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'europe/paris')
+      - name: last_bordereau_created_at_as_worker
+        data_type: DateTime64(6, 'Europe/Paris')
       - name: processing_operations_as_emitter
-        description: ''
-        data_type: ARRAY
+        data_type: Array(String)
       - name: processing_operations_as_transporter
-        description: ''
-        data_type: ARRAY
+        data_type: Array(String)
       - name: processing_operations_as_destination_bsdd
-        description: ''
-        data_type: ARRAY
+        data_type: Array(String)
       - name: processing_operations_as_destination_bsdnd
-        description: ''
-        data_type: ARRAY
+        data_type: Array(String)
       - name: processing_operations_as_destination_bsda
-        description: ''
-        data_type: ARRAY
+        data_type: Array(String)
       - name: processing_operations_as_destination_bsff
-        description: ''
-        data_type: ARRAY
+        data_type: Array(String)
       - name: processing_operations_as_destination_bsdasri
-        description: ''
-        data_type: ARRAY
+        data_type: Array(String)
       - name: processing_operations_as_destination_bsvhu
-        description: ''
-        data_type: ARRAY
+        data_type: Array(String)
+      - name: processing_operations_as_worker
+        data_type: Array(String)
+      - name: waste_codes_as_destination
+        data_type: Array(String)
       - name: num_bsdd_as_emitter
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: num_bsdnd_as_emitter
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: num_bsda_as_emitter
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: num_bsff_as_emitter
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: num_bsdasri_as_emitter
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: num_bsvhu_as_emitter
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: quantity_bsdd_as_emitter
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: quantity_bsdnd_as_emitter
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: quantity_bsda_as_emitter
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: quantity_bsff_as_emitter
-        description: ''
-        data_type: numeric
+        data_type: float64
       - name: quantity_bsdasri_as_emitter
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: quantity_bsvhu_as_emitter
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: num_bsdnd_as_transporter
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: num_bsdd_as_transporter
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: num_bsda_as_transporter
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: num_bsff_as_transporter
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: num_bsdasri_as_transporter
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: num_bsvhu_as_transporter
-        description: ''
-        data_type: bigint
+        data_type: uint64
+      - name: num_bsda_as_worker
+        data_type: UInt64
       - name: quantity_bsdd_as_transporter
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: quantity_bsdnd_as_transporter
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: quantity_bsda_as_transporter
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: quantity_bsff_as_transporter
-        description: ''
-        data_type: numeric
+        data_type: float64
       - name: quantity_bsdasri_as_transporter
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: quantity_bsvhu_as_transporter
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: num_bsdd_as_destination
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: num_bsdnd_as_destination
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: num_bsda_as_destination
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: num_bsff_as_destination
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: num_bsdasri_as_destination
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: num_bsvhu_as_destination
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: quantity_bsdd_as_destination
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: quantity_bsdnd_as_destination
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: quantity_bsda_as_destination
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: quantity_bsff_as_destination
-        description: ''
-        data_type: numeric
+        data_type: float64
       - name: quantity_bsdasri_as_destination
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: quantity_bsvhu_as_destination
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: last_bordereau_created_at
-        description: ''
-        data_type: timestamp without time zone
-      - name: total_mentions_bordereaux
-        description: ''
-        data_type: bigint
-      - name: num_dnd_statements_as_destination
-        description: ''
-        data_type: bigint
-      - name: quantity_dnd_statements_as_destination
-        description: ''
-        data_type: numeric
-      - name: volume_dnd_statements_as_destination
-        description: ''
-        data_type: numeric
-      - name: num_dnd_statements_as_emitter
-        description: ''
-        data_type: bigint
-      - name: quantity_dnd_statements_as_emitter
-        description: ''
-        data_type: numeric
-      - name: volume_dnd_statements_as_emitter
-        description: ''
-        data_type: numeric
-      - name: num_dnd_statements_as_transporteur
-        description: ''
-        data_type: bigint
-      - name: quantity_dnd_statements_as_transporteur
-        description: ''
-        data_type: numeric
-      - name: volume_dnd_statements_as_transporteur
-        description: ''
-        data_type: numeric
-      - name: num_texs_statements_as_destination
-        description: ''
-        data_type: bigint
-      - name: quantity_texs_statements_as_destination
-        description: ''
-        data_type: numeric
-      - name: volume_texs_statements_as_destination
-        description: ''
-        data_type: numeric
-      - name: num_texs_statements_as_emitter
-        description: ''
-        data_type: bigint
-      - name: quantity_texs_statements_as_emitter
-        description: ''
-        data_type: numeric
-      - name: volume_texs_statements_as_emitter
-        description: ''
-        data_type: numeric
-      - name: num_texs_statements_as_transporteur
-        description: ''
-        data_type: bigint
-      - name: quantity_texs_statements_as_transporteur
-        description: ''
-        data_type: numeric
-      - name: volume_texs_statements_as_transporteur
-        description: ''
-        data_type: numeric
-      - name: num_ssd_statements_as_destination
-        description: ''
-        data_type: bigint
-      - name: quantity_ssd_statements_as_destination
-        description: ''
-        data_type: numeric
-      - name: volume_ssd_statements_as_destination
-        description: ''
-        data_type: numeric
+        data_type: datetime64(6, 'europe/paris')
+      - name: num_bordereaux
+        data_type: UInt64
       - name: dnd_processing_operations_as_destination
-        description: ''
-        data_type: ARRAY
+        data_type: Array(String)
       - name: texs_processing_operations_as_destination
-        description: ''
-        data_type: ARRAY
+        data_type: Array(String)
+      - name: dnd_waste_codes_as_destination
+        data_type: Array(String)
+      - name: texs_waste_codes_as_destination
+        data_type: Array(String)
+      - name: num_dnd_statements_as_destination
+        data_type: uint64
+      - name: quantity_dnd_statements_as_destination
+        data_type: float64
+      - name: volume_dnd_statements_as_destination
+        data_type: float64
+      - name: num_dd_statements_as_destination
+        data_type: UInt64
+      - name: quantity_dd_statements_as_destination
+        data_type: Float64
+      - name: volume_dd_statements_as_destination
+        data_type: Float64
+      - name: num_dnd_statements_as_emitter
+        data_type: uint64
+      - name: quantity_dnd_statements_as_emitter
+        data_type: float64
+      - name: volume_dnd_statements_as_emitter
+        data_type: float64
+      - name: num_dd_statements_as_emitter
+        data_type: UInt64
+      - name: quantity_dd_statements_as_emitter
+        data_type: Float64
+      - name: volume_dd_statements_as_emitter
+        data_type: Float64
+      - name: num_dnd_statements_as_transporteur
+        data_type: uint64
+      - name: quantity_dnd_statements_as_transporteur
+        data_type: float64
+      - name: volume_dnd_statements_as_transporteur
+        data_type: float64
+      - name: num_texs_statements_as_destination
+        data_type: uint64
+      - name: quantity_texs_statements_as_destination
+        data_type: float64
+      - name: volume_texs_statements_as_destination
+        data_type: float64
+      - name: num_texs_statements_as_emitter
+        data_type: uint64
+      - name: quantity_texs_statements_as_emitter
+        data_type: float64
+      - name: volume_texs_statements_as_emitter
+        data_type: float64
+      - name: num_texs_statements_as_transporteur
+        data_type: uint64
+      - name: quantity_texs_statements_as_transporteur
+        data_type: float64
+      - name: volume_texs_statements_as_transporteur
+        data_type: float64
+      - name: num_ssd_statements_as_emitter
+        data_type: UInt64
+      - name: quantity_ssd_statements_as_emitter
+        data_type: Float64
+      - name: volume_ssd_statements_as_emitter
+        data_type: Float64
+      - name: num_statements
+        data_type: UInt64
+      - name: quantity_statements
+        data_type: Float64
+      - name: volume_statements
+        data_type: Float64
+      - name: total_bordereaux_statements_references
+        data_type: UInt64
       - name: num_pnttd_statements_as_emitter
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: quantity_pnttd_as_emitter
-        description: ''
-        data_type: double precision
+        data_type: float64
       - name: num_pnttd_statements_as_destination
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: quantity_pnttd_as_destination
-        description: ''
-        data_type: double precision
+        data_type: float64

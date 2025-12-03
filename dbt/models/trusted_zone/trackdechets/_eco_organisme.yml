@@ -3,18 +3,19 @@ models:
   - name: eco_organisme
     columns:
       - name: id
-        description: 'Clé primaire'
-        data_type: text
+        tests:
+          - unique
+        description: Clé primaire
+        data_type: string
       - name: siret
-        description: ''
-        data_type: text
+        data_type: string
       - name: name
-        description: ''
-        data_type: text
+        data_type: string
       - name: address
-        description: ''
-        data_type: text
+        data_type: string
       - name: handle_bsdasri
-        description: ''
-        data_type: boolean
-sources: []
+        data_type: bool
+      - name: handle_bsda
+        data_type: Bool
+      - name: handle_bsvhu
+        data_type: Bool

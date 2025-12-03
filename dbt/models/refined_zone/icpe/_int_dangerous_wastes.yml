@@ -1,0 +1,16 @@
+version: 2
+models:
+  - name: int_dangerous_wastes
+    description: >
+      Quantité de déchets dangereux par SIRET et par code de traitement.
+      Inclus les déchets des BSDD.
+    columns:
+      - name: siret
+        description: Code région
+        data_type: String
+      - name: processing_operation
+        data_type: String
+      - name: day_of_processing
+        data_type: datetime64(6, 'europe/paris')
+      - name: quantite_traitee
+        data_type: UInt8

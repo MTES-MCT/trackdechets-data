@@ -3,27 +3,18 @@ models:
   - name: code_geo_arrondissements
     columns:
       - name: code_arrondissement
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: code_departement
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: code_region
-        description: ''
-        data_type: integer
+        data_type: string
       - name: code_commune_chef_lieu
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: type_nom_en_clair
-        description: ''
-        data_type: integer
+        data_type: string
       - name: nom_en_clair
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: nom_en_clair_enrichi
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: libelle
-        description: ''
-        data_type: character varying
-sources: []
+        data_type: string

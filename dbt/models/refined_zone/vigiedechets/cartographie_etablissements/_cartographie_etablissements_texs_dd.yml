@@ -1,0 +1,19 @@
+version: 2
+models:
+  - name: cartographie_etablissements_texs_dd
+    columns:
+      - name: siret
+        description: Code région
+        data_type: String
+      - name: num_texs_dd_as_emitter
+        data_type: UInt64
+      - name: quantity_texs_dd_as_emitter
+        data_type: Decimal(76, 30)
+      - name: num_texs_dd_as_transporter
+        data_type: UInt64
+      - name: quantity_texs_dd_as_transporter
+        data_type: Decimal(76, 30)
+      - name: num_texs_dd_as_destination
+        data_type: UInt64
+      - name: quantity_texs_dd_as_destination
+        data_type: Decimal(76, 30)

@@ -25,7 +25,7 @@ first_join as (
     etabs.code_region                       AS "emitter_region",
     etabs.latitude                       AS "emitter_latitude",
     etabs.longitude                       AS "emitter_longitude",
-    etabs.activite_principale_etablissement AS "emitter_naf"
+    toNullable(etabs.activite_principale_etablissement) AS "emitter_naf"
     FROM
         filtered_form
         AS b
@@ -39,7 +39,7 @@ SELECT
     etabs.code_region                       AS "{{destination_prefix}}_region",
     etabs.latitude                       AS "{{destination_prefix}}_latitude",
     etabs.longitude                       AS "{{destination_prefix}}_longitude",
-    etabs.activite_principale_etablissement AS "{{destination_prefix}}_naf"
+    toNullable(etabs.activite_principale_etablissement) AS "{{destination_prefix}}_naf"
 FROM
     first_join
     AS b

@@ -3,23 +3,16 @@ models:
   - name: annual_quantity_produced_by_departement_and_waste_code
     columns:
       - name: annee
-        description: ''
-        data_type: integer
+        data_type: uint16
       - name: code_departement_insee
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: libelle_departement
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: code_region_insee
-        description: ''
-        data_type: integer
+        data_type: string
       - name: libelle_region
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: code_dechet
-        description: ''
-        data_type: text
+        data_type: string
       - name: quantite_produite
-        description: ''
-        data_type: numeric
+        data_type: float64

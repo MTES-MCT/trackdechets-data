@@ -8,12 +8,29 @@ trackdechets:
       user: "{{ env_var('DBT_USER') }}"
       password: "{{ env_var('DBT_PASSWORD') }}"
       port: "{{ env_var('DBT_PORT','8123') | int }}"
+      custom_settings:
+        join_use_nulls: 1
       threads: 2
-    prod:
+      send_receive_timeout: 3600
+    sandbox:
       type: clickhouse
-      host: "{{ env_var('DBT_HOST') }}"
-      user: "{{ env_var('DBT_USER') }}"
-      password: "{{ env_var('DBT_PASSWORD') }}"
-      port: "{{ env_var('DBT_PORT') | int }}"
+      host: "{{ env_var('DBT_HOST_SANDBOX') }}"
+      user: "{{ env_var('DBT_USER_SANDBOX') }}"
+      password: "{{ env_var('DBT_PASSWORD_SANDBOX') }}"
+      port: "{{ env_var('DBT_PORT_SANDBOX') | int }}"
+      custom_settings:
+        join_use_nulls: 1
       threads: 6
       use_colors: false
+      send_receive_timeout: 600      
+    prod:
+      type: clickhouse
+      host: "{{ env_var('DBT_HOST_PROD') }}"
+      user: "{{ env_var('DBT_USER_PROD') }}"
+      password: "{{ env_var('DBT_PASSWORD_PROD') }}"
+      port: "{{ env_var('DBT_PORT_PROD') | int }}"
+      custom_settings:
+        join_use_nulls: 1
+      threads: 6
+      use_colors: false
+      send_receive_timeout: 600

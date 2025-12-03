@@ -2,18 +2,20 @@ import logging
 import shutil
 import tempfile
 import time
+from io import StringIO
 from pathlib import Path
 
-import clickhouse_connect
 import httpx
 import pandas as pd
+import tqdm
 from clickhouse_connect.driver.tools import insert_file
-from utils.alerting import send_alert_to_mattermost
+from dags_utils.alerting import send_alert_to_mattermost
+from dags_utils.datawarehouse_connection import get_dwh_client
 from pendulum import datetime
 
 from airflow.decorators import dag, task
-from airflow.models import Connection
 from airflow.utils.trigger_rule import TriggerRule
+from geocoding.schema import COMPANIES_GEOCODED_DDL
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -21,8 +23,6 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S",
 )
 logger = logging.getLogger()
-
-DWH_CON = Connection.get_connection_from_secrets("td_datawarehouse")
 
 
 @dag(
@@ -42,60 +42,73 @@ def companies_geocoding():
 
     @task
     def extract_companies_to_geocode(tmp_dir: str):
+        client = get_dwh_client("raw_zone_referentials")
         logger.info("Retrieving companies to geolocalize.")
 
-        con = DWH_CON.to_dict()
-
-        client = clickhouse_connect.get_client(
-            host=con.get("host"),
-            port=con.get("port"),
-            username=con.get("login"),
-            password=con.get("password"),
-            database="raw_zone_referentials",
-        )
         companies_df = client.query_df(
             query="""
             select
-                siret,
-                coalesce(adresse_td,
-                adresse_insee) as adresse,
-                code_commune_insee
+                stock_etablissement.siret,
+                coalesce(company.address, stock_etablissement.adresse) as adresse,
+                stock_etablissement.code_commune_etablissement as code_commune_insee
             from
-                refined_zone_analytics.cartographie_des_etablissements
+                trusted_zone_trackdechets.company
+                left join trusted_zone_insee.stock_etablissement on company.siret = stock_etablissement.siret
             where
-                (latitude_td is null
-                    or longitude_td is null)
-                and (coalesce(adresse_td,
-                adresse_insee) is not null)
+                (company.latitude is null
+                    or company.longitude is null)
+                and (coalesce(company.address, stock_etablissement.adresse) is not null)
             """,
         )
 
         logger.info("%s to geolocalize.", len(companies_df))
 
-        companies_df.to_csv(Path(tmp_dir) / "companies_df.csv", index=False)
+        companies_df.to_parquet(Path(tmp_dir) / "companies_df.parquet", index=False)
 
     @task
     def geocode_with_ban(tmp_dir: str):
         tmp_dir = Path(tmp_dir)
-        with httpx.Client(timeout=6000) as client:
-            files = {"data": open(tmp_dir / "companies_df.csv", "rb")}
 
-            logger.info("Requesting BAN.")
-            start_time = time.time()
-            res = client.post(
-                url="https://api-adresse.data.gouv.fr/search/csv/",
-                data={"citycode": "code_commune_insee", "columns": "adresse"},
-                files=files,
+        companies_df = pd.read_parquet(tmp_dir / "companies_df.parquet")
+
+        batch_size = 5_000
+        results = []
+        for i in tqdm.trange(0, len(companies_df), batch_size):
+            companies_chunck_df = companies_df.iloc[i : (i + batch_size)]
+            companies_chunck_df.to_csv(
+                tmp_dir / f"companies_data_chunck_{i}.csv", index=False
             )
-            total_time = time.time() - start_time
+            with httpx.Client(timeout=6000) as client:
+                files = {"data": open(tmp_dir / f"companies_data_chunck_{i}.csv", "rb")}
 
-            logger.info("BAN responded after : %s seconds", total_time)
+                logger.info("Chunck %s - Requesting BAN.", i)
+                start_time = time.time()
+                res = client.post(
+                    url="https://api-adresse.data.gouv.fr/search/csv/",
+                    data={"citycode": "code_commune_insee", "columns": "adresse"},
+                    files=files,
+                )
+                total_time = time.time() - start_time
 
-        if res.status_code == 200:
-            with open(tmp_dir / "companies_geocoded.csv", mode="w") as f:
-                f.write(res.text)
-        else:
-            raise Exception("Problem requesting the ban", res.status_code, res.text)
+                logger.info(
+                    "Chunck %s - BAN responded after : %s seconds", i, total_time
+                )
+
+            if res.status_code == 200:
+                results.append(res.text)
+            else:
+                raise Exception(
+                    "Problem requesting the ban", res.status_code, res.text, res.headers
+                )
+
+            time.sleep(5)
+
+        geocoded_df = pd.concat([pd.read_csv(StringIO(e)) for e in results])
+        logger.info(
+            "Saving geocoded dataframe into csv file. Shape of dataframe : %s",
+            geocoded_df.shape,
+        )
+        geocoded_df.to_csv(tmp_dir / "companies_geocoded.csv", index=False)
 
     @task
     def insert_companies_geocoded_data_to_database(tmp_dir):
@@ -103,15 +116,10 @@ def companies_geocoding():
             Path(tmp_dir) / "companies_geocoded.csv", dtype=str
         )
 
-        con = DWH_CON.to_dict()
+        client = get_dwh_client("raw_zone_referentials")
 
-        client = clickhouse_connect.get_client(
-            host=con.get("host"),
-            port=con.get("port"),
-            username=con.get("login"),
-            password=con.get("password"),
-            database="raw_zone_referentials",
-        )
+        logger.info("Creating table (if not exists) 'companies_geocoded_by_ban_tmp'.")
+        client.command(COMPANIES_GEOCODED_DDL)
 
         logger.info(
             "Starting insertion of geocoded data (%s companies)",
@@ -120,7 +128,7 @@ def companies_geocoding():
         insert_file(
             client,
             "companies_geocoded_by_ban_tmp",
-            Path(tmp_dir) / "companies_geocoded.csv",
+            str(Path(tmp_dir) / "companies_geocoded.csv"),
             database="raw_zone_referentials",
             fmt="CSVWithNames",
         )

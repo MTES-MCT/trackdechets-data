@@ -5,15 +5,10 @@ models:
       materialized: table
     columns:
       - name: semaine
-        description: ''
-        data_type: timestamp without time zone
+        data_type: date
       - name: creations_bordereaux
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: creations_contenants
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: quantite_tracee
-        description: ''
-        data_type: numeric
-sources: []
+        data_type: float64

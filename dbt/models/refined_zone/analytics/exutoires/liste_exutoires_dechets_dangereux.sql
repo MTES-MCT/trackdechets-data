@@ -29,9 +29,7 @@ from
     {{ ref('bordereaux_enriched') }}
 where
     (
-        waste_code ~* '.*\*$'
-        or waste_pop
-        or waste_is_dangerous
+        {{ dangerous_waste_filter('bordereaux_enriched') }}
     )
     and (
         processing_operation

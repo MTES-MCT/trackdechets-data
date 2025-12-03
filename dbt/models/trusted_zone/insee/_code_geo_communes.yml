@@ -3,39 +3,26 @@ models:
   - name: code_geo_communes
     columns:
       - name: type_commune
-        description: ''
-        data_type: character varying
-      - name: code_region
-        description: ''
-        data_type: integer
-      - name: code_departement
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: code_commune
-        description: ''
-        data_type: character varying
-      - name: code_canton
-        description: ''
-        data_type: character varying
+        data_type: string
+      - name: code_region
+        data_type: string
+      - name: code_departement
+        data_type: string
+      - name: code_collectivite_territoriale
+        data_type: String
       - name: code_arrondissement
-        description: ''
-        data_type: character varying
-      - name: code_ctcd
-        description: ''
-        data_type: character varying
+        data_type: string
+      - name: code_canton
+        data_type: string
       - name: type_nom_en_clair
-        description: ''
-        data_type: integer
+        data_type: uint8
       - name: nom_en_clair
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: nom_en_clair_enrichi
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: libelle
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: code_commune_parente
-        description: ''
-        data_type: character varying
-sources: []
+        data_type: string

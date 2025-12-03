@@ -3,21 +3,27 @@ models:
   - name: company_association
     columns:
       - name: id
-        description: 'Clé primaire'
-        data_type: text
+        tests:
+          - unique
+        description: Clé primaire
+        data_type: string
       - name: role
-        description: ''
-        data_type: text
+        data_type: string
       - name: company_id
-        description: ''
-        data_type: text
+        data_type: string
       - name: user_id
-        description: ''
-        data_type: text
+        data_type: string
       - name: created_at
-        description: ''
-        data_type: timestamp without time zone
+        data_type: datetime64(6)
       - name: automatically_accepted
-        description: ''
-        data_type: boolean
-sources: []
+        data_type: bool
+      - name: notification_is_active_bsd_refusal
+        data_type: Bool
+      - name: notification_is_active_bsda_final_destination_update
+        data_type: Bool
+      - name: notification_is_active_membership_request
+        data_type: Bool
+      - name: notification_is_active_revision_request
+        data_type: Bool
+      - name: notification_is_active_signature_code_renewal
+        data_type: Bool

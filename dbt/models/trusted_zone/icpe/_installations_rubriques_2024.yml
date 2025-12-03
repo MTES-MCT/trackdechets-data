@@ -3,44 +3,30 @@ models:
   - name: installations_rubriques_2024
     columns:
       - name: raison_sociale
-        description: ''
-        data_type: text
+        data_type: string
       - name: siret
-        description: ''
-        data_type: text
+        data_type: string
       - name: code_aiot
-        description: ''
-        data_type: text
+        data_type: string
       - name: code_etat_site
-        description: ''
-        data_type: text
+        data_type: string
       - name: libelle_etat_site
-        description: ''
-        data_type: text
+        data_type: string
       - name: regime
-        description: ''
-        data_type: text
+        data_type: string
       - name: quantite_projet
-        description: ''
-        data_type: double precision
+        data_type: float32
       - name: capacite_projet
-        description: ''
-        data_type: double precision
+        data_type: float32
       - name: capacite_totale
-        description: ''
-        data_type: double precision
+        data_type: float32
       - name: unite
-        description: ''
-        data_type: text
+        data_type: string
       - name: etat_technique_rubrique
-        description: ''
-        data_type: text
+        data_type: string
       - name: etat_administratif_rubrique
-        description: ''
-        data_type: text
+        data_type: string
       - name: quantite_totale
-        description: ''
-        data_type: double precision
+        data_type: float32
       - name: rubrique
-        description: ''
-        data_type: text
+        data_type: string

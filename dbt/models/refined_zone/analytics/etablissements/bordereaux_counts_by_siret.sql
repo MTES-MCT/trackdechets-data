@@ -2,69 +2,110 @@
     materialized = 'table',
 ) }}
 
-WITH emitter_counts AS (
-    SELECT
-        emitter_company_siret AS siret,
-        countIf(id,
+with bordereaux as (
+    select
+        _bs_type,
+        id,
+        created_at,
+        emitter_company_siret,
+        destination_company_siret,
+        worker_company_siret,
+        accepted_quantity_packagings,
+        quantity_received,
+        waste_code,
+        waste_pop,
+        waste_is_dangerous,
+        processing_operation
+    from
+        {{ ref('bordereaux_enriched') }}
+    where
+        status not in {{ get_non_final_status_bordereaux() }}
+        and not is_draft
+),
+
+emitter_counts as (
+    select
+        emitter_company_siret                             as siret,
+        countIf(
+            id,
             _bs_type = 'BSDD'
-            AND ({{ dangerous_waste_filter('bordereaux_enriched') }})
-        )                     AS num_bsdd_as_emitter,
-        countIf(id,
+            and ({{ dangerous_waste_filter('bordereaux_enriched') }})
+        )
+            as num_bsdd_as_emitter,
+        countIf(
+            id,
             _bs_type = 'BSDD'
-            AND NOT ({{ dangerous_waste_filter('bordereaux_enriched') }})
-        )                     AS num_bsdnd_as_emitter,
-        countIf(id,
+            and not ({{ dangerous_waste_filter('bordereaux_enriched') }})
+        )
+            as num_bsdnd_as_emitter,
+        countIf(
+            id,
             _bs_type = 'BSDA'
-        )                     AS num_bsda_as_emitter,
-        countIf(id,
+        )
+            as num_bsda_as_emitter,
+        countIf(
+            id,
             _bs_type = 'BSFF'
-        )                     AS num_bsff_as_emitter,
-        countIf(id,
+        )
+            as num_bsff_as_emitter,
+        countIf(
+            id,
             _bs_type = 'BSDASRI'
-        )                     AS num_bsdasri_as_emitter,
-        countIf(id,
+        )
+            as num_bsdasri_as_emitter,
+        countIf(
+            id,
             _bs_type = 'BSVHU'
-        )                     AS num_bsvhu_as_emitter,
-        SUM(quantity_received) FILTER (
+        )
+            as num_bsvhu_as_emitter,
+        sum(quantity_received) filter (
             where
             _bs_type = 'BSDD'
-            AND ({{ dangerous_waste_filter('bordereaux_enriched') }})
-        )                     AS quantity_bsdd_as_emitter,
-        SUM(quantity_received) FILTER (
-            WHERE
+            and ({{ dangerous_waste_filter('bordereaux_enriched') }})
+        )
+            as quantity_bsdd_as_emitter,
+        sum(quantity_received) filter (
+            where
             _bs_type = 'BSDD'
-            AND NOT ({{ dangerous_waste_filter('bordereaux_enriched') }})
-        )                     AS quantity_bsdnd_as_emitter,
-        SUM(quantity_received) FILTER (
-            WHERE
+            and not ({{ dangerous_waste_filter('bordereaux_enriched') }})
+        )
+            as quantity_bsdnd_as_emitter,
+        sum(quantity_received) filter (
+            where
             _bs_type = 'BSDA'
-        )                     AS quantity_bsda_as_emitter,
-        SUM(quantity_received) FILTER (
-            WHERE
+        )
+            as quantity_bsda_as_emitter,
+        sum(accepted_quantity_packagings) filter (
+            where
             _bs_type = 'BSFF'
-        )                     AS quantity_bsff_as_emitter,
-        SUM(quantity_received) FILTER (
-            WHERE
+        )
+            as quantity_bsff_as_emitter,
+        sum(quantity_received) filter (
+            where
             _bs_type = 'BSDASRI'
-        )                     AS quantity_bsdasri_as_emitter,
-        SUM(quantity_received) FILTER (
-            WHERE
+        )
+            as quantity_bsdasri_as_emitter,
+        sum(quantity_received) filter (
+            where
             _bs_type = 'BSVHU'
-        )                     AS quantity_bsvhu_as_emitter,
-        MAX(
+        )
+            as quantity_bsvhu_as_emitter,
+        mAX(
             created_at
-        )                     AS last_bordereau_created_at_as_emitter,
-        ARRAY_AGG(
-            DISTINCT processing_operation
-        )                     AS processing_operations_as_emitter
-    FROM
-        {{ ref('bordereaux_enriched') }}
-    GROUP BY
+        )
+            as last_bordereau_created_at_as_emitter,
+        aRRAY_aGG(
+            distinct processing_operation
+        ) filter (where processing_operation is not null)
+            as processing_operations_as_emitter
+    from
+        bordereaux
+    group by
         emitter_company_siret
 ),
 
-transporter_counts AS (
-    SELECT
+transporter_counts as (
+    select
         siret,
         last_bordereau_created_at_as_transporter,
         num_bsdd_as_transporter,
@@ -80,113 +121,164 @@ transporter_counts AS (
         quantity_bsdasri_as_transporter,
         quantity_bsvhu_as_transporter,
         processing_operations_as_transporter
-    FROM
+    from
         {{ ref('transporters_bordereaux_counts_by_siret') }}
 ),
 
-
-destination_counts AS (
-    SELECT
-        destination_company_siret AS siret,
-        countIf(id,
+destination_counts as (
+    select
+        destination_company_siret               as siret,
+        countIf(
+            id,
             _bs_type = 'BSDD'
-            AND ({{ dangerous_waste_filter('bordereaux_enriched') }})
-        )                         AS num_bsdd_as_destination,
-        countIf(id,
+            and ({{ dangerous_waste_filter('bordereaux_enriched') }})
+        )                                       as num_bsdd_as_destination,
+        countIf(
+            id,
             _bs_type = 'BSDD'
-            AND NOT ({{ dangerous_waste_filter('bordereaux_enriched') }})
-        )                         AS num_bsdnd_as_destination,
-        countIf(id,
+            and not ({{ dangerous_waste_filter('bordereaux_enriched') }})
+        )                                       as num_bsdnd_as_destination,
+        countIf(
+            id,
             _bs_type = 'BSDA'
-        )                         AS num_bsda_as_destination,
-        countIf(id,
+        )                                       as num_bsda_as_destination,
+        countIf(
+            id,
             _bs_type = 'BSFF'
-        )                         AS num_bsff_as_destination,
-        countIf(id,
+        )                                       as num_bsff_as_destination,
+        countIf(
+            id,
             _bs_type = 'BSDASRI'
-        )                         AS num_bsdasri_as_destination,
-        countIf(id,
+        )                                       as num_bsdasri_as_destination,
+        countIf(
+            id,
             _bs_type = 'BSVHU'
-        )                         AS num_bsvhu_as_destination,
-        SUM(quantity_received) FILTER (
-            WHERE
+        )                                       as num_bsvhu_as_destination,
+        sum(quantity_received) filter (
+            where
             _bs_type = 'BSDD'
-            AND ({{ dangerous_waste_filter('bordereaux_enriched') }})
-        )                         AS quantity_bsdd_as_destination,
-        SUM(quantity_received) FILTER (
-            WHERE
+            and ({{ dangerous_waste_filter('bordereaux_enriched') }})
+        )                                       as quantity_bsdd_as_destination,
+        sum(quantity_received) filter (
+            where
             _bs_type = 'BSDD'
-            AND NOT ({{ dangerous_waste_filter('bordereaux_enriched') }})
-        )                         AS quantity_bsdnd_as_destination,
-        SUM(quantity_received) FILTER (
-            WHERE
+            and not ({{ dangerous_waste_filter('bordereaux_enriched') }})
+        )
+            as quantity_bsdnd_as_destination,
+        sum(quantity_received) filter (
+            where
             _bs_type = 'BSDA'
-        )                         AS quantity_bsda_as_destination,
-        SUM(quantity_received) FILTER (
-            WHERE
+        )                                       as quantity_bsda_as_destination,
+        sum(accepted_quantity_packagings) filter (
+            where
             _bs_type = 'BSFF'
-        )                         AS quantity_bsff_as_destination,
-        SUM(quantity_received) FILTER (
-            WHERE
-            _bs_type = 'BSDASRI'
-        )                         AS quantity_bsdasri_as_destination,
-        SUM(quantity_received) FILTER (
-            WHERE
-            _bs_type = 'BSVHU'
-        )                         AS quantity_bsvhu_as_destination,
-        MAX(
-            created_at
-        )                         AS last_bordereau_created_at_as_destination,
-        groupArray(
-            DISTINCT processing_operation
-        ) FILTER (
-            WHERE
-            _bs_type = 'BSDD'
-            AND ({{ dangerous_waste_filter('bordereaux_enriched') }})
-        )                         AS processing_operations_as_destination_bsdd,
-        groupArray(
-            DISTINCT processing_operation
-        ) FILTER (
-            WHERE
-            _bs_type = 'BSDD'
-            AND NOT ({{ dangerous_waste_filter('bordereaux_enriched') }})
-        )                         AS processing_operations_as_destination_bsdnd,
-        groupArray(
-            DISTINCT processing_operation
-        ) FILTER (
-            WHERE
-            _bs_type = 'BSDA'
-        )                         AS processing_operations_as_destination_bsda,
-        groupArray(
-            DISTINCT processing_operation
-        ) FILTER (
-            WHERE
-            _bs_type = 'BSFF'
-        )                         AS processing_operations_as_destination_bsff,
-        groupArray(
-            DISTINCT processing_operation
-        ) FILTER (
-            WHERE
+        )                                       as quantity_bsff_as_destination,
+        sum(quantity_received) filter (
+            where
             _bs_type = 'BSDASRI'
         )
-            AS processing_operations_as_destination_bsdasri,
-        groupArray(
-            DISTINCT processing_operation
-        ) FILTER (
-            WHERE
+            as quantity_bsdasri_as_destination,
+        sum(quantity_received) filter (
+            where
             _bs_type = 'BSVHU'
-        )                         AS processing_operations_as_destination_bsvhu
-    FROM
-        {{ ref('bordereaux_enriched') }}
-    GROUP BY
+        )
+            as quantity_bsvhu_as_destination,
+        max(
+            created_at
+        )
+            as last_bordereau_created_at_as_destination,
+        groupArray(
+            distinct processing_operation
+        ) filter (
+            where
+            _bs_type = 'BSDD'
+            and ({{ dangerous_waste_filter('bordereaux_enriched') }})
+            and processing_operation is not null
+        )
+            as processing_operations_as_destination_bsdd,
+        groupArray(
+            distinct processing_operation
+        ) filter (
+            where
+            _bs_type = 'BSDD'
+            and not ({{ dangerous_waste_filter('bordereaux_enriched') }})
+            and processing_operation is not null
+        )
+            as processing_operations_as_destination_bsdnd,
+        groupArray(
+            distinct processing_operation
+        ) filter (
+            where
+            _bs_type = 'BSDA'
+            and processing_operation is not null
+        )
+            as processing_operations_as_destination_bsda,
+        groupArray(
+            distinct processing_operation
+        ) filter (
+            where
+            _bs_type = 'BSFF'
+            and processing_operation is not null
+        )
+            as processing_operations_as_destination_bsff,
+        groupArray(
+            distinct processing_operation
+        ) filter (
+            where
+            _bs_type = 'BSDASRI'
+            and processing_operation is not null
+        )
+            as processing_operations_as_destination_bsdasri,
+        groupArray(
+            distinct processing_operation
+        ) filter (
+            where
+            _bs_type = 'BSVHU'
+            and processing_operation is not null
+        )
+            as processing_operations_as_destination_bsvhu,
+        groupArray(
+            distinct waste_code
+        ) filter (where waste_code is not null) as waste_codes_as_destination
+    from
+        bordereaux
+    group by
         destination_company_siret
 ),
 
-full_ AS (
-    SELECT
+worker_counts as (
+    select
+        worker_company_siret as siret,
+        countIf(
+            id,
+            _bs_type = 'BSDA'
+        )                    as num_bsda_as_worker,
+        sum(quantity_received) filter (
+            where
+            _bs_type = 'BSDA'
+        )                    as quantity_bsda_as_worker,
+        max(
+            created_at
+        )                    as last_bordereau_created_at_as_worker,
+        groupArray(
+            distinct processing_operation
+        ) filter (
+            where
+            _bs_type = 'BSDA'
+            and processing_operation is not null
+        )                    as processing_operations_as_worker
+    from
+        bordereaux
+    group by
+        worker_company_siret
+),
+
+full_ as (
+    select
         last_bordereau_created_at_as_emitter,
         last_bordereau_created_at_as_transporter,
         last_bordereau_created_at_as_destination,
+        last_bordereau_created_at_as_worker,
         processing_operations_as_emitter,
         processing_operations_as_transporter,
         processing_operations_as_destination_bsdd,
@@ -195,179 +287,196 @@ full_ AS (
         processing_operations_as_destination_bsff,
         processing_operations_as_destination_bsdasri,
         processing_operations_as_destination_bsvhu,
-        COALESCE(
+        processing_operations_as_worker,
+        waste_codes_as_destination,
+        coalesce(
             emitter_counts.siret,
             transporter_counts.siret,
             destination_counts.siret,
             c.siret
-        ) AS siret,
-        COALESCE(
+        ) as siret,
+        coalesce(
             emitter_counts.num_bsdd_as_emitter,
             0
-        ) AS num_bsdd_as_emitter,
-        COALESCE(
-            emitter_counts.num_bsdd_as_emitter,
+        ) as num_bsdd_as_emitter,
+        coalesce(
+            emitter_counts.num_bsdnd_as_emitter,
             0
-        ) AS num_bsdnd_as_emitter,
-        COALESCE(
+        ) as num_bsdnd_as_emitter,
+        coalesce(
             emitter_counts.num_bsda_as_emitter,
             0
-        ) AS num_bsda_as_emitter,
-        COALESCE(
+        ) as num_bsda_as_emitter,
+        coalesce(
             emitter_counts.num_bsff_as_emitter,
             0
-        ) AS num_bsff_as_emitter,
-        COALESCE(
+        ) as num_bsff_as_emitter,
+        coalesce(
             emitter_counts.num_bsdasri_as_emitter,
             0
-        ) AS num_bsdasri_as_emitter,
-        COALESCE(
+        ) as num_bsdasri_as_emitter,
+        coalesce(
             emitter_counts.num_bsvhu_as_emitter,
             0
-        ) AS num_bsvhu_as_emitter,
-        COALESCE(
+        ) as num_bsvhu_as_emitter,
+        coalesce(
             emitter_counts.quantity_bsdd_as_emitter,
             0
-        ) AS quantity_bsdd_as_emitter,
-        COALESCE(
-            emitter_counts.quantity_bsdd_as_emitter,
+        ) as quantity_bsdd_as_emitter,
+        coalesce(
+            emitter_counts.quantity_bsdnd_as_emitter,
             0
-        ) AS quantity_bsdnd_as_emitter,
-        COALESCE(
+        ) as quantity_bsdnd_as_emitter,
+        coalesce(
             emitter_counts.quantity_bsda_as_emitter,
             0
-        ) AS quantity_bsda_as_emitter,
-        COALESCE(
+        ) as quantity_bsda_as_emitter,
+        coalesce(
             emitter_counts.quantity_bsff_as_emitter,
             0
-        ) AS quantity_bsff_as_emitter,
-        COALESCE(
+        ) as quantity_bsff_as_emitter,
+        coalesce(
             emitter_counts.quantity_bsdasri_as_emitter,
             0
-        ) AS quantity_bsdasri_as_emitter,
-        COALESCE(
+        ) as quantity_bsdasri_as_emitter,
+        coalesce(
             emitter_counts.quantity_bsvhu_as_emitter,
             0
-        ) AS quantity_bsvhu_as_emitter,
-        COALESCE(
-            transporter_counts.num_bsdd_as_transporter,
-            0
-        ) AS num_bsdnd_as_transporter,
-        COALESCE(
+        ) as quantity_bsvhu_as_emitter,
+        coalesce(
             transporter_counts.num_bsdnd_as_transporter,
             0
-        ) AS num_bsdd_as_transporter,
-        COALESCE(
+        ) as num_bsdnd_as_transporter,
+        coalesce(
+            transporter_counts.num_bsdd_as_transporter,
+            0
+        ) as num_bsdd_as_transporter,
+        coalesce(
             transporter_counts.num_bsda_as_transporter,
             0
-        ) AS num_bsda_as_transporter,
-        COALESCE(
+        ) as num_bsda_as_transporter,
+        coalesce(
             transporter_counts.num_bsff_as_transporter,
             0
-        ) AS num_bsff_as_transporter,
-        COALESCE(
+        ) as num_bsff_as_transporter,
+        coalesce(
             transporter_counts.num_bsdasri_as_transporter,
             0
-        ) AS num_bsdasri_as_transporter,
-        COALESCE(
+        ) as num_bsdasri_as_transporter,
+        coalesce(
             transporter_counts.num_bsvhu_as_transporter,
             0
-        ) AS num_bsvhu_as_transporter,
-        COALESCE(
+        ) as num_bsvhu_as_transporter,
+        coalesce(
             transporter_counts.quantity_bsdd_as_transporter,
             0
-        ) AS quantity_bsdd_as_transporter,
-        COALESCE(
+        ) as quantity_bsdd_as_transporter,
+        coalesce(
             transporter_counts.quantity_bsdnd_as_transporter,
             0
-        ) AS quantity_bsdnd_as_transporter,
-        COALESCE(
+        ) as quantity_bsdnd_as_transporter,
+        coalesce(
             transporter_counts.quantity_bsda_as_transporter,
             0
-        ) AS quantity_bsda_as_transporter,
-        COALESCE(
+        ) as quantity_bsda_as_transporter,
+        coalesce(
             transporter_counts.quantity_bsff_as_transporter,
             0
-        ) AS quantity_bsff_as_transporter,
-        COALESCE(
+        ) as quantity_bsff_as_transporter,
+        coalesce(
             transporter_counts.quantity_bsdasri_as_transporter,
             0
-        ) AS quantity_bsdasri_as_transporter,
-        COALESCE(
+        ) as quantity_bsdasri_as_transporter,
+        coalesce(
             transporter_counts.quantity_bsvhu_as_transporter,
             0
-        ) AS quantity_bsvhu_as_transporter,
-        COALESCE(
+        ) as quantity_bsvhu_as_transporter,
+        coalesce(
             destination_counts.num_bsdd_as_destination, 0
-        ) AS num_bsdd_as_destination,
-        COALESCE(
-            destination_counts.num_bsdd_as_destination, 0
-        ) AS num_bsdnd_as_destination,
-        COALESCE(
+        ) as num_bsdd_as_destination,
+        coalesce(
+            destination_counts.num_bsdnd_as_destination, 0
+        ) as num_bsdnd_as_destination,
+        coalesce(
             destination_counts.num_bsda_as_destination, 0
-        ) AS num_bsda_as_destination,
-        COALESCE(
+        ) as num_bsda_as_destination,
+        coalesce(
             destination_counts.num_bsff_as_destination, 0
-        ) AS num_bsff_as_destination,
-        COALESCE(
+        ) as num_bsff_as_destination,
+        coalesce(
             destination_counts.num_bsdasri_as_destination, 0
-        ) AS num_bsdasri_as_destination,
-        COALESCE(
+        ) as num_bsdasri_as_destination,
+        coalesce(
             destination_counts.num_bsvhu_as_destination, 0
-        ) AS num_bsvhu_as_destination,
-        COALESCE(
+        ) as num_bsvhu_as_destination,
+        coalesce(
+            worker_counts.num_bsda_as_worker, 0
+        ) as num_bsda_as_worker,
+        coalesce(
             destination_counts.quantity_bsdd_as_destination,
             0
-        ) AS quantity_bsdd_as_destination,
-        COALESCE(
-            destination_counts.quantity_bsdd_as_destination,
+        ) as quantity_bsdd_as_destination,
+        coalesce(
+            destination_counts.quantity_bsdnd_as_destination,
             0
-        ) AS quantity_bsdnd_as_destination,
-        COALESCE(
+        ) as quantity_bsdnd_as_destination,
+        coalesce(
             destination_counts.quantity_bsda_as_destination,
             0
-        ) AS quantity_bsda_as_destination,
-        COALESCE(
+        ) as quantity_bsda_as_destination,
+        coalesce(
             destination_counts.quantity_bsff_as_destination,
             0
-        ) AS quantity_bsff_as_destination,
-        COALESCE(
+        ) as quantity_bsff_as_destination,
+        coalesce(
             destination_counts.quantity_bsdasri_as_destination,
             0
-        ) AS quantity_bsdasri_as_destination,
-        COALESCE(
+        ) as quantity_bsdasri_as_destination,
+        coalesce(
             destination_counts.quantity_bsvhu_as_destination,
             0
-        ) AS quantity_bsvhu_as_destination
-    FROM
+        ) as quantity_bsvhu_as_destination
+    from
         emitter_counts
-    FULL
-    OUTER JOIN
+    full
+    outer join
         transporter_counts
-        ON
+        on
             emitter_counts.siret = transporter_counts.siret
-    FULL
-    OUTER JOIN
+    full
+    outer join
         destination_counts
-        ON
-            COALESCE(emitter_counts.siret, transporter_counts.siret)
+        on
+            coalesce(emitter_counts.siret, transporter_counts.siret)
             = destination_counts.siret
-    FULL OUTER JOIN
-        {{ ref('company') }} AS c
-        ON
-            COALESCE(
+    full
+    outer join
+        worker_counts
+        on
+            coalesce(
                 emitter_counts.siret,
                 transporter_counts.siret,
                 destination_counts.siret
             )
+            = worker_counts.siret
+    full outer join
+        {{ ref('company') }} as c
+        on
+            coalesce(
+                emitter_counts.siret,
+                transporter_counts.siret,
+                destination_counts.siret,
+                worker_counts.siret
+            )
             = c.siret
 )
 
-SELECT
+select
     siret,
     last_bordereau_created_at_as_emitter,
     last_bordereau_created_at_as_transporter,
     last_bordereau_created_at_as_destination,
+    last_bordereau_created_at_as_worker,
     processing_operations_as_emitter,
     processing_operations_as_transporter,
     processing_operations_as_destination_bsdd,
@@ -376,6 +485,8 @@ SELECT
     processing_operations_as_destination_bsff,
     processing_operations_as_destination_bsdasri,
     processing_operations_as_destination_bsvhu,
+    processing_operations_as_worker,
+    waste_codes_as_destination,
     num_bsdd_as_emitter,
     num_bsdnd_as_emitter,
     num_bsda_as_emitter,
@@ -394,6 +505,7 @@ SELECT
     num_bsff_as_transporter,
     num_bsdasri_as_transporter,
     num_bsvhu_as_transporter,
+    num_bsda_as_worker,
     quantity_bsdd_as_transporter,
     quantity_bsdnd_as_transporter,
     quantity_bsda_as_transporter,
@@ -412,11 +524,12 @@ SELECT
     quantity_bsff_as_destination,
     quantity_bsdasri_as_destination,
     quantity_bsvhu_as_destination,
-    GREATEST(
+    greatest(
         last_bordereau_created_at_as_emitter,
         last_bordereau_created_at_as_transporter,
-        last_bordereau_created_at_as_destination
-    )                          AS last_bordereau_created_at,
+        last_bordereau_created_at_as_destination,
+        last_bordereau_created_at_as_worker
+    )                          as last_bordereau_created_at,
     num_bsdd_as_emitter
     + num_bsdnd_as_emitter
     + num_bsda_as_emitter
@@ -434,6 +547,6 @@ SELECT
     + num_bsda_as_destination
     + num_bsff_as_destination
     + num_bsdasri_as_destination
-    + num_bsvhu_as_destination AS total_mentions_bordereaux
-FROM
+    + num_bsvhu_as_destination as num_bordereaux
+from
     full_

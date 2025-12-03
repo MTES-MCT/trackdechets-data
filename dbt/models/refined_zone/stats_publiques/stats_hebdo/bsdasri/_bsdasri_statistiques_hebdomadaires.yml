@@ -1,63 +1,34 @@
 version: 2
 models:
   - name: bsdasri_statistiques_hebdomadaires
-    tests:
-      - elementary.all_columns_anomalies:
-          exclude_prefix: semaine
-          timestamp_column: semaine
-          training_period:
-            period: week
-            count: 12
-          time_bucket:
-            period: week
-            count: 1
-          detection_period:
-            period: week
-            count: 1
     columns:
       - name: semaine
-        description: ""
         data_type: date
       - name: creations
-        description: ""
-        data_type: bigint
+        data_type: uint64
       - name: quantite_tracee
-        description: ""
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: emissions
-        description: ""
-        data_type: bigint
+        data_type: uint64
       - name: quantite_emise
-        description: ""
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: envois
-        description: ""
-        data_type: bigint
+        data_type: uint64
       - name: quantite_envoyee
-        description: ""
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: receptions
-        description: ""
-        data_type: bigint
+        data_type: uint64
       - name: quantite_recue
-        description: ""
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: traitements
-        description: ""
-        data_type: bigint
+        data_type: uint64
       - name: quantite_traitee
-        description: ""
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: traitements_operations_non_finales
-        description: ""
-        data_type: bigint
+        data_type: uint64
       - name: quantite_traitee_operations_non_finales
-        description: ""
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: traitements_operations_finales
-        description: ""
-        data_type: bigint
+        data_type: uint64
       - name: quantite_traitee_operations_finales
-        description: ""
-        data_type: numeric
-sources: []
+        data_type: decimal(76, 30)

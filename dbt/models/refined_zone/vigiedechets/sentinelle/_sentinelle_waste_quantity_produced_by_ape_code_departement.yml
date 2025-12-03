@@ -1,0 +1,14 @@
+version: 2
+models:
+  - name: sentinelle_waste_quantity_produced_by_ape_code_departement
+    columns:
+      - name: code_departement
+        data_type: String
+      - name: ape_code
+        data_type: String
+      - name: waste_code
+        data_type: String
+      - name: waste_quantity
+        data_type: Float64
+      - name: waste_quantity_share
+        data_type: Float64

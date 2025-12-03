@@ -1,0 +1,51 @@
+services:
+  metabase:
+    image: metabase/metabase:v0.54.6
+    container_name: metabase
+    hostname: metabase
+    volumes:
+      - metabase-data:/metabase-data
+    ports:
+      - 3000:3000
+    restart: unless-stopped
+    environment:
+      MB_DB_CONNECTION_URI: jdbc:postgresql://postgres_mb:5432/metabaseappdb?user=${MB_DB_USER}&password=${MB_DB_PASSWORD}
+      MB_DB_TYPE: postgres
+      MB_ENCRYPTION_SECRET_KEY: ${MB_ENCRYPTION_SECRET_KEY}
+      MB_LOAD_SAMPLE_CONTENT: false
+      MB_NO_SURVEYS: true
+      MB_SURVEYS_ENABLED: false
+    networks:
+      - metanet1
+      - data_external_network
+    healthcheck:
+      test: curl --fail -I http://localhost:3000/api/health || exit 1
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:16.8-bookworm
+    container_name: postgres_mb
+    hostname: postgres_mb
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${MB_DB_USER}
+      POSTGRES_DB: metabaseappdb
+      POSTGRES_PASSWORD: ${MB_DB_PASSWORD}
+    volumes:
+      - postgres-mb-volume:/var/lib/postgresql/data
+    networks:
+      - metanet1
+
+volumes:
+  metabase-data:
+  postgres-mb-volume:
+
+networks:
+  metanet1:
+    driver: bridge
+  data_external_network:
+    external: true
+    name: ${DATA_DOCKER_NETWORK_NAME:-data_external_network}

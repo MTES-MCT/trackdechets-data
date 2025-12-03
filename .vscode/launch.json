@@ -5,12 +5,47 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python: run_migrations.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/sql/run_migrations.py",
+            "args": [
+                "--file",
+                "${input:migration_file}",
+                "--DB_HOST",
+                "${input:DB_HOST}",
+                "--DB_PORT",
+                "${input:DB_PORT}",
+                "--DB_USER",
+                "${input:DB_USER}",
+                "--DB_PASSWORD",
+                "${input:DB_PASSWORD}",
+            ],
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "envFile": "${workspaceFolder}/.env",
+        },
+        {
             "name": "Python Debugger: load_gun_data",
             "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}/scripts/integration/gun/load_gun_data_pg.py",
             "args": [
                 "${input:conUrl}",
+                "${input:filepath}",
+            ],
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "Python Debugger: load_gun_data Clickhouse",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/integration/gun/load_gun_data_ch.py",
+            "args": [
+                "--dwh_username",
+                "${env:DWH_USERNAME}",
+                "--dwh_password",
+                "${env:DWH_PASSWORD}",
                 "${input:filepath}",
             ],
             "console": "integratedTerminal",
@@ -34,18 +69,45 @@
             "program": "${workspaceFolder}/scripts/integration/gistrid/load_gistrid_data_ch.py",
             "args": [
                 "--dwh_username",
-                "${env:DWH_USERNAME}",
-                "--dwh_username",
-                "${env:DWH_PASSWORD}",
+                "${input:dwh_username}",
+                "--dwh_password",
+                "${input:dwh_password}",
+                "--dwh_host",
+                "${input:dwh_host}",
+                "--dwh_http_port",
+                "${input:dwh_http_port}",
                 "--year",
                 "${input:year}",
                 "${input:file_type}",
                 "${input:filepath}",
             ],
             "console": "integratedTerminal",
-        }
+        },
+        {
+            "name": "Python Debugger: clean_obsolete_relations",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/dbt/clean_obsolete_relations.py",
+            "args": [
+                "--environment",
+                "${input:environment}",
+                "--dry-run",
+                "${input:dry_run}",
+            ],
+            "console": "integratedTerminal"
+        },
     ],
     "inputs": [
+        {
+            "id": "environment",
+            "type": "promptString",
+            "description": "Environment to clean obsolete relations from.",
+        },
+        {
+            "id": "dry_run",
+            "type": "promptString",
+            "description": "If true, no deletion will be performed, only the deprecated objects will be listed.",
+        },
         {
             "id": "conUrl",
             "type": "promptString",
@@ -54,7 +116,7 @@
         {
             "id": "filepath",
             "type": "promptString",
-            "description": "filepath to gun data connection url.",
+            "description": "filepath to gun data.",
         },
         {
             "id": "year",
@@ -65,6 +127,51 @@
             "id": "file_type",
             "type": "promptString",
             "description": "File type to load for GISTRID datasets.",
+        },
+        {
+            "id": "dwh_host",
+            "type": "promptString",
+            "description": "Database host to connect to the ClickHouse database.",
+        },
+        {
+            "id": "dwh_http_port",
+            "type": "promptString",
+            "description": "Database HTTP port to connect to the ClickHouse database.",
+        },
+        {
+            "id": "dwh_username",
+            "type": "promptString",
+            "description": "Database username to connect to the ClickHouse database.",
+        },
+        {
+            "id": "dwh_password",
+            "type": "promptString",
+            "description": "Database password to connect to the ClickHouse database.",
+        },
+        {
+            "id": "migration_file",
+            "type": "promptString",
+            "description": "Path to the SQL file to run.",
+        },
+        {
+            "id": "DB_HOST",
+            "type": "promptString",
+            "description": "Database host.",
+        },
+        {
+            "id": "DB_PORT",
+            "type": "promptString",
+            "description": "Database port.",
+        },
+        {
+            "id": "DB_USER",
+            "type": "promptString",
+            "description": "Database user.",
+        },
+        {
+            "id": "DB_PASSWORD",
+            "type": "promptString",
+            "description": "Database password.",
         }
     ]
 }

@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS raw_zone_gistrid.notifications (
 	"Nombre des transferts réceptionnés" Nullable(String),
 	"annee" UInt16,
 	"pays de transit" Nullable(String),
-    inserted_at Datetime64 DEFAULT now()
+    inserted_at Datetime64 DEFAULT now('Europe/Paris')
 )
 ENGINE = MergeTree()
 ORDER BY ()
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS raw_zone_gistrid.notifiants (
 	"Raison de refus" Nullable(String),
 	"Nombre de notifications réservées" Nullable(String),
 	"Indicateur d'activité" Nullable(String),
-    inserted_at Datetime64 DEFAULT now()
+    inserted_at Datetime64 DEFAULT now('Europe/Paris')
 )
 ENGINE = MergeTree()
 ORDER BY ()
@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS raw_zone_gistrid.installations (
 	"Raison de refus" Nullable(String),
 	"Nombre de notifications réservées" Nullable(String),
 	"Indicateur d'activité" Nullable(String),
-    inserted_at Datetime64 DEFAULT now()
+    inserted_at Datetime64 DEFAULT now('Europe/Paris')
 )
 ENGINE = MergeTree()
 ORDER BY ()

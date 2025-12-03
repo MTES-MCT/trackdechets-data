@@ -1,0 +1,28 @@
+version: 2
+models:
+  - name: fiches_etablissements
+    columns:
+      - name: id
+        data_type: uuid
+      - name: org_id
+        data_type: string
+      - name: created
+        data_type: datetime64(6)
+      - name: state
+        data_type: string
+      - name: created_by
+        data_type: string
+      - name: data_end_date
+        data_type: datetime64(6)
+      - name: data_start_date
+        data_type: datetime64(6)
+      - name: creation_mode
+        data_type: string
+      - name: pdf_rendering_end
+        data_type: datetime64(6)
+      - name: pdf_rendering_start
+        data_type: datetime64(6)
+      - name: processing_end
+        data_type: datetime64(6)
+      - name: processing_start
+        data_type: datetime64(6)

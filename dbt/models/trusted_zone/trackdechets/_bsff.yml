@@ -1,170 +1,82 @@
 version: 2
 models:
   - name: bsff
-    config:
-      elementary:
-        timestamp_column: created_at
-        seasonality: day_of_week
-    tests:
-      - elementary.volume_anomalies
-      - elementary.dimension_anomalies:
-          dimensions:
-            - status
-            - waste_code
-            - is_deleted
-          timestamp_column: updated_at
     columns:
       - name: id
-        description: "Clé primaire"
-        data_type: text
+        tests:
+          - unique
+        description: Clé primaire
+        data_type: string
       - name: created_at
-        description: ""
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: updated_at
-        description: ""
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: is_deleted
-        description: ""
-        data_type: boolean
+        data_type: bool
       - name: emitter_company_name
-        description: ""
-        data_type: text
+        data_type: string
       - name: emitter_company_siret
-        description: ""
-        data_type: text
+        data_type: string
       - name: emitter_company_address
-        description: ""
-        data_type: text
+        data_type: string
       - name: emitter_company_contact
-        description: ""
-        data_type: text
+        data_type: string
       - name: emitter_company_phone
-        description: ""
-        data_type: text
+        data_type: string
       - name: emitter_company_mail
-        description: ""
-        data_type: text
+        data_type: string
       - name: emitter_emission_signature_author
-        description: ""
-        data_type: text
+        data_type: string
       - name: emitter_emission_signature_date
-        description: ""
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: waste_code
-        description: ""
-        data_type: text
+        data_type: string
       - name: waste_adr
-        description: ""
-        data_type: text
+        data_type: string
       - name: weight_value
-        description: ""
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: weight_is_estimate
-        description: ""
-        data_type: boolean
-      - name: transporter_company_name
-        description: ""
-        data_type: text
-      - name: transporter_company_siret
-        description: ""
-        data_type: text
-      - name: transporter_company_address
-        description: ""
-        data_type: text
-      - name: transporter_company_contact
-        description: ""
-        data_type: text
-      - name: transporter_company_phone
-        description: ""
-        data_type: text
-      - name: transporter_company_mail
-        description: ""
-        data_type: text
-      - name: transporter_recepisse_number
-        description: ""
-        data_type: text
-      - name: transporter_recepisse_department
-        description: ""
-        data_type: text
-      - name: transporter_recepisse_validity_limit
-        description: ""
-        data_type: timestamp without time zone
-      - name: transporter_transport_mode
-        description: ""
-        data_type: text
-      - name: transporter_transport_signature_author
-        description: ""
-        data_type: text
+        data_type: bool
+        description: "Indique si la quantité de déchet à l'émission est estimée ou réelle.\n"
       - name: transporter_transport_signature_date
-        description: ""
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: destination_company_name
-        description: ""
-        data_type: text
+        data_type: string
       - name: destination_company_siret
-        description: ""
-        data_type: text
+        data_type: string
       - name: destination_company_address
-        description: ""
-        data_type: text
+        data_type: string
       - name: destination_company_contact
-        description: ""
-        data_type: text
+        data_type: string
       - name: destination_company_phone
-        description: ""
-        data_type: text
+        data_type: string
       - name: destination_company_mail
-        description: ""
-        data_type: text
+        data_type: string
       - name: destination_reception_date
-        description: ""
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: destination_reception_signature_author
-        description: ""
-        data_type: text
+        data_type: string
       - name: destination_reception_signature_date
-        description: ""
-        data_type: timestamp without time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: destination_planned_operation_code
-        description: ""
-        data_type: text
-      - name: transporter_company_vat_number
-        description: ""
-        data_type: text
+        data_type: string
       - name: status
-        description: ""
-        data_type: text
+        data_type: string
       - name: waste_description
-        description: ""
-        data_type: text
+        data_type: string
       - name: is_draft
-        description: ""
-        data_type: boolean
+        data_type: bool
       - name: type
-        description: ""
-        data_type: text
+        data_type: string
       - name: destination_custom_info
-        description: ""
-        data_type: text
+        data_type: string
       - name: emitter_custom_info
-        description: ""
-        data_type: text
-      - name: transporter_custom_info
-        description: ""
-        data_type: text
-      - name: transporter_transport_taken_over_at
-        description: ""
-        data_type: timestamp with time zone
-      - name: transporter_transport_plates
-        description: ""
-        data_type: ARRAY
+        data_type: string
       - name: destination_cap
-        description: ''
-        data_type: text
+        data_type: string
       - name: detenteur_company_sirets
-        description: ''
-        data_type: ARRAY
-      - name: transporter_recepisse_is_exempted
-        description: ''
-        data_type: boolean
-sources: []
+        data_type: Array(String)
+      - name: row_number
+        data_type: Int256
+      - name: transporters_org_ids
+        data_type: Array(String)

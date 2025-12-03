@@ -5,51 +5,35 @@ models:
       materialized: table
     columns:
       - name: siret
-        description: 'Code région'
-        data_type: text
+        description: Code région
+        data_type: string
       - name: Nom de l'établissement
-        description: ''
-        data_type: text
+        data_type: string
       - name: Profils de l'établissement
-        description: ''
-        data_type: text
+        data_type: string
       - name: E-mail de contact de l'établissement
-        description: ''
-        data_type: text
+        data_type: string
       - name: E-mail de l'admin de l'établissement
-        description: ''
-        data_type: text
+        data_type: string
       - name: num_bsdd_destinataire
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: num_bsda_destinataire
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: num_bsff_destinataire
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: num_bsdasri_destinataire
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: num_bsvhu_destinataire
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: num_bsdd_emetteur
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: num_bsda_emetteur
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: num_bsff_emetteur
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: num_bsdasri_emetteur
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: num_bsvhu_emetteur
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: total_bordereaux
-        description: ''
-        data_type: bigint
-sources: []
+        data_type: uint64

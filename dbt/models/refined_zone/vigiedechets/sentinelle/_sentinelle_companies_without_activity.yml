@@ -1,0 +1,22 @@
+version: 2
+models:
+  - name: sentinelle_companies_without_activity
+    columns:
+      - name: company_siret
+        data_type: String
+      - name: company_name
+        data_type: String
+      - name: company_ape_code
+        data_type: String
+      - name: company_address
+        data_type: String
+      - name: company_code_postal
+        data_type: String
+      - name: company_libelle_commune
+        data_type: String
+      - name: company_code_commune
+        data_type: String
+      - name: company_code_departement
+        data_type: String
+      - name: company_code_region
+        data_type: String

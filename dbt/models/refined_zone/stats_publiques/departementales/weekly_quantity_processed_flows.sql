@@ -12,7 +12,7 @@ with preprocessed_data as (
             'week', be.processed_at
         )                          as semaine,
         coalesce(
-            be.quantity_received, be.accepted_quantity_packagings
+            be.quantity_received, toDecimal256(be.accepted_quantity_packagings, 30)
         )                          as quantite_traitee
     from {{ ref('bordereaux_enriched') }} as be
     where {{ dangerous_waste_filter('bordereaux_enriched') }}

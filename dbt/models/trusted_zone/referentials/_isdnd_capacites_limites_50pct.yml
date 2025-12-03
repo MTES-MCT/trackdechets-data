@@ -1,0 +1,26 @@
+version: 2
+models:
+  - name: isdnd_capacites_limites_50pct
+    columns:
+      - name: siret
+        data_type: String
+      - name: region
+        data_type: String
+      - name: departement
+        data_type: String
+      - name: nom_site
+        data_type: String
+      - name: commune
+        data_type: String
+      - name: capacite_50pct
+        data_type: Int32
+      - name: inscrit
+        data_type: String
+      - name: profil_isdnd
+        data_type: String
+      - name: profil_maj
+        data_type: String
+      - name: inscrit_rndts
+        data_type: String
+      - name: commentaires
+        data_type: String

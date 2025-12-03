@@ -61,7 +61,7 @@ def load_gistrid_excel_file_to_dwh(
     file_type: Literal["notifications", "notifiants", "installations"],
     filepath: str,
     dwh_host: str,
-    dwh_http_port: str,
+    dwh_http_port: int,
     dwh_username: str,
     dwh_password: str,
     year: int | None,
@@ -115,8 +115,13 @@ def load_gistrid_excel_file_to_dwh(
         port=dwh_http_port,
         username=dwh_username,
         password=dwh_password,
-        database="raw_zone_gistrid",
     )
+
+    logger.info(
+        "Creating database raw_zone_gistrid if not exists",
+    )
+
+    client.command("CREATE DATABASE IF NOT EXISTS raw_zone_gistrid")
 
     if full_refresh:
         logger.info(
@@ -184,7 +189,7 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--dwh_http_port",
-        default="8123",
+        default=8123,
         help="HTTP port to connect to the database. Default to 8123.",
     )
     parser.add_argument(
@@ -206,7 +211,7 @@ if __name__ == "__main__":
         "--full-refresh",
         action="store_true",
         default=False,
-        help="Year of the notifications dataset, if applicable. Default to None.",
+        help="If true, drop the existing table before insertion.",
     )
     parser.add_argument(
         "file_type", help="Type of the dataset. For example 'installations'."

@@ -1,281 +1,185 @@
 version: 2
 models:
   - name: bsdasri
-    config:
-      elementary:
-        timestamp_column: created_at
-        seasonality: day_of_week
-    tests:
-      - elementary.volume_anomalies
-      - elementary.dimension_anomalies:
-          dimensions:
-            - status
-            - waste_code
-            - is_deleted
-          timestamp_column: updated_at
     columns:
       - name: id
-        data_type: text
-
+        tests:
+          - unique
+        data_type: string
         description: Clé primaire
       - name: status
-        data_type: text
-
+        data_type: string
       - name: created_at
-        data_type: timestamp without time zone
-
+        data_type: datetime64(6, 'europe/paris')
       - name: updated_at
-        data_type: timestamp without time zone
-
+        data_type: datetime64(6, 'europe/paris')
       - name: is_deleted
-        data_type: boolean
-
+        data_type: bool
       - name: is_draft
-        data_type: boolean
-
+        data_type: bool
       - name: emitter_company_name
-        data_type: text
-
+        data_type: string
       - name: emitter_company_siret
-        data_type: text
-
+        data_type: string
       - name: emitter_company_address
-        data_type: text
-
+        data_type: string
       - name: emitter_company_contact
-        data_type: text
-
+        data_type: string
       - name: emitter_company_phone
-        data_type: text
-
+        data_type: string
       - name: emitter_company_mail
-        data_type: text
-
+        data_type: string
       - name: emitter_pickup_site_name
-        description: ''
-        data_type: text
+        data_type: string
       - name: emitter_pickup_site_address
-        data_type: text
-
+        data_type: string
       - name: emitter_pickup_site_city
-        data_type: text
-
+        data_type: string
       - name: emitter_pickup_site_postal_code
-        data_type: text
-
+        data_type: string
       - name: emitter_pickup_site_infos
-        data_type: text
-
+        data_type: string
       - name: waste_code
-        data_type: text
-
+        data_type: string
       - name: waste_adr
-        data_type: text
-
+        data_type: string
       - name: emitter_waste_weight_value
-        data_type: numeric
-
+        data_type: decimal(76, 30)
       - name: emitter_waste_volume
-        data_type: numeric
-
+        data_type: float64
       - name: emitter_waste_packagings
-        data_type: ARRAY
-
+        data_type: String
       - name: emitter_custom_info
-        data_type: text
-
+        data_type: string
       - name: emitter_emission_signature_author
-        data_type: text
-
+        data_type: string
       - name: emitter_emission_signature_date
-        data_type: timestamp without time zone
-
+        data_type: datetime64(6, 'europe/paris')
       - name: is_emission_direct_taken_over
-        data_type: boolean
-
+        data_type: bool
       - name: is_emission_taken_over_with_secret_code
-        data_type: boolean
-
+        data_type: bool
       - name: transporter_company_name
-        data_type: text
-
+        data_type: string
       - name: transporter_company_siret
-        data_type: text
-
+        data_type: string
       - name: transporter_company_address
-        data_type: text
-
+        data_type: string
       - name: transporter_company_phone
-        data_type: text
-
+        data_type: string
       - name: transporter_company_contact
-        data_type: text
-
+        data_type: string
       - name: transporter_company_mail
-        data_type: text
-
+        data_type: string
       - name: transporter_recepisse_number
-        data_type: text
-
+        data_type: string
       - name: transporter_recepisse_department
-        data_type: text
-
+        data_type: string
       - name: transporter_recepisse_validity_limit
-        data_type: text
-
+        data_type: datetime64(6, 'europe/paris')
       - name: transporter_acceptation_status
-        data_type: text
-
+        data_type: string
       - name: transporter_waste_refusal_reason
-        data_type: text
-
+        data_type: string
       - name: transporter_waste_refused_weight_value
-        data_type: numeric
-
+        data_type: decimal(76, 30)
       - name: transporter_taken_over_at
-        data_type: timestamp without time zone
-
+        data_type: datetime64(6, 'europe/paris')
       - name: transporter_waste_packagings
-        data_type: ARRAY
-
+        data_type: String
       - name: transporter_waste_weight_value
-        data_type: numeric
-
+        data_type: decimal(76, 30)
       - name: transporter_waste_volume
-        data_type: numeric
-
+        data_type: float64
       - name: transporter_custom_info
-        data_type: text
-
+        data_type: string
       - name: handed_over_to_recipient_at
-        data_type: timestamp without time zone
-
+        data_type: datetime64(6, 'europe/paris')
       - name: transporter_transport_signature_author
-        data_type: text
-
+        data_type: string
       - name: transporter_transport_signature_date
-        data_type: timestamp without time zone
-
+        data_type: datetime64(6, 'europe/paris')
       - name: destination_company_name
-        data_type: text
-
+        data_type: string
       - name: destination_company_siret
-        data_type: text
-
+        data_type: string
       - name: destination_company_address
-        data_type: text
-
+        data_type: string
       - name: destination_company_contact
-        data_type: text
-
+        data_type: string
       - name: destination_company_phone
-        data_type: text
-
+        data_type: string
       - name: destination_company_mail
-        data_type: text
-
+        data_type: string
       - name: destination_waste_packagings
-        data_type: ARRAY
-
+        data_type: String
       - name: destination_reception_acceptation_status
-        data_type: text
-
+        data_type: string
       - name: destination_reception_waste_refusal_reason
-        data_type: text
-
+        data_type: string
       - name: destination_reception_waste_refused_weight_value
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: destination_reception_waste_weight_value
-        data_type: numeric
-        tests:
-          - elementary.column_anomalies:
-              timestamp_column: updated_at
-
+        data_type: decimal(76, 30)
       - name: destination_reception_waste_volume
-        data_type: numeric
-
+        data_type: float64
       - name: destination_custom_info
-        data_type: text
-
+        data_type: string
       - name: destination_reception_date
-        data_type: timestamp without time zone
-
+        data_type: datetime64(6, 'europe/paris')
       - name: destination_operation_code
-        data_type: text
-
+        data_type: string
       - name: destination_operation_date
-        data_type: timestamp without time zone
-
+        data_type: datetime64(6, 'europe/paris')
       - name: destination_reception_signature_author
-        data_type: text
-
+        data_type: string
       - name: destination_reception_signature_date
-        data_type: timestamp without time zone
-
+        data_type: datetime64(6, 'europe/paris')
       - name: destination_operation_signature_date
-        data_type: timestamp without time zone
-
+        data_type: datetime64(6, 'europe/paris')
       - name: destination_operation_signature_author
-        data_type: text
-
+        data_type: string
       - name: emission_signatory_id
-        data_type: text
-
+        data_type: string
       - name: transport_signatory_id
-        data_type: text
-
+        data_type: string
       - name: reception_signatory_id
-        data_type: text
-
+        data_type: string
       - name: operation_signatory_id
-        data_type: text
-
+        data_type: string
       - name: grouped_in_id
-        data_type: text
-
+        data_type: string
       - name: transporter_transport_mode
-        data_type: text
-
+        data_type: string
       - name: type
-        data_type: text
-
+        data_type: string
       - name: emitter_waste_weight_is_estimate
-        data_type: boolean
-
+        data_type: bool
+        description: "Indique si la quantité de déchet à l'émission est estimée ou réelle.\n"
       - name: transporter_waste_weight_is_estimate
-        data_type: boolean
-
+        data_type: bool
+        description: "Indique si la quantité de déchet remplie par letransporteur est estimée ou réelle.\n"
       - name: eco_organisme_name
-        data_type: text
-
+        data_type: string
       - name: eco_organisme_siret
-        data_type: text
-
+        data_type: string
       - name: transporter_transport_plates
-        data_type: ARRAY
-
+        data_type: Array(String)
       - name: identification_numbers
-        data_type: ARRAY
-
+        data_type: Array(String)
       - name: transporter_company_vat_number
-        data_type: text
-
+        data_type: string
       - name: synthesized_in_id
-        data_type: text
-
+        data_type: string
       - name: emitted_by_eco_organisme
-        data_type: boolean
-
+        data_type: bool
       - name: synthesis_emitter_sirets
-        description: ''
-        data_type: ARRAY
+        data_type: Array(String)
       - name: transporter_recepisse_is_exempted
-        description: ''
-        data_type: boolean
+        data_type: bool
       - name: grouping_emitter_sirets
-        description: ''
-        data_type: ARRAY
+        data_type: Array(String)
       - name: destination_operation_mode
-        description: ''
-        data_type: text
-sources: []
+        data_type: string
+      - name: row_number
+        data_type: Int256

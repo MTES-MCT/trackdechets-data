@@ -3,23 +3,18 @@ models:
   - name: installations_daily_processed_non_dangerous_wastes
     columns:
       - name: siret
-        description: ''
-        data_type: text
+        data_type: string
       - name: rubrique
-        description: ''
-        data_type: text
+        data_type: string
       - name: raison_sociale
-        description: ''
-        data_type: text
+        data_type: string
       - name: codes_aiot
-        description: ''
-        data_type: ARRAY
+        data_type: Array(String)
       - name: quantite_autorisee
-        description: ''
-        data_type: double precision
+        data_type: float64
+      - name: objectif_quantite_traitee
+        data_type: Int32
       - name: day_of_processing
-        description: ''
-        data_type: date
+        data_type: datetime64(6, 'europe/paris')
       - name: quantite_traitee
-        description: ''
-        data_type: numeric
+        data_type: float64

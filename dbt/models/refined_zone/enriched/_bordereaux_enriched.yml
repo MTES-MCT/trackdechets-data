@@ -3,142 +3,102 @@ models:
   - name: bordereaux_enriched
     columns:
       - name: _bs_type
-        description: ''
-        data_type: text
+        data_type: string
       - name: id
-        description: 'Identifiant unique du BSDD en base.'
-        data_type: text
+        description: Identifiant unique du BSDD en base.
+        data_type: string
       - name: readable_id
-        description: "Identifiant lisible utilisé comme numéro sur le CERFA (case \"Bordereau n°****\"). \nIl est possible de l'utiliser pour récupérer l'identifiant unique du bordereau via la query form, utilisé pour le reste des opérations. \nCet identifiant possède le format BSDD-yyyyMMdd-XXXXXXXX où yyyyMMdd est la date du jour et XXXXXXXXX une chaîne de 9 caractères alphanumériques. \nEx: BSD-20210101-HY87F54D1\n"
-        data_type: text
+        description: |
+          Identifiant lisible utilisé comme numéro sur le CERFA (case "Bordereau n°****"). 
+          Il est possible de l'utiliser pour récupérer l'identifiant unique du bordereau via la query form, utilisé pour le reste des opérations. 
+          Cet identifiant possède le format BSDD-yyyyMMdd-XXXXXXXX où yyyyMMdd est la date du jour et XXXXXXXXX une chaîne de 9 caractères alphanumériques. 
+          Ex: BSD-20210101-HY87F54D1
+        data_type: string
       - name: created_at
-        description: 'Date de création du BSDD.
-
-          '
-        data_type: timestamp without time zone
+        description: "Date de création du BSDD.\n"
+        data_type: datetime64(6, 'europe/paris')
       - name: taken_over_at
-        description: 'Date à laquelle le transporteur a signé l''enlèvement initial.
-
-          '
-        data_type: timestamp with time zone
+        description: "Date à laquelle le transporteur a signé l'enlèvement initial.\n"
+        data_type: datetime64(6, 'europe/paris')
       - name: received_at
-        description: 'Date à laquelle le déchet a été reçu (case 10).
-
-          '
-        data_type: timestamp with time zone
+        description: "Date à laquelle le déchet a été reçu (case 10).\n"
+        data_type: datetime64(6, 'europe/paris')
       - name: processed_at
-        description: 'Date à laquelle le déchet a été traité.
-
-          '
-        data_type: timestamp with time zone
+        description: "Date à laquelle le déchet a été traité.\n"
+        data_type: datetime64(6, 'europe/paris')
       - name: status
-        description: 'Statut du BSD (brouillon, envoyé, reçu, traité, etc)
-
-          '
-        data_type: text
+        description: "Statut du BSD (brouillon, envoyé, reçu, traité, etc)\n"
+        data_type: string
       - name: no_traceability
-        data_type: boolean
+        data_type: bool
         description: "Indique s'il y a eu rupture de traçabilité.\n"
       - name: is_draft
-        description: ''
-        data_type: boolean
+        data_type: uint8
       - name: quantity_received
-        description: 'Quantité reçue sur l''installation de destination, en tonnes.
-
-          '
-        data_type: numeric
+        description: "Quantité reçue sur l'installation de destination, en tonnes.\n"
+        data_type: decimal(76, 30)
+      - name: quantity_refused
+        data_type: Decimal(76, 30)
       - name: accepted_quantity_packagings
-        description: ''
-        data_type: numeric
+        data_type: float64
       - name: processing_operation
-        description: ''
-        data_type: text
+        data_type: string
       - name: waste_code
-        description: ''
-        data_type: text
+        data_type: string
       - name: waste_name
-        data_type: text
-        description: ''
+        data_type: string
       - name: waste_pop
-        description: ''
-        data_type: boolean
+        data_type: bool
       - name: waste_is_dangerous
-        description: ''
-        data_type: boolean
+        data_type: bool
       - name: emitter_company_siret
-        description: 'SIRET de l''établissement émetteur du déchet.
-
-          '
-        data_type: text
+        description: "SIRET de l'établissement émetteur du déchet.\n"
+        data_type: string
       - name: emitter_company_name
-        description: 'Nom de l''établissement émetteur du déchet.
-
-          '
-        data_type: text
+        description: "Nom de l'établissement émetteur du déchet.\n"
+        data_type: string
       - name: emitter_company_address
-        description: 'Adresse postale de l''établissement émetteur du déchet.
-
-          '
-        data_type: text
+        description: "Adresse postale de l'établissement émetteur du déchet.\n"
+        data_type: string
       - name: emitter_commune
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: emitter_departement
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: emitter_region
-        description: ''
-        data_type: integer
+        data_type: string
       - name: emitter_naf
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: worker_company_siret
-        description: ''
-        data_type: text
+        data_type: string
       - name: worker_company_name
-        description: ''
-        data_type: text
+        data_type: string
       - name: transporter_company_siret
-        description: 'SIRET de l''établissement collecteur - transporteur.
-
-          '
-        data_type: text
+        description: "SIRET de l'établissement collecteur - transporteur.\n"
+        data_type: string
       - name: transporters_sirets
-        description: ''
-        data_type: ARRAY
+        data_type: Array(String)
       - name: transporter_company_name
-        description: 'Nom de l''établissement collecteur - transporteur.
-
-          '
-        data_type: text
+        description: "Nom de l'établissement collecteur - transporteur.\n"
+        data_type: string
       - name: transport_mode
-        description: ''
-        data_type: text
+        data_type: string
       - name: destination_company_siret
-        description: ''
-        data_type: text
+        data_type: string
       - name: destination_company_name
-        description: ''
-        data_type: text
+        data_type: string
       - name: destination_company_address
-        description: ''
-        data_type: text
+        data_type: string
       - name: destination_commune
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: destination_departement
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: destination_region
-        description: ''
-        data_type: integer
+        data_type: string
       - name: destination_naf
-        description: ''
-        data_type: character varying
+        data_type: string
       - name: eco_organisme_siret
         description: "SIRET de l'éco-organisme responsable du BSDD.\n"
-        data_type: text
+        data_type: string
       - name: eco_organisme_name
         description: "Nom de l'éco-organisme responsable du BSDD.\n"
-        data_type: text
-sources: []
+        data_type: string

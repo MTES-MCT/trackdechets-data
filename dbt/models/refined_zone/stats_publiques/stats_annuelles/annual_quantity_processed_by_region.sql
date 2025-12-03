@@ -10,7 +10,10 @@ with agg_data as (
         _bs_type             as type_bordereau,
         processing_operation as code_operation,
         toYear(processed_at)                    as annee,
-        multiIf(processing_operation like 'R%','Déchet valorisé',processing_operation like 'D%','Déchet éliminé','Autre')          as type_operation,
+        multiIf(
+            processing_operation like 'R%','Déchet valorisé',
+            processing_operation like 'D%','Déchet éliminé',
+            'Autre')          as type_operation,
         sum(
             if(quantity_received > 60,quantity_received / 1000,quantity_received)
         )                    as quantite_traitee

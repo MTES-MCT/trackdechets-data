@@ -7,16 +7,14 @@ with preprocessed_data as (
     select
         be.destination_departement as departement,
         be.processing_operation    as code_operation,
-        date_trunc(
-            'week', be.processed_at
-        )                          as semaine,
-        case
-            when be.processing_operation like 'R%' then 'Déchet valorisé'
-            when be.processing_operation like 'D%' then 'Déchet éliminé'
-            else 'Autre'
-        end                        as type_operation,
+        toStartOfWeek(be.processed_at,1,'Europe/Paris')                          as semaine,
+        multiIf(
+            be.processing_operation like 'R%','Déchet valorisé',
+            be.processing_operation like 'D%','Déchet éliminé',
+            'Autre'
+            ) as type_operation,
         coalesce(
-            be.quantity_received, be.accepted_quantity_packagings
+            be.quantity_received, toDecimal256(be.accepted_quantity_packagings,30)
         )                          as quantite_traitee
     from {{ ref('bordereaux_enriched') }} as be
     where
@@ -34,9 +32,8 @@ with preprocessed_data as (
             'R13'
         )
         /* Uniquement les données jusqu'à la dernière semaine complète */
-        and be.processed_at < date_trunc(
-            'week',
-            now()
+        and be.processed_at < toStartOfWeek(
+            now('Europe/Paris'),1,'Europe/Paris'
         )
         and be.emitter_departement is not null
         and be.destination_departement is not null
@@ -49,10 +46,7 @@ select
     semaine,
     max(type_operation) as type_operation,
     sum(
-        case
-            when quantite_traitee > 60 then quantite_traitee / 1000
-            else quantite_traitee
-        end
+        if(quantite_traitee > 60,quantite_traitee / 1000,quantite_traitee)
     )                   as quantite_traitee
 from preprocessed_data
 group by 1, 2, 3

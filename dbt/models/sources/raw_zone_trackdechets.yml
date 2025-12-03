@@ -1,5 +1,4 @@
 version: 2
-models: []
 sources:
   - name: trackdechets_production
     schema: pg_trackdechets_production
@@ -10,2700 +9,1814 @@ sources:
         identifier: Form
         description: >
           Une ligne par BSDD, les BSDD supprimés restent dans la table.
-        tests:
-          - elementary.schema_changes:
-              tags: ["elementary"]
-
         columns:
           - name: id
-            description: ""
             data_type: text
           - name: createdAt
-            description: ""
             data_type: timestamp without time zone
           - name: updatedAt
-            description: ""
             data_type: timestamp without time zone
           - name: emitterType
-            description: ""
             data_type: text
           - name: emitterPickupSite
-            description: ""
             data_type: text
           - name: emitterCompanyName
-            description: ""
             data_type: text
           - name: emitterCompanySiret
-            description: ""
             data_type: text
           - name: emitterCompanyAddress
-            description: ""
             data_type: text
           - name: emitterCompanyContact
-            description: ""
             data_type: text
           - name: emitterCompanyPhone
-            description: ""
             data_type: text
           - name: emitterCompanyMail
-            description: ""
             data_type: text
           - name: recipientCap
-            description: ""
             data_type: text
           - name: recipientProcessingOperation
-            description: ""
             data_type: text
           - name: recipientCompanyName
-            description: ""
             data_type: text
           - name: recipientCompanySiret
-            description: ""
             data_type: text
           - name: recipientCompanyAddress
-            description: ""
             data_type: text
           - name: recipientCompanyContact
-            description: ""
             data_type: text
           - name: recipientCompanyPhone
-            description: ""
             data_type: text
           - name: recipientCompanyMail
-            description: ""
             data_type: text
           - name: wasteDetailsCode
-            description: ""
             data_type: text
           - name: wasteDetailsOnuCode
-            description: ""
             data_type: text
           - name: wasteDetailsQuantity
-            description: ""
             data_type: numeric
           - name: wasteDetailsQuantityType
-            description: ""
             data_type: text
           - name: readableId
-            description: ""
             data_type: text
           - name: status
-            description: ""
             data_type: text
           - name: sentAt
-            description: ""
             data_type: text
           - name: sentBy
-            description: ""
             data_type: text
           - name: isAccepted
-            description: ""
             data_type: boolean
           - name: receivedAt
-            description: ""
             data_type: text
           - name: quantityReceived
-            description: ""
             data_type: numeric
           - name: processingOperationDone
-            description: ""
             data_type: text
           - name: wasteDetailsName
-            description: ""
             data_type: text
           - name: isDeleted
-            description: ""
             data_type: boolean
           - name: receivedBy
-            description: ""
             data_type: text
           - name: wasteDetailsConsistence
-            description: ""
             data_type: text
           - name: processedBy
-            description: ""
             data_type: text
           - name: processedAt
-            description: ""
             data_type: text
           - name: nextDestinationProcessingOperation
-            description: ""
             data_type: text
           - name: traderCompanyName
-            description: ""
             data_type: text
           - name: traderCompanySiret
-            description: ""
             data_type: text
           - name: traderCompanyAddress
-            description: ""
             data_type: text
           - name: traderCompanyContact
-            description: ""
             data_type: text
           - name: traderCompanyPhone
-            description: ""
             data_type: text
           - name: traderCompanyMail
-            description: ""
             data_type: text
           - name: traderReceipt
-            description: ""
             data_type: text
           - name: traderDepartment
-            description: ""
             data_type: text
           - name: traderValidityLimit
-            description: ""
             data_type: text
           - name: processingOperationDescription
-            description: ""
             data_type: text
           - name: noTraceability
-            description: ""
             data_type: boolean
           - name: signedByTransporter
-            description: ""
             data_type: boolean
           - name: customId
-            description: ""
             data_type: text
           - name: wasteAcceptationStatus
-            description: ""
             data_type: text
           - name: wasteRefusalReason
-            description: ""
             data_type: text
           - name: nextDestinationCompanyName
-            description: ""
             data_type: text
           - name: nextDestinationCompanySiret
-            description: ""
             data_type: text
           - name: nextDestinationCompanyAddress
-            description: ""
             data_type: text
           - name: nextDestinationCompanyContact
-            description: ""
             data_type: text
           - name: nextDestinationCompanyPhone
-            description: ""
             data_type: text
           - name: nextDestinationCompanyMail
-            description: ""
             data_type: text
           - name: emitterWorkSiteName
-            description: ""
             data_type: text
           - name: emitterWorkSiteAddress
-            description: ""
             data_type: text
           - name: emitterWorkSiteCity
-            description: ""
             data_type: text
           - name: emitterWorkSitePostalCode
-            description: ""
             data_type: text
           - name: emitterWorkSiteInfos
-            description: ""
             data_type: text
           - name: recipientIsTempStorage
-            description: ""
             data_type: boolean
           - name: signedAt
-            description: ""
             data_type: text
           - name: currentTransporterOrgId
-            description: ""
             data_type: text
           - name: nextTransporterOrgId
-            description: ""
             data_type: text
           - name: nextDestinationCompanyCountry
-            description: ""
             data_type: text
           - name: isImportedFromPaper
-            description: ""
             data_type: boolean
           - name: ecoOrganismeName
-            description: ""
             data_type: text
           - name: ecoOrganismeSiret
-            description: ""
             data_type: text
           - name: wasteDetailsPackagingInfos
-            description: ""
             data_type: ARRAY
           - name: signedBy
-            description: ""
             data_type: text
           - name: wasteDetailsPop
-            description: ""
             data_type: boolean
           - name: ownerId
-            description: ""
             data_type: text
           - name: brokerCompanyName
-            description: ""
             data_type: text
           - name: brokerCompanySiret
-            description: ""
             data_type: text
           - name: brokerCompanyAddress
-            description: ""
             data_type: text
           - name: brokerCompanyContact
-            description: ""
             data_type: text
           - name: brokerCompanyPhone
-            description: ""
             data_type: text
           - name: brokerCompanyMail
-            description: ""
             data_type: text
           - name: brokerReceipt
-            description: ""
             data_type: text
           - name: brokerDepartment
-            description: ""
             data_type: text
           - name: brokerValidityLimit
-            description: ""
             data_type: text
           - name: wasteDetailsIsDangerous
-            description: ""
             data_type: boolean
           - name: emittedAt
-            description: ""
             data_type: text
           - name: emittedBy
-            description: ""
             data_type: text
           - name: emittedByEcoOrganisme
-            description: ""
             data_type: boolean
           - name: takenOverAt
-            description: ""
             data_type: text
           - name: takenOverBy
-            description: ""
             data_type: text
           - name: wasteDetailsParcelNumbers
-            description: ""
             data_type: ARRAY
           - name: wasteDetailsAnalysisReferences
-            description: ""
             data_type: ARRAY
           - name: wasteDetailsLandIdentifiers
-            description: ""
             data_type: ARRAY
           - name: forwardedInId
-            description: ""
             data_type: text
           - name: quantityReceivedType
-            description: ""
             data_type: text
           - name: emitterIsForeignShip
-            description: ""
             data_type: boolean
           - name: emitterIsPrivateIndividual
-            description: ""
             data_type: boolean
           - name: emitterCompanyOmiNumber
-            description: ""
             data_type: text
           - name: nextDestinationCompanyVatNumber
-            description: ""
             data_type: text
           - name: recipientsSirets
-            description: ""
             data_type: ARRAY
           - name: transportersSirets
-            description: ""
             data_type: ARRAY
           - name: intermediariesSirets
-            description: ""
             data_type: ARRAY
           - name: nextDestinationNotificationNumber
-            description: ""
             data_type: text
           - name: wasteDetailsSampleNumber
-            description: ""
             data_type: text
           - name: canAccessDraftSirets
-            description: ""
             data_type: ARRAY
           - name: destinationOperationMode
-            description: ""
             data_type: text
           - name: quantityGrouped
-            description: ""
             data_type: numeric
           - name: nextDestinationCompanyExtraEuropeanId
-            description: ""
             data_type: text
           - name: rowNumber
-            description: ""
             data_type: bigint
           - name: _sdc_extracted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_received_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_batched_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_deleted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_sequence
-            description: ""
             data_type: bigint
           - name: _sdc_table_version
-            description: ""
             data_type: bigint
           - name: _sdc_sync_started_at
-            description: ""
             data_type: bigint
           - name: quantityRefused
-            description: ""
             data_type: numeric
           - name: citerneNotWashedOutReason
-            description: ""
             data_type: text
           - name: hasCiterneBeenWashedOut
-            description: ""
             data_type: boolean
           - name: emptyReturnADR
-            description: ""
             data_type: text
       - name: bsda
         identifier: Bsda
         description: >
           Une ligne par BSDA, les BSDA supprimés restent dans la table.
-        config:
-          elementary:
-            timestamp_column: "_sdc_extracted_at"
-        tests:
-          - elementary.schema_changes:
-              tags: ["elementary"]
 
         columns:
           - name: id
-            description: ""
             data_type: text
           - name: createdAt
-            description: ""
             data_type: timestamp without time zone
           - name: updatedAt
-            description: ""
             data_type: timestamp without time zone
           - name: isDraft
-            description: ""
             data_type: boolean
           - name: isDeleted
-            description: ""
             data_type: boolean
           - name: status
-            description: ""
             data_type: text
           - name: type
-            description: ""
             data_type: text
           - name: emitterIsPrivateIndividual
-            description: ""
             data_type: boolean
           - name: emitterCompanyName
-            description: ""
             data_type: text
           - name: emitterCompanySiret
-            description: ""
             data_type: text
           - name: emitterCompanyAddress
-            description: ""
             data_type: text
           - name: emitterCompanyContact
-            description: ""
             data_type: text
           - name: emitterCompanyPhone
-            description: ""
             data_type: text
           - name: emitterCompanyMail
-            description: ""
             data_type: text
           - name: emitterPickupSiteName
-            description: ""
             data_type: text
           - name: emitterPickupSiteAddress
-            description: ""
             data_type: text
           - name: emitterPickupSiteCity
-            description: ""
             data_type: text
           - name: emitterPickupSitePostalCode
-            description: ""
             data_type: text
           - name: emitterPickupSiteInfos
-            description: ""
             data_type: text
           - name: emitterEmissionSignatureAuthor
-            description: ""
             data_type: text
           - name: emitterEmissionSignatureDate
-            description: ""
             data_type: text
           - name: wasteCode
-            description: ""
             data_type: text
           - name: wasteFamilyCode
-            description: ""
             data_type: text
           - name: wasteMaterialName
-            description: ""
             data_type: text
           - name: wasteConsistence
-            description: ""
             data_type: text
           - name: wasteSealNumbers
-            description: ""
             data_type: ARRAY
           - name: wasteAdr
-            description: ""
             data_type: text
           - name: packagings
-            description: ""
             data_type: ARRAY
           - name: weightValue
-            description: ""
             data_type: numeric
           - name: destinationCompanyName
-            description: ""
             data_type: text
           - name: destinationCompanySiret
-            description: ""
             data_type: text
           - name: destinationCompanyAddress
-            description: ""
             data_type: text
           - name: destinationCompanyContact
-            description: ""
             data_type: text
           - name: destinationCompanyPhone
-            description: ""
             data_type: text
           - name: destinationCompanyMail
-            description: ""
             data_type: text
           - name: destinationCap
-            description: ""
             data_type: text
           - name: destinationPlannedOperationCode
-            description: ""
             data_type: text
           - name: destinationReceptionDate
-            description: ""
             data_type: timestamp without time zone
           - name: destinationReceptionWeight
-            description: ""
             data_type: numeric
           - name: destinationReceptionAcceptationStatus
-            description: ""
             data_type: text
           - name: destinationReceptionRefusalReason
-            description: ""
             data_type: text
           - name: destinationOperationCode
-            description: ""
             data_type: text
           - name: destinationOperationDate
-            description: ""
             data_type: timestamp without time zone
           - name: destinationOperationSignatureAuthor
-            description: ""
             data_type: text
           - name: destinationOperationSignatureDate
-            description: ""
             data_type: timestamp without time zone
           - name: transporterTransportSignatureDate
-            description: ""
             data_type: text
           - name: workerCompanyName
-            description: ""
             data_type: text
           - name: workerCompanySiret
-            description: ""
             data_type: text
           - name: workerCompanyAddress
-            description: ""
             data_type: text
           - name: workerCompanyContact
-            description: ""
             data_type: text
           - name: workerCompanyPhone
-            description: ""
             data_type: text
           - name: workerCompanyMail
-            description: ""
             data_type: text
           - name: workerWorkHasEmitterPaperSignature
-            description: ""
             data_type: boolean
           - name: workerWorkSignatureAuthor
-            description: ""
             data_type: text
           - name: workerWorkSignatureDate
-            description: ""
             data_type: timestamp without time zone
           - name: brokerCompanyName
-            description: ""
             data_type: text
           - name: brokerCompanySiret
-            description: ""
             data_type: text
           - name: brokerCompanyAddress
-            description: ""
             data_type: text
           - name: brokerCompanyContact
-            description: ""
             data_type: text
           - name: brokerCompanyPhone
-            description: ""
             data_type: text
           - name: brokerCompanyMail
-            description: ""
             data_type: text
           - name: brokerRecepisseNumber
-            description: ""
             data_type: text
           - name: brokerRecepisseDepartment
-            description: ""
             data_type: text
           - name: brokerRecepisseValidityLimit
-            description: ""
             data_type: text
           - name: destinationOperationNextDestinationCompanyName
-            description: ""
             data_type: text
           - name: destinationOperationNextDestinationCompanySiret
-            description: ""
             data_type: text
           - name: destinationOperationNextDestinationCompanyVatNumber
-            description: ""
             data_type: text
           - name: destinationOperationNextDestinationCompanyAddress
-            description: ""
             data_type: text
           - name: destinationOperationNextDestinationCompanyContact
-            description: ""
             data_type: text
           - name: destinationOperationNextDestinationCompanyPhone
-            description: ""
             data_type: text
           - name: destinationOperationNextDestinationCompanyMail
-            description: ""
             data_type: text
           - name: destinationOperationNextDestinationCap
-            description: ""
             data_type: text
           - name: destinationOperationNextDestinationPlannedOperationCode
-            description: ""
             data_type: text
           - name: weightIsEstimate
-            description: ""
             data_type: boolean
           - name: emitterCustomInfo
-            description: ""
             data_type: text
           - name: destinationCustomInfo
-            description: ""
             data_type: text
           - name: ecoOrganismeName
-            description: ""
             data_type: text
           - name: ecoOrganismeSiret
-            description: ""
             data_type: text
           - name: forwardingId
-            description: ""
             data_type: text
           - name: groupedInId
-            description: ""
             data_type: text
           - name: wastePop
-            description: ""
             data_type: boolean
           - name: destinationOperationDescription
-            description: ""
             data_type: text
           - name: workerIsDisabled
-            description: ""
             data_type: boolean
           - name: workerCertificationHasSubSectionFour
-            description: ""
             data_type: boolean
           - name: workerCertificationHasSubSectionThree
-            description: ""
             data_type: boolean
           - name: workerCertificationCertificationNumber
-            description: ""
             data_type: text
           - name: workerCertificationValidityLimit
-            description: ""
             data_type: timestamp without time zone
           - name: workerCertificationOrganisation
-            description: ""
             data_type: text
           - name: intermediariesOrgIds
-            description: ""
             data_type: ARRAY
           - name: destinationOperationMode
-            description: ""
             data_type: text
           - name: transportersOrgIds
-            description: ""
             data_type: ARRAY
           - name: rowNumber
-            description: ""
             data_type: bigint
           - name: _sdc_extracted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_received_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_batched_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_deleted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_sequence
-            description: ""
             data_type: bigint
           - name: _sdc_table_version
-            description: ""
             data_type: bigint
           - name: _sdc_sync_started_at
-            description: ""
             data_type: bigint
           - name: canAccessDraftOrgIds
-            description: ""
             data_type: ARRAY
       - name: bsdasri
         identifier: Bsdasri
-        config:
-          elementary:
-            timestamp_column: "_sdc_extracted_at"
-        tests:
-          - elementary.schema_changes:
-              tags: ["elementary"]
         description: >
           Une ligne par BSDASRI, les BSDASRI supprimés restent dans la table.
 
         columns:
           - name: id
-            description: ""
             data_type: text
           - name: status
-            description: ""
             data_type: text
           - name: createdAt
-            description: ""
             data_type: timestamp without time zone
           - name: updatedAt
-            description: ""
             data_type: timestamp without time zone
           - name: isDeleted
-            description: ""
             data_type: boolean
           - name: isDraft
-            description: ""
             data_type: boolean
           - name: emitterCompanyName
-            description: ""
             data_type: text
           - name: emitterCompanySiret
-            description: ""
             data_type: text
           - name: emitterCompanyAddress
-            description: ""
             data_type: text
           - name: emitterCompanyContact
-            description: ""
             data_type: text
           - name: emitterCompanyPhone
-            description: ""
             data_type: text
           - name: emitterCompanyMail
-            description: ""
             data_type: text
           - name: emitterPickupSiteName
-            description: ""
             data_type: text
           - name: emitterPickupSiteAddress
-            description: ""
             data_type: text
           - name: emitterPickupSiteCity
-            description: ""
             data_type: text
           - name: emitterPickupSitePostalCode
-            description: ""
             data_type: text
           - name: emitterPickupSiteInfos
-            description: ""
             data_type: text
           - name: wasteCode
-            description: ""
             data_type: text
           - name: wasteAdr
-            description: ""
             data_type: text
           - name: emitterWasteWeightValue
-            description: ""
             data_type: numeric
           - name: emitterWasteVolume
-            description: ""
             data_type: numeric
           - name: emitterWastePackagings
-            description: ""
             data_type: ARRAY
           - name: emitterCustomInfo
-            description: ""
             data_type: text
           - name: emitterEmissionSignatureAuthor
-            description: ""
             data_type: text
           - name: emitterEmissionSignatureDate
-            description: ""
             data_type: timestamp without time zone
           - name: isEmissionDirectTakenOver
-            description: ""
             data_type: boolean
           - name: isEmissionTakenOverWithSecretCode
-            description: ""
             data_type: boolean
           - name: transporterCompanyName
-            description: ""
             data_type: text
           - name: transporterCompanySiret
-            description: ""
             data_type: text
           - name: transporterCompanyAddress
-            description: ""
             data_type: text
           - name: transporterCompanyPhone
-            description: ""
             data_type: text
           - name: transporterCompanyContact
-            description: ""
             data_type: text
           - name: transporterCompanyMail
-            description: ""
             data_type: text
           - name: transporterRecepisseNumber
-            description: ""
             data_type: text
           - name: transporterRecepisseDepartment
-            description: ""
             data_type: text
           - name: transporterRecepisseValidityLimit
-            description: ""
             data_type: text
           - name: transporterAcceptationStatus
-            description: ""
             data_type: text
           - name: transporterWasteRefusalReason
-            description: ""
             data_type: text
           - name: transporterWasteRefusedWeightValue
-            description: ""
             data_type: numeric
           - name: transporterTakenOverAt
-            description: ""
             data_type: timestamp without time zone
           - name: transporterWastePackagings
-            description: ""
             data_type: ARRAY
           - name: transporterWasteWeightValue
-            description: ""
             data_type: numeric
           - name: transporterWasteVolume
-            description: ""
             data_type: numeric
           - name: transporterCustomInfo
-            description: ""
             data_type: text
           - name: handedOverToRecipientAt
-            description: ""
             data_type: timestamp without time zone
           - name: transporterTransportSignatureAuthor
-            description: ""
             data_type: text
           - name: transporterTransportSignatureDate
-            description: ""
             data_type: timestamp without time zone
           - name: destinationCompanyName
-            description: ""
             data_type: text
           - name: destinationCompanySiret
-            description: ""
             data_type: text
           - name: destinationCompanyAddress
-            description: ""
             data_type: text
           - name: destinationCompanyContact
-            description: ""
             data_type: text
           - name: destinationCompanyPhone
-            description: ""
             data_type: text
           - name: destinationCompanyMail
-            description: ""
             data_type: text
           - name: destinationWastePackagings
-            description: ""
             data_type: ARRAY
           - name: destinationReceptionAcceptationStatus
-            description: ""
             data_type: text
           - name: destinationReceptionWasteRefusalReason
-            description: ""
             data_type: text
           - name: destinationReceptionWasteRefusedWeightValue
-            description: ""
             data_type: numeric
           - name: destinationReceptionWasteWeightValue
-            description: ""
             data_type: numeric
           - name: destinationReceptionWasteVolume
-            description: ""
             data_type: numeric
           - name: destinationCustomInfo
-            description: ""
             data_type: text
           - name: destinationReceptionDate
-            description: ""
             data_type: timestamp without time zone
           - name: destinationOperationCode
-            description: ""
             data_type: text
           - name: destinationOperationDate
-            description: ""
             data_type: timestamp without time zone
           - name: destinationReceptionSignatureAuthor
-            description: ""
             data_type: text
           - name: destinationReceptionSignatureDate
-            description: ""
             data_type: timestamp without time zone
           - name: destinationOperationSignatureDate
-            description: ""
             data_type: timestamp without time zone
           - name: destinationOperationSignatureAuthor
-            description: ""
             data_type: text
           - name: emissionSignatoryId
-            description: ""
             data_type: text
           - name: transportSignatoryId
-            description: ""
             data_type: text
           - name: receptionSignatoryId
-            description: ""
             data_type: text
           - name: operationSignatoryId
-            description: ""
             data_type: text
           - name: groupedInId
-            description: ""
             data_type: text
           - name: transporterTransportMode
-            description: ""
             data_type: text
           - name: type
-            description: ""
             data_type: text
           - name: emitterWasteWeightIsEstimate
-            description: ""
             data_type: boolean
           - name: transporterWasteWeightIsEstimate
-            description: ""
             data_type: boolean
           - name: ecoOrganismeName
-            description: ""
             data_type: text
           - name: ecoOrganismeSiret
-            description: ""
             data_type: text
           - name: transporterTransportPlates
-            description: ""
             data_type: ARRAY
           - name: identificationNumbers
-            description: ""
             data_type: ARRAY
           - name: transporterCompanyVatNumber
-            description: ""
             data_type: text
           - name: synthesizedInId
-            description: ""
             data_type: text
           - name: emittedByEcoOrganisme
-            description: ""
             data_type: boolean
           - name: synthesisEmitterSirets
-            description: ""
             data_type: ARRAY
           - name: transporterRecepisseIsExempted
-            description: ""
             data_type: boolean
           - name: groupingEmitterSirets
-            description: ""
             data_type: ARRAY
           - name: destinationOperationMode
-            description: ""
             data_type: text
           - name: rowNumber
-            description: ""
             data_type: bigint
           - name: _sdc_extracted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_received_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_batched_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_deleted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_sequence
-            description: ""
             data_type: bigint
           - name: _sdc_table_version
-            description: ""
             data_type: bigint
           - name: _sdc_sync_started_at
-            description: ""
             data_type: bigint
       - name: bsff
         identifier: Bsff
         description: >
           Une ligne par BSFF, les BSFF supprimés restent dans la table.
-        config:
-          elementary:
-            timestamp_column: "_sdc_extracted_at"
-        tests:
-          - elementary.schema_changes:
-              tags: ["elementary"]
 
         columns:
           - name: id
-            description: ""
             data_type: text
           - name: createdAt
-            description: ""
             data_type: timestamp without time zone
           - name: updatedAt
-            description: ""
             data_type: timestamp without time zone
           - name: isDeleted
-            description: ""
             data_type: boolean
           - name: emitterCompanyName
-            description: ""
             data_type: text
           - name: emitterCompanySiret
-            description: ""
             data_type: text
           - name: emitterCompanyAddress
-            description: ""
             data_type: text
           - name: emitterCompanyContact
-            description: ""
             data_type: text
           - name: emitterCompanyPhone
-            description: ""
             data_type: text
           - name: emitterCompanyMail
-            description: ""
             data_type: text
           - name: emitterEmissionSignatureAuthor
-            description: ""
             data_type: text
           - name: emitterEmissionSignatureDate
-            description: ""
             data_type: timestamp without time zone
           - name: wasteCode
-            description: ""
             data_type: text
           - name: wasteAdr
-            description: ""
             data_type: text
           - name: weightValue
-            description: ""
             data_type: numeric
           - name: weightIsEstimate
-            description: ""
             data_type: boolean
           - name: transporterCompanyName
-            description: ""
             data_type: text
           - name: transporterCompanySiret
-            description: ""
             data_type: text
           - name: transporterCompanyAddress
-            description: ""
             data_type: text
           - name: transporterCompanyContact
-            description: ""
             data_type: text
           - name: transporterCompanyPhone
-            description: ""
             data_type: text
           - name: transporterCompanyMail
-            description: ""
             data_type: text
           - name: transporterRecepisseNumber
-            description: ""
             data_type: text
           - name: transporterRecepisseDepartment
-            description: ""
             data_type: text
           - name: transporterRecepisseValidityLimit
-            description: ""
             data_type: timestamp without time zone
           - name: transporterTransportMode
-            description: ""
             data_type: text
           - name: transporterTransportSignatureAuthor
-            description: ""
             data_type: text
           - name: transporterTransportSignatureDate
-            description: ""
             data_type: timestamp without time zone
           - name: destinationCompanyName
-            description: ""
             data_type: text
           - name: destinationCompanySiret
-            description: ""
             data_type: text
           - name: destinationCompanyAddress
-            description: ""
             data_type: text
           - name: destinationCompanyContact
-            description: ""
             data_type: text
           - name: destinationCompanyPhone
-            description: ""
             data_type: text
           - name: destinationCompanyMail
-            description: ""
             data_type: text
           - name: destinationReceptionDate
-            description: ""
             data_type: timestamp without time zone
           - name: destinationReceptionSignatureAuthor
-            description: ""
             data_type: text
           - name: destinationReceptionSignatureDate
-            description: ""
             data_type: timestamp without time zone
           - name: destinationPlannedOperationCode
-            description: ""
             data_type: text
           - name: transporterCompanyVatNumber
-            description: ""
             data_type: text
           - name: status
-            description: ""
             data_type: text
           - name: wasteDescription
-            description: ""
             data_type: text
           - name: isDraft
-            description: ""
             data_type: boolean
           - name: type
-            description: ""
             data_type: text
           - name: destinationCustomInfo
-            description: ""
             data_type: text
           - name: emitterCustomInfo
-            description: ""
             data_type: text
           - name: transporterCustomInfo
-            description: ""
             data_type: text
           - name: transporterTransportTakenOverAt
-            description: ""
             data_type: text
           - name: transporterTransportPlates
-            description: ""
             data_type: ARRAY
           - name: destinationCap
-            description: ""
             data_type: text
           - name: detenteurCompanySirets
-            description: ""
             data_type: ARRAY
           - name: transporterRecepisseIsExempted
-            description: ""
             data_type: boolean
           - name: rowNumber
-            description: ""
             data_type: bigint
           - name: _sdc_extracted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_received_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_batched_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_deleted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_sequence
-            description: ""
             data_type: bigint
           - name: _sdc_table_version
-            description: ""
             data_type: bigint
           - name: _sdc_sync_started_at
-            description: ""
             data_type: bigint
           - name: transportersOrgIds
-            description: ""
             data_type: ARRAY
       - name: bsvhu
         identifier: Bsvhu
         description: >
           Une ligne par BSVHU, les BSVHU supprimés restent dans la table.
-        config:
-          elementary:
-            timestamp_column: "_sdc_extracted_at"
-        tests:
-          - elementary.schema_changes:
-              tags: ["elementary"]
 
         columns:
           - name: id
-            description: ""
             data_type: text
           - name: createdAt
-            description: ""
             data_type: timestamp without time zone
           - name: updatedAt
-            description: ""
             data_type: timestamp without time zone
           - name: isDraft
-            description: ""
             data_type: boolean
           - name: isDeleted
-            description: ""
             data_type: boolean
           - name: status
-            description: ""
             data_type: text
           - name: emitterAgrementNumber
-            description: ""
             data_type: text
           - name: emitterCompanyName
-            description: ""
             data_type: text
           - name: emitterCompanySiret
-            description: ""
             data_type: text
           - name: emitterCompanyAddress
-            description: ""
             data_type: text
           - name: emitterCompanyContact
-            description: ""
             data_type: text
           - name: emitterCompanyPhone
-            description: ""
             data_type: text
           - name: emitterCompanyMail
-            description: ""
             data_type: text
           - name: destinationType
-            description: ""
             data_type: text
           - name: destinationPlannedOperationCode
-            description: ""
             data_type: text
           - name: destinationAgrementNumber
-            description: ""
             data_type: text
           - name: destinationCompanyName
-            description: ""
             data_type: text
           - name: destinationCompanySiret
-            description: ""
             data_type: text
           - name: destinationCompanyAddress
-            description: ""
             data_type: text
           - name: destinationCompanyContact
-            description: ""
             data_type: text
           - name: destinationCompanyPhone
-            description: ""
             data_type: text
           - name: destinationCompanyMail
-            description: ""
             data_type: text
           - name: wasteCode
-            description: ""
             data_type: text
           - name: packaging
-            description: ""
             data_type: text
           - name: identificationNumbers
-            description: ""
             data_type: ARRAY
           - name: identificationType
-            description: ""
             data_type: text
           - name: quantity
-            description: ""
             data_type: bigint
           - name: weightValue
-            description: ""
             data_type: numeric
           - name: emitterEmissionSignatureAuthor
-            description: ""
             data_type: text
           - name: emitterEmissionSignatureDate
-            description: ""
             data_type: timestamp without time zone
           - name: transporterCompanyName
-            description: ""
             data_type: text
           - name: transporterCompanySiret
-            description: ""
             data_type: text
           - name: transporterCompanyAddress
-            description: ""
             data_type: text
           - name: transporterCompanyContact
-            description: ""
             data_type: text
           - name: transporterCompanyPhone
-            description: ""
             data_type: text
           - name: transporterCompanyMail
-            description: ""
             data_type: text
           - name: transporterRecepisseNumber
-            description: ""
             data_type: text
           - name: transporterRecepisseDepartment
-            description: ""
             data_type: text
           - name: transporterRecepisseValidityLimit
-            description: ""
             data_type: text
           - name: transporterCompanyVatNumber
-            description: ""
             data_type: text
           - name: transporterTransportSignatureAuthor
-            description: ""
             data_type: text
           - name: transporterTransportSignatureDate
-            description: ""
             data_type: timestamp without time zone
           - name: destinationReceptionAcceptationStatus
-            description: ""
             data_type: text
           - name: destinationReceptionRefusalReason
-            description: ""
             data_type: text
           - name: destinationReceptionIdentificationNumbers
-            description: ""
             data_type: ARRAY
           - name: destinationReceptionIdentificationType
-            description: ""
             data_type: text
           - name: destinationOperationCode
-            description: ""
             data_type: text
           - name: destinationOperationNextDestinationCompanyName
-            description: ""
             data_type: text
           - name: destinationOperationNextDestinationCompanySiret
-            description: ""
             data_type: text
           - name: destinationOperationNextDestinationCompanyAddress
-            description: ""
             data_type: text
           - name: destinationOperationNextDestinationCompanyContact
-            description: ""
             data_type: text
           - name: destinationOperationNextDestinationCompanyPhone
-            description: ""
             data_type: text
           - name: destinationOperationNextDestinationCompanyMail
-            description: ""
             data_type: text
           - name: destinationOperationSignatureAuthor
-            description: ""
             data_type: text
           - name: destinationOperationSignatureDate
-            description: ""
             data_type: timestamp without time zone
           - name: transporterTransportTakenOverAt
-            description: ""
             data_type: timestamp without time zone
           - name: destinationOperationDate
-            description: ""
             data_type: text
           - name: destinationReceptionQuantity
-            description: ""
             data_type: bigint
           - name: destinationReceptionWeight
-            description: ""
             data_type: numeric
           - name: destinationReceptionDate
-            description: ""
             data_type: timestamp without time zone
           - name: weightIsEstimate
-            description: ""
             data_type: boolean
           - name: destinationOperationNextDestinationCompanyVatNumber
-            description: ""
             data_type: text
           - name: emitterCustomInfo
-            description: ""
             data_type: text
           - name: destinationCustomInfo
-            description: ""
             data_type: text
           - name: transporterCustomInfo
-            description: ""
             data_type: text
           - name: transporterTransportPlates
-            description: ""
             data_type: ARRAY
           - name: transporterRecepisseIsExempted
-            description: ""
             data_type: boolean
           - name: destinationOperationMode
-            description: ""
             data_type: text
           - name: rowNumber
-            description: ""
             data_type: bigint
           - name: _sdc_extracted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_received_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_batched_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_deleted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_sequence
-            description: ""
             data_type: bigint
           - name: _sdc_table_version
-            description: ""
             data_type: bigint
           - name: _sdc_sync_started_at
-            description: ""
             data_type: bigint
           - name: emitterIrregularSituation
-            description: ""
             data_type: boolean
           - name: emitterNoSiret
-            description: ""
             data_type: boolean
           - name: emitterCompanyCity
-            description: ""
             data_type: text
           - name: emitterCompanyCountry
-            description: ""
             data_type: text
           - name: emitterCompanyPostalCode
-            description: ""
             data_type: text
           - name: emitterCompanyStreet
-            description: ""
             data_type: text
           - name: intermediariesOrgIds
-            description: ""
             data_type: ARRAY
+      - name: bsvhu_transporter
+        identifier: BsvhuTransporter
+        description: >
+          Une ligne par transporteur BSVHU.
+
+        columns:
+          - name: id
+            data_type: text
+          - name: created_at
+          - name: updated_at
+            data_type: timestamp without time zone
+          - name: number
+            data_type: bigint
+          - name: bsvhu_id
+            data_type: text
+          - name: transporter_company_siret
+            data_type: text
+          - name: transporter_company_name
+            data_type: text
+          - name: transporter_company_vat_number
+            data_type: text
+          - name: transporter_company_address
+            data_type: text
+          - name: transporter_company_contact
+            data_type: text
+          - name: transporter_company_phone
+            data_type: text
+          - name: transporter_company_mail
+            data_type: text
+          - name: transporter_custom_info
+            data_type: text
+          - name: transporter_recepisse_is_exempted
+            data_type: boolean
+          - name: transporter_recepisse_number
+            data_type: text
+          - name: transporter_recepisse_department
+            data_type: text
+          - name: transporter_recepisse_validity_limit
+            data_type: timestamp without time zone
+          - name: transporter_transport_mode
+            data_type: text
+          - name: transporter_transport_plates
+            data_type: text
+          - name: transporter_transport_taken_over_at
+            data_type: timestamp without time zone
+          - name: transporter_transport_signature_author
+            data_type: text
+          - name: transporter_transport_signature_date
+            data_type: timestamp without time zone
       - name: user
         identifier: User
         description: >
           Une ligne par compte utilisateur.
-        config:
-          elementary:
-            timestamp_column: "_sdc_extracted_at"
-        tests:
-          - elementary.schema_changes:
-              tags: ["elementary"]
 
         columns:
           - name: id
-            description: ""
             data_type: text
           - name: email
-            description: ""
             data_type: text
           - name: name
-            description: ""
             data_type: text
           - name: phone
-            description: ""
             data_type: text
           - name: createdAt
-            description: ""
             data_type: timestamp without time zone
           - name: updatedAt
-            description: ""
             data_type: timestamp without time zone
           - name: isActive
-            description: ""
             data_type: boolean
           - name: activatedAt
-            description: ""
             data_type: timestamp without time zone
           - name: firstAssociationDate
-            description: ""
             data_type: timestamp without time zone
           - name: isAdmin
-            description: ""
             data_type: boolean
           - name: isRegistreNational
-            description: ""
             data_type: boolean
           - name: governmentAccountId
-            description: ""
             data_type: text
           - name: _sdc_extracted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_received_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_batched_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_deleted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_sequence
-            description: ""
             data_type: bigint
           - name: _sdc_table_version
-            description: ""
             data_type: bigint
           - name: _sdc_sync_started_at
-            description: ""
             data_type: bigint
       - name: company
         identifier: Company
         description: >
           Une ligne par compte établissement.
-        config:
-          elementary:
-            timestamp_column: "_sdc_extracted_at"
-        tests:
-          - elementary.schema_changes:
-              tags: ["elementary"]
 
         columns:
           - name: id
-            description: ""
             data_type: text
           - name: siret
-            description: ""
             data_type: text
           - name: updatedAt
-            description: ""
             data_type: timestamp without time zone
           - name: createdAt
-            description: ""
             data_type: timestamp without time zone
           - name: securityCode
-            description: ""
             data_type: bigint
           - name: name
-            description: ""
             data_type: text
           - name: gerepId
-            description: ""
             data_type: text
           - name: codeNaf
-            description: ""
             data_type: text
           - name: givenName
-            description: ""
             data_type: text
           - name: contactEmail
-            description: ""
             data_type: text
           - name: contactPhone
-            description: ""
             data_type: text
           - name: website
-            description: ""
             data_type: text
           - name: transporterReceiptId
-            description: ""
             data_type: text
           - name: traderReceiptId
-            description: ""
             data_type: text
           - name: ecoOrganismeAgreements
-            description: ""
             data_type: ARRAY
           - name: companyTypes
-            description: ""
             data_type: ARRAY
           - name: address
-            description: ""
             data_type: text
           - name: latitude
-            description: ""
             data_type: numeric
           - name: longitude
-            description: ""
             data_type: numeric
           - name: brokerReceiptId
-            description: ""
             data_type: text
           - name: verificationCode
-            description: ""
             data_type: text
           - name: verificationStatus
-            description: ""
             data_type: text
           - name: verificationMode
-            description: ""
             data_type: text
           - name: verificationComment
-            description: ""
             data_type: text
           - name: verifiedAt
-            description: ""
             data_type: timestamp without time zone
           - name: vhuAgrementDemolisseurId
-            description: ""
             data_type: text
           - name: vhuAgrementBroyeurId
-            description: ""
             data_type: text
           - name: allowBsdasriTakeOverWithoutSignature
-            description: ""
             data_type: boolean
           - name: vatNumber
-            description: ""
             data_type: text
           - name: contact
-            description: ""
             data_type: text
           - name: codeDepartement
-            description: ""
             data_type: text
           - name: workerCertificationId
-            description: ""
             data_type: text
           - name: orgId
-            description: ""
             data_type: text
           - name: collectorTypes
-            description: ""
             data_type: ARRAY
           - name: wasteProcessorTypes
-            description: ""
             data_type: ARRAY
           - name: webhookSettingsLimit
-            description: ""
             data_type: bigint
           - name: _sdc_extracted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_received_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_batched_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_deleted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_sequence
-            description: ""
             data_type: bigint
           - name: _sdc_table_version
-            description: ""
             data_type: bigint
           - name: _sdc_sync_started_at
-            description: ""
             data_type: bigint
           - name: allowAppendix1SignatureAutomation
-            description: ""
             data_type: boolean
           - name: featureFlags
-            description: ""
             data_type: ARRAY
           - name: wasteVehiclesTypes
-            description: ""
             data_type: ARRAY
           - name: isDormantSince
-            description: ""
             data_type: timestamp without time zone
       - name: company_association
         identifier: CompanyAssociation
         description: >
           Une ligne par paire (company,user).
-        config:
-          elementary:
-            timestamp_column: "_sdc_extracted_at"
-        tests:
-          - elementary.schema_changes:
-              tags: ["elementary"]
 
         columns:
           - name: id
-            description: ""
             data_type: text
           - name: role
-            description: ""
             data_type: text
           - name: companyId
-            description: ""
             data_type: text
           - name: userId
-            description: ""
             data_type: text
           - name: createdAt
-            description: ""
             data_type: timestamp without time zone
           - name: automaticallyAccepted
-            description: ""
             data_type: boolean
           - name: _sdc_extracted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_received_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_batched_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_deleted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_sequence
-            description: ""
             data_type: bigint
           - name: _sdc_table_version
-            description: ""
             data_type: bigint
           - name: _sdc_sync_started_at
-            description: ""
             data_type: bigint
       - name: eco_organisme
         identifier: EcoOrganisme
         description: >
           Table entrée en dur, Eco-Organismes qui nous sont connus.
-        config:
-          elementary:
-            timestamp_column: "_sdc_extracted_at"
-        tests:
-          - elementary.schema_changes:
-              tags: ["elementary"]
 
         columns:
           - name: id
-            description: ""
             data_type: text
           - name: siret
-            description: ""
             data_type: text
           - name: name
-            description: ""
             data_type: text
           - name: address
-            description: ""
             data_type: text
           - name: handleBsdasri
-            description: ""
             data_type: boolean
           - name: handleBsda
-            description: ""
             data_type: boolean
           - name: _sdc_extracted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_received_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_batched_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_deleted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_sequence
-            description: ""
             data_type: bigint
           - name: _sdc_table_version
-            description: ""
             data_type: bigint
           - name: _sdc_sync_started_at
-            description: ""
             data_type: bigint
       - name: bsff_packaging
         identifier: BsffPackaging
         description: >
           Table avec les données des contenants BSFF. Une ligne par contenant.
-        config:
-          elementary:
-            timestamp_column: "_sdc_extracted_at"
-        tests:
-          - elementary.schema_changes:
-              tags: ["elementary"]
 
         columns:
           - name: id
-            description: ""
             data_type: text
           - name: volume
-            description: ""
             data_type: numeric
           - name: weight
-            description: ""
             data_type: numeric
           - name: numero
-            description: ""
             data_type: text
           - name: bsffId
-            description: ""
             data_type: text
           - name: acceptationDate
-            description: ""
             data_type: timestamp without time zone
           - name: acceptationRefusalReason
-            description: ""
             data_type: text
           - name: acceptationSignatureAuthor
-            description: ""
             data_type: text
           - name: acceptationSignatureDate
-            description: ""
             data_type: timestamp without time zone
           - name: acceptationStatus
-            description: ""
             data_type: text
           - name: acceptationWeight
-            description: ""
             data_type: numeric
           - name: acceptationWasteCode
-            description: ""
             data_type: text
           - name: acceptationWasteDescription
-            description: ""
             data_type: text
           - name: operationDate
-            description: ""
             data_type: timestamp without time zone
           - name: operationCode
-            description: ""
             data_type: text
           - name: operationDescription
-            description: ""
             data_type: text
           - name: operationNoTraceability
-            description: ""
             data_type: boolean
           - name: operationSignatureAuthor
-            description: ""
             data_type: text
           - name: operationSignatureDate
-            description: ""
             data_type: timestamp without time zone
           - name: operationNextDestinationPlannedOperationCode
-            description: ""
             data_type: text
           - name: operationNextDestinationCap
-            description: ""
             data_type: text
           - name: operationNextDestinationCompanyAddress
-            description: ""
             data_type: text
           - name: operationNextDestinationCompanyContact
-            description: ""
             data_type: text
           - name: operationNextDestinationCompanyMail
-            description: ""
             data_type: text
           - name: operationNextDestinationCompanyName
-            description: ""
             data_type: text
           - name: operationNextDestinationCompanyPhone
-            description: ""
             data_type: text
           - name: operationNextDestinationCompanySiret
-            description: ""
             data_type: text
           - name: operationNextDestinationCompanyVatNumber
-            description: ""
             data_type: text
           - name: nextPackagingId
-            description: ""
             data_type: text
           - name: other
-            description: ""
             data_type: text
           - name: type
-            description: ""
             data_type: text
           - name: emissionNumero
-            description: ""
             data_type: text
           - name: operationMode
-            description: ""
             data_type: text
           - name: _sdc_extracted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_received_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_batched_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_deleted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_sequence
-            description: ""
             data_type: bigint
           - name: _sdc_table_version
-            description: ""
             data_type: bigint
           - name: _sdc_sync_started_at
-            description: ""
             data_type: bigint
       - name: broker_receipt
         identifier: BrokerReceipt
         description: >
           Table avec les données des récépissés "Courtier". Une ligne par récépissé.
-        config:
-          elementary:
-            timestamp_column: "_sdc_extracted_at"
-        tests:
-          - elementary.schema_changes:
-              tags: ["elementary"]
 
         columns:
           - name: id
-            description: ""
             data_type: text
           - name: receiptNumber
-            description: ""
             data_type: text
           - name: validityLimit
-            description: ""
             data_type: text
           - name: department
-            description: ""
             data_type: text
           - name: _sdc_extracted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_received_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_batched_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_deleted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_sequence
-            description: ""
             data_type: bigint
           - name: _sdc_table_version
-            description: ""
             data_type: bigint
           - name: _sdc_sync_started_at
-            description: ""
             data_type: bigint
       - name: trader_receipt
         identifier: TraderReceipt
         description: >
           Table avec les données des récépissés "Négociant". Une ligne par récépissé.
-        config:
-          elementary:
-            timestamp_column: "_sdc_extracted_at"
-        tests:
-          - elementary.schema_changes:
-              tags: ["elementary"]
 
         columns:
           - name: id
-            description: ""
             data_type: text
           - name: receiptNumber
-            description: ""
             data_type: text
           - name: validityLimit
-            description: ""
             data_type: text
           - name: department
-            description: ""
             data_type: text
           - name: _sdc_extracted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_received_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_batched_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_deleted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_sequence
-            description: ""
             data_type: bigint
           - name: _sdc_table_version
-            description: ""
             data_type: bigint
           - name: _sdc_sync_started_at
-            description: ""
             data_type: bigint
       - name: transporter_receipt
         identifier: TransporterReceipt
         description: >
           Table avec les données des récépissés "Transporteur". Une ligne par récépissé.
-        config:
-          elementary:
-            timestamp_column: "_sdc_extracted_at"
-        tests:
-          - elementary.schema_changes:
-              tags: ["elementary"]
 
         columns:
           - name: id
-            description: ""
             data_type: text
           - name: receiptNumber
-            description: ""
             data_type: text
           - name: validityLimit
-            description: ""
             data_type: timestamp without time zone
           - name: department
-            description: ""
             data_type: text
           - name: _sdc_extracted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_received_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_batched_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_deleted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_sequence
-            description: ""
             data_type: bigint
           - name: _sdc_table_version
-            description: ""
             data_type: bigint
           - name: _sdc_sync_started_at
-            description: ""
             data_type: bigint
       - name: vhu_agrement
         identifier: VhuAgrement
         description: >
           Table avec les données des agréments VHU. Une ligne par agrément.
-        config:
-          elementary:
-            timestamp_column: "_sdc_extracted_at"
-        tests:
-          - elementary.schema_changes:
-              tags: ["elementary"]
 
         columns:
           - name: id
-            description: ""
             data_type: text
           - name: agrementNumber
-            description: ""
             data_type: text
           - name: department
-            description: ""
             data_type: text
           - name: _sdc_extracted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_received_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_batched_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_deleted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_sequence
-            description: ""
             data_type: bigint
           - name: _sdc_table_version
-            description: ""
             data_type: bigint
           - name: _sdc_sync_started_at
-            description: ""
             data_type: bigint
       - name: bsda_revision_request
         identifier: BsdaRevisionRequest
         description: >
           Table avec les demande de révision des BSDA. Une ligne par demande de révision.
-        config:
-          elementary:
-            timestamp_column: "_sdc_extracted_at"
-        tests:
-          - elementary.schema_changes:
-              tags: ["elementary"]
 
         columns:
           - name: id
-            description: ""
             data_type: text
           - name: createdAt
-            description: ""
             data_type: timestamp without time zone
           - name: updatedAt
-            description: ""
             data_type: timestamp without time zone
           - name: bsdaId
-            description: ""
             data_type: text
           - name: authoringCompanyId
-            description: ""
             data_type: text
           - name: comment
-            description: ""
             data_type: text
           - name: status
-            description: ""
             data_type: text
           - name: wasteCode
-            description: ""
             data_type: text
           - name: wastePop
-            description: ""
             data_type: boolean
           - name: packagings
-            description: ""
             data_type: ARRAY
           - name: wasteSealNumbers
-            description: ""
             data_type: ARRAY
           - name: wasteMaterialName
-            description: ""
             data_type: text
           - name: destinationCap
-            description: ""
             data_type: text
           - name: destinationReceptionWeight
-            description: ""
             data_type: numeric
           - name: destinationOperationCode
-            description: ""
             data_type: text
           - name: destinationOperationDescription
-            description: ""
             data_type: text
           - name: brokerCompanyName
-            description: ""
             data_type: text
           - name: brokerCompanySiret
-            description: ""
             data_type: text
           - name: brokerCompanyAddress
-            description: ""
             data_type: text
           - name: brokerCompanyContact
-            description: ""
             data_type: text
           - name: brokerCompanyPhone
-            description: ""
             data_type: text
           - name: brokerCompanyMail
-            description: ""
             data_type: text
           - name: brokerRecepisseNumber
-            description: ""
             data_type: text
           - name: brokerRecepisseDepartment
-            description: ""
             data_type: text
           - name: brokerRecepisseValidityLimit
-            description: ""
             data_type: timestamp without time zone
           - name: emitterPickupSiteName
-            description: ""
             data_type: text
           - name: emitterPickupSiteAddress
-            description: ""
             data_type: text
           - name: emitterPickupSiteCity
-            description: ""
             data_type: text
           - name: emitterPickupSitePostalCode
-            description: ""
             data_type: text
           - name: emitterPickupSiteInfos
-            description: ""
             data_type: text
           - name: isCanceled
-            description: ""
             data_type: boolean
           - name: destinationOperationMode
-            description: ""
             data_type: text
           - name: _sdc_extracted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_received_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_batched_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_deleted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_sequence
-            description: ""
             data_type: bigint
           - name: _sdc_table_version
-            description: ""
             data_type: bigint
           - name: _sdc_sync_started_at
-            description: ""
             data_type: bigint
           - name: initialBrokerCompanyAddress
-            description: ""
             data_type: text
           - name: initialBrokerCompanyContact
-            description: ""
             data_type: text
           - name: initialBrokerCompanyMail
-            description: ""
             data_type: text
           - name: initialBrokerCompanyName
-            description: ""
             data_type: text
           - name: initialBrokerCompanyPhone
-            description: ""
             data_type: text
           - name: initialBrokerCompanySiret
-            description: ""
             data_type: text
           - name: initialBrokerRecepisseDepartment
-            description: ""
             data_type: text
           - name: initialBrokerRecepisseNumber
-            description: ""
             data_type: text
           - name: initialBrokerRecepisseValidityLimit
-            description: ""
             data_type: timestamp without time zone
           - name: initialDestinationCap
-            description: ""
             data_type: text
           - name: initialDestinationOperationCode
-            description: ""
             data_type: text
           - name: initialDestinationOperationDescription
-            description: ""
             data_type: text
           - name: initialDestinationOperationMode
-            description: ""
             data_type: text
           - name: initialDestinationReceptionWeight
-            description: ""
             data_type: numeric
           - name: initialEmitterPickupSiteAddress
-            description: ""
             data_type: text
           - name: initialEmitterPickupSiteCity
-            description: ""
             data_type: text
           - name: initialEmitterPickupSiteInfos
-            description: ""
             data_type: text
           - name: initialEmitterPickupSiteName
-            description: ""
             data_type: text
           - name: initialEmitterPickupSitePostalCode
-            description: ""
             data_type: text
           - name: initialPackagings
-            description: ""
             data_type: ARRAY
           - name: initialWasteCode
-            description: ""
             data_type: text
           - name: initialWasteMaterialName
-            description: ""
             data_type: text
           - name: initialWastePop
-            description: ""
             data_type: boolean
           - name: initialWasteSealNumbers
-            description: ""
             data_type: ARRAY
       - name: bsdd_revision_request
         identifier: BsddRevisionRequest
         description: >
           Table avec les demande de révision des BSDD. Une ligne par demande de révision.
-        config:
-          elementary:
-            timestamp_column: "_sdc_extracted_at"
-        tests:
-          - elementary.schema_changes:
-              tags: ["elementary"]
 
         columns:
           - name: id
-            description: ""
             data_type: text
           - name: createdAt
-            description: ""
             data_type: timestamp without time zone
           - name: updatedAt
-            description: ""
             data_type: timestamp without time zone
           - name: bsddId
-            description: ""
             data_type: text
           - name: authoringCompanyId
-            description: ""
             data_type: text
           - name: comment
-            description: ""
             data_type: text
           - name: status
-            description: ""
             data_type: text
           - name: recipientCap
-            description: ""
             data_type: text
           - name: wasteDetailsCode
-            description: ""
             data_type: text
           - name: wasteDetailsPop
-            description: ""
             data_type: boolean
           - name: quantityReceived
-            description: ""
             data_type: numeric
           - name: processingOperationDone
-            description: ""
             data_type: text
           - name: brokerCompanyName
-            description: ""
             data_type: text
           - name: brokerCompanySiret
-            description: ""
             data_type: text
           - name: brokerCompanyAddress
-            description: ""
             data_type: text
           - name: brokerCompanyContact
-            description: ""
             data_type: text
           - name: brokerCompanyPhone
-            description: ""
             data_type: text
           - name: brokerCompanyMail
-            description: ""
             data_type: text
           - name: brokerReceipt
-            description: ""
             data_type: text
           - name: brokerDepartment
-            description: ""
             data_type: text
           - name: brokerValidityLimit
-            description: ""
             data_type: timestamp without time zone
           - name: traderCompanyAddress
-            description: ""
             data_type: text
           - name: traderCompanyContact
-            description: ""
             data_type: text
           - name: traderCompanyPhone
-            description: ""
             data_type: text
           - name: traderCompanyMail
-            description: ""
             data_type: text
           - name: traderReceipt
-            description: ""
             data_type: text
           - name: traderDepartment
-            description: ""
             data_type: text
           - name: traderValidityLimit
-            description: ""
             data_type: timestamp without time zone
           - name: temporaryStorageDestinationCap
-            description: ""
             data_type: text
           - name: temporaryStorageDestinationProcessingOperation
-            description: ""
             data_type: text
           - name: traderCompanySiret
-            description: ""
             data_type: text
           - name: traderCompanyName
-            description: ""
             data_type: text
           - name: wasteDetailsName
-            description: ""
             data_type: text
           - name: wasteDetailsPackagingInfos
-            description: ""
             data_type: ARRAY
           - name: processingOperationDescription
-            description: ""
             data_type: text
           - name: temporaryStorageTemporaryStorerQuantityReceived
-            description: ""
             data_type: numeric
           - name: isCanceled
-            description: ""
             data_type: boolean
           - name: destinationOperationMode
-            description: ""
             data_type: text
           - name: wasteDetailsQuantity
-            description: ""
             data_type: numeric
           - name: wasteDetailsSampleNumber
-            description: ""
             data_type: text
           - name: _sdc_extracted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_received_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_batched_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_deleted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_sequence
-            description: ""
             data_type: bigint
           - name: _sdc_table_version
-            description: ""
             data_type: bigint
           - name: _sdc_sync_started_at
-            description: ""
             data_type: bigint
           - name: quantityRefused
-            description: ""
             data_type: numeric
           - name: wasteAcceptationStatus
-            description: ""
             data_type: text
           - name: wasteRefusalReason
-            description: ""
             data_type: text
           - name: initialBrokerCompanyAddress
-            description: ""
             data_type: text
           - name: initialBrokerCompanyContact
-            description: ""
             data_type: text
           - name: initialBrokerCompanyMail
-            description: ""
             data_type: text
           - name: initialBrokerCompanyName
-            description: ""
             data_type: text
           - name: initialBrokerCompanyPhone
-            description: ""
             data_type: text
           - name: initialBrokerCompanySiret
-            description: ""
             data_type: text
           - name: initialBrokerDepartment
-            description: ""
             data_type: text
           - name: initialBrokerReceipt
-            description: ""
             data_type: text
           - name: initialBrokerValidityLimit
-            description: ""
             data_type: timestamp without time zone
           - name: initialDestinationOperationMode
-            description: ""
             data_type: text
           - name: initialProcessingOperationDescription
-            description: ""
             data_type: text
           - name: initialProcessingOperationDone
-            description: ""
             data_type: text
           - name: initialQuantityReceived
-            description: ""
             data_type: numeric
           - name: initialQuantityRefused
-            description: ""
             data_type: numeric
           - name: initialRecipientCap
-            description: ""
             data_type: text
           - name: initialTemporaryStorageDestinationCap
-            description: ""
             data_type: text
           - name: initialTemporaryStorageDestinationProcessingOperation
-            description: ""
             data_type: text
           - name: initialTemporaryStorageTemporaryStorerQuantityReceived
-            description: ""
             data_type: numeric
           - name: initialTraderCompanyAddress
-            description: ""
             data_type: text
           - name: initialTraderCompanyContact
-            description: ""
             data_type: text
           - name: initialTraderCompanyMail
-            description: ""
             data_type: text
           - name: initialTraderCompanyName
-            description: ""
             data_type: text
           - name: initialTraderCompanyPhone
-            description: ""
             data_type: text
           - name: initialTraderCompanySiret
-            description: ""
             data_type: text
           - name: initialTraderDepartment
-            description: ""
             data_type: text
           - name: initialTraderReceipt
-            description: ""
             data_type: text
           - name: initialTraderValidityLimit
-            description: ""
             data_type: timestamp without time zone
           - name: initialWasteAcceptationStatus
-            description: ""
             data_type: text
           - name: initialWasteDetailsCode
-            description: ""
             data_type: text
           - name: initialWasteDetailsName
-            description: ""
             data_type: text
           - name: initialWasteDetailsPackagingInfos
-            description: ""
             data_type: ARRAY
           - name: initialWasteDetailsPop
-            description: ""
             data_type: boolean
           - name: initialWasteDetailsQuantity
-            description: ""
             data_type: numeric
           - name: initialWasteDetailsSampleNumber
-            description: ""
             data_type: text
           - name: initialWasteRefusalReason
-            description: ""
             data_type: text
       - name: bsdd_transporter
         identifier: BsddTransporter
         description: >
           Table permettant d'avoir tous les segments de transports pour chaque BSDD.
-        config:
-          elementary:
-            timestamp_column: "_sdc_extracted_at"
-        tests:
-          - elementary.schema_changes:
-              tags: ["elementary"]
 
         columns:
           - name: id
-            description: ""
             data_type: text
           - name: number
-            description: ""
             data_type: bigint
           - name: transporterCompanySiret
-            description: ""
             data_type: text
           - name: transporterCompanyName
-            description: ""
             data_type: text
           - name: transporterCompanyAddress
-            description: ""
             data_type: text
           - name: transporterCompanyContact
-            description: ""
             data_type: text
           - name: transporterCompanyPhone
-            description: ""
             data_type: text
           - name: transporterCompanyMail
-            description: ""
             data_type: text
           - name: transporterIsExemptedOfReceipt
-            description: ""
             data_type: boolean
           - name: transporterReceipt
-            description: ""
             data_type: text
           - name: transporterDepartment
-            description: ""
             data_type: text
           - name: transporterValidityLimit
-            description: ""
             data_type: text
           - name: transporterNumberPlate
-            description: ""
             data_type: text
           - name: transporterTransportMode
-            description: ""
             data_type: text
           - name: readyToTakeOver
-            description: ""
             data_type: boolean
           - name: takenOverAt
-            description: ""
             data_type: text
           - name: takenOverBy
-            description: ""
             data_type: text
           - name: createdAt
-            description: ""
             data_type: timestamp without time zone
           - name: updatedAt
-            description: ""
             data_type: timestamp without time zone
           - name: formId
-            description: ""
             data_type: text
           - name: previousTransporterCompanyOrgId
-            description: ""
             data_type: text
           - name: transporterCompanyVatNumber
-            description: ""
             data_type: text
           - name: transporterCustomInfo
-            description: ""
             data_type: text
           - name: _sdc_extracted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_received_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_batched_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_deleted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_sequence
-            description: ""
             data_type: bigint
           - name: _sdc_table_version
-            description: ""
             data_type: bigint
           - name: _sdc_sync_started_at
-            description: ""
             data_type: bigint
       - name: anonymous_company
         identifier: AnonymousCompany
         description: >
           Table permettant de connaitre les établissements non diffusibles.
-        config:
-          elementary:
-            timestamp_column: "_sdc_extracted_at"
-        tests:
-          - elementary.schema_changes:
-              tags: ["elementary"]
         columns:
           - name: id
-            description: ""
             data_type: text
           - name: siret
-            description: ""
             data_type: text
           - name: name
-            description: ""
             data_type: text
           - name: address
-            description: ""
             data_type: text
           - name: codeNaf
-            description: ""
             data_type: text
           - name: libelleNaf
-            description: ""
             data_type: text
           - name: codeCommune
-            description: ""
             data_type: text
           - name: vatNumber
-            description: ""
             data_type: text
           - name: orgId
-            description: ""
             data_type: text
           - name: _sdc_extracted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_received_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_batched_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_deleted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_sequence
-            description: ""
             data_type: bigint
           - name: _sdc_table_version
-            description: ""
             data_type: bigint
           - name: _sdc_sync_started_at
-            description: ""
             data_type: bigint
           - name: etatAdministratif
-            description: ""
             data_type: text
       - name: bsda_transporter
         identifier: BsdaTransporter
@@ -2711,91 +1824,62 @@ sources:
           Table permettant d'avoir tous les segments de transports pour chaque BSDA.
         columns:
           - name: id
-            description: ""
             data_type: text
           - name: createdAt
-            description: ""
             data_type: timestamp without time zone
           - name: updatedAt
-            description: ""
             data_type: timestamp without time zone
           - name: number
-            description: ""
             data_type: bigint
           - name: bsdaId
-            description: ""
             data_type: text
           - name: transporterCompanySiret
-            description: ""
             data_type: text
           - name: transporterCompanyName
-            description: ""
             data_type: text
           - name: transporterCompanyVatNumber
-            description: ""
             data_type: text
           - name: transporterCompanyAddress
-            description: ""
             data_type: text
           - name: transporterCompanyContact
-            description: ""
             data_type: text
           - name: transporterCompanyPhone
-            description: ""
             data_type: text
           - name: transporterCompanyMail
-            description: ""
             data_type: text
           - name: transporterCustomInfo
-            description: ""
             data_type: text
           - name: transporterRecepisseIsExempted
-            description: ""
             data_type: boolean
           - name: transporterRecepisseNumber
-            description: ""
             data_type: text
           - name: transporterRecepisseDepartment
-            description: ""
             data_type: text
           - name: transporterRecepisseValidityLimit
-            description: ""
             data_type: timestamp without time zone
           - name: transporterTransportMode
-            description: ""
             data_type: text
           - name: transporterTransportPlates
-            description: ""
             data_type: ARRAY
           - name: transporterTransportTakenOverAt
-            description: ""
             data_type: timestamp without time zone
           - name: transporterTransportSignatureAuthor
-            description: ""
             data_type: text
           - name: transporterTransportSignatureDate
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_extracted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_received_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_batched_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_deleted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_sequence
-            description: ""
             data_type: bigint
           - name: _sdc_table_version
-            description: ""
             data_type: bigint
           - name: _sdc_sync_started_at
-            description: ""
             data_type: bigint
       - name: bsff_transporter
         identifier: BsffTransporter
@@ -2803,91 +1887,62 @@ sources:
           Table permettant d'avoir tous les segments de transports pour chaque BSFF.
         columns:
           - name: id
-            description: ""
             data_type: text
           - name: createdAt
-            description: ""
             data_type: timestamp without time zone
           - name: updatedAt
-            description: ""
             data_type: timestamp without time zone
           - name: number
-            description: ""
             data_type: bigint
           - name: bsffId
-            description: ""
             data_type: text
           - name: transporterCompanySiret
-            description: ""
             data_type: text
           - name: transporterCompanyName
-            description: ""
             data_type: text
           - name: transporterCompanyVatNumber
-            description: ""
             data_type: text
           - name: transporterCompanyAddress
-            description: ""
             data_type: text
           - name: transporterCompanyContact
-            description: ""
             data_type: text
           - name: transporterCompanyPhone
-            description: ""
             data_type: text
           - name: transporterCompanyMail
-            description: ""
             data_type: text
           - name: transporterCustomInfo
-            description: ""
             data_type: text
           - name: transporterRecepisseIsExempted
-            description: ""
             data_type: boolean
           - name: transporterRecepisseNumber
-            description: ""
             data_type: text
           - name: transporterRecepisseDepartment
-            description: ""
             data_type: text
           - name: transporterRecepisseValidityLimit
-            description: ""
             data_type: timestamp without time zone
           - name: transporterTransportMode
-            description: ""
             data_type: text
           - name: transporterTransportPlates
-            description: ""
             data_type: ARRAY
           - name: transporterTransportTakenOverAt
-            description: ""
             data_type: text
           - name: transporterTransportSignatureAuthor
-            description: ""
             data_type: text
           - name: transporterTransportSignatureDate
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_extracted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_received_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_batched_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_deleted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_sequence
-            description: ""
             data_type: bigint
           - name: _sdc_table_version
-            description: ""
             data_type: bigint
           - name: _sdc_sync_started_at
-            description: ""
             data_type: bigint
       - name: bsdasri_revision_request
         identifier: BsdasriRevisionRequest
@@ -2895,107 +1950,117 @@ sources:
           Table permettant d'avoir les requêtes de révision relatives aux DASRI.
         columns:
           - name: id
-            description: ""
             data_type: text
           - name: createdAt
-            description: ""
             data_type: timestamp without time zone
           - name: updatedAt
-            description: ""
             data_type: timestamp without time zone
           - name: status
-            description: ""
             data_type: text
           - name: comment
-            description: ""
             data_type: text
           - name: isCanceled
-            description: ""
             data_type: boolean
           - name: bsdasriId
-            description: ""
             data_type: text
           - name: authoringCompanyId
-            description: ""
             data_type: text
           - name: wasteCode
-            description: ""
             data_type: text
           - name: destinationWastePackagings
-            description: ""
             data_type: ARRAY
           - name: destinationReceptionWasteWeightValue
-            description: ""
             data_type: numeric
           - name: destinationOperationCode
-            description: ""
             data_type: text
           - name: destinationOperationMode
-            description: ""
             data_type: text
           - name: emitterPickupSiteName
-            description: ""
             data_type: text
           - name: emitterPickupSiteAddress
-            description: ""
             data_type: text
           - name: emitterPickupSiteCity
-            description: ""
             data_type: text
           - name: emitterPickupSitePostalCode
-            description: ""
             data_type: text
           - name: emitterPickupSiteInfos
-            description: ""
             data_type: text
           - name: _sdc_extracted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_received_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_batched_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_deleted_at
-            description: ""
             data_type: timestamp without time zone
           - name: _sdc_sequence
-            description: ""
             data_type: bigint
           - name: _sdc_table_version
-            description: ""
             data_type: bigint
           - name: _sdc_sync_started_at
-            description: ""
             data_type: bigint
           - name: initialDestinationOperationCode
-            description: ""
             data_type: text
           - name: initialDestinationOperationMode
-            description: ""
             data_type: text
           - name: initialDestinationReceptionWasteWeightValue
-            description: ""
             data_type: numeric
           - name: initialDestinationWastePackagings
-            description: ""
             data_type: ARRAY
           - name: initialEmitterPickupSiteAddress
-            description: ""
             data_type: text
           - name: initialEmitterPickupSiteCity
-            description: ""
             data_type: text
           - name: initialEmitterPickupSiteInfos
-            description: ""
             data_type: text
           - name: initialEmitterPickupSiteName
-            description: ""
             data_type: text
           - name: initialEmitterPickupSitePostalCode
-            description: ""
             data_type: text
           - name: initialWasteCode
-            description: ""
             data_type: text
+      - name: worker_certification
+        identifier: WorkerCertification
+        description: >-
+          Table listant les certification détenues les entreprises de travaux.
+        columns: []
+      - name: bspaoh
+        identifier: Bspaoh
+        description: >-
+          Table contenant les bordereaux de PAOH.
+        columns: []
+      - name: bspaoh_transporter
+        identifier: BspaohTransporter
+        description: >-
+          Table contenant les données de transport de PAOH.
+        columns: []
+      - name: registry_incoming_texs
+        identifier: RegistryIncomingTexs
+        description: >-
+          Table contenant les données du registre entrant des Terres et Sédiments.
+        columns: []
+      - name: registry_incoming_waste
+        identifier: RegistryIncomingWaste
+        description: >-
+          Table contenant les données du registre entrant des déchets.
+        columns: []
+      - name: registry_outgoing_waste
+        identifier: RegistryOutgoingWaste
+        description: >-
+          Table contenant les données du registre sortant des déchets.
+        columns: []
+      - name: registry_outgoing_texs
+        identifier: RegistryOutgoingTexs
+        description: >-
+          Table contenant les données du registre sortant des Terres et Sédiments.
+        columns: []
+      - name: registry_ssd
+        identifier: RegistrySsd
+        description: >-
+          Table contenant les données du registre des Sorties de Statut de Déchet.
+        columns: []
+      - name: registry_transported
+        identifier: RegistryTransported
+        description: >-
+          Table contenant les données des transporteurs de registre.
+        columns: []

@@ -3,47 +3,32 @@ models:
   - name: bsd_non_dangereux_statistiques_hebdomadaires
     columns:
       - name: semaine
-        description: ''
         data_type: date
       - name: creations
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: quantite_tracee
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: emissions
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: quantite_emise
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: envois
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: quantite_envoyee
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: receptions
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: quantite_recue
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: traitements
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: quantite_traitee
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: traitements_operations_non_finales
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: quantite_traitee_operations_non_finales
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 30)
       - name: traitements_operations_finales
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: quantite_traitee_operations_finales
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 30)

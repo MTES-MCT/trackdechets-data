@@ -54,12 +54,13 @@ x-airflow-common: &airflow-common
       AIRFLOW_VERSION: ${AIRFLOW_VERSION}
   environment: &airflow-common-env
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor
-    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
-    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres/airflow
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres/airflow
+    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres/airflow
     AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
     AIRFLOW__CORE__FERNET_KEY: ${AIRFLOW_FERNET_KEY}
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "true"
     AIRFLOW__API__AUTH_BACKENDS: "airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session"
+    AIRFLOW__CORE__DAGBAG_IMPORT_TIMEOUT: 60.0
     # yamllint disable rule:line-length
     # Use simple http server on scheduler for health checks
     # See https://airflow.apache.org/docs/apache-airflow/stable/administration-and-deployment/logging-monitoring/check-health.html#scheduler-health-check-server
@@ -68,6 +69,10 @@ x-airflow-common: &airflow-common
     # The following line can be used to set a custom config file, stored in the local config folder
     # If you want to use it, outcomment it and replace airflow.cfg with the name of your config file
     # AIRFLOW_CONFIG: '/opt/airflow/config/airflow.cfg'
+    AIRFLOW__COSMOS__ENABLE_CACHE_PROFILE: ${AIRFLOW__COSMOS__ENABLE_CACHE_PROFILE:-False}
+    ## SENTRY
+    AIRFLOW__SENTRY__SENTRY_ON: ${AIRFLOW__SENTRY__SENTRY_ON:-false}
+    AIRFLOW__SENTRY__SENTRY_DSN: ${AIRFLOW__SENTRY__SENTRY_DSN}
   volumes:
     - ${AIRFLOW_PROJ_DIR:-.}/dags:/opt/airflow/dags
     - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
@@ -95,11 +100,19 @@ services:
     networks:
       - data_external_network
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "airflow"]
+      test:
+        [
+          "CMD",
+          "pg_isready",
+          "-U",
+          "${POSTGRES_USER:-airflow}",
+          "-d",
+          "airflow",
+        ]
       interval: 10s
       retries: 5
       start_period: 5s
-    restart: always
+    restart: unless-stopped
 
   redis:
     # Redis is limited to 7.2-bookworm due to licencing change
@@ -115,20 +128,20 @@ services:
       timeout: 30s
       retries: 50
       start_period: 30s
-    restart: always
+    restart: unless-stopped
 
   airflow-webserver:
     <<: *airflow-common
     command: webserver
     ports:
-      - "8080:8080"
+      - "127.0.0.1:8080:8080"
     healthcheck:
       test: ["CMD", "curl", "--fail", "http://localhost:8080/health"]
       interval: 30s
       timeout: 10s
       retries: 5
       start_period: 30s
-    restart: always
+    restart: unless-stopped
     depends_on:
       <<: *airflow-common-depends-on
       airflow-init:
@@ -143,7 +156,7 @@ services:
       timeout: 10s
       retries: 5
       start_period: 30s
-    restart: always
+    restart: unless-stopped
     depends_on:
       <<: *airflow-common-depends-on
       airflow-init:
@@ -166,7 +179,7 @@ services:
       # Required to handle warm shutdown of the celery workers properly
       # See https://airflow.apache.org/docs/docker-stack/entrypoint.html#signal-propagation
       DUMB_INIT_SETSID: "0"
-    restart: always
+    restart: unless-stopped
     depends_on:
       <<: *airflow-common-depends-on
       airflow-init:
@@ -185,7 +198,7 @@ services:
       timeout: 10s
       retries: 5
       start_period: 30s
-    restart: always
+    restart: unless-stopped
     depends_on:
       <<: *airflow-common-depends-on
       airflow-init:
@@ -273,3 +286,4 @@ volumes:
 networks:
   data_external_network:
     external: true
+    name: ${DATA_DOCKER_NETWORK_NAME:-data_external_network}

@@ -2,9 +2,9 @@ with source as (
     select *
     from {{ source('raw_zone_icpe', 'installations_rubriques_2024') }}
     where
-        inserted_at
+        "_inserted_at"
         = (
-            select max(inserted_at)
+            select max("_inserted_at")
             from
                 {{ source('raw_zone_icpe', 'installations_rubriques_2024') }}
         )

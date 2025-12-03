@@ -1,0 +1,18 @@
+version: 2
+models:
+  - name: cartographie_icpe_regions_daily_processed_waste
+    columns:
+      - name: code_region_insee
+        data_type: String
+      - name: nom_region
+        data_type: String
+      - name: rubrique
+        data_type: String
+      - name: day_of_processing
+        data_type: Date
+      - name: nombre_installations
+        data_type: UInt64
+      - name: quantite_traitee
+        data_type: Decimal(76, 30)
+      - name: quantite_autorisee
+        data_type: Float64

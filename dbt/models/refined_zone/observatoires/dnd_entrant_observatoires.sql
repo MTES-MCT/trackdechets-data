@@ -1,0 +1,62 @@
+{{
+  config(
+    materialized = 'table',
+    )
+}}
+
+with dnd as (
+    select * from {{ ref('registry_incoming_waste') }}
+    where not {{dangerous_waste_filter('registry')}}
+)
+
+select
+    id as id,
+    created_at as date_creation,
+    updated_at as date_mise_a_jour,
+    is_cancelled as declaration_annulee,
+    public_id as id_public,
+    report_for_company_siret as destinataire_siret_etablissement,
+    report_for_company_name as destinataire_nom_etablissement,
+    report_for_company_address as destinataire_adresse_etablissement,
+    report_for_company_city as destinataire_ville_etablissement,
+    report_for_company_postal_code as destinataire_code_postal_etablissement,
+    report_as_company_siret as declarant_siret_etablissement,
+    waste_code as dechet_code,
+    waste_pop as dechet_pop,
+    waste_is_dangerous as dechet_declare_dangereux,
+    reception_date as destinataire_date_reception,
+    waste_description as dechet_denomination,
+    waste_code_bale as dechet_code_bale,
+    weight_value as dechet_quantite,
+    multiIf(weight_is_estimate, 'estimee', 'reelle') as dechet_quantite_type,
+    volume as dechet_volume,
+    initial_emitter_company_type as emetteur_initial_profil_etablissement,
+    initial_emitter_company_org_id as emetteur_initial_id_etablissement,
+    initial_emitter_company_name as emetteur_initial_nom_etablissement,
+    initial_emitter_company_address as emetteur_initial_adresse_etablissement,
+    initial_emitter_company_postal_code as emetteur_initial_code_postal_etablissement,
+    initial_emitter_company_city as emetteur_initial_ville_etablissement,
+    initial_emitter_company_country_code as emetteur_initial_code_pays_etablissement,
+    initial_emitter_municipalities_insee_codes as emetteur_initial_municipalites_codes_insee_etablissement,
+    emitter_company_type as emetteur_profil_etablissement,
+    emitter_company_org_id as emetteur_id_etablissement,
+    emitter_company_name as emetteur_nom_etablissement,
+    emitter_company_address as emetteur_adresse_point_de_retrait,
+    emitter_company_postal_code as emetteur_code_postal_point_de_retrait,
+    emitter_company_city as emetteur_ville_point_de_retrait,
+    emitter_company_country_code as emetteur_code_pays_point_de_retrait,
+    broker_company_siret as courtier_siret_etablissement,
+    broker_company_name as courtier_nom_etablissement,
+    broker_recepisse_number as courtier_numero_recepisse,
+    trader_company_siret as negociant_siret_etablissement,
+    trader_company_name as negociant_nom_etablissement,
+    trader_recepisse_number as negociant_numero_recepisse,
+    eco_organisme_siret as eco_organisme_siret,
+    eco_organisme_name as eco_organisme_nom,
+    operation_code as traitement_realise_code,
+    arrayFilter(
+        x -> notEmpty(x),
+		transporters_org_ids
+        )
+    as numeros_identification_transporteurs
+from dnd

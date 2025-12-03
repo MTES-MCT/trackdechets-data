@@ -1,6 +1,0 @@
-version: 2
-
-seeds:
-  - name: naf_2008
-    description: Nomenclature des activités françaises
-    

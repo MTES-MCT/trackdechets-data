@@ -3,23 +3,17 @@ models:
   - name: installations_daily_processed_dangerous_wastes
     columns:
       - name: siret
-        description: 'Code région'
-        data_type: text
+        description: Code région
+        data_type: string
       - name: rubrique
-        description: ''
-        data_type: text
+        data_type: string
       - name: raison_sociale
-        description: ''
-        data_type: text
+        data_type: string
       - name: codes_aiot
-        description: ''
-        data_type: ARRAY
+        data_type: Array(String)
       - name: quantite_autorisee
-        description: ''
-        data_type: double precision
+        data_type: float64
       - name: day_of_processing
-        description: ''
-        data_type: timestamp with time zone
+        data_type: datetime('europe/paris')
       - name: quantite_traitee
-        description: ''
-        data_type: numeric
+        data_type: decimal(76, 30)

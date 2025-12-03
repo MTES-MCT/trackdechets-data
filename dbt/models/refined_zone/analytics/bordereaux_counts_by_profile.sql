@@ -127,8 +127,8 @@ select
     siret,
     sum(
         num_bordereaux
-    ) as num_mentions_bordereaux,
-    maxArgMax(type_etablissement,num_bordereaux) as type_etablissement
+    )                                             as num_mentions_bordereaux,
+    maxArgMax(type_etablissement, num_bordereaux) as type_etablissement
 from
     merged
 group by

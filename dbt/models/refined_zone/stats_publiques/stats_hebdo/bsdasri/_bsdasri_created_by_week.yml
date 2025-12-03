@@ -5,12 +5,8 @@ models:
       materialized: table
     columns:
       - name: semaine
-        description: ''
         data_type: date
       - name: creations
-        description: ''
-        data_type: bigint
+        data_type: uint64
       - name: quantite_tracee
-        description: ''
-        data_type: numeric
-sources: []
+        data_type: decimal(76, 30)

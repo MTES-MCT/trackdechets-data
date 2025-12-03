@@ -3,7 +3,7 @@
     materialized = 'table',
     query_settings = {
         "join_algorithm":"'grace_hash'",
-        "grace_hash_join_initial_buckets":4
+        "grace_hash_join_initial_buckets":32
     }
 )}}
 
@@ -26,7 +26,7 @@ gun_installations as (
         groupArray(distinct code_aiot)                  as codes_aiot,
         arraySort(groupArray(distinct rubrique)) as rubriques
     from
-        {{ ref('installations_rubriques_2024') }} ir
+        {{ ref('installations_rubriques_2025') }} ir
     where
         (libelle_etat_site = 'Avec titre') -- noqa: LXR
         and (etat_administratif_rubrique in ('En vigueur', 'A l''arrêt'))
@@ -56,7 +56,7 @@ joined_data as (
 )
 
 select
-    jd.siret,
+    jd.siret as siret,
     cgc.code_commune,
     cgc.code_departement,
     jd.present_td,

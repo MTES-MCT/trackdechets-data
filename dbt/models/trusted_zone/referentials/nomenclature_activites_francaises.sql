@@ -10,4 +10,4 @@ select
     code_sous_classe,
     libelle_sous_classe
 from
-    {{ ref('naf_2008') }}
+    {{ ref('stg_naf_2008') }}

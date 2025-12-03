@@ -36,35 +36,23 @@ models:
       analytics:
         +materialized: view
         +schema: refined_zone_analytics
-        etablissements_inscrits_par_departements:
-          +materialized: table
-        etablissements_par_departements:
-          +materialized: table
-
       icpe:
         +schema: refined_zone_icpe
         gerep:
           +materialized: ephemeral
-        icpe_siretise:
-          +materialized: table
-        icpe_stats_rubriques_alinea:
-          +materialized: table
-        reconciliation_exutoires_georisques_td:
-          +materialized: table
-
       enriched:
         +schema: refined_zone_enriched
-
       stats_publiques:
         +schema: refined_zone_stats_publiques
-
       gistrid:
         +schema: refined_zone_gistrid
+      observatoires:
+        +schema: refined_zone_observatoires
+      vigiedechets:
+        +schema: refined_zone_vigiedechets
 
     trusted_zone:
       +schema: trusted_zone
-      gsheet:
-        +schema: trusted_zone_gsheet
       insee:
         +schema: trusted_zone_insee
       trackdechets:
@@ -77,16 +65,17 @@ models:
         +schema: trusted_zone_gerep
       gistrid:
         +schema: trusted_zone_gistrid
-      rndts:
-        +schema: trusted_zone_rndts
-      gerico:
-        +schema: trusted_zone_gerico
+      vigiedechets:
+        +schema: trusted_zone_vigiedechets
+      referentials:
+        +schema: trusted_zone_referentials
 
-  elementary:
-    +schema: "elementary"
+
 
 
 
 seeds:
   trackdechets:
     +schema: raw_zone_referentials
+    +dbt-osmosis: "_schema.yml"
+

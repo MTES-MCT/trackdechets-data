@@ -9,7 +9,7 @@ wheels/
 # Virtual environments
 .venv
 
-.env
+*.env
 logs/dbt.log
 .DS_Store
 
@@ -23,3 +23,8 @@ clickhouse/logs/*
 airflow/logs/*/*
 
 airflow/dags/.dlt/secrets.toml
+scripts/ssh/tunnels.conf
+scripts/playbooks/*
+.vscode
+.cursor/commands
+.cursor/rules/

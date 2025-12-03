@@ -1,26 +1,24 @@
 version: 2
 models:
   - name: installations_daily_processed_wastes
+    description: >
+      Quantite traitées de déchets dangereux et non dangereux par jour, SIRET et rubrique.
+      Ce modèle est à destination de la Fiche Etablissement.
     columns:
       - name: siret
-        description: 'Code région'
-        data_type: text
+        description: Code région
+        data_type: string
       - name: rubrique
-        description: ''
-        data_type: text
+        data_type: string
       - name: raison_sociale
-        description: ''
-        data_type: text
+        data_type: string
       - name: codes_aiot
-        description: ''
-        data_type: ARRAY
+        data_type: Array(String)
       - name: quantite_autorisee
-        description: ''
-        data_type: double precision
+        data_type: float64
+      - name: objectif_quantite_traitee
+        data_type: Int32
       - name: day_of_processing
-        description: ''
-        data_type: timestamp with time zone
+        data_type: datetime64(6, 'europe/paris')
       - name: quantite_traitee
-        description: ''
-        data_type: numeric
-sources: []
+        data_type: decimal(76, 30)
