@@ -68,6 +68,11 @@ models:
           - dbt_utils.accepted_range:
               min_value: 0
               inclusive: true
+              config:
+                where: "status IN ('PROCESSED')"
+                severity: error
+                error_if: ">10"
+                warn_if: ">1"
       - name: destination_company_name
         data_type: string
       - name: destination_company_siret
