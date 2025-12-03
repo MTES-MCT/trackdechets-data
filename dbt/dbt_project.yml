@@ -53,8 +53,6 @@ models:
 
     trusted_zone:
       +schema: trusted_zone
-      gsheet:
-        +schema: trusted_zone_gsheet
       insee:
         +schema: trusted_zone_insee
       trackdechets:
@@ -67,8 +65,6 @@ models:
         +schema: trusted_zone_gerep
       gistrid:
         +schema: trusted_zone_gistrid
-      rndts:
-        +schema: trusted_zone_rndts
       vigiedechets:
         +schema: trusted_zone_vigiedechets
       referentials:
