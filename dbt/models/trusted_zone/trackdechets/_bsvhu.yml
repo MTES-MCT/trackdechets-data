@@ -65,30 +65,6 @@ models:
         data_type: string
       - name: emitter_emission_signature_date
         data_type: datetime64(6, 'europe/paris')
-      - name: transporter_company_name
-        data_type: string
-      - name: transporter_company_siret
-        data_type: string
-      - name: transporter_company_address
-        data_type: string
-      - name: transporter_company_contact
-        data_type: string
-      - name: transporter_company_phone
-        data_type: string
-      - name: transporter_company_mail
-        data_type: string
-      - name: transporter_recepisse_number
-        data_type: string
-      - name: transporter_recepisse_department
-        data_type: string
-      - name: transporter_recepisse_validity_limit
-        data_type: datetime64(6, 'europe/paris')
-      - name: transporter_company_vat_number
-        data_type: string
-      - name: transporter_transport_signature_author
-        data_type: string
-      - name: transporter_transport_signature_date
-        data_type: datetime64(6, 'europe/paris')
       - name: destination_reception_acceptation_status
         data_type: string
       - name: destination_reception_refusal_reason
@@ -115,8 +91,6 @@ models:
         data_type: string
       - name: destination_operation_signature_date
         data_type: datetime64(6, 'europe/paris')
-      - name: transporter_transport_taken_over_at
-        data_type: datetime64(6, 'europe/paris')
       - name: destination_operation_date
         data_type: datetime64(6, 'europe/paris')
       - name: destination_reception_quantity
@@ -133,12 +107,6 @@ models:
         data_type: string
       - name: destination_custom_info
         data_type: string
-      - name: transporter_custom_info
-        data_type: string
-      - name: transporter_transport_plates
-        data_type: Array(String)
-      - name: transporter_recepisse_is_exempted
-        data_type: bool
       - name: destination_operation_mode
         data_type: string
       - name: row_number
@@ -203,3 +171,6 @@ models:
         data_type: Array(String)
       - name: custom_id
         data_type: String
+      - name: first_transporter_transport_taken_over_at
+        data_type: DateTime64(6, 'Europe/Paris')
+        description: "Date à laquelle le premier transporteur a pris le contrôle du BSVHU."
