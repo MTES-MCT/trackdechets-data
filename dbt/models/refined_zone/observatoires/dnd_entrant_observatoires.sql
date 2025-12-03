@@ -39,7 +39,7 @@ select
     initial_emitter_company_country_code as emetteur_initial_code_pays_etablissement,
     initial_emitter_municipalities_insee_codes as emetteur_initial_municipalites_codes_insee_etablissement,
     emitter_company_type as emetteur_profil_etablissement,
-    emitter_company_org_id as emetteur_initial_id_etablissement,
+    emitter_company_org_id as emetteur_id_etablissement,
     emitter_company_name as emetteur_nom_etablissement,
     emitter_company_address as emetteur_adresse_point_de_retrait,
     emitter_company_postal_code as emetteur_code_postal_point_de_retrait,
