@@ -26,5 +26,4 @@ airflow/dags/.dlt/secrets.toml
 scripts/ssh/tunnels.conf
 scripts/playbooks/*
 .vscode
-.cursor/commands
-.cursor/rules/
+.cursor/

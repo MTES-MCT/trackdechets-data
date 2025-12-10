@@ -311,7 +311,26 @@ AS SELECT "Bsdasri".id,
     "Bsdasri"."transporterRecepisseIsExempted",
     "Bsdasri"."groupingEmitterSirets"::text AS "groupingEmitterSirets",
     "Bsdasri"."destinationOperationMode",
-    "Bsdasri"."rowNumber"
+    "Bsdasri"."rowNumber",
+    "Bsdasri"."intermediariesOrgIds"::text AS "intermediariesOrgIds",
+    "Bsdasri"."brokerCompanyName",
+    "Bsdasri"."brokerCompanySiret",
+    "Bsdasri"."brokerCompanyAddress",
+    "Bsdasri"."brokerCompanyContact",
+    "Bsdasri"."brokerCompanyPhone",
+    "Bsdasri"."brokerCompanyMail",
+    "Bsdasri"."brokerRecepisseNumber",
+    "Bsdasri"."brokerRecepisseDepartment",
+    "Bsdasri"."brokerRecepisseValidityLimit",
+    "Bsdasri"."traderCompanyName",
+    "Bsdasri"."traderCompanySiret",
+    "Bsdasri"."traderCompanyAddress",
+    "Bsdasri"."traderCompanyContact",
+    "Bsdasri"."traderCompanyPhone",
+    "Bsdasri"."traderCompanyMail",
+    "Bsdasri"."traderRecepisseNumber",
+    "Bsdasri"."traderRecepisseDepartment",
+    "Bsdasri"."traderRecepisseValidityLimit"
    FROM "default$default"."Bsdasri";
 
 -- data_eng."BsdasriRevisionRequest" source

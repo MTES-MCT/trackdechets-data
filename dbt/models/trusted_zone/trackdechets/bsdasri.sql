@@ -322,5 +322,76 @@ select
     )      as destination_operation_mode,
     assumeNotNull(
         toInt256("rowNumber")
-    )      as row_number
+    )      as row_number,
+    assumeNotNull(
+        splitByChar(
+            ',',
+            cOALESCE(
+                substring(
+                    toString("intermediariesOrgIds"),
+                    2,
+                    length("intermediariesOrgIds") - 2
+                ),
+                ''
+            )
+        )
+    )      as intermediaries_org_ids,
+    toNullable(
+        toString("brokerCompanyAddress")
+    )      as broker_company_address,
+    toNullable(
+        toString("brokerCompanyContact")
+    )      as broker_company_contact,
+    toNullable(
+        toString("brokerCompanyMail")
+    )      as broker_company_mail,
+    toNullable(
+        toString("brokerCompanyName")
+    )      as broker_company_name,
+    toNullable(
+        toString("brokerCompanyPhone")
+    )      as broker_company_phone,
+    toNullable(
+        toString("brokerCompanySiret")
+    )      as broker_company_siret,
+    toLowCardinality(
+        toNullable(toString("brokerRecepisseDepartment"))
+    )      as broker_recepisse_department,
+    toNullable(
+        toString("brokerRecepisseNumber")
+    )      as broker_recepisse_number,
+    toNullable(
+        toTimezone(
+            toDateTime64("brokerRecepisseValidityLimit", 6), 'Europe/Paris'
+        )
+    )      as broker_recepisse_validity_limit,
+    toNullable(
+        toString("traderCompanyAddress")
+    )      as trader_company_address,
+    toNullable(
+        toString("traderCompanyContact")
+    )      as trader_company_contact,
+    toNullable(
+        toString("traderCompanyMail")
+    )      as trader_company_mail,
+    toNullable(
+        toString("traderCompanyName")
+    )      as trader_company_name,
+    toNullable(
+        toString("traderCompanyPhone")
+    )      as trader_company_phone,
+    toNullable(
+        toString("traderCompanySiret")
+    )      as trader_company_siret,
+    toLowCardinality(
+        toNullable(toString("traderRecepisseDepartment"))
+    )      as trader_recepisse_department,
+    toNullable(
+        toString("traderRecepisseNumber")
+    )      as trader_recepisse_number,
+    toNullable(
+        toTimezone(
+            toDateTime64("traderRecepisseValidityLimit", 6), 'Europe/Paris'
+        )
+    )      as trader_recepisse_validity_limit
 from source
