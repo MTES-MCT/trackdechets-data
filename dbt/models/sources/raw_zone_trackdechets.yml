@@ -640,6 +640,44 @@ sources:
             data_type: text
           - name: rowNumber
             data_type: bigint
+          - name: intermediariesOrgIds
+            data_type: ARRAY
+          - name: brokerCompanyName
+            data_type: text
+          - name: brokerCompanySiret
+            data_type: text
+          - name: brokerCompanyAddress
+            data_type: text
+          - name: brokerCompanyContact
+            data_type: text
+          - name: brokerCompanyPhone
+            data_type: text
+          - name: brokerCompanyMail
+            data_type: text
+          - name: brokerRecepisseNumber
+            data_type: text
+          - name: brokerRecepisseDepartment
+            data_type: text
+          - name: brokerRecepisseValidityLimit
+            data_type: timestamp without time zone
+          - name: traderCompanyName
+            data_type: text
+          - name: traderCompanySiret
+            data_type: text
+          - name: traderCompanyAddress
+            data_type: text
+          - name: traderCompanyContact
+            data_type: text
+          - name: traderCompanyPhone
+            data_type: text
+          - name: traderCompanyMail
+            data_type: text
+          - name: traderRecepisseNumber
+            data_type: text
+          - name: traderRecepisseDepartment
+            data_type: text
+          - name: traderRecepisseValidityLimit
+            data_type: timestamp without time zone
           - name: _sdc_extracted_at
             data_type: timestamp without time zone
           - name: _sdc_received_at

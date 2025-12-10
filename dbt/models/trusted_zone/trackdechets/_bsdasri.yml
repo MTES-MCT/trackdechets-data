@@ -183,3 +183,41 @@ models:
         data_type: string
       - name: row_number
         data_type: Int256
+      - name: intermediaries_org_ids
+        data_type: Array(String)
+      - name: broker_company_address
+        data_type: string
+      - name: broker_company_contact
+        data_type: string
+      - name: broker_company_mail
+        data_type: string
+      - name: broker_company_name
+        data_type: string
+      - name: broker_company_phone
+        data_type: string
+      - name: broker_company_siret
+        data_type: string
+      - name: broker_recepisse_department
+        data_type: string
+      - name: broker_recepisse_number
+        data_type: string
+      - name: broker_recepisse_validity_limit
+        data_type: datetime64(6, 'europe/paris')
+      - name: trader_company_address
+        data_type: string
+      - name: trader_company_contact
+        data_type: string
+      - name: trader_company_mail
+        data_type: string
+      - name: trader_company_name
+        data_type: string
+      - name: trader_company_phone
+        data_type: string
+      - name: trader_company_siret
+        data_type: string
+      - name: trader_recepisse_department
+        data_type: string
+      - name: trader_recepisse_number
+        data_type: string
+      - name: trader_recepisse_validity_limit
+        data_type: datetime64(6, 'europe/paris')
