@@ -126,8 +126,116 @@ def retrieve_companies_scalingo():
                 error_output=error_output,
             ) from e
 
+    def _fetch_scalingo_logs(container_info: ContainerInfo) -> str:
+        """
+        Fetches logs from a Scalingo one-off container.
+
+        Args:
+            container_info: ContainerInfo object containing app_name, region, and container_id.
+
+        Returns:
+            str: Logs from the container.
+
+        Raises:
+            ScalingoCommandError: If fetching logs fails.
+        """
+        # Fetch and log new log entries
+        logs_cmd = [
+            "scalingo",
+            "--region",
+            container_info.region,
+            "--app",
+            container_info.app_name,
+            "logs",
+            "--filter",
+            f"{container_info.container_id}",
+            "--lines",
+            "1000",
+        ]
+
+        try:
+            logs_process = subprocess.run(
+                logs_cmd,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                universal_newlines=True,
+                check=True,
+            )
+
+            logs_output = logs_process.stdout
+            return logs_output
+        except subprocess.CalledProcessError as e:
+            error_output = e.stderr if e.stderr else str(e)
+            raise ScalingoCommandError(
+                return_code=e.returncode,
+                command=logs_cmd,
+                error_output=f"Failed to fetch logs for container {container_info.container_id}: {error_output}",
+            ) from e
+        except FileNotFoundError as e:
+            error_msg = (
+                "Scalingo CLI not found. Make sure it's installed and in PATH. "
+                "Install with: curl -O https://cli-dl.scalingo.com/install && bash install"
+            )
+            raise ScalingoCommandError(
+                return_code=1,
+                command=logs_cmd,
+                error_output=error_msg,
+            ) from e
+
+    def _check_container_status(container_info: ContainerInfo) -> bool:
+        """
+        Checks if a Scalingo one-off container is still running.
+
+        Args:
+            container_info: ContainerInfo object containing app_name, region, and container_id.
+
+        Returns:
+            bool: True if container is running, False otherwise.
+
+        Raises:
+            ScalingoCommandError: If checking container status fails.
+        """
+        ps_cmd = [
+            "scalingo",
+            "--region",
+            container_info.region,
+            "--app",
+            container_info.app_name,
+            "ps",
+        ]
+
+        try:
+            ps_process = subprocess.run(
+                ps_cmd,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                universal_newlines=True,
+                check=True,
+            )
+
+            ps_output = ps_process.stdout
+            logger.debug(f"Container status check: {ps_output}")
+            return container_info.container_id in ps_output
+        except subprocess.CalledProcessError as e:
+            error_output = e.stderr if e.stderr else str(e)
+            raise ScalingoCommandError(
+                return_code=e.returncode,
+                command=ps_cmd,
+                error_output=f"Failed to check status for container {container_info.container_id}: {error_output}",
+            ) from e
+        except FileNotFoundError as e:
+            error_msg = (
+                "Scalingo CLI not found. Make sure it's installed and in PATH. "
+                "Install with: curl -O https://cli-dl.scalingo.com/install && bash install"
+            )
+            raise ScalingoCommandError(
+                return_code=1,
+                command=ps_cmd,
+                error_output=error_msg,
+            ) from e
+
     @task
-    def start_scalingo_container() -> dict:
+    def start_retrieve_companies_container() -> dict:
         """
         Starts a Scalingo one-off container in detached mode.
 
@@ -238,116 +346,8 @@ def retrieve_companies_scalingo():
                 error_output=str(e),
             ) from e
 
-    def _fetch_scalingo_logs(container_info: ContainerInfo) -> str:
-        """
-        Fetches logs from a Scalingo one-off container.
-
-        Args:
-            container_info: ContainerInfo object containing app_name, region, and container_id.
-
-        Returns:
-            str: Logs from the container.
-
-        Raises:
-            ScalingoCommandError: If fetching logs fails.
-        """
-        # Fetch and log new log entries
-        logs_cmd = [
-            "scalingo",
-            "--region",
-            container_info.region,
-            "--app",
-            container_info.app_name,
-            "logs",
-            "--filter",
-            f"{container_info.container_id}",
-            "--lines",
-            "1000",
-        ]
-
-        try:
-            logs_process = subprocess.run(
-                logs_cmd,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                universal_newlines=True,
-                check=True,
-            )
-
-            logs_output = logs_process.stdout
-            return logs_output
-        except subprocess.CalledProcessError as e:
-            error_output = e.stderr if e.stderr else str(e)
-            raise ScalingoCommandError(
-                return_code=e.returncode,
-                command=logs_cmd,
-                error_output=f"Failed to fetch logs for container {container_info.container_id}: {error_output}",
-            ) from e
-        except FileNotFoundError as e:
-            error_msg = (
-                "Scalingo CLI not found. Make sure it's installed and in PATH. "
-                "Install with: curl -O https://cli-dl.scalingo.com/install && bash install"
-            )
-            raise ScalingoCommandError(
-                return_code=1,
-                command=logs_cmd,
-                error_output=error_msg,
-            ) from e
-
-    def _check_container_status(container_info: ContainerInfo) -> bool:
-        """
-        Checks if a Scalingo one-off container is still running.
-
-        Args:
-            container_info: ContainerInfo object containing app_name, region, and container_id.
-
-        Returns:
-            bool: True if container is running, False otherwise.
-
-        Raises:
-            ScalingoCommandError: If checking container status fails.
-        """
-        ps_cmd = [
-            "scalingo",
-            "--region",
-            container_info.region,
-            "--app",
-            container_info.app_name,
-            "ps",
-        ]
-
-        try:
-            ps_process = subprocess.run(
-                ps_cmd,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-                universal_newlines=True,
-                check=True,
-            )
-
-            ps_output = ps_process.stdout
-            logger.debug(f"Container status check: {ps_output}")
-            return container_info.container_id in ps_output
-        except subprocess.CalledProcessError as e:
-            error_output = e.stderr if e.stderr else str(e)
-            raise ScalingoCommandError(
-                return_code=e.returncode,
-                command=ps_cmd,
-                error_output=f"Failed to check status for container {container_info.container_id}: {error_output}",
-            ) from e
-        except FileNotFoundError as e:
-            error_msg = (
-                "Scalingo CLI not found. Make sure it's installed and in PATH. "
-                "Install with: curl -O https://cli-dl.scalingo.com/install && bash install"
-            )
-            raise ScalingoCommandError(
-                return_code=1,
-                command=ps_cmd,
-                error_output=error_msg,
-            ) from e
-
     @task
-    def monitor_scalingo_container(container_info: dict):
+    def monitor_retrieve_companies_container(container_info: dict):
         """
         Monitors a Scalingo one-off container until completion.
 
@@ -433,8 +433,8 @@ def retrieve_companies_scalingo():
                 error_output=error_msg,
             ) from e
 
-    container_info = start_scalingo_container()
-    monitor_scalingo_container(container_info)
+    container_info = start_retrieve_companies_container()
+    monitor_retrieve_companies_container(container_info)
 
 
 retrieve_companies_dag = retrieve_companies_scalingo()
