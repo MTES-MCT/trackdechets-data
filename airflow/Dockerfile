@@ -14,10 +14,6 @@ RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg -
 
 # install scalingo
 RUN curl -O https://cli-dl.scalingo.com/install && bash install && chmod +x $(which scalingo)
-# Create Scalingo config and cache directories for airflow user
-RUN mkdir -p /home/airflow/.config/scalingo /home/airflow/.cache/scalingo \
-    && chown -R default:root /home/airflow/.config/scalingo /home/airflow/.cache/scalingo \
-    && chmod -R 755 /home/airflow/.config/scalingo /home/airflow/.cache/scalingo
 
 ENV NODE_MAJOR=18
 RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
