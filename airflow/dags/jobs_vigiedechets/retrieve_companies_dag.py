@@ -41,9 +41,7 @@ logger = logging.getLogger()
         "depends_on_past": False,
         "email_on_failure": True,
         "email_on_retry": False,
-        "retries": 1,
         "on_failure_callback": send_alert_to_mattermost,
-        "retry_delay": timedelta(minutes=15),
     },
 )
 def retrieve_companies_scalingo():
