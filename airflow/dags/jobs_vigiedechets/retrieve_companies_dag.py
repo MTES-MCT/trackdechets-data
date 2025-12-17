@@ -2,7 +2,7 @@
 Airflow DAG to run retrieve_companies job on Scalingo.
 
 This DAG executes the retrieve_companies management command on the
-trackedechets-preparation-inspection app using Scalingo one-off containers.
+Vigie Dechets app using Scalingo one-off containers.
 It captures logs and handles exceptions properly.
 """
 
@@ -10,7 +10,6 @@ import logging
 import re
 import subprocess
 import time
-from datetime import timedelta
 
 from airflow.decorators import dag, task
 from airflow.models import Variable
