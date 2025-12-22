@@ -231,6 +231,31 @@ def retrieve_companies_scalingo():
                 f"SUCCESS: Container {container_info_obj.container_id} completed successfully"
             )
 
+            # Parse and display statistics from summary line
+            summary_pattern = (
+                r"Summary\s*—\s*created:\s*(\d+),\s*skipped duplicates:\s*(\d+),"
+                r"\s*skipped existing:\s*(\d+),\s*failed:\s*(\d+)"
+            )
+            summary_match = re.search(summary_pattern, container_logs, re.IGNORECASE)
+            if summary_match:
+                created = summary_match.group(1)
+                skipped_duplicates = summary_match.group(2)
+                skipped_existing = summary_match.group(3)
+                failed = summary_match.group(4)
+                logger.info("=" * 60)
+                logger.info("RETRIEVE COMPANIES STATISTICS:")
+                logger.info(f"  Created: {created}")
+                logger.info(f"  Skipped duplicates: {skipped_duplicates}")
+                logger.info(f"  Skipped existing: {skipped_existing}")
+                logger.info(f"  Failed: {failed}")
+                logger.info("=" * 60)
+            else:
+                logger.warning(
+                    "Could not find summary statistics in logs. "
+                    "Expected format: 'Summary — created: X, skipped duplicates: Y, "
+                    "skipped existing: Z, failed: W'"
+                )
+
         except subprocess.CalledProcessError as e:
             error_output = e.stderr if e.stderr else str(e)
             raise ScalingoCommandError(
