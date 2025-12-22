@@ -181,7 +181,7 @@ def retrieve_companies_scalingo():
         """
 
         container_info_obj = ContainerInfo(**container_info)
-        max_wait_time = 3600  # 1 hour max wait time
+        max_wait_time = 2 * 60 * 60  # 2 hours max wait time
         check_interval = 10  # Check every 10 seconds
         start_time = time.time()
 
