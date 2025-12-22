@@ -219,7 +219,7 @@ def retrieve_companies_scalingo():
                 r"Successfully imported ([1-9][0-9]{0,6}|10000000) companies"
             )
 
-            has_success = re.search(success_indicators, container_logs.lower())
+            has_success = re.search(success_indicators, container_logs)
             if not has_success:
                 raise ScalingoCommandError(
                     return_code=1,
