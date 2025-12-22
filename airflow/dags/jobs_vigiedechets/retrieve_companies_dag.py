@@ -219,12 +219,12 @@ def retrieve_companies_scalingo():
                 r"Successfully imported ([1-9][0-9]{0,6}|10000000) companies"
             )
 
-            has_success = re.search(success_indicators, container_logs.lower())
+            has_success = re.search(success_indicators, container_logs)
             if not has_success:
                 raise ScalingoCommandError(
                     return_code=1,
                     command=["scalingo", "run", "--detached"],
-                    error_output=f"Container {container_info_obj.container_id} failed with no success indicators found in logs",
+                    error_output=f"Container {container_info_obj.container_id} failed with no success indicators found in logs\n-----\n{container_logs}\n-----",
                 )
 
             logger.info(
