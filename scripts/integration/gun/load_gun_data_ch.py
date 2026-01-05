@@ -20,7 +20,7 @@ def load_gun_csv_file_to_dwh(
     dwh_username: str,
     dwh_password: str,
 ):
-    dst_table_name: str = "installations_rubriques_2025"
+    dst_table_name: str = "installations_rubriques_2026"
 
     GUN_TABLE_DDL = f"""
     CREATE TABLE IF NOT EXISTS raw_zone_icpe.{dst_table_name} (
