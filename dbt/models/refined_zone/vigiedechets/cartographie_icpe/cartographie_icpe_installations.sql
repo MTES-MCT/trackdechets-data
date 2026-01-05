@@ -43,7 +43,7 @@ installations as (
         i.code_insee,
         ir.rubrique
     from
-        {{ ref('installations_rubriques_2025') }} as ir
+        {{ ref('installations_rubriques') }} as ir
     left join {{ ref('installations') }} as i on ir.code_aiot = i.code_aiot
     where
         (ir.libelle_etat_site = 'Avec titre') -- noqa: LXR
