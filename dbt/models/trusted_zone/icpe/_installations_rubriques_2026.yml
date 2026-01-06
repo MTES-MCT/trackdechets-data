@@ -1,0 +1,37 @@
+version: 2
+models:
+  - name: installations_rubriques_2026
+    description: >
+      Données sur les installations et les rubriques pour l'année 2026
+      Fichier mis à jour le 02/01/2026
+      Une ligne par installation et rubrique      
+    columns:
+      - name: raison_sociale
+        data_type: string
+      - name: siret
+        data_type: string
+      - name: code_aiot
+        data_type: string
+      - name: code_etat_site
+        data_type: string
+      - name: libelle_etat_site
+        data_type: string
+      - name: regime
+        data_type: string
+      - name: quantite_projet
+        data_type: float32
+      - name: capacite_projet
+        data_type: float32
+      - name: capacite_totale
+        data_type: float32
+      - name: unite
+        data_type: string
+      - name: etat_technique_rubrique
+        data_type: string
+      - name: etat_administratif_rubrique
+        data_type: string
+      - name: quantite_totale
+        data_type: float32
+      - name: rubrique
+        data_type: string
+
