@@ -12,6 +12,7 @@ select
     etat_technique_rubrique,
     etat_administratif_rubrique,
     quantite_totale,
-    rubrique
+    rubrique,    
+    left(rubrique, 6) as rubrique_cleaned
 from {{ ref('installations_rubriques_2026') }}
 

@@ -34,4 +34,9 @@ models:
         data_type: float32
       - name: rubrique
         data_type: string
+      - name: rubrique_cleaned
+        description: >
+          Version nettoyée de la rubrique, où les alinéas sont supprimés.
+          Règles de nettoyage on enlève le suffixe (-a, -b, -c, etc.)
+        data_type: string
 
