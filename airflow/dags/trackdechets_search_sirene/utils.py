@@ -174,8 +174,10 @@ def extract_companies(
     res = client.get(f"{companies_endpoint}&nombre=0")
     res_json = res.json()
     number_of_companies_to_extract = res_json["header"]["total"]
+    logger.info(
+        f"Extracting companies with date_start: {date_start} and date_end: {date_end}"
+    )
     logger.info("Number of companies to extract: %s", number_of_companies_to_extract)
-
     old_cursor = None
     cursor = "*"
     companies = []
@@ -183,6 +185,9 @@ def extract_companies(
     with tqdm(total=number_of_companies_to_extract) as t:
         while cursor != old_cursor:
             ts_now = datetime.now(timezone.utc)
+            logger.info("Token expiration timestamp: %s", token_expiration_timestamp)
+            logger.info("Timestamp now: %s", ts_now.timestamp())
+            logger.info("Timestamp now + 15: %s", ts_now.timestamp() + 15)
             if ts_now.timestamp() + 15 > token_expiration_timestamp:
                 token_expiration_timestamp = refresh_token(
                     client, token_endpoint, username, password
