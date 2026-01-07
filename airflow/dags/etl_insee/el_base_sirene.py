@@ -10,7 +10,7 @@ import requests
 from airflow.decorators import dag, task
 from airflow.models import Variable
 from etl_insee.schemas.stock_etablissement import STOCK_ETABLISSEMENT_DDL
-from etl_insee.schemas.unite_legale import UNITE_LEGALE_DDL
+from etl_insee.schemas.unite_legale import UNITE_LEGALE_DDL, UNITE_LEGALE_COLUMNS
 
 logging.basicConfig()
 logger = logging.getLogger(__name__)
@@ -158,7 +158,17 @@ def el_base_sirene():
         with gzip.GzipFile(fileobj=response.raw, mode="rb") as gz:
             reader = csv.reader(io.TextIOWrapper(gz, newline=""))
 
-            header = next(reader)  # skip header if present
+            expected_header = (
+                UNITE_LEGALE_COLUMNS  # get list of columns from a variable
+            )
+            actual_header = next(reader)
+            if expected_header != actual_header:
+                raise ValueError(
+                    f"Headers do not match\n"
+                    f"Expected header: {expected_header}\n"
+                    f"Actual header: {actual_header}\n"
+                )
+
             batch = []
             batch_size = 100000
             batch_number = 0
@@ -171,7 +181,7 @@ def el_base_sirene():
                         database=dst_database,
                         table=tmp_table,
                         data=batch,
-                        column_names=header,
+                        column_names=expected_header,
                     )
                     batch.clear()
                     logger.info(f"Batch {batch_number} inserted")
@@ -181,7 +191,7 @@ def el_base_sirene():
                     database=dst_database,
                     table=tmp_table,
                     data=batch,
-                    column_names=header,
+                    column_names=expected_header,
                 )
                 logger.info(f"Batch {batch_number} inserted")
 

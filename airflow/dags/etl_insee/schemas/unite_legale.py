@@ -1,3 +1,39 @@
+UNITE_LEGALE_COLUMNS = [
+    "siren",
+    "siret_siege",
+    "etat_administratif",
+    "statut_diffusion",
+    "nombre_etablissements",
+    "nombre_etablissements_ouverts",
+    "nom_complet",
+    "nature_juridique",
+    "colter_code",
+    "colter_code_insee",
+    "colter_elus",
+    "colter_niveau",
+    "date_mise_a_jour_insee",
+    "date_mise_a_jour_rne",
+    "egapro_renseignee",
+    "est_achats_responsables",
+    "est_alim_confiance",
+    "est_association",
+    "est_entrepreneur_individuel",
+    "est_entrepreneur_spectacle",
+    "est_patrimoine_vivant",
+    "statut_entrepreneur_spectacle",
+    "est_ess",
+    "est_organisme_formation",
+    "est_qualiopi",
+    "est_service_public",
+    "est_societe_mission",
+    "liste_elus",
+    "liste_id_organisme_formation",
+    "liste_idcc",
+    "est_siae",
+    "type_siae",
+    "liste_finess_juridique",
+]
+
 UNITE_LEGALE_DDL = """
 CREATE TABLE IF NOT EXISTS {database}.{table} (
             siren  Int64,
@@ -31,7 +67,8 @@ CREATE TABLE IF NOT EXISTS {database}.{table} (
             liste_id_organisme_formation  String,
             liste_idcc  String,
             est_siae  String,
-            type_siae  String
+            type_siae  String,
+            liste_finess_juridique  String
     )
     ENGINE = MergeTree()
     ORDER BY `siren`;

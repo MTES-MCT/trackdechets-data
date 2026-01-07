@@ -66,3 +66,5 @@ models:
         data_type: booleaning
       - name: type_siae
         data_type: text
+      - name: liste_finess_juridique
+        data_type: text
