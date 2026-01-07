@@ -1,7 +1,7 @@
 import logging
 import re
 import subprocess
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from typing import Any
 
@@ -11,6 +11,7 @@ from authlib.oauth2.rfc7523 import ClientSecretJWT
 from tqdm.auto import tqdm
 
 logger = logging.getLogger(__name__)
+TOKEN_REFRESH_THRESHOLD = 100
 
 
 def get_es_connection() -> str:
@@ -185,10 +186,17 @@ def extract_companies(
     with tqdm(total=number_of_companies_to_extract) as t:
         while cursor != old_cursor:
             ts_now = datetime.now(timezone.utc)
-            logger.info("Token expiration timestamp: %s", token_expiration_timestamp)
-            logger.info("Timestamp now: %s", ts_now.timestamp())
-            logger.info("Timestamp now + 15: %s", ts_now.timestamp() + 15)
-            if ts_now.timestamp() + 15 > token_expiration_timestamp:
+            logger.info(
+                "Token expiration timestamp: %s",
+                datetime.fromtimestamp(token_expiration_timestamp).strftime(
+                    "%Y-%m-%d %H:%M:%S"
+                ),
+            )
+            logger.info("Timestamp now: %s", ts_now.strftime("%Y-%m-%d %H:%M:%S"))
+            if (
+                ts_now + timedelta(seconds=TOKEN_REFRESH_THRESHOLD)
+            ).timestamp() > token_expiration_timestamp:
+                logger.info("Refreshing token")
                 token_expiration_timestamp = refresh_token(
                     client, token_endpoint, username, password
                 )
