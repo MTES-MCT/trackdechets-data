@@ -34,6 +34,7 @@ SELECT
     liste_id_organisme_formation,
     liste_idcc,
     multiIf(est_siae = 'True', true, est_siae = 'False', false, null) as est_siae,
-    type_siae
+    type_siae,
+    liste_finess_juridique
 FROM
     {{ source('raw_zone_insee', 'annuaire_entreprises_unite_legale') }}
