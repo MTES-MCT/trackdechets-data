@@ -11,6 +11,7 @@ from authlib.oauth2.rfc7523 import ClientSecretJWT
 from tqdm.auto import tqdm
 
 logger = logging.getLogger(__name__)
+TOKEN_REFRESH_THRESHOLD = 100
 
 
 def get_es_connection() -> str:
@@ -193,7 +194,7 @@ def extract_companies(
             )
             logger.info("Timestamp now: %s", ts_now.strftime("%Y-%m-%d %H:%M:%S"))
             if (
-                ts_now + timedelta(seconds=100)
+                ts_now + timedelta(seconds=TOKEN_REFRESH_THRESHOLD)
             ).timestamp() > token_expiration_timestamp:
                 logger.info("Refreshing token")
                 token_expiration_timestamp = refresh_token(
