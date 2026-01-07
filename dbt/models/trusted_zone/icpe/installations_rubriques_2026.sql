@@ -23,8 +23,8 @@ renamed as (
         "Régime"                            as regime,
         "Quantité projet"                   as quantite_projet,
         "Quantité totale"                   as quantite_totale,
-        "Capacité projet"                   as capacite_projet,
-        "Capacité totale"                   as capacite_totale,
+        "Capacité Projet"                   as capacite_projet,
+        "Capacité Totale"                   as capacite_totale,
         "Unité"                             as unite,
         "Etat technique de la rubrique"     as etat_technique_rubrique,
         "Etat administratif de la rubrique" as etat_administratif_rubrique
