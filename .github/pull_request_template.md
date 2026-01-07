@@ -11,13 +11,6 @@
 - [ ] Infrastructure / Configuration
 - [ ] Autre (précisez):
 
-## Context et motivation
-
-<!-- Expliquez pourquoi ce changement est nécessaire. Liez les issues/tickets pertinents -->
-
-Closes #
-Related to #
-
 ## Changements techniques
 
 <!-- Détaillez les modifications apportées -->
