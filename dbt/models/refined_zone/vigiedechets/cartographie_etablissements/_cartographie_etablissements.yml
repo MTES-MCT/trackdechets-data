@@ -137,3 +137,5 @@ models:
         data_type: Float64
       - name: longitude_td
         data_type: Float64
+      - name: is_dormant
+        data_type: Bool

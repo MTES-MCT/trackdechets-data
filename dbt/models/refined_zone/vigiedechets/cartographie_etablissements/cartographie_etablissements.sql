@@ -271,7 +271,8 @@ joined as (
         se.adresse                                     as adresse_insee,
         coalesce(
             c.name, nom_etablissement
-        )                                              as nom_etablissement
+        )                                              as nom_etablissement,
+        c.is_dormant
     from stats as s
     left join
         {{ ref('cartographie_etablissements_texs_dd') }} as et
@@ -359,5 +360,6 @@ select
     adresse_td,
     adresse_insee,
     latitude_td,
-    longitude_td
+    longitude_td,
+    is_dormant
 from joined

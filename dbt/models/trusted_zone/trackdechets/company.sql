@@ -190,7 +190,10 @@ select
     ) as waste_vehicles_types,
     toNullable(
         toTimezone(toDateTime64("isDormantSince", 6), 'Europe/Paris')
-    ) as is_dormant_since,
+    ) as is_dormant_since,    
+    assumeNotNull(
+        toBool("isDormantSince" is not null)
+    ) as is_dormant,
     toNullable(
         toTimezone(
             toDateTime64("hasEnabledRegistryDndFromBsdSince", 6), 'Europe/Paris'
