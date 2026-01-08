@@ -87,3 +87,5 @@ models:
         data_type: DateTime64(6, 'Europe/Paris')
       - name: has_enabled_registry_dnd_from_bsd_since
         data_type: DateTime64(6, 'Europe/Paris')
+      - name: is_dormant
+        data_type: Bool

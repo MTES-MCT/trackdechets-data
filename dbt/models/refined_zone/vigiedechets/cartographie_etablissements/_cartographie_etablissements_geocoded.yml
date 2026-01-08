@@ -143,3 +143,5 @@ models:
         data_type: String
       - name: coords_h3_index
         data_type: UInt64
+      - name: is_dormant
+        data_type: Bool

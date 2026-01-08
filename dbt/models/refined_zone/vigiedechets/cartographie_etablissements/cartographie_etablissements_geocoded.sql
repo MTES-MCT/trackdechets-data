@@ -87,8 +87,8 @@ select
         coalesce(c.longitude_td, cban.longitude),
         coalesce(c.latitude_td, cban.latitude),
         9
-    )              as coords_h3_index
-from {{ ref("cartographie_etablissements") }} as c
-left join
-    {{ ref("companies_geocoded_by_ban") }} as cban
-    on c.siret = cban.siret and cban.result_status = 'ok'
+    )              as coords_h3_index,
+    c.is_dormant
+from {{ ref("cartographie_etablissements")}} as c
+left join {{ ref("companies_geocoded_by_ban") }} as cban
+on c.siret = cban.siret and cban.result_status = 'ok'
