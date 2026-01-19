@@ -1,0 +1,22 @@
+version: 2
+models:
+  - name: galaxy_edges
+    columns:
+      - name: relation_type
+        description: Type of relation between companies (e.g., 'producteur_destination')
+        data_type: String
+      - name: id
+        description: Unique identifier for the edge (source_siret_target_siret)
+        data_type: String
+      - name: source
+        description: SIRET of the source company (producer)
+        data_type: String
+      - name: target
+        description: SIRET of the target company (destination)
+        data_type: String
+      - name: weight
+        description: Number of bordereaux connecting the source and target companies
+        data_type: UInt64
+      - name: bsd_types
+        description: Array of distinct BSD types involved in the connection
+        data_type: Array(String)

@@ -1,0 +1,19 @@
+version: 2
+models:
+  - name: galaxy_nodes
+    columns:
+      - name: siret
+        description: SIRET number of the company
+        data_type: String
+      - name: company_name
+        description: Name of the company
+        data_type: String
+      - name: departement
+        description: Department code where the company is located
+        data_type: String
+      - name: roles
+        description: Array of roles the company can have (producer, recipient)
+        data_type: Array(String)
+      - name: connection_count
+        description: Total number of connections (as producer + as recipient)
+        data_type: UInt64
