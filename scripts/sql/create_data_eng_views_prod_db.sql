@@ -741,7 +741,7 @@ AS SELECT "Company".id,
     "Company"."wasteVehiclesTypes"::text AS "wasteVehiclesTypes",
     "Company"."isDormantSince",
     "Company"."hasEnabledRegistryDndFromBsdSince",
-    "Company"."ecoOrganismePartnersIds"
+    "Company"."ecoOrganismePartnersIds"::text AS "ecoOrganismePartnersIds"
    FROM "default$default"."Company";
 
 -- data_eng."CompanyAssociation" source
