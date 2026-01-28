@@ -8,6 +8,7 @@ exclude_rules = AL09
 project_dir = ./
 profiles_dir = ./profiles
 profile = trackdechets
+target = prod
 
 [sqlfluff:templater:jinja]
 apply_dbt_builtins = True

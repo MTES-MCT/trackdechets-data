@@ -1183,6 +1183,9 @@ sources:
             data_type: ARRAY
           - name: isDormantSince
             data_type: timestamp without time zone
+          - name: ecoOrganismePartnersIds
+            data_type: ARRAY
+
       - name: company_association
         identifier: CompanyAssociation
         description: >
