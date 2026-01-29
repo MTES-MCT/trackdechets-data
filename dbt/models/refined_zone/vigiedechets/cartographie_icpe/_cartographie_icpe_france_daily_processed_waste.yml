@@ -1,6 +1,10 @@
 version: 2
 models:
   - name: cartographie_icpe_france_daily_processed_waste
+    description: >-
+      Quantité traitée de déchets dangereux et non dangereux par jour, rubrique au total en France.
+      Granularité : rubrique
+      Sources : Données GUN (ICPE), INSEE, referentiels (code postaux, communes, départements, régions)
     columns:
       - name: rubrique
         data_type: String

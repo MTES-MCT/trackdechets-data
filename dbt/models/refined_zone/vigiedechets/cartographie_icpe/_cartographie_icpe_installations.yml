@@ -1,6 +1,10 @@
 version: 2
 models:
   - name: cartographie_icpe_installations
+    description: >-
+      Cartographie des installations classées pour la protection de l'environnement (ICPE)
+      Granularité : installation (établissement / siret) et rubrique
+      Sources : Données GUN (ICPE), INSEE, referentiels (code postaux, communes, départements, régions)
     columns:
       - name: code_aiot
         description: identifiant unique de l'installation classée
