@@ -190,7 +190,7 @@ select
     ) as waste_vehicles_types,
     toNullable(
         toTimezone(toDateTime64("isDormantSince", 6), 'Europe/Paris')
-    ) as is_dormant_since,    
+    ) as is_dormant_since,
     assumeNotNull(
         toBool("isDormantSince" is not null)
     ) as is_dormant,
@@ -198,5 +198,29 @@ select
         toTimezone(
             toDateTime64("hasEnabledRegistryDndFromBsdSince", 6), 'Europe/Paris'
         )
-    ) as has_enabled_registry_dnd_from_bsd_since
+    ) as has_enabled_registry_dnd_from_bsd_since,
+    assumeNotNull(
+        case when splitByChar(
+            ',', cOALESCE(
+                substring(
+                    toString("ecoOrganismePartnersIds"),
+                    2,
+                    length("ecoOrganismePartnersIds") - 2
+                ),
+                ''
+            )
+        ) = [''] then []
+        else splitByChar(
+            ',',
+            cOALESCE(
+                substring(
+                    toString("ecoOrganismePartnersIds"),
+                    2,
+                    length("ecoOrganismePartnersIds") - 2
+                ),
+                ''
+            )
+        ) end
+    ) as eco_organisme_partners_ids
+
 from source
