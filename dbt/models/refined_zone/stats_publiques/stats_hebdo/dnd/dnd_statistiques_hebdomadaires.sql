@@ -25,7 +25,7 @@ sortants as (
         )                                    as nombre_declarations_dnd_sortant,
         sum(if(weight_value > 60, weight_value / 1000,weight_value)) as quantite_dnd_sortant,
         sum(volume)                              as volume_dnd_sortant
-    from {{ ref("registry_outgoing_waste") }}
+    from {{ ref("latest_registry_outgoing_waste") }}
     where toStartOfWeek(toDateTime(dispatch_date),1,'Europe/Paris') < toStartOfWeek(now('Europe/Paris'),1,'Europe/Paris')
     group by 1
 )

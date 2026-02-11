@@ -64,7 +64,7 @@ dnd_sortant_stats as (
         sum(weight_value)
         filter (where {{ dangerous_waste_filter('registry') }})                                 as quantity_dd_statements_as_emitter,
         sum(volume) filter (where {{ dangerous_waste_filter('registry') }})                                 as volume_dd_statements_as_emitter
-    from {{ ref('registry_outgoing_waste') }}
+    from {{ ref('latest_registry_outgoing_waste') }}
     group by 1
 ),
 
