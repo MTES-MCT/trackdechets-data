@@ -32,7 +32,9 @@ waste_processed_grouped as (
 
 waste_stats as (
     select
-        w.*,
+        w.rubrique,
+        w.day_of_processing,
+        w.quantite_traitee,
         s.nombre_installations,
         s.quantite_autorisee
     from

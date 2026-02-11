@@ -31,9 +31,14 @@ texs_wastes as (
         reception_date           as day_of_processing,
         operation_code           as code_traitement,
         sum(weight_value)        as quantite
-    from {{ ref('registry_incoming_texs') }}
+    from {{ ref('latest_registry_incoming_texs') }}
     where
-        reception_date >= '2022-01-01'
+        -- filter out cancelled and previous versions of registry
+        not is_cancelled
+        and is_latest
+
+        and reception_date >= '2022-01-01'
+        and not ({{ dangerous_waste_filter('latest_registry_incoming_texs') }})
         and report_for_company_siret in (
             select siret
             from

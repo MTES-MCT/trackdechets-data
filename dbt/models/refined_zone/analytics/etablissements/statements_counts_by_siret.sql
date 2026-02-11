@@ -102,7 +102,7 @@ texs_entrant_stats as (
         )
             as texs_processing_operations_as_destination,
         array_agg(distinct waste_code)     as texs_waste_codes_as_destination
-    from {{ ref('registry_incoming_texs') }}
+    from {{ ref('latest_registry_incoming_texs') }}
     group by 1
 ),
 
@@ -125,7 +125,7 @@ texs_transporteur_stats as (
         sum(weight_value)  as quantity_texs_statements_as_transporteur,
         sum(volume)        as volume_texs_statements_as_transporteur
     from
-        {{ ref('registry_incoming_texs') }}riw 
+        {{ ref('latest_registry_incoming_texs') }}riw 
     array join array(transporter1_company_org_id,
         transporter2_company_org_id,
         transporter3_company_org_id,

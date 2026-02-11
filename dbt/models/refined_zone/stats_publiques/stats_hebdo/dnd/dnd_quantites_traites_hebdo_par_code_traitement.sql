@@ -30,5 +30,7 @@ select
         )
     ) as volume_traite
 from {{ ref('registry_incoming_waste') }}
+where not is_cancelled
+    and is_latest
 group by 1, 2
 order by 1 desc
