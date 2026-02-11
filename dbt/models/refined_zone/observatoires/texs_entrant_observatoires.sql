@@ -5,7 +5,7 @@
 }}
 
 with texs as (
-    select * from {{ ref('registry_incoming_texs') }}
+    select * from {{ ref('latest_registry_incoming_texs') }}
 )
 
 select

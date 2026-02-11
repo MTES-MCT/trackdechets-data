@@ -63,7 +63,7 @@ bordereaux_quantities as (
 dnd_registry_ttr as (
     select distinct riw.report_for_company_siret as siret
     from
-        {{ ref('registry_incoming_waste') }} as riw
+        {{ ref('latest_registry_incoming_waste') }} as riw
     where
         riw.operation_code in (
             'D9',
@@ -89,7 +89,7 @@ dnd_quantities as (
             riw.weight_value
         )                                     as quantity
     from
-        {{ ref('registry_incoming_waste') }} as riw
+        {{ ref('latest_registry_incoming_waste') }} as riw
     where
         not{{ dangerous_waste_filter('registry') }}
         and riw.emitter_company_org_id not in (
@@ -111,7 +111,7 @@ dnd_quantities as (
 texs_registry_ttr as (
     select distinct rtexs.report_for_company_siret as siret
     from
-        {{ ref('registry_incoming_texs') }} as rtexs
+        {{ ref('latest_registry_incoming_texs') }} as rtexs
     where
         rtexs.operation_code in (
             'D9',
@@ -136,7 +136,7 @@ texs_quantities as (
             rtexs.weight_value
         )                                       as quantity
     from
-        {{ ref('registry_incoming_texs') }} as rtexs
+        {{ ref('latest_registry_incoming_texs') }} as rtexs
     where
         not {{ dangerous_waste_filter('registry') }}
         and rtexs.emitter_company_org_id not in (

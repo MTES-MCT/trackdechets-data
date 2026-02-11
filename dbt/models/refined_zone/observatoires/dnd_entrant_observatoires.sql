@@ -5,7 +5,7 @@
 }}
 
 with dnd as (
-    select * from {{ ref('registry_incoming_waste') }}
+    select * from {{ ref('latest_registry_incoming_waste') }}
     where not {{dangerous_waste_filter('registry')}}
 )
 
