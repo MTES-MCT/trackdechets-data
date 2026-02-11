@@ -43,7 +43,7 @@ with dnd_entrant_stats as (
         ) filter (where operation_code is not null)
             as dnd_processing_operations_as_destination,
         array_agg(distinct waste_code)     as dnd_waste_codes_as_destination
-    from {{ ref('registry_incoming_waste') }}
+    from {{ ref('latest_registry_incoming_waste') }}
     group by 1
 ),
 
@@ -75,7 +75,7 @@ dnd_transporteur_stats as (
         sum(weight_value)  as quantity_dnd_statements_as_transporteur,
         sum(volume)        as volume_dnd_statements_as_transporteur
     from
-        {{ ref('registry_incoming_waste') }}riw 
+        {{ ref('latest_registry_incoming_waste') }}riw 
     array join array(transporter1_company_org_id,
         transporter2_company_org_id,
         transporter3_company_org_id,
@@ -114,7 +114,7 @@ texs_sortant_stats as (
         )                                as num_texs_statements_as_emitter,
         sum(weight_value)                                as quantity_texs_statements_as_emitter,
         sum(volume)                                as volume_texs_statements_as_emitter
-    from {{ ref('registry_outgoing_texs') }}
+    from {{ ref('latest_registry_outgoing_texs') }}
     group by 1
 ),
 

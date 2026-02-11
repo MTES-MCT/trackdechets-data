@@ -5,7 +5,7 @@
 }}
 
 with texs as (
-    select * from {{ ref('registry_outgoing_texs') }}
+    select * from {{ ref('latest_registry_outgoing_texs') }}
     where not {{dangerous_waste_filter('registry')}}
 )
 

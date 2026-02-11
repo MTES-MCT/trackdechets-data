@@ -14,7 +14,7 @@ dnd_wastes as (
         reception_date           as day_of_processing,
         operation_code           as code_traitement,
         sum(weight_value)        as quantite
-    from {{ ref('registry_incoming_waste') }}
+    from {{ ref('latest_registry_incoming_waste') }}
     where
         reception_date >= '2022-01-01'
         and report_for_company_siret in (
