@@ -1,0 +1,81 @@
+{{
+  config(
+    materialized = 'incremental',
+    incremental_strategy = 'delete+insert',
+    unique_key = ['id'],
+    on_schema_change='append_new_columns'
+    )
+}}
+
+with source as (
+    select *
+    from {{ ref('registry_transported') }}
+    where is_latest and not is_cancelled
+)
+
+select
+        id,
+        created_at,
+        import_id,
+        is_latest,
+        is_cancelled,
+        created_by_id,
+        public_id,
+        report_for_company_siret,
+        report_for_company_name,
+        report_for_company_address,
+        report_for_company_city,
+        report_for_company_postal_code,
+        report_for_transport_mode,
+        report_for_transport_is_waste,
+        report_for_recepisse_is_exempted,
+        report_for_recepisse_number,
+        report_for_transport_adr,
+        report_for_transport_other_tmd_code,
+        report_for_transport_plates,
+        report_as_company_siret,
+        waste_description,
+        waste_code,
+        waste_code_bale,
+        waste_pop,
+        waste_is_dangerous,
+        collection_date,
+        unloading_date,
+        weight_value,
+        weight_is_estimate,
+        volume,
+        emitter_company_type,
+        emitter_company_org_id,
+        emitter_company_name,
+        emitter_company_address,
+        emitter_company_postal_code,
+        emitter_company_city,
+        emitter_company_country_code,
+        emitter_pickup_site_name,
+        emitter_pickup_site_address,
+        emitter_pickup_site_postal_code,
+        emitter_pickup_site_city,
+        emitter_pickup_site_country_code,
+        destination_company_type,
+        destination_company_org_id,
+        destination_company_name,
+        destination_company_address,
+        destination_company_postal_code,
+        destination_company_city,
+        destination_company_country_code,
+        destination_drop_site_address,
+        destination_drop_site_postal_code,
+        destination_drop_site_city,
+        destination_drop_site_country_code,
+        movement_number,
+        eco_organisme_siret,
+        eco_organisme_name,
+        broker_company_siret,
+        broker_company_name,
+        broker_recepisse_number,
+        trader_company_siret,
+        trader_company_name,
+        trader_recepisse_number,
+        gistrid_number,
+        updated_at
+    from source

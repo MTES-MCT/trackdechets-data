@@ -147,7 +147,7 @@ ssd_stats as (
             as quantity_ssd_statements_as_emitter,
         sum(volume)
             as volume_ssd_statements_as_emitter
-    from {{ ref("registry_ssd") }}
+    from {{ ref("latest_registry_ssd") }}
     group by 1
 ),
 
