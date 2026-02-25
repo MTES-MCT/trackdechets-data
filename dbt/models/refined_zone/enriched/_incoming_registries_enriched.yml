@@ -1,0 +1,54 @@
+version: 2
+models:
+  - name: incoming_registries_enriched
+    columns:
+      - name: registry_type
+        data_type: string
+      - name: id
+        description: Clé primaire
+      - name: created_at
+        description: Date de création
+      - name: updated_at
+        description: Date de mise à jour
+      - name: reception_date
+        description: Date de réception
+      - name: import_id
+        description: ID de l'import
+      - name: created_by_id
+        description: ID de l'utilisateur qui a créé le registre
+      - name: report_for_company_siret
+        description: Code SIRET de l'entreprise qui a reporté le registre
+      - name: waste_code
+        description: Code de la substance
+      - name: waste_pop
+        description: Indique si la substance est polluante
+      - name: waste_is_dangerous
+        description: Indique si la substance est dangereuse
+      - name: waste_description
+        description: Description de la substance
+      - name: waste_code_bale
+        description: Code de la bale
+      - name: weight_value
+        description: Valeur du poids
+      - name: weight_is_estimate
+        description: Indique si le poids est estimé
+      - name: operation_code
+        description: Code de l'opération
+      - name: operation_mode
+        description: Mode de l'opération
+      - name: initial_emitter_company_type
+        description: Type de l'entreprise émettrice
+      - name: initial_emitter_company_org_id
+        description: ID de l'organisation de l'entreprise émettrice
+      - name: initial_emitter_company_name
+        description: Nom de l'entreprise émettrice
+      - name: initial_emitter_company_address
+        description: Adresse de l'entreprise émettrice
+      - name: initial_emitter_company_postal_code
+        description: Code postal de l'entreprise émettrice
+      - name: initial_emitter_company_city
+        description: Ville de l'entreprise émettrice
+      - name: initial_emitter_company_country_code
+        description: Code du pays de l'entreprise émettrice
+      - name: initial_emitter_municipalities_insee_codes
+        description: Codes INSEE des communes de l'entreprise émettrice
