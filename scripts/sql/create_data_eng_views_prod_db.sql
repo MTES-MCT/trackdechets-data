@@ -1648,3 +1648,39 @@ AS SELECT id,
     "traderRecepisseNumber",
     "gistridNumber"
    FROM "default$default"."RegistryTransported";
+
+-- data_eng."BsdaRevisionRequestApproval" source
+
+CREATE OR REPLACE VIEW data_eng."BsdaRevisionRequestApproval"
+AS SELECT "BsdaRevisionRequestApproval".id,
+    "BsdaRevisionRequestApproval"."createdAt",
+    "BsdaRevisionRequestApproval"."updatedAt",
+    "BsdaRevisionRequestApproval"."revisionRequestId",
+    "BsdaRevisionRequestApproval"."approverSiret",
+    "BsdaRevisionRequestApproval".status,
+    "BsdaRevisionRequestApproval".comment
+   FROM "default$default"."BsdaRevisionRequestApproval";
+
+-- data_eng."BsddRevisionRequestApproval" source
+
+CREATE OR REPLACE VIEW data_eng."BsddRevisionRequestApproval"
+AS SELECT "BsddRevisionRequestApproval".id,
+    "BsddRevisionRequestApproval"."createdAt",
+    "BsddRevisionRequestApproval"."updatedAt",
+    "BsddRevisionRequestApproval"."revisionRequestId",
+    "BsddRevisionRequestApproval"."approverSiret",
+    "BsddRevisionRequestApproval".status,
+    "BsddRevisionRequestApproval".comment
+   FROM "default$default"."BsddRevisionRequestApproval";
+
+-- data_eng."BsdasriRevisionRequestApproval" source
+
+CREATE OR REPLACE VIEW data_eng."BsdasriRevisionRequestApproval"
+AS SELECT "BsdasriRevisionRequestApproval".id,
+    "BsdasriRevisionRequestApproval"."createdAt",
+    "BsdasriRevisionRequestApproval"."updatedAt",
+    "BsdasriRevisionRequestApproval"."revisionRequestId",
+    "BsdasriRevisionRequestApproval"."approverSiret",
+    "BsdasriRevisionRequestApproval".status,
+    "BsdasriRevisionRequestApproval".comment
+   FROM "default$default"."BsdasriRevisionRequestApproval";
