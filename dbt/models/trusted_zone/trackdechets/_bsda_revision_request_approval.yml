@@ -1,0 +1,21 @@
+version: 2
+models:
+  - name: bsda_revision_request_approval
+    columns:
+      - name: id
+        tests:
+          - unique
+        description: Clé primaire
+        data_type: string
+      - name: created_at
+        data_type: datetime64(6, 'utc')
+      - name: updated_at
+        data_type: datetime64(6, 'utc')
+      - name: revision_request_id
+        data_type: string
+      - name: approver_siret
+        data_type: string
+      - name: status
+        data_type: string
+      - name: comment
+        data_type: string
