@@ -6,11 +6,16 @@ il est nécessaire au préalable d'avoir installer `autossh` (`sudo apt-get inst
 Ensuite il faut créer un fichier `tunnels.conf` dans lequel chaque ligne correspond à la configuration pour un tunnel SSH. Par exemple:
 
 ```
-10000 un-serveur.postgresql.dbs.scalingo.com 30755
-10001 un-autre-serveur.postgresql.a.osc-secnum-fr1.scalingo-dbs.com 30999
+0.0.0.0 10000 un-serveur.postgresql.dbs.scalingo.com 30755
+0.0.0.0 10001 un-autre-serveur.postgresql.a.osc-secnum-fr1.scalingo-dbs.com 30999
 ```
 
-Le premier nombre de la ligne correspond au port local sur lequel sera ouvert le port, ensuite vient l'hôte du serveur distant et finalement le port SSH du serveur distant.
+Dans l'ordre :
+
+1. hôte local
+1. port local sur lequel sera ouvert le port
+1. hôte du serveur distant
+1. port SSH du serveur distant
 
 ## Configuration du lancement automatique au démarrage de l'instance
 
