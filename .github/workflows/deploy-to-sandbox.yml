@@ -17,15 +17,19 @@ jobs:
           key: ${{ secrets.SSH_KEY_SANDBOX }}
           port: ${{ secrets.SSH_PORT_SANDBOX }}
           script: |
+            # Ensure repository exists and is exactly origin/dev
             if [ ! -d /srv/trackdechets-data ]; then
-              echo "Repository does not exist, cloning"
-              git clone https://${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY} /srv/trackdechets-data
+              echo "Repository does not exist, cloning dev branch"
+              git clone --branch dev --single-branch https://${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY} /srv/trackdechets-data
             elif [ ! -d /srv/trackdechets-data/.git ]; then
               echo "Repository is not a git repository, deleting and cloning again"
               rm -rf /srv/trackdechets-data
-              git clone https://${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY} /srv/trackdechets-data
+              git clone --branch dev --single-branch https://${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY} /srv/trackdechets-data
             else
-              echo "Repository is a git repository, pulling"
-              cd /srv/trackdechets-data && git pull
+              echo "Repository is a git repository, forcing update to origin/dev"
+              cd /srv/trackdechets-data
+              git fetch origin --prune
+              git reset --hard origin/dev
+              git clean -fd
             fi
             echo "Repository cloned/pulled successfully"
