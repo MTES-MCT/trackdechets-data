@@ -70,6 +70,10 @@ def retrieve_companies_scalingo():
             ScalingoCommandError: If the Scalingo command fails.
             ValueError: If Scalingo API token is not set or empty.
         """
+        import os
+        os.environ["HOME"] = "/tmp"
+        os.environ["XDG_CACHE_HOME"] = "/tmp/.cache"
+        
         command_config = CommandConfig(
             app_name=Variable.get("SCALINGO_VIGIEDECHETS_APP_NAME"),
             container_size="2XL",
@@ -179,6 +183,9 @@ def retrieve_companies_scalingo():
             ScalingoCommandError: If the container fails or monitoring fails.
             ValueError: If Scalingo API token is not set or empty.
         """
+        import os
+        os.environ["HOME"] = "/tmp"
+        os.environ["XDG_CACHE_HOME"] = "/tmp/.cache"
 
         container_info_obj = ContainerInfo(**container_info)
         max_wait_time = 2 * 60 * 60  # 2 hours max wait time
