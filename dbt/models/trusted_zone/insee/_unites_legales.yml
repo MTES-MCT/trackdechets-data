@@ -52,7 +52,7 @@ models:
         data_type: boolean
       - name: est_qualiopi
         data_type: boolean
-      - name: est_service_public
+      - name: est_administration
         data_type: boolean
       - name: est_societe_mission
         data_type: boolean
@@ -68,3 +68,7 @@ models:
         data_type: text
       - name: liste_finess_juridique
         data_type: text
+      - name: a_aide_ademe
+        data_type: boolean
+      - name: est_avocat
+        data_type: boolean
