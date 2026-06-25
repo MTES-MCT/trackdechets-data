@@ -8,10 +8,15 @@ from airflow.models import Variable
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 
 
-def get_s3_backup_folder_name() -> str:
-    airflow_env = Variable.get("AIRFLOW_ENV", "dev")
+def get_s3_backup_url() -> str:
+    s3_url = Variable.get("TRACKDECHETS_CH_BACKUP_BUCKET_URL")
 
-    return "clickhouse" if airflow_env == "prod" else "clickhouse_dev"
+    return s3_url 
+
+def get_s3_backup_folder_name() -> str:
+    s3_path = Variable.get("TRACKDECHETS_CH_BACKUP_BUCKET_PATH")
+
+    return  s3_path 
 
 
 def get_s3_credentials() -> tuple[str, str]:
@@ -50,8 +55,7 @@ def backup_clickhouse_database():
 
         except Exception as e:
             logging.info(f"Error checking for initial backup: {e}")
-            # If we can't check, default to creating initial backup
-            return "create_initial_backup"
+            raise
 
     @task
     def create_initial_backup():
@@ -62,7 +66,7 @@ def backup_clickhouse_database():
         access_key, access_secret = get_s3_credentials()
 
         # S3 bucket details
-        s3_bucket_url = f"https://data-backups.s3.fr-par.scw.cloud/{get_s3_backup_folder_name()}/initial"
+        s3_bucket_url = f"{get_s3_backup_url()}{get_s3_backup_folder_name()}/initial"
 
         try:
             logging.info("Creating initial backup...")
@@ -90,10 +94,10 @@ def backup_clickhouse_database():
 
         # S3 bucket details with timestamp
         timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        s3_bucket_url = f"https://data-backups.s3.fr-par.scw.cloud/{get_s3_backup_folder_name()}/{timestamp}"
+        s3_bucket_url = f"{get_s3_backup_url()}{get_s3_backup_folder_name()}/{timestamp}"
 
         # Base backup location (initial backup)
-        base_backup_url = f"https://data-backups.s3.fr-par.scw.cloud/{get_s3_backup_folder_name()}/initial"
+        base_backup_url = f"{get_s3_backup_url()}{get_s3_backup_folder_name()}/initial"
 
         try:
             logging.info("Creating incremental backup...")
