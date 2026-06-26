@@ -16,4 +16,20 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          script: cd /srv/trackdechets-data && git pull
+          script: |
+            # Ensure repository exists and is exactly origin/main
+            if [ ! -d /srv/trackdechets-data ]; then
+              echo "Repository does not exist, cloning main branch"
+              git clone --branch main --single-branch https://${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY} /srv/trackdechets-data
+            elif [ ! -d /srv/trackdechets-data/.git ]; then
+              echo "Repository is not a git repository, deleting and cloning again"
+              rm -rf /srv/trackdechets-data
+              git clone --branch main --single-branch https://${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY} /srv/trackdechets-data
+            else
+              echo "Repository is a git repository, forcing update to origin/main"
+              cd /srv/trackdechets-data
+              git fetch origin --prune
+              git reset --hard origin/main
+              git clean -fd
+            fi
+            echo "Repository cloned/pulled successfully"
