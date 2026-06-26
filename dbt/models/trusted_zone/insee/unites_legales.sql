@@ -28,7 +28,7 @@ SELECT
     multiIf(est_ess = 'True', true, est_ess = 'False', false, null) as est_ess,
     multiIf(est_organisme_formation = 'True', true, est_organisme_formation = 'False', false, null) as est_organisme_formation,
     multiIf(est_qualiopi = 'True', true, est_qualiopi = 'False', false, null) as est_qualiopi,
-    multiIf(est_service_public = 'True', true, est_service_public = 'False', false, null) as est_service_public,
+    multiIf(est_administration = 'True', true, est_administration = 'False', false, null) as est_administration,
     multiIf(est_societe_mission = 'True', true, est_societe_mission = 'False', false, null) as est_societe_mission,
     liste_elus,
     liste_id_organisme_formation,
@@ -36,5 +36,7 @@ SELECT
     multiIf(est_siae = 'True', true, est_siae = 'False', false, null) as est_siae,
     type_siae,
     liste_finess_juridique
+    multiIf(a_aide_ademe = 'True', true, a_aide_ademe = 'False', false, null) as a_aide_ademe,
+    multiIf(est_avocat = 'True', true, est_avocat = 'False', false, null) as est_avocat
 FROM
     {{ source('raw_zone_insee', 'annuaire_entreprises_unite_legale') }}

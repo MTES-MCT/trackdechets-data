@@ -24,7 +24,7 @@ UNITE_LEGALE_COLUMNS = [
     "est_ess",
     "est_organisme_formation",
     "est_qualiopi",
-    "est_service_public",
+    "est_administration",
     "est_societe_mission",
     "liste_elus",
     "liste_id_organisme_formation",
@@ -32,6 +32,8 @@ UNITE_LEGALE_COLUMNS = [
     "est_siae",
     "type_siae",
     "liste_finess_juridique",
+    "a_aide_ademe",
+    "est_avocat",
 ]
 
 UNITE_LEGALE_DDL = """
@@ -61,15 +63,17 @@ CREATE TABLE IF NOT EXISTS {database}.{table} (
             est_ess  String,
             est_organisme_formation  String,
             est_qualiopi  String,
-            est_service_public  String,
+            est_administration  String,
             est_societe_mission  String,
             liste_elus  String,
             liste_id_organisme_formation  String,
             liste_idcc  String,
             est_siae  String,
             type_siae  String,
-            liste_finess_juridique  String
-    )
+            liste_finess_juridique  String,
+            a_aide_ademe  String,
+            est_avocat  String
+    )       
     ENGINE = MergeTree()
     ORDER BY `siren`;
 """

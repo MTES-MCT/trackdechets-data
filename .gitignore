@@ -18,6 +18,7 @@ clickhouse-data
 clickhouse/users.d/default-user.xml
 clickhouse/config.d/config.xml
 clickhouse/logs/*
+clickhouse/**/*backup*
 
 # airflow
 airflow/logs/*/*
