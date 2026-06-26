@@ -8,9 +8,10 @@ LOG_FILE="/var/log/autossh_tunnels.log"
 
 # Fonction pour lancer un tunnel SSH avec autossh
 launch_tunnel() {
-    local local_port=$1
-    local remote_host=$2
-    local remote_port=$3
+    local local_host=$1
+    local local_port=$2
+    local remote_host=$3
+    local remote_port=$4
 
     AUTOSSH_PIDFILE="/tmp/autossh-${local_port}.pid"
 
@@ -29,7 +30,7 @@ launch_tunnel() {
         -o "ServerAliveInterval=30" \
         -o "ServerAliveCountMax=3" \
         -i "$SSH_KEY" \
-        -L "0.0.0.0:${local_port}:${remote_host}:${remote_port}" \
+        -L "${local_host}:${local_port}:${remote_host}:${remote_port}" \
         "${SSH_USER}@${SSH_HOST}" >> "$LOG_FILE" 2>&1
 
     echo "$(date) - Tunnel started on port $local_port" >> "$LOG_FILE"
@@ -37,9 +38,10 @@ launch_tunnel() {
 
 # Lire le fichier de configuration et lancer les tunnels
 while IFS= read -r line; do
-    local_port=$(echo "$line" | awk '{print $1}')
-    remote_host=$(echo "$line" | awk '{print $2}')
-    remote_port=$(echo "$line" | awk '{print $3}')
+    local_host=$(echo "$line" | awk '{print $1}')
+    local_port=$(echo "$line" | awk '{print $2}')
+    remote_host=$(echo "$line" | awk '{print $3}')
+    remote_port=$(echo "$line" | awk '{print $4}')
 
-    launch_tunnel "$local_port" "$remote_host" "$remote_port"
+    launch_tunnel "$local_host" "$local_port" "$remote_host" "$remote_port"
 done < "$CONFIG_FILE"

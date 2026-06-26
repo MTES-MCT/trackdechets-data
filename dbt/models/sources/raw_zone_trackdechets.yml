@@ -1578,6 +1578,25 @@ sources:
             data_type: boolean
           - name: initialWasteSealNumbers
             data_type: ARRAY
+      - name: bsda_revision_request_approval
+        identifier: BsdaRevisionRequestApproval
+        description: >-
+          Table avec les approbations de révision des BSDA. Une ligne par approbation.
+        columns:
+          - name: id
+            data_type: text
+          - name: createdAt
+            data_type: timestamp without time zone
+          - name: updatedAt
+            data_type: timestamp without time zone
+          - name: revisionRequestId
+            data_type: text
+          - name: approverSiret
+            data_type: text
+          - name: status
+            data_type: text
+          - name: comment
+            data_type: text
       - name: bsdd_revision_request
         identifier: BsddRevisionRequest
         description: >
@@ -1753,6 +1772,25 @@ sources:
           - name: initialWasteDetailsSampleNumber
             data_type: text
           - name: initialWasteRefusalReason
+            data_type: text
+      - name: bsdd_revision_request_approval
+        identifier: BsddRevisionRequestApproval
+        description: >-
+          Table avec les approbations de révision des BSDD. Une ligne par approbation.
+        columns:
+          - name: id
+            data_type: text
+          - name: createdAt
+            data_type: timestamp without time zone
+          - name: updatedAt
+            data_type: timestamp without time zone
+          - name: revisionRequestId
+            data_type: text
+          - name: approverSiret
+            data_type: text
+          - name: status
+            data_type: text
+          - name: comment
             data_type: text
       - name: bsdd_transporter
         identifier: BsddTransporter
@@ -2059,6 +2097,25 @@ sources:
           - name: initialEmitterPickupSitePostalCode
             data_type: text
           - name: initialWasteCode
+            data_type: text
+      - name: bsdasri_revision_request_approval
+        identifier: BsdasriRevisionRequestApproval
+        description: >-
+          Table avec les approbations de révision des BSDASRI. Une ligne par approbation.
+        columns:
+          - name: id
+            data_type: text
+          - name: createdAt
+            data_type: timestamp without time zone
+          - name: updatedAt
+            data_type: timestamp without time zone
+          - name: revisionRequestId
+            data_type: text
+          - name: approverSiret
+            data_type: text
+          - name: status
+            data_type: text
+          - name: comment
             data_type: text
       - name: worker_certification
         identifier: WorkerCertification

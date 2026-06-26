@@ -2,11 +2,12 @@ with source as (
     select *
     from {{ source('raw_zone_icpe', 'installations_rubriques_2026') }}
     where
-        "_inserted_at"
-        = (
-            select max("_inserted_at")
+        ("Code AIOT","_inserted_at")
+        IN (
+            select "Code AIOT",max("_inserted_at")
             from
                 {{ source('raw_zone_icpe', 'installations_rubriques_2026') }}
+            group by "Code AIOT"
         )
 ),
 
